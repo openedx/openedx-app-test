@@ -2,18 +2,7 @@
    Module covers Android & iOS screens' global contents
 """
 
-import sys
-import string
-import random
-import enum
-import os
 import yaml
-
-from selenium.common.exceptions import NoSuchElementException, WebDriverException
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support import expected_conditions
-from selenium.webdriver.support.wait import WebDriverWait
-from tests.common import strings
 
 
 class Globals:
@@ -21,25 +10,15 @@ class Globals:
     Contains all global level contents, accessible in Pages & Tests
     """
 
-    # Register
-    # AUT_PACKAGE_NAME = 'org.edx.mobile'
     AUT_PACKAGE_NAME = 'org.openedx.app'
-    # Android Activities Names
-    LAUNCH_ACTIVITY_NAME1 = '.view.LaunchActivity'
-    SPLASH_ACTIVITY_NAME = '.view.SplashActivity'
-    NEW_LOGISTRATION_ACTIVITY_NAME = '.view.DiscoveryLaunchActivity'
-    LOGIN_ACTIVITY_NAME = '.view.login.LoginActivity'
 
     def __init__(self):
-        # self.whats_new_enable = True
-
         # Read user_preferences.yml and set globals accordingly
         self.setup_global_environment()
 
         # CAPABILITIES
         self.ios_device_name = 'iPhone 14'
         self.android_device_name = 'Android Phone'
-        self.login_wrong_user_name = 'wrong username'
 
     def setup_global_environment(self):
         """
