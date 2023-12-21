@@ -1,0 +1,19 @@
+{
+  "name": "mobile",
+  "version": "1.0.0",
+  "description": "openedx mobile automation project",
+  "main": "index.js",
+  "scripts": {
+    "preinstall": "npm install -g appium --unsafe-perm=true --allow-root",
+    "start": "appium"
+  },
+  "author": "bawan@2u.com",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/openedx/openedx-app-test/issues"
+  },
+  "homepage": "https://github.com/openedx/openedx-app-test",
+  "dependencies": {
+    "appium": "^2.0.0"
+  }
+}
