@@ -2,7 +2,7 @@
     Login Page Module
 """
 
-class IosLogin():
+class IosLogin:
     """
     Login screen
     """

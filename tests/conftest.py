@@ -5,7 +5,7 @@
 import pytest
 from appium import webdriver
 
-from tests.common import strings
+from tests.common import values
 from tests.common.globals import Globals
 
 
@@ -22,32 +22,23 @@ def set_capabilities():
     globals_contents = Globals()
     desired_capabilities = {}
 
-    if globals_contents.target_environment == strings.ANDROID:
-        desired_capabilities['platformName'] = strings.ANDROID
+    desired_capabilities['appWaitDuration'] = '50000'
+    desired_capabilities['newCommandTimeout'] = '0'
+
+    if globals_contents.target_environment == values.ANDROID:
+        desired_capabilities['platformName'] = values.ANDROID
         desired_capabilities['platformVersion'] = globals_contents.android_platform_version
         desired_capabilities['deviceName'] = globals_contents.android_device_name
-        desired_capabilities['appWaitDuration'] = '50000'
         desired_capabilities['automationName'] = 'UiAutomator2'
-        desired_capabilities['newCommandTimeout'] = '0'
 
-    elif globals_contents.target_environment == strings.IOS:
-        desired_capabilities['platformName'] = strings.IOS
+    elif globals_contents.target_environment == values.IOS:
+        desired_capabilities['platformName'] = values.IOS
         desired_capabilities['platformVersion'] = globals_contents.ios_platform_version
         desired_capabilities['deviceName'] = globals_contents.ios_device_name
         desired_capabilities['fullReset'] = True
-        desired_capabilities['appWaitDuration'] = '50000'
         desired_capabilities['automationName'] = 'XCUITest'
-        desired_capabilities['newCommandTimeout'] = '0'
 
     else:
         return None
 
     driver = webdriver.Remote(globals_contents.server_url, desired_capabilities)
-
-    if driver is not None:
-        def fin(request):
-            # Quit the Appium driver after the test
-            request.addfinalizer(fin)
-        return driver
-    else:
-        return None
