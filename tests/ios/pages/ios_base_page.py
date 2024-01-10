@@ -7,7 +7,7 @@ from tests.common.globals import Globals
 
 class IosBasePage:
     """
-         Base page for all iOS Pages
+    Base page for all iOS Pages
     """
 
     def __init__(self, driver, setup_logging):

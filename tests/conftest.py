@@ -20,10 +20,10 @@ def set_capabilities(setup_logging):
     environment given, and return driver object accessible in all Tests
 
     Arguments:
-            setup_logging (logger): logger object
+        setup_logging (logger): logger object
 
     Returns:
-            driver: webdriver object
+        driver: webdriver object
     """
 
     log = setup_logging
@@ -77,7 +77,7 @@ def setup_logging():
     setup execution logging, it will be reusable in all files
 
     Returns:
-            my_logger: logger object
+        my_logger: logger object
     """
 
     current_day = (datetime.datetime.now().strftime("%Y_%m_%d_%H_%M"))
@@ -105,8 +105,8 @@ def create_result_directory(target_directory):
     """
     Create directory by specific given name
 
-     Argument:
-            target_directory (str): directory name to create
+    Argument:
+        target_directory (str): directory name to create
     """
 
     if not os.path.exists(target_directory):
