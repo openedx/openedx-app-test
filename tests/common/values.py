@@ -12,6 +12,13 @@ ERROR = 'Problem, '
 ERROR_SETTING_CAPS = 'Problem, setting environment specific caps'
 ERROR_UTF_ELEMENT = 'Unable to find specific element - '
 
+# LANDING SCREEN
+LANDING_MESSAGE = 'Welcome to edX'
+LANDING_MESSAGE_IOS = 'Courses and programs from the world\'s best universities in your pocket.'
+LANDING_SEARCH_TITLE = 'What do you want to learn?'
+LANDING_SEARCH_COURSES = 'Search our 3000+ courses'
+DISCOVER_SCREEN_HEADING = 'Discover'
+
 # SIGN IN SCREEN
 SIGN_IN_MESSAGE = 'Welcome back! Please authorize to continue.'
 EMAIL_OR_USERNAME = 'Email or username'
@@ -20,6 +27,7 @@ GOOGLE_SIGNIN = 'Sign in with Google'
 FACEBOOK_SIGNIN = 'Sign in with Facebook'
 MICROSOFT_SIGNIN = 'Sign in with Microsoft'
 APPLE_SIGNIN = 'Sign in with Apple'
+BACK_BUTTON = 'Back'
 
 # REGISTER SCREEN
 REGISTER = 'Register'
