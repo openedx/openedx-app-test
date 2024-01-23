@@ -18,6 +18,9 @@ LANDING_MESSAGE_IOS = 'Courses and programs from the world\'s best universities 
 LANDING_SEARCH_TITLE = 'What do you want to learn?'
 LANDING_SEARCH_COURSES = 'Search our 3000+ courses'
 DISCOVER_SCREEN_HEADING = 'Discover'
+ERROR_SCREEN_NOT_LOADED = 'Problem, screen is not loaded.'
+LANDING_EXLPORE_COURSES = 'Explore all courses'
+LANDING_SEARCH_RESULTS_TITLE = 'Search'
 
 # SIGN IN SCREEN
 SIGN_IN_MESSAGE = 'Welcome back! Please authorize to continue.'

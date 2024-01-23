@@ -34,6 +34,7 @@ class Globals:
         self.minimum_timeout = 2
         self.maximum_timeout = 15
         self.index = 0
+        self.android_enter_key = 66
 
     def setup_global_environment(self):
         """
@@ -71,8 +72,8 @@ class Globals:
 
         try:
             if self.target_environment == values.ANDROID:
-                element = WebDriverWait(driver, time_out).until(
-                    expected_conditions.presence_of_element_located((By.ID, element_locator)))
+                element = driver.find_element(MobileBy.ANDROID_UIAUTOMATOR,
+                                            f'new UiSelector().resourceId("{element_locator}")')
             elif self.target_environment == values.IOS:
                 element = WebDriverWait(driver, time_out).until(
                     expected_conditions.presence_of_element_located((MobileBy.ACCESSIBILITY_ID, element_locator)))
