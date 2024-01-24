@@ -21,6 +21,8 @@ DISCOVER_SCREEN_HEADING = 'Discover'
 ERROR_SCREEN_NOT_LOADED = 'Problem, screen is not loaded.'
 LANDING_EXLPORE_COURSES = 'Explore all courses'
 LANDING_SEARCH_RESULTS_TITLE = 'Search'
+LANDING_LOGO_IMAGE = 'appLogo'
+LANDING_BACK_BUTTON = 'arrowLeft'
 
 # SIGN IN SCREEN
 SIGN_IN_MESSAGE = 'Welcome back! Please authorize to continue.'

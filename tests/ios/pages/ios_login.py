@@ -20,10 +20,10 @@ class IosLogin(IosBasePage):
             webdriver element: Sing In Element
         """
 
-        sign_in_button = self.global_contents.get_all_views_on_ios_screen(
+        sign_in_button = self.global_contents.wait_and_get_element(
             self.driver,
-            ios_elements.all_buttons
-        )[2]
+            ios_elements.logistration_signin_button
+        )
         return sign_in_button
 
     def get_password_field(self):
@@ -37,3 +37,17 @@ class IosLogin(IosBasePage):
         password_field = self.driver.find_element(
             MobileBy.CLASS_NAME, ios_elements.password_field)
         return password_field
+
+    def get_signin_heading(self):
+        """
+        Get singin text
+
+        Returns:
+            webdriver element: Singin heading element
+        """
+
+        sign_in_heading = self.global_contents.wait_and_get_element(
+            self.driver,
+            ios_elements.logistration_signin_button
+        )
+        return sign_in_heading
