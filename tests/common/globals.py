@@ -391,3 +391,18 @@ class Globals:
             ios_elements.all_buttons
         )
         return all_button_elements
+
+    def get_screen_heading_title(self, driver):
+
+        """
+        Get heading title elements
+
+        Returns:
+            Webdriver element: screen heading title element
+        """
+
+        heading_title = self.wait_and_get_element(
+            driver,
+            ios_elements.screen_heading_title
+        )
+        return heading_title

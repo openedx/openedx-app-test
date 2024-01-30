@@ -134,3 +134,17 @@ class IosLanding(IosBasePage):
             ios_elements.register_screen_title
             )
         return register_title
+
+    def get_sign_in_button(self):
+        """
+        Get Sing In
+
+        Returns:
+            webdriver element: Sing In Element
+        """
+
+        sign_in_button = self.global_contents.wait_and_get_element(
+            self.driver,
+            ios_elements.logistration_signin_button
+        )
+        return sign_in_button

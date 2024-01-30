@@ -69,7 +69,6 @@ class TestIosNewLanding():
 
         ios_landing = IosLanding(set_capabilities, setup_logging)
         ios_login = IosLogin(set_capabilities, setup_logging)
-        global_contents = Globals(setup_logging)
 
         register_button = ios_landing.get_register_button()
         assert register_button.text == values.REGISTER
@@ -81,12 +80,12 @@ class TestIosNewLanding():
         assert back_button.text == values.LANDING_BACK_BUTTON
         back_button.click()
 
-        signin_button = ios_login.get_signin_heading()
+        signin_button = ios_landing.get_sign_in_button()
         assert signin_button.text == values.LOGIN
         signin_button.click()
 
-        sign_in_heading = global_contents.wait_and_get_element(set_capabilities, 'signin_text')
-        assert sign_in_heading.text == values.LOGIN
+        sign_in_title = ios_login.get_sign_in_title()
+        assert sign_in_title.text == values.LOGIN
         back_button = ios_landing.get_back_button()
         assert back_button.text == values.LANDING_BACK_BUTTON
         back_button.click()
