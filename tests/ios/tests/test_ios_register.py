@@ -5,6 +5,8 @@
 from tests.common import values
 from tests.common.globals import Globals
 from tests.ios.pages.ios_register import IosRegister
+from tests.ios.pages.ios_landing import IosLanding
+from tests.ios.pages.ios_login import IosLogin
 
 
 class TestIosRegister:
@@ -38,80 +40,115 @@ class TestIosRegister:
 
         register_page = IosRegister(set_capabilities, setup_logging)
         global_contents = Globals(setup_logging)
+        ios_landing = IosLanding(set_capabilities, setup_logging)
+        ios_login = IosLogin(set_capabilities, setup_logging)
+
         user_name = global_contents.generate_random_credentials(5)
         email = user_name + '@example.com'
         first_name = global_contents.generate_random_credentials(4)
         last_name = global_contents.generate_random_credentials(4)
         full_name = first_name + ' ' + last_name
-        password = global_contents.generate_random_credentials(8)
+        password = (global_contents.generate_random_credentials(6) + global_contents.login_password)
 
         assert register_page.get_register_screen_heading().text == values.REGISTER
 
-        all_static_text = global_contents.get_ios_all_static_text(set_capabilities)
-        sign_up_heading = all_static_text[1]
+        back_button = ios_landing.get_back_button()
+        assert back_button.text == values.LANDING_BACK_BUTTON
+        sign_up_heading = register_page.get_signup_text()
         assert sign_up_heading.text == values.REGISTER_SIGN_UP_HEADING
 
-        create_account_message = all_static_text[2]
+        create_account_message = register_page.get_signup_subtitle_text()
         assert create_account_message.text == values.REGISTER_CREATE_ACCOUNT_MESSAGE
 
-        full_name_title = all_static_text[3]
+        full_name_title = register_page.get_name_text()
         assert full_name_title.text == values.REGISTER_FULL_NAME_TITLE
 
-        full_name_content = all_static_text[4]
-        assert full_name_content.text == values.REGISTER_FULL_NAME_MESSAGE
+        name_textfield = register_page.get_name_textfield()
+        assert name_textfield.get_attribute('visible') == values.TRUE_LOWERCASE
 
-        public_name_title = all_static_text[5]
-        assert public_name_title.text == values.REGISTER_PUBLIC_USERNAME_TITLE
+        name_instructions_text = register_page.get_name_instructions_text()
+        assert name_instructions_text.text == values.REGISTER_FULL_NAME_MESSAGE
 
-        public_name_content = all_static_text[6]
-        assert public_name_content.text == values.REGISTER_PUBLIC_USERNAME_MESSAGE
+        user_name_content = register_page.get_username_text()
+        assert user_name_content.text == values.REGISTER_PUBLIC_USERNAME_TITLE
 
-        email_title = all_static_text[7]
-        assert email_title.text == values.REGISTER_EMAIL_TITLE
+        username_textfield = register_page.get_username_textfield()
+        assert username_textfield.get_attribute('visible') == values.TRUE_LOWERCASE
 
-        email_message = all_static_text[8]
-        assert email_message.text == values.REGISTER_EMAIL_MESSAGE
+        username_instructions_text = register_page.get_username_instructions_text()
+        assert username_instructions_text.text == values.REGISTER_PUBLIC_USERNAME_MESSAGE
 
-        password_title = all_static_text[9]
-        assert password_title.text == values.REGISTER_PASSWORD_TITLE
+        email_text = register_page.get_email_text()
+        assert email_text.text == values.REGISTER_EMAIL_TITLE
 
-        password_message = all_static_text[10]
-        assert password_message.text == values.REGISTER_PASSWORD_MESSAGE
+        email_textfield = register_page.get_email_textfield()
+        assert email_textfield.get_attribute('visible') == values.TRUE_LOWERCASE
 
-        country_title = all_static_text[11]
-        assert country_title.text == values.REGISTER_COUNTRY_TITLE
+        email_instructions_text = register_page.get_email_instructions_text()
+        assert email_instructions_text.text == values.REGISTER_EMAIL_MESSAGE
 
-        country_message = all_static_text[12]
-        assert country_message.text == values.REGISTER_COUNTRY_MESSAGE
+        password_text = register_page.get_password_text()
+        assert password_text.text == values.REGISTER_PASSWORD_TITLE
 
-        all_textfields = global_contents.get_ios_all_editfields(set_capabilities)
-        full_user_name = all_textfields[0]
-        full_user_name.send_keys(full_name)
+        password_text_field = register_page.get_password_textfield()
+        assert password_text_field.get_attribute('visible') == values.TRUE_LOWERCASE
 
-        public_user_name = all_textfields[1]
-        public_user_name.send_keys(user_name)
+        password_instructions_text = register_page.get_password_instructions_text()
+        assert password_instructions_text.text == values.REGISTER_PASSWORD_MESSAGE
 
-        email_field = all_textfields[2]
-        email_field.send_keys(email)
-        email_title.click()
+        country_text = register_page.get_country_text()
+        assert country_text.text == values.REGISTER_COUNTRY_TITLE
 
-        global_contents.scroll_screen(set_capabilities, email_field, full_name_title)
+        country_textfield = register_page.get_country_textfield()
+        assert country_textfield
 
-        register_page.get_password_field().send_keys(password)
-        password_message.click()
+        country_instructions_text = register_page.get_country_instructions_text()
+        assert country_instructions_text.text == values.REGISTER_COUNTRY_MESSAGE
 
-        all_buttons = global_contents.get_ios_all_buttons(set_capabilities)
-        create_account_button = all_buttons[2]
-        assert create_account_button.text == values.REGISTER_CREATE_ACCOUNT_BUTTON
+        show_optional_fields = register_page.get_show_optional_fields()
+        assert show_optional_fields.text == values.REGISTER_SHOW_OPTIONAL_FIELDS
 
-        google_register = all_buttons[3]
-        assert google_register.text == values.REGISTER_GOOGLE_SIGNIN
+        register_button = register_page.get_create_account_button()
+        assert register_button.text == values.REGISTER_CREATE_ACCOUNT_BUTTON
 
-        register_facebook = all_buttons[4]
-        assert register_facebook.text == values.REGISTER_FACEBOOK_SIGNIN
+        social_auth_title_text = register_page.get_social_auth_title_text()
+        assert social_auth_title_text.text == values.REGISTER_OPTIONS_TITLE
 
-        register_microsoft = all_buttons[5]
-        assert register_microsoft.text == values.REGISTER_MICROSOFT_SIGNIN
+        google_signin = ios_login.get_signin_social_auth_google_button()
+        assert google_signin.text == values.REGISTER_GOOGLE_SIGNUP
 
-        register_apple = all_buttons[6]
-        assert register_apple.text == values.REGISTER_APPLE_SIGNIN
+        facebook_signin = ios_login.get_signin_social_auth_facebook_button()
+        assert facebook_signin.text == values.REGISTER_FACEBOOK_SIGNUP
+
+        microsoft_signin =ios_login.get_signin_social_auth_microsoft_button()
+        assert microsoft_signin.text == values.REGISTER_MICROSOFT_SIGNUP
+
+        apple_signin = ios_login.get_signin_social_auth_apple_button()
+        assert apple_signin.text == values.REGISTER_APPLE_SIGNUP
+
+        name_textfield.send_keys(full_name)
+        username_textfield.send_keys(user_name)
+        email_textfield.click()
+        email_textfield.send_keys(email)
+
+        password_field = register_page.get_password_textfield()
+        password_field.send_keys(global_contents.login_password)
+
+        global_contents.scroll_screen(set_capabilities, register_button, name_textfield)
+        country_textfield.click()
+        picker_title_text = register_page.get_picker_title_text()
+        assert picker_title_text.text == values.REGISTER_COUNTRY_PICKER_TITLE
+
+        country_field = register_page.select_country()
+        assert country_field.text == values.REGISTER_COUNTRY_SEARCH_FIELD
+        country_field.click()
+        country_field.send_keys(values.REGISTER_COUNTRY_SELECT)
+        accept_button = register_page.get_picker_accept_button()
+        assert accept_button.text == values.REGISTER_COUNTRY_ACCEPT_BUTTON
+        accept_button.click()
+        country_textfield = register_page.get_country_textfield()
+        assert country_textfield.text == values.REGISTER_COUNTRY_SELECT
+
+        register_button.click()
+        password_instructions_text = register_page.get_password_instructions_text()
+        assert password_instructions_text.text == values.REGISTER_PASSWORD_ERROR

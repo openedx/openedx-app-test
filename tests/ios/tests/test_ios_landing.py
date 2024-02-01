@@ -28,8 +28,12 @@ class TestIosNewLanding():
         setup_logging.info('Starting Test Case')
         ios_landing = IosLanding(set_capabilities, setup_logging)
 
+        logo_image = ios_landing.get_logo_image()
+        assert logo_image.text == values.LANDING_LOGO_IMAGE
+
         welcome_message = ios_landing.get_welcome_message()
         assert welcome_message.text == values.LANDING_MESSAGE_IOS
+
         search_title = ios_landing.get_search_title()
         assert search_title.text == values.LANDING_SEARCH_TITLE
 
@@ -39,18 +43,18 @@ class TestIosNewLanding():
         """
 
         ios_landing = IosLanding(set_capabilities, setup_logging)
-        global_contents = Globals(setup_logging)
 
         search_courses_field = ios_landing.get_search_courses_field()
         assert search_courses_field.text == values.LANDING_SEARCH_COURSES
         search_courses_field.send_keys('python')
         search_courses_field.send_keys(Keys.ENTER)
-        disocvery_title = global_contents.get_ios_all_static_text(set_capabilities)[0]
-        assert disocvery_title.text == values.DISCOVER_SCREEN_HEADING
 
-        back_button =  global_contents.get_ios_all_buttons(set_capabilities)[0]
-        assert back_button.text == values.BACK_BUTTON
-        back_button.click()
+        disocvery_title = ios_landing.get_discovery_title()
+        assert disocvery_title.text == values.LANDING_SEARCH_RESULTS_TITLE
+
+        back_button = ios_landing.get_back_button()
+        assert back_button.text == values.LANDING_BACK_BUTTON
+        assert ios_landing.load_landing_screen().text == values.LANDING_LOGO_IMAGE
 
     def test_back_and_forth_smoke(self, set_capabilities, setup_logging):
         """
@@ -65,29 +69,25 @@ class TestIosNewLanding():
 
         ios_landing = IosLanding(set_capabilities, setup_logging)
         ios_login = IosLogin(set_capabilities, setup_logging)
-        global_contents = Globals(setup_logging)
-        all_buttons = global_contents.get_ios_all_buttons(set_capabilities)
 
-        register_button = all_buttons[1]
+        register_button = ios_landing.get_register_button()
         assert register_button.text == values.REGISTER
         register_button.click()
 
-        all_static_text = global_contents.get_ios_all_static_text(set_capabilities)
-        sign_up_heading = all_static_text[1]
-        assert sign_up_heading.text == values.REGISTER_SIGN_UP_HEADING
-
-        back_button =  global_contents.get_ios_all_buttons(set_capabilities)[0]
-        assert back_button.text == 'arrowLeft'
+        register_title = ios_landing.get_register_screen_title()
+        assert register_title.text == values.REGISTER
+        back_button = ios_landing.get_back_button()
+        assert back_button.text == values.LANDING_BACK_BUTTON
         back_button.click()
 
-        signin_button =  ios_login.get_sign_in_button()
+        signin_button = ios_landing.get_sign_in_button()
         assert signin_button.text == values.LOGIN
         signin_button.click()
 
-        sign_in_heading = global_contents.get_ios_all_static_text(set_capabilities)[0]
-        assert sign_in_heading.text == values.LOGIN
-        back_button =  global_contents.get_ios_all_buttons(set_capabilities)[0]
-        assert back_button.text == 'arrowLeft'
+        sign_in_title = ios_login.get_sign_in_title()
+        assert sign_in_title.text == values.LOGIN
+        back_button = ios_landing.get_back_button()
+        assert back_button.text == values.LANDING_BACK_BUTTON
         back_button.click()
 
         welcome_message = ios_landing.get_welcome_message()
