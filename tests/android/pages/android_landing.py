@@ -21,6 +21,11 @@ class AndroidLanding(AndroidBasePage):
             element: screen title element
         """
 
+        self.global_contents.wait_for_element_visibility(
+            self.driver,
+            android_elements.landing_screen_title
+        )
+
         return self.global_contents.wait_and_get_element(
             self.driver,
             android_elements.landing_screen_title
@@ -149,6 +154,11 @@ class AndroidLanding(AndroidBasePage):
         Returns:
             element: Back button element
         """
+
+        self.global_contents.wait_for_element_visibility(
+            self.driver,
+            android_elements.back_button
+        )
 
         return self.global_contents.wait_and_get_element(
             self.driver,
