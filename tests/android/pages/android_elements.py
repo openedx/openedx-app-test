@@ -67,3 +67,12 @@ txt_google_auth = 'txt_google_auth'
 txt_facebook_auth = 'txt_facebook_auth'
 txt_microsoft_auth = 'txt_microsoft_auth'
 main_dashboar_home_tab = 'org.openedx.app:id/navigation_bar_item_large_label_view'
+
+# WHATS NEW SCREEN
+whats_new_screen_title = 'What\'s New'
+whats_new_close_button = 'ib_close'
+whats_new_msg_title = 'txt_whats_new_title'
+whats_new_description = 'txt_whats_new_description'
+whats_new_btn_next = 'btn_next'
+whats_new_btn_prev = 'btn_prev'
+whats_new_done_button = 'txt_done'
