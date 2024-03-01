@@ -27,7 +27,7 @@ LANDING_BACK_BUTTON = 'arrowLeft'
 
 # SIGN IN SCREEN
 SIGN_IN_MESSAGE = 'Welcome back! Please authorize to continue.'
-EMAIL_OR_USERNAME = 'Email or username'
+EMAIL_OR_USERNAME = 'Email or Username'
 PASSWORD = 'Password'
 GOOGLE_SIGNIN = 'Sign in with Google'
 FACEBOOK_SIGNIN = 'Sign in with Facebook'
@@ -87,3 +87,6 @@ RESET_PASSWORD_BUTTON = 'Reset password'
 FORGOT_CHECK_EMAIL_IMAGE = 'checkEmail'
 FORGOT_RECOVER_TITLE_TEXT = 'Check your email'
 FOROGT_RECOVER_DESCRIPTION = 'We have sent a password recover instructions to your email'
+
+# WHATS NEW SCREEN
+WHATS_NEW_TITLE = 'What\'s New'
