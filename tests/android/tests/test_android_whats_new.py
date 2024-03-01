@@ -47,10 +47,10 @@ class TestAndroidWhatsNew:
     def test_validate_ui_elements_smoke(self, set_capabilities, setup_logging):
         """
         Scenarios:
-                Verify following contents are visible on screen 
-                    "Screen Title", "Cross Icon", "Main Feature Image",
-                     "Feature Title", "Feature Details", "Done"
-                Verify all screen contents have their default values
+            Verify following contents are visible on screen 
+                "Screen Title", "Cross Icon", "Main Feature Image",
+                    "Feature Title", "Feature Details", "Done"
+            Verify all screen contents have their default values
         """
 
         android_landing = AndroidLanding(set_capabilities, setup_logging)
