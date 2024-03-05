@@ -76,3 +76,9 @@ whats_new_description = 'txt_whats_new_description'
 whats_new_btn_next = 'btn_next'
 whats_new_btn_prev = 'btn_prev'
 whats_new_done_button = 'txt_done'
+
+# MAIN DASHBOARD SCREEN
+main_dashboard_fragment_discover = 'org.edx.mobile:id/fragmentHome'
+main_dashboard_fragment_dashboard = 'org.edx.mobile:id/fragmentDashboard'
+main_dashboard_fragment_programs = 'org.edx.mobile:id/fragmentPrograms'
+main_dashbaord_fragment_profile = 'org.edx.mobile:id/fragmentProfile'
