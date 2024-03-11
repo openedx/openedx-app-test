@@ -11,6 +11,8 @@ from appium import webdriver
 
 from tests.common import values
 from tests.common.globals import Globals
+from tests.android.pages.android_landing import AndroidLanding
+from tests.android.pages.android_sign_in import AndroidSignIn
 
 
 @pytest.fixture(scope="module")
@@ -100,6 +102,52 @@ def setup_logging():
     my_logger.addHandler(log_handler)
     my_logger.info("Logging is successfully set up")
     return my_logger
+
+@pytest.fixture(scope="module")
+def login(set_capabilities, setup_logging):
+    """
+    Login user based on env given, it will be reusable in tests
+
+    Arguments:
+            set_capabilities(webdriver): webdriver object
+            setup_logging (logger): logger object
+
+    Returns:
+            True: if login is successful
+    """
+
+    log = setup_logging
+    global_contents = Globals(log)
+    is_first_time = True
+    android_landing = AndroidLanding(set_capabilities, setup_logging)
+    android_sign_in = AndroidSignIn(set_capabilities, setup_logging)
+
+    if global_contents.target_environment == values.ANDROID:
+        assert android_landing.get_screen_title().text == values.LANDING_MESSAGE_IOS
+        assert android_landing.get_signin_button()
+        assert android_landing.load_signin_screen().text == values.LOGIN
+
+        assert android_sign_in.get_sign_in_email_label().text == values.EMAIL_OR_USERNAME
+        email_field = android_sign_in.get_sign_in_tf_email()
+        assert email_field.get_attribute('clickable') == values.TRUE_LOWERCASE
+        email_field.send_keys(global_contents.login_user_name)
+
+        assert android_sign_in.get_sign_in_password_label().text == values.PASSWORD
+        password_field = android_sign_in.get_sign_in_password_field()
+        assert password_field.get_attribute('clickable') == values.TRUE_LOWERCASE
+        password_field.send_keys(global_contents.login_password)
+        assert android_sign_in.get_signin_button().get_attribute('clickable') == values.TRUE_LOWERCASE
+        android_sign_in.get_signin_button().click()
+        setup_logging.info(f'{global_contents.login_user_name} is successfully logged in')
+
+    elif global_contents.target_environment == values.IOS:
+        log.info('Login screen successfully loaded')
+
+        is_first_time = False
+        log.info('{} is successfully logged in'.format(global_contents.login_user_name))
+
+    return is_first_time
+
 
 def create_result_directory(target_directory):
     """
