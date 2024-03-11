@@ -31,11 +31,18 @@ class TestAndroidMyCoursesList:
     def test_validate_ui_elements(self, set_capabilities, setup_logging):
         """
          Scenarios:
-            Verify following contents are visible on screen, 
-                Screen Title, Disover Tab
-                Profile Tab, Programs Tab, Profiel tab
-            Verify that Discover tab will be selected by default
-            Verify that clicking each tab will load its screen
+            Verify that from Main Dashboard tapping Courses tab will load My Courses
+            list(of specific logged in user) in its tab
+            Verify that Courses tab/screen will show following header contents,
+            Header Contents
+                Profile icon
+                "Courses" title
+            Verify that My Courses(enrolled) List with followings in each course,
+                Course image
+                Course Name
+                Course Start/End date
+            Verify that tapping any course should load specific Course Dashboard screen
+            Verity that from Course Dashboard tapping back should load My Courses List screen
         """
 
         main_dashboard_page = AndroidMainDashboard(set_capabilities, setup_logging)
