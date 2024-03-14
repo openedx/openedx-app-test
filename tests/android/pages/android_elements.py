@@ -83,6 +83,15 @@ main_dashboard_fragment_dashboard = 'org.edx.mobile:id/fragmentDashboard'
 main_dashboard_fragment_programs = 'org.edx.mobile:id/fragmentPrograms'
 main_dashbaord_fragment_profile = 'org.edx.mobile:id/fragmentProfile'
 
+# MY COURSES LIST SCREEN
+my_course_toolbar_title = 'txt_toolbar_title'
+my_course_screen_title = 'txt_courses_title'
+my_courses_description = 'txt_courses_description'
+my_courses_org_name = 'txt_course_org'
+my_courses_course_name = 'txt_course_name'
+my_courses_course_date = 'txt_course_date'
+my_courses_course_item = 'btn_course_item'
+
 # PROFILE SCREEN
 profile_screen_title = 'txt_profile_title'
 profile_edit_button = 'txt_edit'
