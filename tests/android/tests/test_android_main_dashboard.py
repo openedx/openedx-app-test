@@ -2,8 +2,6 @@
     Main Dashboard Test Module
 """
 
-from tests.android.pages.android_landing import AndroidLanding
-from tests.android.pages.android_sign_in import AndroidSignIn
 from tests.android.pages.android_whats_new import AndroidWhatsNew
 from tests.android.pages.android_main_dashboard import AndroidMainDashboard
 from tests.common import values
@@ -15,37 +13,19 @@ class TestAndroidMainDashboard:
     Main Dashboard screen's Test Case
     """
 
-    def test_start_main_dashboard_smoke(self, set_capabilities, setup_logging):
+    def test_start_main_dashboard_smoke(self, login, set_capabilities, setup_logging):
         """
         Scenarios:
             Verify Main Dashboard screen is loaded successfully
         """
 
         setup_logging.info(f'Starting {TestAndroidMainDashboard.__name__} Test Case')
-        android_landing = AndroidLanding(set_capabilities, setup_logging)
-        android_sign_in = AndroidSignIn(set_capabilities, setup_logging)
         global_contents = Globals(setup_logging)
         whats_new_page = AndroidWhatsNew(set_capabilities, setup_logging)
 
-        assert android_landing.get_screen_title().text == values.LANDING_MESSAGE_IOS
-        assert android_landing.get_signin_button()
-        assert android_landing.load_signin_screen().text == values.LOGIN
-
-        assert android_sign_in.get_sign_in_email_label().text == values.EMAIL_OR_USERNAME
-        email_field = android_sign_in.get_sign_in_tf_email()
-        assert email_field.get_attribute('clickable') == values.TRUE_LOWERCASE
-        email_field.send_keys(global_contents.login_user_name)
-
-        assert android_sign_in.get_sign_in_password_label().text == values.PASSWORD
-        password_field = android_sign_in.get_sign_in_password_field()
-        assert password_field.get_attribute('clickable') == values.TRUE_LOWERCASE
-        password_field.send_keys(global_contents.login_password)
-        assert android_sign_in.get_signin_button().get_attribute('clickable') == values.TRUE_LOWERCASE
-        android_sign_in.get_signin_button().click()
-
-        if global_contents.whats_new_enable:
-            close_btn = whats_new_page.get_close_button()
-            close_btn.click()
+        if login and global_contents.whats_new_enable:
+            assert whats_new_page.navigate_features().text == 'Done'
+            whats_new_page.get_done_button().click()
 
     def test_validate_ui_elements(self, set_capabilities, setup_logging):
         """
