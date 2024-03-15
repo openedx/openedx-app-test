@@ -6,6 +6,7 @@
 from tests.android.pages.android_whats_new import AndroidWhatsNew
 from tests.android.pages.android_main_dashboard import AndroidMainDashboard
 from tests.android.pages.android_profile import AndroidProfile
+from tests.android.pages.android_landing import AndroidLanding
 from tests.common import values
 from tests.common.globals import Globals
 
@@ -76,4 +77,19 @@ class TestAndroidProfile:
         assert profile_page.get_profile_app_version_code().text == values.ANDROID_APP_VERSION
         assert profile_page.get_profile_txt_up_to_date().text == values.PROFILE_APP_UP_TO_DATE
         assert profile_page.get_profile_txt_logout().text == values.PROFILE_LOGOUT_BUTTON
+
+    def test_sign_out_smoke(self, set_capabilities, setup_logging):
+        """
+        Scenarios:
+            Verify that user can logout from main dashboard screen
+        """
+
+        profile_page = AndroidProfile(set_capabilities, setup_logging)
+        android_landing = AndroidLanding(set_capabilities, setup_logging)
+
         profile_page.get_profile_txt_logout().click()
+        assert profile_page.get_logout_close_button()
+        assert profile_page.get_logout_dialog_title().text == values.LOGOUT_DIALOG_TITLE
+        profile_page.get_logout_button().text == values.PROFILE_LOGOUT_BUTTON
+        profile_page.get_logout_button().click()
+        assert android_landing.get_search_label().text == values.LANDING_SEARCH_TITLE

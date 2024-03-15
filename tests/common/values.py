@@ -118,3 +118,6 @@ PROFILE_PERSONAL_INFO = 'Do not sell my personal information'
 PROFILE_FAQ = 'View FAQ'
 PROFILE_APP_UP_TO_DATE = 'Up-to-date'
 PROFILE_LOGOUT_BUTTON = 'Log out'
+
+# LOG OUT
+LOGOUT_DIALOG_TITLE = 'Are you sure you want to log out?'

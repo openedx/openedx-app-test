@@ -203,6 +203,17 @@ class AndroidProfile(AndroidBasePage):
             android_elements.profile_txt_logout
         )
 
+    def get_logout_dialog_title(self):
+        """
+        Returns:
+            element: logout title element
+        """
+
+        return self.global_contents.wait_and_get_element(
+            self.driver,
+            android_elements.logout_dialog_title
+        )
+
     def get_logout_close_button(self):
         """
         Returns:
@@ -214,13 +225,13 @@ class AndroidProfile(AndroidBasePage):
             android_elements.logout_close_button
         )
 
-    def get_logout_dialog_title(self):
+    def get_logout_button(self):
         """
         Returns:
-            element: logout title element
+            element: logout button element
         """
 
         return self.global_contents.wait_and_get_element(
             self.driver,
-            android_elements.logout_dialog_title
+            android_elements.logout_button
         )
