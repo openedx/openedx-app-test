@@ -27,9 +27,8 @@ class TestAndroidProfile:
         whats_new_page = AndroidWhatsNew(set_capabilities, setup_logging)
 
         if login and global_contents.whats_new_enable:
-            # assert whats_new_page.navigate_features().text == 'Done'
-            # whats_new_page.get_done_button().click()
-            whats_new_page.get_close_button().click()
+            assert whats_new_page.navigate_features().text == 'Done'
+            whats_new_page.get_done_button().click()
 
     def test_validate_ui_elements(self, set_capabilities, setup_logging):
         """
@@ -89,7 +88,6 @@ class TestAndroidProfile:
             Verify that tapping Personal Info should load Personal Info screen
         """
 
-        main_dashboard_page = AndroidMainDashboard(set_capabilities, setup_logging)
         profile_page = AndroidProfile(set_capabilities, setup_logging)
         global_contents = Globals(setup_logging)
 
