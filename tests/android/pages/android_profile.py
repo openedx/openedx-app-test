@@ -121,6 +121,11 @@ class AndroidProfile(AndroidBasePage):
             element: profile terms of use element
         """
 
+        self.global_contents.wait_for_element_visibility(
+            self.driver,
+            android_elements.profile_txt_terms_of_use
+        )
+
         return self.global_contents.wait_and_get_element(
             self.driver,
             android_elements.profile_txt_terms_of_use
@@ -220,6 +225,11 @@ class AndroidProfile(AndroidBasePage):
             element: logout close button element
         """
 
+        self.global_contents.wait_for_element_visibility(
+            self.driver,
+            android_elements.logout_close_button
+        )
+
         return self.global_contents.wait_and_get_element(
             self.driver,
             android_elements.logout_close_button
@@ -234,4 +244,36 @@ class AndroidProfile(AndroidBasePage):
         return self.global_contents.wait_and_get_element(
             self.driver,
             android_elements.logout_button
+        )
+
+    def get_edit_profile_title(self):
+        """
+        Returns:
+            element: edit profile title element
+        """
+
+        self.global_contents.wait_for_element_visibility(
+            self.driver,
+            android_elements.edit_profile_title
+        )
+
+        return self.global_contents.wait_and_get_element(
+            self.driver,
+            android_elements.edit_profile_title
+        )
+
+    def get_edit_profile_leave_button(self):
+        """
+        Returns:
+            element: leave button element
+        """
+
+        self.global_contents.wait_for_element_visibility(
+            self.driver,
+            android_elements.edit_profile_leave_button
+        )
+
+        return self.global_contents.wait_and_get_element(
+            self.driver,
+            android_elements.edit_profile_leave_button
         )

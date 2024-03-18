@@ -39,6 +39,11 @@ class AndroidLanding(AndroidBasePage):
             element: Search label element
         """
 
+        self.global_contents.wait_for_element_visibility(
+            self.driver,
+            android_elements.landing_search_label
+        )
+
         return self.global_contents.wait_and_get_element(
             self.driver,
             android_elements.landing_search_label
@@ -114,6 +119,11 @@ class AndroidLanding(AndroidBasePage):
             element: Signin button element
         """
 
+        self.global_contents.wait_for_element_visibility(
+            self.driver,
+            android_elements.landing_signin_button
+        )
+
         signin_button = self.global_contents.wait_and_get_element(
             self.driver,
             android_elements.landing_signin_button
@@ -172,6 +182,11 @@ class AndroidLanding(AndroidBasePage):
         Returns:
             element: Signin title element
         """
+
+        self.global_contents.wait_for_element_visibility(
+            self.driver,
+            android_elements.signin_title
+        )
 
         return self.global_contents.wait_and_get_element(
             self.driver,

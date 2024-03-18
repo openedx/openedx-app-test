@@ -121,3 +121,7 @@ PROFILE_LOGOUT_BUTTON = 'Log out'
 
 # LOG OUT
 LOGOUT_DIALOG_TITLE = 'Are you sure you want to log out?'
+
+# EDIT PROFILE SCREEN
+EDIT_PROFILE_TITLE = 'Edit Profile'
+EDIT_PROFILE_LEAVE_BUTTON = 'Leave'

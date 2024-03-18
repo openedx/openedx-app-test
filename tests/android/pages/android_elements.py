@@ -6,6 +6,8 @@ all_images = 'android.widget.ImageView'
 all_image_buttons = 'android.widget.ImageButton'
 all_textviews = 'android.widget.TextView'
 all_listviews = 'android.widget.FrameLayout'
+back_button_navigation = 'ib_back'
+txt_toolbar_title = 'txt_toolbar_title'
 
 # LOGISTRATION SCREEN
 landing_screen_title = 'txt_screen_title'
@@ -115,3 +117,7 @@ profile_txt_logout = 'txt_logout'
 logout_close_button = 'ib_close'
 logout_dialog_title = 'txt_logout_dialog_title'
 logout_button = 'txt_logout'
+
+# EDIT PROFILE SCREEN
+edit_profile_title = 'txt_edit_profile_title'
+edit_profile_leave_button = 'txt_leave'

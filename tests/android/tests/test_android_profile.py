@@ -35,18 +35,12 @@ class TestAndroidProfile:
         """
         Scenarios:
             Verify that Profile screen will show following contents:
-                Back icon
-                "Profile" as Title
-                Edit
-                Profile Image
-                User Name
-            Verify that Profile screen will show following contents for limited profile:
-                Age limit text
-                Account settings Button
-            Verify that Profile screen will show following contents for Full profile:
-                location
-                Language (if selected)
-                User Bio
+                Back icon, "Profile" as Title, Edit
+                Profile Image, User Name, Video Settings
+                Support Info, Contact Support, Terms of Use
+                Privacy Policy, Cookie Policy, Personal Info
+                View FAQ, App Version, Up to Date
+                Logout button
         """
 
         main_dashboard_page = AndroidMainDashboard(set_capabilities, setup_logging)
@@ -78,10 +72,66 @@ class TestAndroidProfile:
         assert profile_page.get_profile_txt_up_to_date().text == values.PROFILE_APP_UP_TO_DATE
         assert profile_page.get_profile_txt_logout().text == values.PROFILE_LOGOUT_BUTTON
 
+    def test_load_profile_elements(self, set_capabilities, setup_logging):
+        """
+        Scenarios:
+            Verify that tapping edit button should load Edit profile screen
+            Verify that tapping back button should leave Edit profile screen
+            Verify that tapping leave button should leave Edit profile screen
+            Verify that tapping Video Settings should load Video Settings screen
+            Verify that tapping back button should leave Video Settings screen
+            Verify that tapping Terms of Use should load Terms of Use screen
+            Verify that tapping back button should leave Terms of Use screen
+            Verify that tapping Privacy Policy should load Privacy Policy screen
+            Verify that tapping back button should leave Privacy Policy screen
+            Verify that tapping Cookie Policy should load Cookie Policy screen
+            Verify that tapping back button should leave Cookie Policy screen
+            Verify that tapping Personal Info should load Personal Info screen
+        """
+
+        main_dashboard_page = AndroidMainDashboard(set_capabilities, setup_logging)
+        profile_page = AndroidProfile(set_capabilities, setup_logging)
+        global_contents = Globals(setup_logging)
+
+        profile_page.get_profile_edit_button().click()
+        profile_page.get_edit_profile_title().text == values.EDIT_PROFILE_TITLE
+        global_contents.get_back_button(set_capabilities).click()
+        assert profile_page.get_edit_profile_leave_button().text == values.EDIT_PROFILE_LEAVE_BUTTON
+        profile_page.get_edit_profile_leave_button().click()
+        assert profile_page.get_profile_screen_title().text == values.PROFILE_SCREEN_TITLE
+        log_out_button = profile_page.get_profile_txt_logout()
+        personal_info = profile_page.get_profile_personal_info()
+
+        global_contents.scroll_screen(set_capabilities, personal_info, log_out_button)
+        video_settings = profile_page.get_profile_txt_video_settings()
+        video_settings.click()
+        assert global_contents.get_txt_toolbar_title(set_capabilities).text == values.PROFILE_VIDEO_SETTINGS
+        global_contents.get_back_button(set_capabilities).click()
+
+        terms_of_use = profile_page.get_profile_txt_terms_of_use()
+        terms_of_use.click()
+        assert global_contents.get_txt_toolbar_title(set_capabilities).text == values.PROFILE_TERMS_OF_USE
+        global_contents.get_back_button(set_capabilities).click()
+
+        profile_page.get_profile_txt_privacy_policy().click()
+        assert global_contents.get_txt_toolbar_title(set_capabilities).text == values.PROFILE_PRIVACY_POLICY
+        global_contents.get_back_button(set_capabilities).click()
+
+        global_contents.scroll_from_element(set_capabilities, profile_page.get_profile_txt_privacy_policy())
+        profile_page.get_profile_txt_cookie_policy().click()
+        assert global_contents.get_txt_toolbar_title(set_capabilities).text == values.PROFILE_COOKIE_POLICY
+        global_contents.get_back_button(set_capabilities).click()
+
+        profile_page.get_profile_personal_info().click()
+        assert global_contents.get_txt_toolbar_title(set_capabilities).text == values.PROFILE_PERSONAL_INFO
+        global_contents.get_back_button(set_capabilities).click()
+
     def test_sign_out_smoke(self, set_capabilities, setup_logging):
         """
         Scenarios:
-            Verify that user can logout from main dashboard screen
+            Verify that clicking logout button should load logout dialog
+            Verify that tapping close button should leave logout dialog
+            Verify that tapping logout button should logout from main dashboard screen
         """
 
         profile_page = AndroidProfile(set_capabilities, setup_logging)
