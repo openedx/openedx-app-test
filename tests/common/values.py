@@ -12,6 +12,7 @@ ERROR = 'Problem, '
 ERROR_SETTING_CAPS = 'Problem, setting environment specific caps'
 ERROR_UTF_ELEMENT = 'Unable to find specific element - '
 TRUE_LOWERCASE = 'true'
+ANDROID_APP_VERSION = 'Version: 6.0.0'
 
 # LANDING SCREEN
 LANDING_MESSAGE = 'Welcome to edX'
@@ -99,3 +100,28 @@ MAIN_DASHBOARD_COURSES = 'Courses'
 MAIN_DASHBOARD_COURSE_DESCRIPTION = 'Welcome back. Let\'s keep learning.'
 MAIN_DASHBOARD_COURSE_ORG = 'edX'
 MAIN_DASHBOARD_COURSE_NAME = 'Infinity test course'
+
+# PROFILE SCREEN
+PROFILE_SCREEN_TITLE = 'Profile'
+PROFILE_EDIT_BUTTON = 'Edit'
+PROFILE_IMAGE_TEXT = 'test-mobile-automation profile image'
+PROFILE_NAME_TEXT = 'Service Test Mobile Automation'
+PROFILE_USERNAME_TEXT = '@test-mobile-automation'
+PROFILE_SETTINGS_TEXT = 'Settings'
+PROFILE_VIDEO_SETTINGS = 'Video settings'
+PROFILE_SUPPORT_INFO = 'Support info'
+PROFILE_CONTACT_SUPPORT = 'Contact support'
+PROFILE_TERMS_OF_USE = 'Terms of use'
+PROFILE_PRIVACY_POLICY = 'Privacy policy'
+PROFILE_COOKIE_POLICY = 'Cookie policy'
+PROFILE_PERSONAL_INFO = 'Do not sell my personal information'
+PROFILE_FAQ = 'View FAQ'
+PROFILE_APP_UP_TO_DATE = 'Up-to-date'
+PROFILE_LOGOUT_BUTTON = 'Log out'
+
+# LOG OUT
+LOGOUT_DIALOG_TITLE = 'Are you sure you want to log out?'
+
+# EDIT PROFILE SCREEN
+EDIT_PROFILE_TITLE = 'Edit Profile'
+EDIT_PROFILE_LEAVE_BUTTON = 'Leave'

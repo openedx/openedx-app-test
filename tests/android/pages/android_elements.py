@@ -6,6 +6,8 @@ all_images = 'android.widget.ImageView'
 all_image_buttons = 'android.widget.ImageButton'
 all_textviews = 'android.widget.TextView'
 all_listviews = 'android.widget.FrameLayout'
+back_button_navigation = 'ib_back'
+txt_toolbar_title = 'txt_toolbar_title'
 
 # LOGISTRATION SCREEN
 landing_screen_title = 'txt_screen_title'
@@ -91,3 +93,31 @@ my_courses_org_name = 'txt_course_org'
 my_courses_course_name = 'txt_course_name'
 my_courses_course_date = 'txt_course_date'
 my_courses_course_item = 'btn_course_item'
+
+# PROFILE SCREEN
+profile_screen_title = 'txt_profile_title'
+profile_edit_button = 'txt_edit'
+profile_img_profile = 'img_profile'
+profile_txt_name = 'txt_profile_name'
+profile_username = 'txt_profile_username'
+profile_txt_settings = 'txt_settings'
+profile_txt_video_settings = 'txt_video_settings'
+profile_txt_support_info = 'txt_support_info'
+profile_txt_contact_support = 'txt_contact_support'
+profile_txt_terms_of_use = 'txt_terms_of_use'
+profile_txt_privacy_policy = 'txt_privacy_policy'
+profile_txt_cookie_policy = 'txt_cookie_policy'
+profile_personal_info = 'txt_do_not_sell_my_personal_information'
+profile_txt_view_faq = 'txt_view_faq'
+profile_app_version_code = 'txt_app_version_code'
+profile_txt_up_to_date = 'txt_up_to_date'
+profile_txt_logout = 'txt_logout'
+
+# LOGOUT DIALOGUE
+logout_close_button = 'ib_close'
+logout_dialog_title = 'txt_logout_dialog_title'
+logout_button = 'txt_logout'
+
+# EDIT PROFILE SCREEN
+edit_profile_title = 'txt_edit_profile_title'
+edit_profile_leave_button = 'txt_leave'

@@ -13,6 +13,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.wait import WebDriverWait
 from tests.ios.pages import ios_elements
+from tests.android.pages import android_elements
 from tests.common import values
 
 class Globals:
@@ -407,3 +408,33 @@ class Globals:
             ios_elements.screen_heading_title
         )
         return heading_title
+
+    def get_txt_toolbar_title(self, driver):
+        """
+        Get toolbar title
+
+        Returns:
+            element: toolbar title element
+        """
+
+        self.wait_for_element_visibility(
+            driver,
+            android_elements.txt_toolbar_title
+        )
+
+        toolbar_title = self.wait_and_get_element(
+            driver,
+            android_elements.txt_toolbar_title
+        )
+        return toolbar_title
+
+    def get_back_button(self, driver):
+        """
+        Returns:
+            element: back button element
+        """
+
+        return self.wait_and_get_element(
+            driver,
+            android_elements.back_button_navigation
+        )
