@@ -4,6 +4,8 @@
 
 from tests.android.pages.android_whats_new import AndroidWhatsNew
 from tests.android.pages.android_main_dashboard import AndroidMainDashboard
+from tests.android.pages.android_profile import AndroidProfile
+from tests.android.pages.android_landing import AndroidLanding
 from tests.common import values
 from tests.common.globals import Globals
 
@@ -56,3 +58,23 @@ class TestAndroidMainDashboard:
         assert profile_tab.get_attribute('content-desc') == values.MAIN_DASHBOARD_PROFILE_TAB
         profile_tab.click()
         assert profile_tab.get_attribute('selected') == values.TRUE_LOWERCASE
+
+    def test_sign_out_smoke(self, set_capabilities, setup_logging):
+        """
+        Scenarios:
+            Verify that clicking logout button should load logout dialog
+            Verify that tapping close button should leave logout dialog
+            Verify that tapping logout button should logout from main dashboard screen
+        """
+
+        profile_page = AndroidProfile(set_capabilities, setup_logging)
+        android_landing = AndroidLanding(set_capabilities, setup_logging)
+        global_contents = Globals(setup_logging)
+
+        assert profile_page.get_logout_dialog_title() == values.TRUE_LOWERCASE
+        global_contents.scroll_from_element(set_capabilities, profile_page.get_profile_txt_privacy_policy())
+
+        profile_page.get_profile_txt_logout().click()
+        assert profile_page.get_logout_button().text == values.PROFILE_LOGOUT_BUTTON
+        profile_page.get_logout_button().click()
+        assert android_landing.get_search_label().text == values.LANDING_SEARCH_TITLE
