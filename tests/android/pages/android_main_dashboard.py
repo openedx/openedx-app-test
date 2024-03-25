@@ -68,6 +68,11 @@ class AndroidMainDashboard(AndroidBasePage):
             element: profile framgent element
         """
 
+        self.global_contents.wait_for_element_visibility(
+            self.driver,
+            android_elements.main_dashbaord_fragment_profile
+        )
+
         return self.global_contents.wait_and_get_element(
             self.driver,
             android_elements.main_dashbaord_fragment_profile

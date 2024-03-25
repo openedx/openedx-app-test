@@ -12,7 +12,7 @@ txt_toolbar_title = 'txt_toolbar_title'
 # LOGISTRATION SCREEN
 landing_screen_title = 'txt_screen_title'
 landing_search_label = 'txt_search_label'
-landing_discovery_search = 'tf_discovery_search'
+landing_discovery_search = 'tf_search'
 landing_explore_courses_button = 'txt_explore_all_courses'
 landing_register_button = 'btn_register'
 landing_signin_button = 'btn_sign_in'
@@ -121,3 +121,10 @@ logout_button = 'txt_logout'
 # EDIT PROFILE SCREEN
 edit_profile_title = 'txt_edit_profile_title'
 edit_profile_leave_button = 'txt_leave'
+
+# COURSE DASHBOARD SCREEN
+course_dashboard_resources_tab = 'org.edx.mobile:id/resources'
+course_dashboard_course_tab = 'org.edx.mobile:id/course'
+course_dashboard_videos_tab = 'org.edx.mobile:id/videos'
+course_dashboard_discussions_tab = 'org.edx.mobile:id/discussions'
+course_dashboard_dates_tab = 'org.edx.mobile:id/dates'

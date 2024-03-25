@@ -42,11 +42,11 @@ class TestAndroidSignIn:
         android_sign_in = AndroidSignIn(set_capabilities, setup_logging)
         global_contents = Globals(setup_logging)
 
-        android_landing.get_back_button().click()
+        global_contents.get_back_button(set_capabilities).click()
         assert android_landing.get_screen_title().text == values.LANDING_MESSAGE_IOS
         assert android_landing.load_signin_screen().text == values.LOGIN
         assert android_sign_in.get_sign_in_description().text == values.SIGN_IN_MESSAGE
-        assert android_sign_in.get_sign_in_email_label().text == values.REGISTER_EMAIL_TITLE
+        assert android_sign_in.get_sign_in_email_label().text == values.EMAIL_OR_USERNAME
         email_field = android_sign_in.get_sign_in_tf_email()
         assert email_field.get_attribute('clickable') == values.TRUE_LOWERCASE
         email_field.send_keys(global_contents.login_user_name)
@@ -80,7 +80,7 @@ class TestAndroidSignIn:
         forgot_password_button = android_sign_in.get_sign_in_forgot_password()
         assert forgot_password_button.text == values.FORGOT_PASSWORD
         forgot_password_button.click()
-        assert android_landing.get_back_button()
+        assert global_contents.get_back_button(set_capabilities)
         assert android_landing.get_screen_title().text == values.FORGOT_PASSWORD_TITLE
         assert android_sign_in.get_forgot_password_title().text == values.FORGOT_PASSWORD_TITLE
         assert android_sign_in.get_sign_in_email_label().text == values.FORGOT_EMAIL_TITLE

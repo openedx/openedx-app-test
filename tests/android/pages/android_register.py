@@ -220,6 +220,11 @@ class AndroidRegister(AndroidBasePage):
         Get register honor code
         """
 
+        self.global_contents.wait_for_element_visibility(
+            self.driver,
+            android_elements.register_txt_honor_code
+        )
+
         return self.global_contents.wait_and_get_element(
             self.driver,
             android_elements.register_txt_honor_code
@@ -309,6 +314,11 @@ class AndroidRegister(AndroidBasePage):
         """
         Get register country search
         """
+
+        self.global_contents.wait_for_element_visibility(
+            self.driver,
+            android_elements.register_country_sb_search
+        )
 
         return self.global_contents.wait_and_get_element(
             self.driver,
