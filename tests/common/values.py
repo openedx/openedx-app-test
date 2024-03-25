@@ -12,6 +12,7 @@ ERROR = 'Problem, '
 ERROR_SETTING_CAPS = 'Problem, setting environment specific caps'
 ERROR_UTF_ELEMENT = 'Unable to find specific element - '
 TRUE_LOWERCASE = 'true'
+FALSE_LOWERCASE = 'false'
 ANDROID_APP_VERSION = 'Version: 6.0.0'
 
 # LANDING SCREEN
@@ -25,6 +26,7 @@ LANDING_EXLPORE_COURSES = 'Explore all courses'
 LANDING_SEARCH_RESULTS_TITLE = 'Search'
 LANDING_LOGO_IMAGE = 'appLogo'
 LANDING_BACK_BUTTON = 'arrowLeft'
+DISCOVERY_SCREEN_TITLE = 'Explore the catalog'
 
 # SIGN IN SCREEN
 SIGN_IN_MESSAGE = 'Welcome back! Please authorize to continue.'
@@ -35,6 +37,7 @@ FACEBOOK_SIGNIN = 'Sign in with Facebook'
 MICROSOFT_SIGNIN = 'Sign in with Microsoft'
 APPLE_SIGNIN = 'Sign in with Apple'
 BACK_BUTTON = 'Back'
+BACK_BUTTON_SMALL = 'back'
 SOCIAL_AUTH_TITLE = 'Or sign in with:'
 
 # REGISTER SCREEN
@@ -125,3 +128,13 @@ LOGOUT_DIALOG_TITLE = 'Are you sure you want to log out?'
 # EDIT PROFILE SCREEN
 EDIT_PROFILE_TITLE = 'Edit Profile'
 EDIT_PROFILE_LEAVE_BUTTON = 'Leave'
+
+# MY COURSES LIST SCREEN
+MY_COURSES_SECOND_COURSE_NAME = 'DemoX'
+
+# COURSE DASHBOARD SCREEN
+COURSE_DASHBOARD_COURSE_TAB = 'Course'
+COURSE_DASHBOARD_RESOURCES_TAB = 'Handouts'
+COURSE_DASHBOARD_VIDEOS_TAB = 'Videos'
+COURSE_DASHBOARD_DISCUSSIONS_TAB = 'Discussions'
+COURSE_DASHBOARD_DATES_TAB = 'Dates'
