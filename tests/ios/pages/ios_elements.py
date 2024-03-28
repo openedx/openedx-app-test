@@ -77,3 +77,10 @@ register_social_auth_title_text = 'social_auth_title_text'
 register_country_picker_title = 'picker_title_text'
 register_picker_search_textfield = 'picker_search_textfield'
 register_picker_accept_button = 'picker_accept_button'
+
+# WHATS NEW SCREEN
+whats_new_screen_title = 'What\'s New'
+whats_new_msg_title = 'title_text'
+whats_new_description = 'description_text'
+whats_new_btn_next = 'next_button'
+whats_new_btn_prev = 'previous_button'

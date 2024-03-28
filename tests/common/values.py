@@ -29,6 +29,7 @@ LANDING_BACK_BUTTON = 'arrowLeft'
 # SIGN IN SCREEN
 SIGN_IN_MESSAGE = 'Welcome back! Please authorize to continue.'
 EMAIL_OR_USERNAME = 'Email or Username'
+EMAIL_OR_USERNAME_IOS = 'Email or username'
 PASSWORD = 'Password'
 GOOGLE_SIGNIN = 'Sign in with Google'
 FACEBOOK_SIGNIN = 'Sign in with Facebook'
@@ -91,6 +92,8 @@ FOROGT_RECOVER_DESCRIPTION = 'We have sent a password recover instructions to yo
 
 # WHATS NEW SCREEN
 WHATS_NEW_TITLE = 'What\'s New'
+WHATS_NEW_CLOSE_BUTTON = 'Close'
+WHATS_NEW_NEXT_BUTTON = 'Next'
 
 # MAIN DASHBOARD SCREEN
 MAIN_DASHBOARD_DASHBOARD_TAB = 'Dashboard'
