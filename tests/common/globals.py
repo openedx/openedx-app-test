@@ -31,12 +31,12 @@ class Globals:
         self.ios_device_name = 'iPhone 14'
         self.android_device_name = 'Android Phone'
         self.project_log = project_log
-        self.medium_timeout = 5
-        self.minimum_timeout = 2
+        self.medium_timeout = 7
+        self.minimum_timeout = 3
         self.maximum_timeout = 15
         self.index = 0
         self.android_enter_key = 66
-        self.whats_new_enable = True
+        self.whats_new_enable = False
 
     def setup_global_environment(self):
         """
@@ -212,8 +212,8 @@ class Globals:
         """
 
         try:
-            all_views = WebDriverWait(driver, self.medium_timeout).until(
-                expected_conditions.presence_of_all_elements_located((By.ID, target_elements)))
+            all_views = driver.find_elements(MobileBy.ANDROID_UIAUTOMATOR,
+                                            f'new UiSelector().resourceId("{target_elements}")')
             if all_views:
                 self.project_log.info('Total {} - {} found on screen'.format(len(all_views), target_elements))
                 for view in all_views:
@@ -434,7 +434,21 @@ class Globals:
             element: back button element
         """
 
+        self.wait_for_element_visibility(
+            driver,
+            android_elements.back_button_navigation
+        )
+
         return self.wait_and_get_element(
             driver,
             android_elements.back_button_navigation
         )
+
+    def get_child_element(self, parent_element, child_element_locator):
+        """
+        Returns:
+            element: back button element
+        """
+
+        return parent_element.find_element(MobileBy.ANDROID_UIAUTOMATOR,
+                                            f'new UiSelector().resourceId("{child_element_locator}")')

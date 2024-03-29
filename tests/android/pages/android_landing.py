@@ -57,6 +57,11 @@ class AndroidLanding(AndroidBasePage):
             element: Discovery search element
         """
 
+        self.global_contents.wait_for_element_visibility(
+            self.driver,
+            android_elements.landing_discovery_search
+        )
+
         search_field = self.global_contents.wait_and_get_element(
             self.driver,
             android_elements.landing_discovery_search
@@ -64,10 +69,7 @@ class AndroidLanding(AndroidBasePage):
         search_field.click()
         search_field.send_keys('python')
         self.driver.press_keycode(self.global_contents.android_enter_key)
-        search_result_title = self.global_contents.get_all_views_on_screen(
-            self.driver,
-            android_elements.all_textviews
-        )[0]
+        search_result_title = self.global_contents.get_txt_toolbar_title(self.driver)
         return search_result_title
 
     def get_explore_courses(self):
@@ -77,6 +79,11 @@ class AndroidLanding(AndroidBasePage):
         Returns:
             element: Explore courses button element
         """
+
+        self.global_contents.wait_for_element_visibility(
+            self.driver,
+            android_elements.landing_explore_courses_button
+        )
 
         return self.global_contents.wait_and_get_element(
             self.driver,

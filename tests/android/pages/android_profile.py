@@ -88,6 +88,11 @@ class AndroidProfile(AndroidBasePage):
             element: profile video settings element
         """
 
+        self.global_contents.wait_for_element_visibility(
+            self.driver,
+            android_elements.profile_txt_video_settings
+        )
+
         return self.global_contents.wait_and_get_element(
             self.driver,
             android_elements.profile_txt_video_settings
@@ -137,6 +142,11 @@ class AndroidProfile(AndroidBasePage):
             element: profile privacy policy element
         """
 
+        self.global_contents.wait_for_element_visibility(
+            self.driver,
+            android_elements.profile_txt_privacy_policy
+        )
+
         return self.global_contents.wait_and_get_element(
             self.driver,
             android_elements.profile_txt_privacy_policy
@@ -159,6 +169,11 @@ class AndroidProfile(AndroidBasePage):
             element: profile personal info element
         """
 
+        self.global_contents.wait_for_element_visibility(
+            self.driver,
+            android_elements.profile_personal_info
+        )
+
         return self.global_contents.wait_and_get_element(
             self.driver,
             android_elements.profile_personal_info
@@ -169,6 +184,11 @@ class AndroidProfile(AndroidBasePage):
         Returns:
             element: profile view faq element
         """
+
+        self.global_contents.wait_for_element_visibility(
+            self.driver,
+            android_elements.profile_txt_view_faq
+        )
 
         return self.global_contents.wait_and_get_element(
             self.driver,
@@ -203,12 +223,17 @@ class AndroidProfile(AndroidBasePage):
             element: profile logout element
         """
             
+        self.global_contents.wait_for_element_visibility(
+            self.driver,
+            android_elements.profile_txt_logout
+        )
+
         return self.global_contents.wait_and_get_element(
             self.driver,
             android_elements.profile_txt_logout
         )
 
-    def get_logout_dialog_title(self):
+    def get_logout_dialog_text(self):
         """
         Returns:
             element: logout title element
@@ -277,3 +302,21 @@ class AndroidProfile(AndroidBasePage):
             self.driver,
             android_elements.edit_profile_leave_button
         )
+
+    def get_logout_dialog_title(self):
+        """
+        Returns:
+            element: logout dialog title element
+        """
+
+        self.global_contents.wait_for_element_visibility(
+            self.driver,
+            android_elements.main_dashbaord_fragment_profile
+        )
+
+        profile_tab = self.global_contents.wait_and_get_element(
+            self.driver,
+            android_elements.main_dashbaord_fragment_profile
+        )
+        profile_tab.click()
+        return profile_tab.get_attribute('selected')

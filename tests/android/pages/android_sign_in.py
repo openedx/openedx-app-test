@@ -99,11 +99,9 @@ class AndroidSignIn(AndroidBasePage):
 
         google_btn = self.global_contents.wait_and_get_element(
             self.driver,
-            android_elements.google_auth_button
+            android_elements.txt_google_auth
         )
-        btn_text = google_btn.find_element_by_class_name(
-            android_elements.all_textviews)
-        return btn_text
+        return google_btn
 
     def get_facebook_auth_button(self):
         """
@@ -115,11 +113,9 @@ class AndroidSignIn(AndroidBasePage):
 
         facebook_btn = self.global_contents.wait_and_get_element(
             self.driver,
-            android_elements.facebook_auth_button
+            android_elements.txt_facebook_auth
         )
-        btn_text = facebook_btn.find_element_by_class_name(
-            android_elements.all_textviews)
-        return btn_text
+        return facebook_btn
 
     def get_microsoft_auth_button(self):
         """
@@ -131,11 +127,9 @@ class AndroidSignIn(AndroidBasePage):
 
         microsoft_btn = self.global_contents.wait_and_get_element(
             self.driver,
-            android_elements.microsoft_auth_button
+            android_elements.txt_microsoft_auth
         )
-        btn_text = microsoft_btn.find_element_by_class_name(
-            android_elements.all_textviews)
-        return btn_text
+        return microsoft_btn
 
     def get_signin_button(self):
         """

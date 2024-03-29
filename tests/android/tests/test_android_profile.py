@@ -137,7 +137,7 @@ class TestAndroidProfile:
 
         profile_page.get_profile_txt_logout().click()
         assert profile_page.get_logout_close_button()
-        assert profile_page.get_logout_dialog_title().text == values.LOGOUT_DIALOG_TITLE
+        assert profile_page.get_logout_dialog_text().text == values.LOGOUT_DIALOG_TITLE
         profile_page.get_logout_button().text == values.PROFILE_LOGOUT_BUTTON
         profile_page.get_logout_button().click()
         assert android_landing.get_search_label().text == values.LANDING_SEARCH_TITLE
