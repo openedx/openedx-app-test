@@ -120,7 +120,6 @@ def login(set_capabilities, setup_logging):
 
     log = setup_logging
     global_contents = Globals(log)
-    is_first_time = True
     android_landing = AndroidLanding(set_capabilities, setup_logging)
     android_sign_in = AndroidSignIn(set_capabilities, setup_logging)
     ios_landing = IosLanding(set_capabilities, setup_logging)
@@ -170,11 +169,9 @@ def login(set_capabilities, setup_logging):
         sign_in_button = ios_login.get_signin_button()
         assert sign_in_button.text == values.LOGIN
         sign_in_button.click()
-        is_first_time = False
-        log.info('{} is successfully logged in'.format(global_contents.login_user_name))
+        setup_logging.info(f'{global_contents.login_user_name} is successfully logged in')
 
-    return is_first_time
-
+    return setup_logging
 
 def create_result_directory(target_directory):
     """
