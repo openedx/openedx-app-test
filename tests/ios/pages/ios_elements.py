@@ -21,6 +21,7 @@ landing_discover_title = 'Search results'
 logistration_register_button = 'logistration_register_button'
 logistration_signin_button = 'logistration_signin_button'
 register_screen_title = 'register_text'
+notification_allow_button = 'Allow'
 
 # SIGN IN SCREEN
 signin_text = 'signin_text'
@@ -84,3 +85,9 @@ whats_new_msg_title = 'title_text'
 whats_new_description = 'description_text'
 whats_new_btn_next = 'next_button'
 whats_new_btn_prev = 'previous_button'
+
+# MAIN DASHBOARD SCREEN
+main_dashboard_discover_tab = 'Discover'
+main_dashboard_programs_tab = 'Programs'
+main_dashboard_profile_tab = 'Profile'
+main_dashboard_tab = 'Dashboard'

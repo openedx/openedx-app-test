@@ -28,7 +28,7 @@ class Globals:
         self.setup_global_environment()
 
         # CAPABILITIES
-        self.ios_device_name = 'iPhone 14'
+        self.ios_device_name = 'iPhone 15'
         self.android_device_name = 'Android Phone'
         self.project_log = project_log
         self.medium_timeout = 7
@@ -122,7 +122,7 @@ class Globals:
                     expected_conditions.presence_of_all_elements_located((By.CLASS_NAME, target_elements)))
             elif self.target_environment == values.IOS:
                 all_views = WebDriverWait(driver, self.maximum_timeout).until(
-                    expected_conditions.presence_of_all_elements_located((MobileBy.ACCESSIBILITY_ID, target_elements)))
+                    expected_conditions.presence_of_all_elements_located((MobileBy.CLASS_NAME, target_elements)))
             self.index = 0
             if all_views:
                 no_of_all_views = len(all_views)

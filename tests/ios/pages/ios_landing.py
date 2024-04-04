@@ -148,3 +148,15 @@ class IosLanding(IosBasePage):
             ios_elements.logistration_signin_button
         )
         return sign_in_button
+
+    def get_allow_notifications_button(self):
+        """
+        Get Allow button
+
+        Returns:
+            webdriver element: Allow Element
+        """
+
+        return self.global_contents.wait_and_get_element(
+            self.driver,
+            ios_elements.notification_allow_button)
