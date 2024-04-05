@@ -14,6 +14,7 @@ ERROR_UTF_ELEMENT = 'Unable to find specific element - '
 TRUE_LOWERCASE = 'true'
 FALSE_LOWERCASE = 'false'
 ANDROID_APP_VERSION = 'Version: 6.0.0'
+IOS_SELECTED_TAB_VALUE = '1'
 
 # LANDING SCREEN
 LANDING_MESSAGE = 'Welcome to edX'
