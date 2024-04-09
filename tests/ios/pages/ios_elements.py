@@ -91,3 +91,13 @@ main_dashboard_discover_tab = 'Discover'
 main_dashboard_programs_tab = 'Programs'
 main_dashboard_profile_tab = 'Profile'
 main_dashboard_tab = 'Dashboard'
+
+#  MY COURSES LIST SCREEN
+my_courses_header_text = 'courses_header_text'
+my_courses_welcomeback_text = 'courses_welcomeback_text'
+my_course_image = 'course_image'
+my_course_org_text = 'org_text'
+my_course_name_text = 'course_name_text'
+my_course_end_text = 'course_end_text'
+my_course_arrow_image = 'arrow_image'
+my_course_item_list = 'course_item'
