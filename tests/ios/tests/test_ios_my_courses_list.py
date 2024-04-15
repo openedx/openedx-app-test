@@ -41,7 +41,7 @@ class TestIosMyCoursesList:
                 Profile icon
                 "Courses" title
             Verify that My Courses(enrolled) List with followings in each course,
-                Course image
+                Course Image
                 Course Name
                 Course Start/End date
             Verify that tapping any course should load specific Course Dashboard screen
