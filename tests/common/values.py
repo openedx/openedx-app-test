@@ -14,6 +14,7 @@ ERROR_UTF_ELEMENT = 'Unable to find specific element - '
 TRUE_LOWERCASE = 'true'
 FALSE_LOWERCASE = 'false'
 ANDROID_APP_VERSION = 'Version: 6.0.0'
+IOS_APP_VERSION = 'Version: 1.0.0, Up-to-date'
 IOS_SELECTED_TAB_VALUE = '1'
 
 # LANDING SCREEN
@@ -111,9 +112,13 @@ MAIN_DASHBOARD_COURSE_NAME = 'Infinity test course'
 # PROFILE SCREEN
 PROFILE_SCREEN_TITLE = 'Profile'
 PROFILE_EDIT_BUTTON = 'Edit'
+PROFILE_EDIT_BUTTON_IOS = 'edit'
 PROFILE_IMAGE_TEXT = 'test-mobile-automation profile image'
+# PROFILE_NAME_TEXT_IOS = 'Automation Tester'
 PROFILE_NAME_TEXT = 'Service Test Mobile Automation'
+# PROFILE_USERNAME_TEXT_IOS = '@AutomationTester'
 PROFILE_USERNAME_TEXT = '@test-mobile-automation'
+# PROFILE_INFO_TEXT = 'Profile info'
 PROFILE_SETTINGS_TEXT = 'Settings'
 PROFILE_VIDEO_SETTINGS = 'Video settings'
 PROFILE_SUPPORT_INFO = 'Support info'
@@ -131,6 +136,7 @@ LOGOUT_DIALOG_TITLE = 'Are you sure you want to log out?'
 
 # EDIT PROFILE SCREEN
 EDIT_PROFILE_TITLE = 'Edit Profile'
+EDIT_PROFILE_TITLE_IOS = 'Edit profile'
 EDIT_PROFILE_LEAVE_BUTTON = 'Leave'
 
 # MY COURSES LIST SCREEN

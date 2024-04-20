@@ -222,7 +222,7 @@ class AndroidProfile(AndroidBasePage):
         Returns:
             element: profile logout element
         """
-            
+
         self.global_contents.wait_for_element_visibility(
             self.driver,
             android_elements.profile_txt_logout
