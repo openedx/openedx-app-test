@@ -36,7 +36,7 @@ class Globals:
         self.maximum_timeout = 15
         self.index = 0
         self.android_enter_key = 66
-        self.whats_new_enable = False
+        self.whats_new_enable = True
 
     def setup_global_environment(self):
         """
@@ -427,6 +427,25 @@ class Globals:
             android_elements.txt_toolbar_title
         )
         return toolbar_title
+
+    def get_navigation_bar_title(self, driver):
+        """
+        Get navigation bar
+
+        Returns:
+            element: navigation bar title element
+        """
+
+        self.wait_for_element_visibility(
+            driver,
+            ios_elements.navigation_bar_title
+        )
+
+        navigation_title = self.get_all_views_on_ios_screen(
+            driver,
+            ios_elements.navigation_bar_title
+        )
+        return navigation_title
 
     def get_back_button(self, driver):
         """

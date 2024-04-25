@@ -92,7 +92,7 @@ class TestAndroidProfile:
         global_contents = Globals(setup_logging)
 
         profile_page.get_profile_edit_button().click()
-        profile_page.get_edit_profile_title().text == values.EDIT_PROFILE_TITLE
+        assert profile_page.get_edit_profile_title().text == values.EDIT_PROFILE_TITLE
         global_contents.get_back_button(set_capabilities).click()
         assert profile_page.get_edit_profile_leave_button().text == values.EDIT_PROFILE_LEAVE_BUTTON
         profile_page.get_edit_profile_leave_button().click()
