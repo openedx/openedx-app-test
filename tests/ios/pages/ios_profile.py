@@ -54,10 +54,10 @@ class IosProfile(IosBasePage):
 
     def get_profile_user_name_text(self):
         """
-        Get user name text
+        Get user's name text
 
         Returns:
-            webdriver element: User name text element
+            webdriver element: User's name text element
         """
 
         return self.global_contents.wait_and_get_element(
@@ -67,10 +67,10 @@ class IosProfile(IosBasePage):
 
     def profile_user_username_text(self):
         """
-        Get user username text
+        Get user's username text
 
         Returns:
-            webdriver element: User username text element
+            webdriver element: User's username text element
         """
 
         return self.global_contents.wait_and_get_element(

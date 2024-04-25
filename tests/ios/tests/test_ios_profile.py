@@ -51,7 +51,8 @@ class TestIosProfile:
         ios_profile = IosProfile(set_capabilities, setup_logging)
         global_contents = Globals(setup_logging)
 
-        assert global_contents.get_navigation_bar_title(set_capabilities)[0].get_attribute('name') == values.PROFILE_SCREEN_TITLE
+        assert global_contents.get_navigation_bar_title(set_capabilities)[0].get_attribute(
+            'name') == values.PROFILE_SCREEN_TITLE
         assert ios_profile.get_profile_edit_button().text == values.PROFILE_EDIT_BUTTON_IOS
         assert ios_profile.get_profile_img_profile()
         assert ios_profile.get_profile_user_name_text().text == values.PROFILE_NAME_TEXT
@@ -91,7 +92,8 @@ class TestIosProfile:
         edit_profile = ios_profile.get_profile_edit_button()
         assert edit_profile.text == values.PROFILE_EDIT_BUTTON_IOS
         edit_profile.click()
-        assert global_contents.get_navigation_bar_title(set_capabilities)[0].get_attribute('name') == values.EDIT_PROFILE_TITLE_IOS
+        assert global_contents.get_navigation_bar_title(set_capabilities)[0].get_attribute(
+            'name') == values.EDIT_PROFILE_TITLE_IOS
         back_button = ios_profile.get_back_button()
         assert back_button.text == values.LANDING_BACK_BUTTON
         back_button.click()
@@ -99,7 +101,8 @@ class TestIosProfile:
         video_settings = ios_profile.get_profile_video_settings_button()
         assert video_settings.text == values.PROFILE_VIDEO_SETTINGS
         video_settings.click()
-        assert global_contents.get_navigation_bar_title(set_capabilities)[0].get_attribute('name') == values.PROFILE_VIDEO_SETTINGS
+        assert global_contents.get_navigation_bar_title(set_capabilities)[0].get_attribute(
+            'name') == values.PROFILE_VIDEO_SETTINGS
         back_button = ios_profile.get_videos_back_button()
         assert back_button.text == values.MAIN_DASHBOARD_PROFILE_TAB
         back_button.click()
