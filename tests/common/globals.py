@@ -212,8 +212,11 @@ class Globals:
         """
 
         try:
-            all_views = driver.find_elements(MobileBy.ANDROID_UIAUTOMATOR,
-                                            f'new UiSelector().resourceId("{target_elements}")')
+            if self.target_environment == values.ANDROID:
+                all_views = driver.find_elements(MobileBy.ANDROID_UIAUTOMATOR,
+                                                f'new UiSelector().resourceId("{target_elements}")')
+            elif self.target_environment == values.IOS:
+                all_views = driver.find_elements(MobileBy.ACCESSIBILITY_ID, target_elements)
             if all_views:
                 self.project_log.info('Total {} - {} found on screen'.format(len(all_views), target_elements))
                 for view in all_views:
