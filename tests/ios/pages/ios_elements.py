@@ -126,3 +126,12 @@ profile_logout_button = 'logout_button'
 logout_close_button = 'Close'
 logout_dialog_title = 'Are you sure you want to log out?'
 logout_button = 'Log out'
+
+# COURSE DASHBOARD SCREEN
+my_courses_course_item = 'course_item'
+course_dashboard_resources_tab = 'org.edx.mobile:id/resources'
+course_dashboard_course_tab = 'Course'
+course_dashboard_videos_tab = 'Videos'
+course_dashboard_discussions_tab = 'Discussions'
+course_dashboard_dates_tab = 'Dates'
+course_dashboard_more_tab = 'More'
