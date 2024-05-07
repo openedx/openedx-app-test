@@ -23,6 +23,9 @@ class TestIosLogin:
         ios_landing = IosLanding(set_capabilities, setup_logging)
         ios_login = IosLogin(set_capabilities, setup_logging)
 
+        if ios_landing.get_allow_notifications_button():
+            ios_landing.get_allow_notifications_button().click()
+
         sign_in_button = ios_landing.get_sign_in_button()
         assert ios_landing.get_sign_in_button().text == values.LOGIN
         sign_in_button.click()
@@ -49,10 +52,10 @@ class TestIosLogin:
         assert sign_in_message.text == values.SIGN_IN_MESSAGE
 
         email_or_username_title = ios_login.get_signin_username_text()
-        assert email_or_username_title.text == values.EMAIL_OR_USERNAME
+        assert email_or_username_title.text == values.EMAIL_OR_USERNAME_IOS
 
         email_field = ios_login.get_signin_username_textfield()
-        assert email_field.text == values.EMAIL_OR_USERNAME
+        assert email_field.text == values.EMAIL_OR_USERNAME_IOS
         email_field.send_keys(global_contents.login_user_name)
 
         password_title = ios_login.get_signin_password_text()

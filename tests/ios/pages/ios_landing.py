@@ -4,6 +4,7 @@
 
 from tests.ios.pages import ios_elements
 from tests.ios.pages.ios_base_page import IosBasePage
+from appium.webdriver.common.mobileby import MobileBy
 
 
 class IosLanding(IosBasePage):
@@ -75,11 +76,16 @@ class IosLanding(IosBasePage):
             webdriver element: discovery title element
         """
 
-        search_title = self.global_contents.wait_and_get_element(
+        self.global_contents.wait_for_element_visibility(
             self.driver,
-            ios_elements.landing_searh_result_title
+            ios_elements.navigation_bar_title
             )
-        return search_title
+
+        navigation_bar = self.global_contents.wait_and_get_element(
+            self.driver,
+            ios_elements.navigation_bar_title
+            )
+        return navigation_bar
 
     def get_back_button(self):
         """
@@ -89,11 +95,27 @@ class IosLanding(IosBasePage):
             webdriver element: discovery title element
         """
 
-        search_title = self.global_contents.wait_and_get_element(
+        back_button = self.global_contents.wait_and_get_element(
             self.driver,
-            ios_elements.landing_back_button
+            'Back'
             )
-        return search_title
+        return back_button
+
+    def get_header_back_button(self):
+        """
+        Returns:
+            element: back button element
+        """
+
+        self.global_contents.wait_for_element_visibility(
+            self.driver,
+            ios_elements.back_button_navigation
+        )
+
+        return self.global_contents.wait_and_get_element(
+            self.driver,
+            ios_elements.back_button_navigation
+        )
 
     def load_landing_screen(self):
         """
@@ -104,7 +126,7 @@ class IosLanding(IosBasePage):
         """
 
         self.get_back_button().click()
-        self.global_contents.wait_and_get_element(self.driver, 'Back').click()
+        # self.global_contents.wait_and_get_element(self.driver, 'Back').click()
         return self.get_logo_image()
 
     def get_register_button(self):
