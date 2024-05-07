@@ -7,6 +7,9 @@ from tests.common.globals import Globals
 from tests.ios.pages.ios_register import IosRegister
 from tests.ios.pages.ios_landing import IosLanding
 from tests.ios.pages.ios_login import IosLogin
+from tests.ios.pages.ios_whats_new import IosWhatsNew
+from tests.ios.pages.ios_main_dashboard import IosMainDashboard
+from tests.ios.pages.ios_profile import IosProfile
 
 
 class TestIosRegister:
@@ -22,7 +25,10 @@ class TestIosRegister:
 
         setup_logging.info('Starting Test Case')
         register_page = IosRegister(set_capabilities, setup_logging)
+        ios_landing = IosLanding(set_capabilities, setup_logging)
 
+        if ios_landing.get_allow_notifications_button():
+            ios_landing.get_allow_notifications_button().click()
         register_button = register_page.get_register_button()
         assert register_page.get_register_button().text == values.REGISTER
         register_button.click()
@@ -43,16 +49,8 @@ class TestIosRegister:
         ios_landing = IosLanding(set_capabilities, setup_logging)
         ios_login = IosLogin(set_capabilities, setup_logging)
 
-        user_name = global_contents.generate_random_credentials(5)
-        email = user_name + '@example.com'
-        first_name = global_contents.generate_random_credentials(4)
-        last_name = global_contents.generate_random_credentials(4)
-        full_name = first_name + ' ' + last_name
-        password = (global_contents.generate_random_credentials(6) + global_contents.login_password)
-
         assert register_page.get_register_screen_heading().text == values.REGISTER
-
-        back_button = ios_landing.get_back_button()
+        back_button = ios_landing.get_header_back_button()
         assert back_button.text == values.LANDING_BACK_BUTTON
         sign_up_heading = register_page.get_signup_text()
         assert sign_up_heading.text == values.REGISTER_SIGN_UP_HEADING
@@ -114,6 +112,8 @@ class TestIosRegister:
         social_auth_title_text = register_page.get_social_auth_title_text()
         assert social_auth_title_text.text == values.REGISTER_OPTIONS_TITLE
 
+        global_contents.scroll_from_element(set_capabilities, password_text_field)
+
         google_signin = ios_login.get_signin_social_auth_google_button()
         assert google_signin.text == values.REGISTER_GOOGLE_SIGNUP
 
@@ -126,15 +126,45 @@ class TestIosRegister:
         apple_signin = ios_login.get_signin_social_auth_apple_button()
         assert apple_signin.text == values.REGISTER_APPLE_SIGNUP
 
+    def test_register_smoke(self, set_capabilities, setup_logging):
+        """
+            Verify that tapping "Create your account" button after filling all required input(valid) types,
+                will validate all inputs and load "Whats new feature screen" with specific user logged in
+            Verify that tapping "Create your account" button after filling all required input(valid) types,
+                will validate all inputs and load "Whats new feature screen" with specific user logged in
+            Verify that following input types are optional,
+                "Gender" spinner
+                "Highest level of education completed" spinner
+            Verify that user should be able to log out and re-login with new created account credentials
+            Verify that for new user there must be "Looking for new challenge?" heading is available on the screen
+        """
+
+        register_page = IosRegister(set_capabilities, setup_logging)
+        global_contents = Globals(setup_logging)
+        whats_new_page = IosWhatsNew(set_capabilities, setup_logging)
+
+        user_name = global_contents.generate_random_credentials(5)
+        email = user_name + '@example.com'
+        first_name = global_contents.generate_random_credentials(4)
+        last_name = global_contents.generate_random_credentials(4)
+        full_name = first_name + ' ' + last_name
+        password = 'qwERt12#$5' + global_contents.generate_random_credentials(8)
+
+        name_textfield = register_page.get_name_textfield()
+        username_textfield = register_page.get_username_textfield()
+        email_textfield = register_page.get_email_textfield()
+        register_button = register_page.get_create_account_button()
+
         name_textfield.send_keys(full_name)
         username_textfield.send_keys(user_name)
         email_textfield.click()
         email_textfield.send_keys(email)
 
         password_field = register_page.get_password_textfield()
-        password_field.send_keys(global_contents.login_password)
+        password_field.send_keys(password)
 
         global_contents.scroll_screen(set_capabilities, register_button, name_textfield)
+        country_textfield = register_page.get_country_textfield()
         country_textfield.click()
         picker_title_text = register_page.get_picker_title_text()
         assert picker_title_text.text == values.REGISTER_COUNTRY_PICKER_TITLE
@@ -151,4 +181,38 @@ class TestIosRegister:
 
         register_button.click()
         password_instructions_text = register_page.get_password_instructions_text()
-        assert password_instructions_text.text == values.REGISTER_PASSWORD_ERROR
+        assert password_instructions_text.text == values.REGISTER_PASSWORD_MESSAGE
+
+        if global_contents.whats_new_enable:
+            assert whats_new_page.navigate_features().text == 'Done'
+            whats_new_page.get_next_btn().click()
+            setup_logging.info('Whats New screen is successfully loaded')
+
+        main_dashboard = IosMainDashboard(set_capabilities, setup_logging)
+        discover_tab = main_dashboard.get_main_dashboard_discover_tab()
+        assert discover_tab.text == values.DISCOVER_SCREEN_HEADING
+
+    def test_sign_out_smoke(self, set_capabilities, setup_logging):
+        """
+        Scenarios:
+            Verify that clicking logout button should load logout dialog
+            Verify that tapping close button should leave logout dialog
+            Verify that tapping logout button should logout from main dashboard screen
+        """
+
+        ios_profile = IosProfile(set_capabilities, setup_logging)
+        ios_landing = IosLanding(set_capabilities, setup_logging)
+        main_dashboard = IosMainDashboard(set_capabilities, setup_logging)
+
+        profile_tab = main_dashboard.get_main_dashboard_profile_tab()
+        assert profile_tab.text == values.MAIN_DASHBOARD_PROFILE_TAB
+        profile_tab.click()
+        assert profile_tab.get_attribute('value') == values.IOS_SELECTED_TAB_VALUE
+
+        assert ios_profile.get_profile_logout_button().text == values.PROFILE_LOGOUT_BUTTON
+        ios_profile.get_profile_logout_button().click()
+        assert ios_profile.get_logout_close_button().text == 'Close'
+        assert ios_profile.get_logout_dialog_title().text == values.LOGOUT_DIALOG_TITLE
+        assert ios_profile.get_logout_button().text == values.PROFILE_LOGOUT_BUTTON
+        ios_profile.get_logout_button().click()
+        assert ios_landing.get_welcome_message().text == values.LANDING_MESSAGE_IOS
