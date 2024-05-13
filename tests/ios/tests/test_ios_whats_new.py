@@ -25,6 +25,9 @@ class TestIosWhatsNew:
         ios_login = IosLogin(set_capabilities, setup_logging)
         global_contents = Globals(setup_logging)
 
+        if ios_landing.get_allow_notifications_button():
+            ios_landing.get_allow_notifications_button().click()
+
         if global_contents.whats_new_enable:
             sign_in_button = ios_landing.get_sign_in_button()
             assert ios_landing.get_sign_in_button().text == values.LOGIN
