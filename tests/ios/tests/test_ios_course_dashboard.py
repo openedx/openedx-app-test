@@ -32,10 +32,9 @@ class TestIosCourseDashboard:
             whats_new_page.get_next_btn().click()
             setup_logging.info('Whats New screen is successfully loaded')
 
-        dashboard_tab = main_dashboard.get_main_dashboard_tab()
-        assert dashboard_tab.get_attribute('name') == values.MAIN_DASHBOARD_DASHBOARD_TAB
-        dashboard_tab.click()
-        assert dashboard_tab.get_attribute('value') == values.IOS_SELECTED_TAB_VALUE
+        learn_tab = main_dashboard.get_main_dashboard_learn_tab()
+        learn_tab.click()
+        assert learn_tab.get_attribute('value') == values.IOS_SELECTED_TAB_VALUE
 
     def test_validate_ui_elements(self, set_capabilities, setup_logging):
         """
