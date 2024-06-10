@@ -13,7 +13,7 @@ class AndroidCourseDashboard(AndroidBasePage):
     Course Dashbaord screen
     """
 
-    def get_my_courses_list(self, driver):
+    def get_my_courses_list(self):
         """
         Get courses list
 
@@ -31,29 +31,19 @@ class AndroidCourseDashboard(AndroidBasePage):
             android_elements.my_courses_course_item
         )
 
-    def get_course_dashboard_resources_tab(self):
+    def get_course_dashboard_home_tab(self):
         """
-        Get course dashboard resources tab
-        """
-
-        return self.global_contents.wait_and_get_element(
-            self.driver,
-            android_elements.course_dashboard_resources_tab
-        )
-
-    def get_course_dashboard_course_tab(self):
-        """
-        Get course dashboard courses tab
+        Get course dashboard home tab
         """
 
         self.global_contents.wait_for_element_visibility(
             self.driver,
-            android_elements.course_dashboard_course_tab
+            android_elements.course_dashboard_home_tab
         )
 
-        return self.global_contents.wait_and_get_element(
+        return self.global_contents.get_element_by_text(
             self.driver,
-            android_elements.course_dashboard_course_tab
+            android_elements.course_dashboard_home_tab
         )
 
     def get_course_dashboard_dates_tab(self):
@@ -61,7 +51,7 @@ class AndroidCourseDashboard(AndroidBasePage):
         Get course dashboard dates tab
         """
 
-        return self.global_contents.wait_and_get_element(
+        return self.global_contents.get_element_by_text(
             self.driver,
             android_elements.course_dashboard_dates_tab
         )
@@ -71,7 +61,7 @@ class AndroidCourseDashboard(AndroidBasePage):
         Get course dashboard videos tab
         """
 
-        return self.global_contents.wait_and_get_element(
+        return self.global_contents.get_element_by_text(
             self.driver,
             android_elements.course_dashboard_videos_tab
         )
@@ -81,9 +71,19 @@ class AndroidCourseDashboard(AndroidBasePage):
         Get course dashboard discussions tab
         """
 
-        return self.global_contents.wait_and_get_element(
+        return self.global_contents.get_element_by_text(
             self.driver,
             android_elements.course_dashboard_discussions_tab
+        )
+
+    def get_course_dashboard_more_tab(self):
+        """
+        Get course dashboard more tab
+        """
+
+        return self.global_contents.get_element_by_text(
+            self.driver,
+            android_elements.course_dashboard_more_tab
         )
 
     def get_back_button(self):

@@ -29,35 +29,22 @@ class AndroidMainDashboard(AndroidBasePage):
             android_elements.main_dashboard_fragment_discover
         )
 
-    def get_dashboard_tab(self):
+    def get_learn_tab(self):
         """
-        Get discover tab
+        Get learn tab
 
         Returns:
-            element: discover fragment element
+            element: learn fragment element
         """
 
         self.global_contents.wait_for_element_visibility(
             self.driver,
-            android_elements.main_dashboard_fragment_dashboard
+            android_elements.main_dashboard_fragment_learn
         )
 
         return self.global_contents.wait_and_get_element(
             self.driver,
-            android_elements.main_dashboard_fragment_dashboard
-        )
-
-    def get_programs_tab(self):
-        """
-        Get programs tab
-
-        Returns:
-            element: programs fragment element
-        """
-
-        return self.global_contents.wait_and_get_element(
-            self.driver,
-            android_elements.main_dashboard_fragment_programs
+            android_elements.main_dashboard_fragment_learn
         )
 
     def get_profile_tab(self):

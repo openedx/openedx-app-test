@@ -34,6 +34,11 @@ class AndroidRegister(AndroidBasePage):
         Get register title
         """
 
+        self.global_contents.wait_for_element_visibility(
+            self.driver,
+            android_elements.register_txt_sign_up_title
+        )
+
         return self.global_contents.wait_and_get_element(
             self.driver,
             android_elements.register_txt_sign_up_title
@@ -220,15 +225,10 @@ class AndroidRegister(AndroidBasePage):
         Get register honor code
         """
 
-        self.global_contents.wait_for_element_visibility(
-            self.driver,
-            android_elements.register_txt_honor_code
-        )
-
-        return self.global_contents.wait_and_get_element(
-            self.driver,
-            android_elements.register_txt_honor_code
-        )
+        honor_code = self.global_contents.get_ios_all_static_text(
+            self.driver
+            )
+        return honor_code[14]
 
     def get_register_txt_optional_field(self):
         """

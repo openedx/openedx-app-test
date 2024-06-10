@@ -49,10 +49,9 @@ class TestAndroidMyCoursesList:
 
         main_dashboard_page = AndroidMainDashboard(set_capabilities, setup_logging)
         my_courses_page = AndroidMyCoursesList(set_capabilities, setup_logging)
-        dashboard_tab = main_dashboard_page.get_dashboard_tab()
-        assert dashboard_tab.get_attribute('content-desc') == values.MAIN_DASHBOARD_DASHBOARD_TAB
-        dashboard_tab.click()
-        assert dashboard_tab.get_attribute('selected') == values.TRUE_LOWERCASE
+        learn_tab = main_dashboard_page.get_learn_tab()
+        assert learn_tab.get_attribute('content-desc') == values.MAIN_DASHBOARD_LEARN_TAB
+        assert learn_tab.get_attribute('selected') == values.TRUE_LOWERCASE
 
         assert my_courses_page.get_my_course_toolbar_title().text == values.MAIN_DASHBOARD_DASHBOARD_TAB
         assert my_courses_page.get_my_course_screen_title().text == values.MAIN_DASHBOARD_COURSES
@@ -72,9 +71,8 @@ class TestAndroidMyCoursesList:
         android_landing = AndroidLanding(set_capabilities, setup_logging)
         global_contents = Globals(setup_logging)
 
-        assert profile_page.get_logout_dialog_title() == values.TRUE_LOWERCASE
+        profile_page.get_settings_button().click()
         global_contents.scroll_from_element(set_capabilities, profile_page.get_profile_txt_privacy_policy())
-
         profile_page.get_profile_txt_logout().click()
         assert profile_page.get_logout_button().text == values.PROFILE_LOGOUT_BUTTON
         profile_page.get_logout_button().click()
