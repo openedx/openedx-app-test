@@ -74,10 +74,10 @@ class IosLogin(IosBasePage):
             webdriver element: username textfield element
         """
 
-        signin_username_textfield = self.global_contents.wait_and_get_element(
+        signin_username_textfield = self.global_contents.get_elements_by_name_ios(
             self.driver,
             ios_elements.signin_username_textfield
-        )
+        )[1]
         return signin_username_textfield
 
     def get_signin_password_text(self):
@@ -88,7 +88,7 @@ class IosLogin(IosBasePage):
             webdriver element: password text element
         """
 
-        signin_password_text = self.global_contents.wait_and_get_element(
+        signin_password_text = self.global_contents.get_element_by_name_ios(
             self.driver,
             ios_elements.signin_password_text
         )
@@ -102,10 +102,10 @@ class IosLogin(IosBasePage):
             webdriver element: password textfield element
         """
 
-        signin_password_textfield = self.global_contents.wait_and_get_element(
+        signin_password_textfield = self.global_contents.get_elements_by_name_ios(
             self.driver,
             ios_elements.signin_password_textfield
-        )
+        )[1]
         return signin_password_textfield
 
     def get_signin_forgot_password_button(self):
@@ -116,7 +116,7 @@ class IosLogin(IosBasePage):
             webdriver element: forgot password button element
         """
 
-        signin_forgot_password_button = self.global_contents.wait_and_get_element(
+        signin_forgot_password_button = self.global_contents.get_element_by_name_ios(
             self.driver,
             ios_elements.signin_forgot_password_button
         )
@@ -256,10 +256,10 @@ class IosLogin(IosBasePage):
             webdriver element: forgot email textfield element
         """
 
-        forgot_email_textfield = self.global_contents.wait_and_get_element(
+        forgot_email_textfield = self.global_contents.get_elements_by_name_ios(
             self.driver,
             ios_elements.forogt_email_textfield
-        )
+        )[1]
         return forgot_email_textfield
 
     def get_forgot_reset_password_button(self):

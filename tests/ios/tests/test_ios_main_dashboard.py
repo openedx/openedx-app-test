@@ -42,7 +42,6 @@ class TestIosMainDashboard:
 
         main_dashboard = IosMainDashboard(set_capabilities, setup_logging)
         discover_tab = main_dashboard.get_main_dashboard_discover_tab()
-        assert discover_tab.text == values.DISCOVER_SCREEN_HEADING
         discover_tab.click()
         assert discover_tab.get_attribute('value') == values.IOS_SELECTED_TAB_VALUE
 

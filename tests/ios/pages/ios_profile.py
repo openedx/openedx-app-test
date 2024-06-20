@@ -39,6 +39,19 @@ class IosProfile(IosBasePage):
             ios_elements.profile_edit_button
         )
 
+    def get_profile_settings_button(self):
+        """
+        Get profile settings button
+
+        Returns:
+            webdriver element: Profile settings button element
+        """
+
+        return self.global_contents.get_element_by_label_ios(
+            self.driver,
+            ios_elements.profile_settings_button
+        )
+
     def get_profile_img_profile(self):
         """
         Get profile image
@@ -78,7 +91,7 @@ class IosProfile(IosBasePage):
             ios_elements.profile_user_username_text
         )
 
-    def def_profile_settings_text(self):
+    def get_profile_settings_text(self):
         """
         Get settings text
 
@@ -99,9 +112,35 @@ class IosProfile(IosBasePage):
             webdriver element: Video settings button element
         """
 
-        return self.global_contents.wait_and_get_element(
+        return self.global_contents.get_elements_by_name_ios(
             self.driver,
             ios_elements.profile_video_settings_button
+        )[1]
+
+    def get_profile_manage_account_label(self):
+        """
+        Get manage account label
+
+        Returns:
+            webdriver element: Manage account label element
+        """
+
+        return self.global_contents.get_element_by_label_ios(
+            self.driver,
+            ios_elements.profile_manage_account_label
+        )
+
+    def get_profile_dates_calendar_label(self):
+        """
+        Get dates calendar label
+
+        Returns:
+            webdriver element: Dates & Calendar element
+        """
+
+        return self.global_contents.get_element_by_label_ios(
+            self.driver,
+            ios_elements.profile_dates_calendar_label
         )
 
     def get_profile_support_info_text(self):
@@ -300,3 +339,18 @@ class IosProfile(IosBasePage):
             ios_elements.back_button_navigation
         )
 
+    def get_manage_account_title(self):
+        """
+        Returns:
+            element: manage account title element
+        """
+
+        self.global_contents.wait_for_element_visibility(
+            self.driver,
+            ios_elements.manage_account_title
+        )
+
+        return self.global_contents.wait_and_get_element(
+            self.driver,
+            ios_elements.manage_account_title
+        )

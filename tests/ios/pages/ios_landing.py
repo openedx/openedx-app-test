@@ -4,6 +4,7 @@
 
 from tests.ios.pages import ios_elements
 from tests.ios.pages.ios_base_page import IosBasePage
+from appium.webdriver.common.mobileby import MobileBy
 
 
 class IosLanding(IosBasePage):
@@ -96,7 +97,7 @@ class IosLanding(IosBasePage):
 
         back_button = self.global_contents.wait_and_get_element(
             self.driver,
-            'Back'
+            'Start'
             )
         return back_button
 

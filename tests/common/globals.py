@@ -28,7 +28,7 @@ class Globals:
         self.setup_global_environment()
 
         # CAPABILITIES
-        self.ios_device_name = 'iPhone 15'
+        self.ios_device_name = 'iPhone 15 Pro'
         self.android_device_name = 'Android Phone'
         self.project_log = project_log
         self.medium_timeout = 7
@@ -36,7 +36,7 @@ class Globals:
         self.maximum_timeout = 15
         self.index = 0
         self.android_enter_key = 66
-        self.whats_new_enable = True
+        self.whats_new_enable = False
 
     def setup_global_environment(self):
         """
@@ -474,3 +474,42 @@ class Globals:
 
         return parent_element.find_element(MobileBy.ANDROID_UIAUTOMATOR,
                                             f'new UiSelector().resourceId("{child_element_locator}")')
+
+    def get_element_by_label_ios(self, driver, element_text):
+        """
+        Returns:
+            element: text element
+        """
+
+        self.wait_for_element_visibility(
+            driver,
+            element_text
+        )
+        return driver.find_element(MobileBy.IOS_PREDICATE,
+                                   f'label CONTAINS "{element_text}"')
+
+    def get_elements_by_name_ios(self, driver, element_name):
+        """
+        Returns:
+            element: name element
+        """
+
+        self.wait_for_element_visibility(
+            driver,
+            element_name
+        )
+        return driver.find_elements(MobileBy.IOS_PREDICATE,
+                                   f'name CONTAINS "{element_name}"')
+
+    def get_element_by_name_ios(self, driver, element_name):
+        """
+        Returns:
+            element: name element
+        """
+
+        self.wait_for_element_visibility(
+            driver,
+            element_name
+        )
+        return driver.find_element(MobileBy.IOS_PREDICATE,
+                                   f'name CONTAINS "{element_name}"')

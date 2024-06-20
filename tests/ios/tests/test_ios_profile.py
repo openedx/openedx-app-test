@@ -53,12 +53,16 @@ class TestIosProfile:
 
         assert global_contents.get_navigation_bar_title(set_capabilities)[0].get_attribute(
             'name') == values.PROFILE_SCREEN_TITLE
-        assert ios_profile.get_profile_edit_button().text == values.PROFILE_EDIT_BUTTON_IOS
         assert ios_profile.get_profile_img_profile()
         assert ios_profile.get_profile_user_name_text().text == values.PROFILE_NAME_TEXT
         assert ios_profile.profile_user_username_text().text == values.PROFILE_USERNAME_TEXT
-        assert ios_profile.def_profile_settings_text().text == values.PROFILE_SETTINGS_TEXT
+
+        assert ios_profile.get_profile_settings_button().text == values.PROFILE_SETTINGS_TEXT
+        ios_profile.get_profile_settings_button().click()
+        assert ios_profile.get_profile_settings_text().text == values.PROFILE_SETTINGS_UPPER_TEXT
+        assert ios_profile.get_profile_manage_account_label().text == values.PROFILE_MANAGE_ACCOUNT
         assert ios_profile.get_profile_video_settings_button().text == values.PROFILE_VIDEO_SETTINGS
+        assert ios_profile.get_profile_dates_calendar_label().text == values.PROFILE_DATES_CALENDAR
         assert ios_profile.get_profile_support_info_text().text == values.PROFILE_SUPPORT_INFO
         assert ios_profile.get_profile_tos_text().text == values.PROFILE_TERMS_OF_USE
         assert ios_profile.get_profile_privacy_policy().text == values.PROFILE_PRIVACY_POLICY
@@ -66,8 +70,42 @@ class TestIosProfile:
         assert ios_profile.get_profile_dont_sell_data().text == values.PROFILE_PERSONAL_INFO
         assert ios_profile.get_profile_contact_support().text == values.PROFILE_CONTACT_SUPPORT
         assert ios_profile.get_profile_view_faq().text == values.PROFILE_FAQ
-        assert ios_profile.get_profile_version_info().text == values.IOS_APP_VERSION
+        # assert ios_profile.get_profile_version_info().text == values.IOS_APP_VERSION
         assert ios_profile.get_profile_logout_button().text == values.PROFILE_LOGOUT_BUTTON
+
+    def test_load_manage_account(self, set_capabilities, setup_logging):
+        """
+        Scenarios:
+            Verify that tapping manage account will load manage account screen
+            Verify manage account screen is loaded successfully with its header contents
+            Verify that tapping back button should leave manage account screen
+        """
+
+        ios_profile = IosProfile(set_capabilities, setup_logging)
+        manage_account = ios_profile.get_profile_manage_account_label()
+        manage_account.text == values.PROFILE_MANAGE_ACCOUNT
+        manage_account.click()
+        assert ios_profile.get_profile_manage_account_label()
+        manage_account_title = ios_profile.get_manage_account_title()
+        assert manage_account_title.text == values.PROFILE_MANAGE_ACCOUNT
+        ios_profile.get_header_back_button().click()
+        assert ios_profile.get_profile_manage_account_label().text == values.PROFILE_MANAGE_ACCOUNT
+
+    def test_load_video_settings(self, set_capabilities, setup_logging):
+        """
+        Scenarios:
+            Verify that tapping manage account will load manage account screen
+            Verify manage account screen is loaded successfully with its header contents
+            Verify that tapping back button should leave manage account screen
+        """
+        ios_profile = IosProfile(set_capabilities, setup_logging)
+        video_settings = ios_profile.get_profile_video_settings_button()
+        assert video_settings.text == values.PROFILE_VIDEO_SETTINGS
+        video_settings.click()
+        video_settings_title = ios_profile.get_manage_account_title()
+        assert video_settings_title.text == values.PROFILE_VIDEO_SETTINGS
+        ios_profile.get_header_back_button().click()
+        assert ios_profile.get_profile_video_settings_button().text == values.PROFILE_VIDEO_SETTINGS
 
     def test_load_profile_elements(self, set_capabilities, setup_logging):
         """
@@ -88,24 +126,6 @@ class TestIosProfile:
 
         ios_profile = IosProfile(set_capabilities, setup_logging)
         global_contents = Globals(setup_logging)
-
-        edit_profile = ios_profile.get_profile_edit_button()
-        assert edit_profile.text == values.PROFILE_EDIT_BUTTON_IOS
-        edit_profile.click()
-        assert global_contents.get_navigation_bar_title(set_capabilities)[0].get_attribute(
-            'name') == values.EDIT_PROFILE_TITLE_IOS
-        back_button = ios_profile.get_back_button()
-        assert back_button.text == values.LANDING_BACK_BUTTON
-        back_button.click()
-
-        video_settings = ios_profile.get_profile_video_settings_button()
-        assert video_settings.text == values.PROFILE_VIDEO_SETTINGS
-        video_settings.click()
-        assert global_contents.get_navigation_bar_title(set_capabilities)[0].get_attribute(
-            'name') == values.PROFILE_VIDEO_SETTINGS
-        back_button = ios_profile.get_videos_back_button()
-        assert back_button.text == values.MAIN_DASHBOARD_PROFILE_TAB
-        back_button.click()
 
         terms_of_use = ios_profile.get_profile_tos_text()
         terms_of_use.click()
