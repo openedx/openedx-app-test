@@ -258,7 +258,7 @@ class Globals:
 
         try:
             if self.target_environment == values.ANDROID:
-                element = WebDriverWait(driver, self.medium_timeout).until(
+                element = WebDriverWait(driver, self.maximum_timeout).until(
                     expected_conditions.visibility_of_element_located((
                         By.ID,
                         target_elements
@@ -513,3 +513,16 @@ class Globals:
         )
         return driver.find_element(MobileBy.IOS_PREDICATE,
                                    f'name CONTAINS "{element_name}"')
+
+    def get_element_by_text(self, driver, element_text):
+        """
+        Returns:
+            element: text element
+        """
+
+        self.wait_for_element_visibility(
+            driver,
+            element_text
+        )
+        return driver.find_element(MobileBy.ANDROID_UIAUTOMATOR,
+                                            f'new UiSelector().textContains("{element_text}")')

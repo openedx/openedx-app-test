@@ -6,6 +6,7 @@ from tests.android.pages.android_whats_new import AndroidWhatsNew
 from tests.android.pages.android_main_dashboard import AndroidMainDashboard
 from tests.android.pages.android_profile import AndroidProfile
 from tests.android.pages.android_landing import AndroidLanding
+from tests.android.pages.android_my_courses_list import AndroidMyCoursesList
 from tests.common import values
 from tests.common.globals import Globals
 
@@ -40,22 +41,22 @@ class TestAndroidMainDashboard:
         """
 
         main_dashboard_page = AndroidMainDashboard(set_capabilities, setup_logging)
+        my_courses_page = AndroidMyCoursesList(set_capabilities, setup_logging)
+
+        assert my_courses_page.get_my_courses_description().text == values.MAIN_DASHBOARD_COURSE_DESCRIPTION
+        learn_tab = main_dashboard_page.get_learn_tab()
+        assert learn_tab.get_attribute('content-desc') == values.MAIN_DASHBOARD_LEARN_TAB
+        assert learn_tab.get_attribute('selected') == values.TRUE_LOWERCASE
+
         discover_tab = main_dashboard_page.get_discover_tab()
         assert discover_tab.get_attribute('content-desc') == values.DISCOVER_SCREEN_HEADING
+        assert discover_tab.get_attribute('selected') == values.FALSE_LOWERCASE
+        discover_tab.click()
         assert discover_tab.get_attribute('selected') == values.TRUE_LOWERCASE
-
-        dashboard_tab = main_dashboard_page.get_dashboard_tab()
-        assert dashboard_tab.get_attribute('content-desc') == values.MAIN_DASHBOARD_DASHBOARD_TAB
-        dashboard_tab.click()
-        assert dashboard_tab.get_attribute('selected') == values.TRUE_LOWERCASE
-
-        programs_tab = main_dashboard_page.get_programs_tab()
-        assert programs_tab.get_attribute('content-desc') == values.MAIN_DASHBOARD_PROGRAMS_TAB
-        programs_tab.click()
-        assert programs_tab.get_attribute('selected') == values.TRUE_LOWERCASE
 
         profile_tab = main_dashboard_page.get_profile_tab()
         assert profile_tab.get_attribute('content-desc') == values.MAIN_DASHBOARD_PROFILE_TAB
+        assert profile_tab.get_attribute('selected') == values.FALSE_LOWERCASE
         profile_tab.click()
         assert profile_tab.get_attribute('selected') == values.TRUE_LOWERCASE
 
@@ -71,7 +72,7 @@ class TestAndroidMainDashboard:
         android_landing = AndroidLanding(set_capabilities, setup_logging)
         global_contents = Globals(setup_logging)
 
-        assert profile_page.get_logout_dialog_title() == values.TRUE_LOWERCASE
+        profile_page.get_settings_button().click()
         global_contents.scroll_from_element(set_capabilities, profile_page.get_profile_txt_privacy_policy())
 
         profile_page.get_profile_txt_logout().click()

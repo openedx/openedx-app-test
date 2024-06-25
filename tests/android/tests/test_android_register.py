@@ -4,6 +4,7 @@
 
 from tests.android.pages.android_landing import AndroidLanding
 from tests.android.pages.android_register import AndroidRegister
+from tests.android.pages.android_sign_in import AndroidSignIn
 from tests.common import values
 from tests.common.globals import Globals
 
@@ -51,8 +52,9 @@ class TestAndroidRegister:
 
         android_register = AndroidRegister(set_capabilities, setup_logging)
         global_contents = Globals(setup_logging)
+        android_sign_in = AndroidSignIn(set_capabilities, setup_logging)
 
-        assert android_register.get_register_title().text == values.REGISTER_SIGN_UP_HEADING
+        assert android_register.get_register_title().text == values.REGISTER
         assert android_register.get_register_description().text == values.REGISTER_CREATE_ACCOUNT_MESSAGE
         assert android_register.get_register_txt_name_label().text == values.REGISTER_FULL_NAME_TITLE
         assert android_register.get_register_tf_name().get_attribute('clickable') == values.TRUE_LOWERCASE
@@ -71,13 +73,13 @@ class TestAndroidRegister:
         global_contents.scroll_from_element(set_capabilities, android_register.get_register_tf_password())
         assert android_register.get_register_tf_country().get_attribute('clickable') == values.TRUE_LOWERCASE
         assert android_register.get_register_txt_country_description().text == values.REGISTER_COUNTRY_MESSAGE
-        assert android_register.get_register_txt_honor_code().text == values.REGISTER_HONOR_POLICY_TEXT
+        privacy_honor_text = android_sign_in.get_all_textviews()[7]
+        assert privacy_honor_text.text == values.REGISTER_HONOR_POLICY_TEXT
         assert android_register.get_register_txt_optional_field()
         assert android_register.get_register_btn_create_account().get_attribute('clickable') == values.TRUE_LOWERCASE
         assert android_register.get_txt_google_auth().text == values.GOOGLE_AUTH_TEXT
         assert android_register.get_txt_facebook_auth().text == values.FACEBOOK_AUTH_TEXT
         assert android_register.get_txt_microsoft_auth().text == values.MICROSOFT_AUTH_TEXT
-
 
     def test_fields_error_description_smoke(self, set_capabilities, setup_logging):
         """
@@ -149,4 +151,4 @@ class TestAndroidRegister:
         android_register.get_register_country_search().send_keys('United States of America')
         android_register.get_txt_US_title().click()
         android_register.get_register_btn_create_account().click()
-        assert android_register.get_main_dashboard_footer().text == values.DISCOVER_SCREEN_HEADING
+        assert android_register.get_main_dashboard_footer().text == values.MAIN_DASHBOARD_LEARN_TAB

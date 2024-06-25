@@ -4,6 +4,7 @@
 
 from tests.android.pages import android_elements
 from tests.android.pages.android_base_page import AndroidBasePage
+from appium.webdriver.common.mobileby import MobileBy
 
 
 class AndroidProfile(AndroidBasePage):
@@ -104,10 +105,9 @@ class AndroidProfile(AndroidBasePage):
             element: profile support info element
         """
 
-        return self.global_contents.wait_and_get_element(
+        return self.global_contents.get_element_by_text(
             self.driver,
-            android_elements.profile_txt_support_info
-        )
+            android_elements.profile_txt_support_info)
 
     def get_profile_txt_contact_support(self):
         """
@@ -115,7 +115,7 @@ class AndroidProfile(AndroidBasePage):
             element: profile contact support element
         """
 
-        return self.global_contents.wait_and_get_element(
+        return self.global_contents.get_element_by_text(
             self.driver,
             android_elements.profile_txt_contact_support
         )
@@ -131,7 +131,7 @@ class AndroidProfile(AndroidBasePage):
             android_elements.profile_txt_terms_of_use
         )
 
-        return self.global_contents.wait_and_get_element(
+        return self.global_contents.get_element_by_text(
             self.driver,
             android_elements.profile_txt_terms_of_use
         )
@@ -147,7 +147,7 @@ class AndroidProfile(AndroidBasePage):
             android_elements.profile_txt_privacy_policy
         )
 
-        return self.global_contents.wait_and_get_element(
+        return self.global_contents.get_element_by_text(
             self.driver,
             android_elements.profile_txt_privacy_policy
         )
@@ -158,7 +158,7 @@ class AndroidProfile(AndroidBasePage):
             element: profile cookie policy element
         """
 
-        return self.global_contents.wait_and_get_element(
+        return self.global_contents.get_element_by_text(
             self.driver,
             android_elements.profile_txt_cookie_policy
         )
@@ -174,7 +174,7 @@ class AndroidProfile(AndroidBasePage):
             android_elements.profile_personal_info
         )
 
-        return self.global_contents.wait_and_get_element(
+        return self.global_contents.get_element_by_text(
             self.driver,
             android_elements.profile_personal_info
         )
@@ -190,7 +190,7 @@ class AndroidProfile(AndroidBasePage):
             android_elements.profile_txt_view_faq
         )
 
-        return self.global_contents.wait_and_get_element(
+        return self.global_contents.get_element_by_text(
             self.driver,
             android_elements.profile_txt_view_faq
         )
@@ -201,7 +201,7 @@ class AndroidProfile(AndroidBasePage):
             element: profile app version code element
         """
 
-        return self.global_contents.wait_and_get_element(
+        return self.global_contents.get_element_by_text(
             self.driver,
             android_elements.profile_app_version_code
         )
@@ -212,7 +212,7 @@ class AndroidProfile(AndroidBasePage):
             element: profile up to date element
         """
 
-        return self.global_contents.wait_and_get_element(
+        return self.global_contents.get_element_by_text(
             self.driver,
             android_elements.profile_txt_up_to_date
         )
@@ -228,7 +228,7 @@ class AndroidProfile(AndroidBasePage):
             android_elements.profile_txt_logout
         )
 
-        return self.global_contents.wait_and_get_element(
+        return self.global_contents.get_element_by_text(
             self.driver,
             android_elements.profile_txt_logout
         )
@@ -265,6 +265,11 @@ class AndroidProfile(AndroidBasePage):
         Returns:
             element: logout button element
         """
+
+        self.global_contents.wait_for_element_visibility(
+            self.driver,
+            android_elements.logout_button
+        )
 
         return self.global_contents.wait_and_get_element(
             self.driver,
@@ -320,3 +325,56 @@ class AndroidProfile(AndroidBasePage):
         )
         profile_tab.click()
         return profile_tab.get_attribute('selected')
+
+    def get_settings_button(self):
+        """
+        Returns:
+            element: settings button element
+        """
+
+        return self.driver.find_element_by_xpath('//android.view.View[@content-desc="Settings"]')
+
+    def get_settings_screen_title(self):
+        """
+        Returns:
+            element: settings screen title element
+        """
+
+        self.global_contents.wait_for_element_visibility(
+            self.driver,
+            android_elements.profile_screen_title
+        )
+
+        return self.global_contents.get_element_by_text(
+            self.driver,
+            android_elements.profile_settings_txt)
+
+    def get_manage_account_label(self):
+        """
+        Returns:
+            element: manage account label element
+        """
+
+        return self.global_contents.get_element_by_text(
+            self.driver,
+            android_elements.profile_manage_account_label)
+
+    def get_video_label(self):
+        """
+        Returns:
+            element: video label element
+        """
+
+        return self.global_contents.get_element_by_text(
+            self.driver,
+            android_elements.profile_video_label)
+
+    def get_dates_calendar_label(self):
+        """
+        Returns:
+            element: Dates & Calendar label element
+        """
+
+        return self.global_contents.get_element_by_text(
+            self.driver,
+            android_elements.profile_dates_calendar_label)
