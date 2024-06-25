@@ -36,7 +36,7 @@ class Globals:
         self.maximum_timeout = 15
         self.index = 0
         self.android_enter_key = 66
-        self.whats_new_enable = True
+        self.whats_new_enable = False
 
     def setup_global_environment(self):
         """
@@ -258,7 +258,7 @@ class Globals:
 
         try:
             if self.target_environment == values.ANDROID:
-                element = WebDriverWait(driver, self.medium_timeout).until(
+                element = WebDriverWait(driver, self.maximum_timeout).until(
                     expected_conditions.visibility_of_element_located((
                         By.ID,
                         target_elements
@@ -474,3 +474,16 @@ class Globals:
 
         return parent_element.find_element(MobileBy.ANDROID_UIAUTOMATOR,
                                             f'new UiSelector().resourceId("{child_element_locator}")')
+
+    def get_element_by_text(self, driver, element_text):
+        """
+        Returns:
+            element: text element
+        """
+
+        self.wait_for_element_visibility(
+            driver,
+            element_text
+        )
+        return driver.find_element(MobileBy.ANDROID_UIAUTOMATOR,
+                                            f'new UiSelector().textContains("{element_text}")')

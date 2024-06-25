@@ -50,6 +50,11 @@ class AndroidMyCoursesList(AndroidBasePage):
             element: course description element
         """
 
+        self.global_contents.wait_for_element_visibility(
+            self.driver,
+            android_elements.my_courses_description
+        )
+
         return self.global_contents.wait_and_get_element(
             self.driver,
             android_elements.my_courses_description
