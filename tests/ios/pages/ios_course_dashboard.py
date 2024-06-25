@@ -49,7 +49,7 @@ class IosCourseDashboard(IosBasePage):
             ios_elements.course_dashboard_course_tab
         )
 
-        return self.global_contents.wait_and_get_element(
+        return self.global_contents.get_element_by_label_ios(
             self.driver,
             ios_elements.course_dashboard_course_tab
         )
@@ -59,7 +59,7 @@ class IosCourseDashboard(IosBasePage):
         Get course dashboard dates tab
         """
 
-        return self.global_contents.wait_and_get_element(
+        return self.global_contents.get_element_by_label_ios(
             self.driver,
             ios_elements.course_dashboard_dates_tab
         )
@@ -69,7 +69,7 @@ class IosCourseDashboard(IosBasePage):
         Get course dashboard videos tab
         """
 
-        return self.global_contents.wait_and_get_element(
+        return self.global_contents.get_element_by_label_ios(
             self.driver,
             ios_elements.course_dashboard_videos_tab
         )
@@ -79,7 +79,7 @@ class IosCourseDashboard(IosBasePage):
         Get course dashboard discussions tab
         """
 
-        return self.global_contents.wait_and_get_element(
+        return self.global_contents.get_element_by_label_ios(
             self.driver,
             ios_elements.course_dashboard_discussions_tab
         )
@@ -89,7 +89,7 @@ class IosCourseDashboard(IosBasePage):
         Get course dashboard more tab
         """
 
-        return self.global_contents.wait_and_get_element(
+        return self.global_contents.get_element_by_label_ios(
             self.driver,
             ios_elements.course_dashboard_more_tab
         )
@@ -101,5 +101,5 @@ class IosCourseDashboard(IosBasePage):
 
         return self.global_contents.wait_and_get_element(
             self.driver,
-            ios_elements.main_dashboard_tab
+            ios_elements.back_button_navigation
         )

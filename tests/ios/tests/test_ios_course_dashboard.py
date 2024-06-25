@@ -62,7 +62,7 @@ class TestIosCourseDashboard:
         second_course.click()
 
         course_tab = course_dashboard_page.get_course_dashboard_course_tab()
-        assert course_tab.text == values.COURSE_DASHBOARD_COURSE_TAB
+        assert course_tab.text == values.COURSE_DASHBOARD_HOME_TAB
 
         videos_tab = course_dashboard_page.get_course_dashboard_videos_tab()
         assert videos_tab.text == values.COURSE_DASHBOARD_VIDEOS_TAB
@@ -81,7 +81,7 @@ class TestIosCourseDashboard:
         more_tab.click()
 
         dashboard_tab = course_dashboard_page.navigate_to_main_dashboard_tab()
-        assert dashboard_tab.get_attribute('name') == values.MAIN_DASHBOARD_DASHBOARD_TAB
+        assert dashboard_tab.get_attribute('label') == values.LANDING_BACK_BUTTON
         dashboard_tab.click()
 
     def test_sign_out_smoke(self, set_capabilities, setup_logging):
@@ -100,6 +100,8 @@ class TestIosCourseDashboard:
         assert profile_tab.text == values.MAIN_DASHBOARD_PROFILE_TAB
         profile_tab.click()
         assert profile_tab.get_attribute('value') == values.IOS_SELECTED_TAB_VALUE
+        assert ios_profile.get_profile_settings_button().text == values.PROFILE_SETTINGS_TEXT
+        ios_profile.get_profile_settings_button().click()
         assert ios_profile.get_profile_logout_button().text == values.PROFILE_LOGOUT_BUTTON
         ios_profile.get_profile_logout_button().click()
         assert ios_profile.get_logout_close_button().text == 'Close'

@@ -34,9 +34,13 @@ class IosMainDashboard(IosBasePage):
             webdriver element: Discover tab element
         """
 
-        discover_tab = self.global_contents.get_all_views_on_screen(
+        self.global_contents.wait_for_element_visibility(
             self.driver,
-            ios_elements.all_buttons)[0]
+            ios_elements.main_dashboard_discover_tab)
+
+        discover_tab = self.global_contents.wait_and_get_element(
+            self.driver,
+            ios_elements.main_dashboard_discover_tab)
         return discover_tab
 
     def get_main_dashboard_programs_tab(self):
@@ -47,9 +51,9 @@ class IosMainDashboard(IosBasePage):
             webdriver element: Programs tab element
         """
 
-        programs_tab = self.global_contents.get_all_views_on_screen(
+        programs_tab = self.global_contents.wait_and_get_element(
             self.driver,
-            ios_elements.all_buttons)[2]
+            ios_elements.main_dashboard_programs_tab)
         return programs_tab
 
     def get_main_dashboard_tab(self):
@@ -60,9 +64,9 @@ class IosMainDashboard(IosBasePage):
             webdriver element: Dashboard tab element
         """
 
-        dashboard = self.global_contents.get_all_views_on_screen(
+        dashboard = self.global_contents.wait_and_get_element(
             self.driver,
-            ios_elements.all_buttons)[1]
+            ios_elements.main_dashboard_tab)
         return dashboard
 
     def get_main_dashboard_profile_tab(self):
@@ -73,7 +77,7 @@ class IosMainDashboard(IosBasePage):
             webdriver element: profile tab element
         """
 
-        profile_tab = self.global_contents.get_all_views_on_screen(
+        profile_tab = self.global_contents.wait_and_get_element(
             self.driver,
-            ios_elements.all_buttons)[3]
+            'Profile')
         return profile_tab

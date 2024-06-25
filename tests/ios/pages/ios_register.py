@@ -349,10 +349,10 @@ class IosRegister(IosBasePage):
             webdriver elements: country search field
         """
 
-        country_field = self.global_contents.wait_and_get_element(
+        country_field = self.global_contents.get_elements_by_name_ios(
             self.driver,
             ios_elements.register_picker_search_textfield
-        )
+        )[1]
         return country_field
 
     def get_picker_accept_button(self):

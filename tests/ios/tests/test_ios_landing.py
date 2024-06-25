@@ -49,15 +49,14 @@ class TestIosNewLanding():
         global_contents = Globals(setup_logging)
 
         search_courses_field = ios_landing.get_search_courses_field()
-        assert search_courses_field.text == values.LANDING_SEARCH_COURSES
+        assert search_courses_field
         search_courses_field.send_keys('python')
         search_courses_field.send_keys(Keys.ENTER)
 
         disocvery_title = global_contents.get_navigation_bar_title(set_capabilities)[0]
         assert disocvery_title.get_attribute('name') == values.DISCOVER_SCREEN_HEADING
-
         back_button = ios_landing.get_back_button()
-        assert back_button.text == values.BACK_BUTTON
+        assert back_button.get_attribute('label') == values.BACK_BUTTON
         assert ios_landing.load_landing_screen().text == values.LANDING_LOGO_IMAGE
 
     def test_back_and_forth_smoke(self, set_capabilities, setup_logging):

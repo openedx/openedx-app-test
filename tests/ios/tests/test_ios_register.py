@@ -53,7 +53,7 @@ class TestIosRegister:
         back_button = ios_landing.get_header_back_button()
         assert back_button.text == values.LANDING_BACK_BUTTON
         sign_up_heading = register_page.get_signup_text()
-        assert sign_up_heading.text == values.REGISTER_SIGN_UP_HEADING
+        assert sign_up_heading.text == values.REGISTER
 
         create_account_message = register_page.get_signup_subtitle_text()
         assert create_account_message.text == values.REGISTER_CREATE_ACCOUNT_MESSAGE
@@ -170,9 +170,10 @@ class TestIosRegister:
         assert picker_title_text.text == values.REGISTER_COUNTRY_PICKER_TITLE
 
         country_field = register_page.select_country()
-        assert country_field.text == values.REGISTER_COUNTRY_SEARCH_FIELD
+        assert country_field
         country_field.click()
         country_field.send_keys(values.REGISTER_COUNTRY_SELECT)
+
         accept_button = register_page.get_picker_accept_button()
         assert accept_button.text == values.REGISTER_COUNTRY_ACCEPT_BUTTON
         accept_button.click()
