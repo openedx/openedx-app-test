@@ -526,3 +526,16 @@ class Globals:
         )
         return driver.find_element(MobileBy.ANDROID_UIAUTOMATOR,
                                             f'new UiSelector().textContains("{element_text}")')
+
+    def get_elements_by_text(self, driver, element_text):
+        """
+        Returns:
+            element: text element
+        """
+
+        self.wait_for_element_visibility(
+            driver,
+            element_text
+        )
+        return driver.find_elements(MobileBy.ANDROID_UIAUTOMATOR,
+                                            f'new UiSelector().textContains("{element_text}")')
