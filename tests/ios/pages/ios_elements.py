@@ -94,6 +94,8 @@ main_dashboard_discover_tab = 'Discover'
 main_dashboard_programs_tab = 'Programs'
 main_dashboard_profile_tab = 'Profile'
 main_dashboard_tab = 'Dashboard'
+main_dashboard_learn_tab = 'Learn'
+main_dashboard_dropdown_text = 'dropdown_menu_text'
 
 #  MY COURSES LIST SCREEN
 my_courses_header_text = 'courses_header_text'
