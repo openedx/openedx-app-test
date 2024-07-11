@@ -43,6 +43,23 @@ class IosMainDashboard(IosBasePage):
             ios_elements.main_dashboard_discover_tab)
         return discover_tab
 
+    def get_main_dashboard_learn_tab(self):
+        """
+        Get discover tab
+
+        Returns:
+            webdriver element: Discover tab element
+        """
+
+        self.global_contents.wait_for_element_visibility(
+            self.driver,
+            ios_elements.main_dashboard_learn_tab)
+
+        discover_tab = self.global_contents.wait_and_get_element(
+            self.driver,
+            ios_elements.main_dashboard_learn_tab)
+        return discover_tab
+
     def get_main_dashboard_programs_tab(self):
         """
         Get programs tab
