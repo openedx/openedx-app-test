@@ -131,7 +131,7 @@ class AndroidProfile(AndroidBasePage):
             android_elements.profile_txt_terms_of_use
         )
 
-        return self.global_contents.wait_and_get_element(
+        return self.global_contents.get_element_by_text(
             self.driver,
             android_elements.profile_txt_terms_of_use
         )
@@ -147,7 +147,7 @@ class AndroidProfile(AndroidBasePage):
             android_elements.profile_txt_privacy_policy
         )
 
-        return self.global_contents.wait_and_get_element(
+        return self.global_contents.get_element_by_text(
             self.driver,
             android_elements.profile_txt_privacy_policy
         )
@@ -174,7 +174,7 @@ class AndroidProfile(AndroidBasePage):
             android_elements.profile_personal_info
         )
 
-        return self.global_contents.wait_and_get_element(
+        return self.global_contents.get_element_by_text(
             self.driver,
             android_elements.profile_personal_info
         )

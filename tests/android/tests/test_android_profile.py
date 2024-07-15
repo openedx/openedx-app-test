@@ -59,8 +59,17 @@ class TestAndroidProfile:
         assert profile_page.get_profile_txt_settings().text == values.PROFILE_SETTINGS_TEXT
         assert profile_page.get_profile_txt_video_settings().text == values.PROFILE_VIDEO_SETTINGS
         assert profile_page.get_profile_txt_support_info().text == values.PROFILE_SUPPORT_INFO
+        assert profile_page.get_settings_screen_title().text == values.PROFILE_SETTINGS_UPPER_TEXT
+        manage_account_label = profile_page.get_manage_account_label()
+        assert manage_account_label.text == values.PROFILE_MANAGE_ACCOUNT_LABEL
+
+        video_label = profile_page.get_video_label()
+        assert video_label.text == values.PROFILE_VIDEO_LABEL
+        dates_label = profile_page.get_dates_calendar_label()
+        assert dates_label.text == values.PROFILE_DATES_CALENDAR_LABEL
+        assert profile_page.get_profile_txt_support_info().text == values.PROFILE_SUPPORT
         assert profile_page.get_profile_txt_contact_support().text == values.PROFILE_CONTACT_SUPPORT
-        assert profile_page.get_profile_txt_terms_of_use().text == values.PROFILE_TERMS_OF_USE
+        assert profile_page.get_profile_txt_terms_of_use().text == values.PROFILE_TERMS_OF_USE_UPPERCASE
         assert profile_page.get_profile_txt_privacy_policy().text == values.PROFILE_PRIVACY_POLICY
 
         global_contents.scroll_from_element(set_capabilities, profile_page.get_profile_txt_privacy_policy())
@@ -99,7 +108,13 @@ class TestAndroidProfile:
         assert profile_page.get_profile_screen_title().text == values.PROFILE_SCREEN_TITLE
         log_out_button = profile_page.get_profile_txt_logout()
         personal_info = profile_page.get_profile_personal_info()
-
+        global_contents.scroll_screen(set_capabilities, profile_page.get_profile_txt_contact_support(), profile_page.get_profile_txt_view_faq())
+        manage_account_label = profile_page.get_manage_account_label()
+        assert manage_account_label.text == values.PROFILE_MANAGE_ACCOUNT_LABEL
+        manage_account_label.click()
+        back_button = global_contents.get_back_button(set_capabilities)
+        assert back_button.get_attribute('displayed') == values.TRUE_LOWERCASE
+        back_button.click()
         global_contents.scroll_screen(set_capabilities, personal_info, log_out_button)
         video_settings = profile_page.get_profile_txt_video_settings()
         video_settings.click()
@@ -108,7 +123,7 @@ class TestAndroidProfile:
 
         terms_of_use = profile_page.get_profile_txt_terms_of_use()
         terms_of_use.click()
-        assert global_contents.get_txt_toolbar_title(set_capabilities).text == values.PROFILE_TERMS_OF_USE
+        assert global_contents.get_txt_toolbar_title(set_capabilities).text == values.PROFILE_TERMS_OF_USE_UPPERCASE
         global_contents.get_back_button(set_capabilities).click()
 
         profile_page.get_profile_txt_privacy_policy().click()

@@ -59,6 +59,10 @@ class TestAndroidCourseDashboard:
 
         second_course = course_dashboard_page.get_my_courses_list(set_capabilities)[1]
         second_course_name = global_contents.get_child_element(second_course, android_elements.my_courses_course_name)
+        # second_course = course_dashboard_page.get_my_courses_list()[1]
+        second_course_name = global_contents.get_element_by_text(set_capabilities, values.MY_COURSES_SECOND_COURSE_NAME)
+        # second_course_name = global_contents.get_child_element(second_course, android_elements.my_courses_course_name)
+
         assert second_course_name.text == values.MY_COURSES_SECOND_COURSE_NAME
         second_course_name.click()
 
