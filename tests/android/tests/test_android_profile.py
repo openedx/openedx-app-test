@@ -52,7 +52,7 @@ class TestAndroidProfile:
         profile_tab.click()
         profile_page.get_settings_button().click()
 
-        assert profile_page.get_settings_screen_title().text == values.PROFILE_SETTINGS_TEXT
+        assert profile_page.get_settings_screen_title().text == values.PROFILE_SETTINGS_UPPER_TEXT
         manage_account_label = profile_page.get_manage_account_label()
         assert manage_account_label.text == values.PROFILE_MANAGE_ACCOUNT_LABEL
 
@@ -60,9 +60,9 @@ class TestAndroidProfile:
         assert video_label.text == values.PROFILE_VIDEO_LABEL
         dates_label = profile_page.get_dates_calendar_label()
         assert dates_label.text == values.PROFILE_DATES_CALENDAR_LABEL
-        assert profile_page.get_profile_txt_support_info().text == values.PROFILE_SUPPORT_INFO
+        assert profile_page.get_profile_txt_support_info().text == values.PROFILE_SUPPORT
         assert profile_page.get_profile_txt_contact_support().text == values.PROFILE_CONTACT_SUPPORT
-        assert profile_page.get_profile_txt_terms_of_use().text == values.PROFILE_TERMS_OF_USE
+        assert profile_page.get_profile_txt_terms_of_use().text == values.PROFILE_TERMS_OF_USE_UPPERCASE
         assert profile_page.get_profile_txt_privacy_policy().text == values.PROFILE_PRIVACY_POLICY
 
         global_contents.scroll_from_element(set_capabilities, profile_page.get_profile_txt_privacy_policy())
@@ -93,7 +93,7 @@ class TestAndroidProfile:
         profile_page = AndroidProfile(set_capabilities, setup_logging)
         global_contents = Globals(setup_logging)
 
-        global_contents.scroll_screen(set_capabilities, profile_page.get_profile_txt_contact_support(), profile_page.get_profile_txt_cookie_policy())
+        global_contents.scroll_screen(set_capabilities, profile_page.get_profile_txt_contact_support(), profile_page.get_profile_txt_view_faq())
         manage_account_label = profile_page.get_manage_account_label()
         assert manage_account_label.text == values.PROFILE_MANAGE_ACCOUNT_LABEL
         manage_account_label.click()
@@ -116,7 +116,7 @@ class TestAndroidProfile:
         back_button.click()
         terms_of_use = profile_page.get_profile_txt_terms_of_use()
         terms_of_use.click()
-        assert global_contents.get_txt_toolbar_title(set_capabilities).text == values.PROFILE_TERMS_OF_USE
+        assert global_contents.get_txt_toolbar_title(set_capabilities).text == values.PROFILE_TERMS_OF_USE_UPPERCASE
         global_contents.get_back_button(set_capabilities).click()
 
         profile_page.get_profile_txt_privacy_policy().click()
