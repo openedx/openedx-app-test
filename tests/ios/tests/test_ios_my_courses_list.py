@@ -49,10 +49,20 @@ class TestIosMyCoursesList:
         """
 
         my_courses_list = IosMyCoursesList(set_capabilities, setup_logging)
-        assert my_courses_list.get_my_courses_header_text().text == values.MAIN_DASHBOARD_COURSES
-        assert my_courses_list.get_my_courses_welcomeback_text().text == values.MAIN_DASHBOARD_COURSE_DESCRIPTION
+        assert my_courses_list.get_my_courses_header_text().text == values.MAIN_DASHBOARD_LEARN_TAB
         assert my_courses_list.get_my_course_image().get_attribute('visible') == values.TRUE_LOWERCASE
         assert my_courses_list.get_my_course_org_text().text == values.MAIN_DASHBOARD_COURSE_ORG
-        assert my_courses_list.get_my_course_name_text().get_attribute('visible') == values.TRUE_LOWERCASE
-        assert my_courses_list.get_my_course_end_text().get_attribute('visible') == values.TRUE_LOWERCASE
-        assert my_courses_list.get_my_course_arrow_image().text == values.MY_COURSES_ARROW_IMAGE_TEXT
+        assert my_courses_list.get_my_course_name_text().text == values.MAIN_DASHBOARD_COURSE_NAME
+        assert 'Ends' in my_courses_list.get_my_course_end_text().text
+        buttons = my_courses_list.get_all_buttons()
+
+        due_assignment = buttons[6]
+        assert 'Assignments' in due_assignment.text
+        resume_course = buttons[7]
+        assert 'Resume' in resume_course.text
+        second_course = buttons[9]
+        assert second_course.text == values.MY_COURSES_SECOND_COURSE_NAME
+        third_course = buttons[10]
+        assert third_course.text == 'How to Learn Online'
+        assert values.MAIN_DASHBOARD_COURSE_DESCRIPTION in my_courses_list.get_my_courses_welcomeback_text().text
+        my_courses_list.get_my_courses_welcomeback_text().click()
