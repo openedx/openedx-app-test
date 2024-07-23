@@ -179,6 +179,10 @@ class IosLanding(IosBasePage):
             webdriver element: Allow Element
         """
 
+        self.global_contents.wait_for_element_visibility(
+            self.driver,
+            ios_elements.notification_allow_button)
+
         return self.global_contents.wait_and_get_element(
             self.driver,
             ios_elements.notification_allow_button)

@@ -63,7 +63,7 @@ class IosMyCoursesList(IosBasePage):
             webdriver element: course org text element
         """
 
-        return self.global_contents.wait_and_get_element(
+        return self.global_contents.get_element_by_name_ios(
             self.driver,
             ios_elements.my_course_org_text
         )
@@ -76,7 +76,7 @@ class IosMyCoursesList(IosBasePage):
             webdriver element: course name text element
         """
 
-        return self.global_contents.wait_and_get_element(
+        return self.global_contents.get_element_by_name_ios(
             self.driver,
             ios_elements.my_course_name_text
         )
@@ -89,10 +89,15 @@ class IosMyCoursesList(IosBasePage):
             webdriver element: course end text element
         """
 
-        return self.global_contents.wait_and_get_element(
+        all_text = self.global_contents.get_all_views_on_ios_screen(
             self.driver,
-            ios_elements.my_course_end_text
+            ios_elements.all_textviews
         )
+
+        return self.global_contents.get_all_views_on_ios_screen(
+            self.driver,
+            ios_elements.all_textviews
+        )[5]
 
     def get_my_course_arrow_image(self):
         """
@@ -118,4 +123,17 @@ class IosMyCoursesList(IosBasePage):
         return self.global_contents.get_all_views_on_ios_screen(
             self.driver,
             ios_elements.my_course_item_list
+        )
+    
+    def get_all_buttons(self):
+        """
+        Get all buttons
+
+        Returns:
+            webdriver element: all buttons element
+        """
+
+        return self.global_contents.get_all_views_on_ios_screen(
+            self.driver,
+            ios_elements.all_buttons
         )

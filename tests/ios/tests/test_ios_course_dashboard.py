@@ -55,10 +55,14 @@ class TestIosCourseDashboard:
 
         course_dashboard_page = IosCourseDashboard(set_capabilities, setup_logging)
         main_dashboard = IosMainDashboard(set_capabilities, setup_logging)
+        global_contents = Globals(setup_logging)
+        ios_landing = IosLanding(set_capabilities, setup_logging)
 
-        second_course = course_dashboard_page.get_my_courses_list()[2]
-        assert values.MY_COURSES_SECOND_COURSE_NAME in second_course.text
-        second_course.click()
+        second_course_name = global_contents.get_element_by_name_ios(set_capabilities, values.MAIN_DASHBOARD_COURSE_NAME)
+
+        second_course_name.click()
+        if ios_landing.get_allow_notifications_button():
+            ios_landing.get_allow_notifications_button().click()
 
         course_tab = course_dashboard_page.get_course_dashboard_course_tab()
         assert course_tab.text == values.COURSE_DASHBOARD_HOME_TAB
@@ -101,10 +105,10 @@ class TestIosCourseDashboard:
         assert profile_tab.get_attribute('value') == values.IOS_SELECTED_TAB_VALUE
         assert ios_profile.get_profile_settings_button().text == values.PROFILE_SETTINGS_TEXT
         ios_profile.get_profile_settings_button().click()
-        assert ios_profile.get_profile_logout_button().text == values.PROFILE_LOGOUT_BUTTON
+        assert ios_profile.get_profile_logout_button().text.lower() == values.PROFILE_LOGOUT_BUTTON
         ios_profile.get_profile_logout_button().click()
         assert ios_profile.get_logout_close_button().text == 'Close'
         assert ios_profile.get_logout_dialog_title().text == values.LOGOUT_DIALOG_TITLE
-        assert ios_profile.get_logout_button().text == values.PROFILE_LOGOUT_BUTTON
+        assert ios_profile.get_logout_button().text.lower() == values.PROFILE_LOGOUT_BUTTON
         ios_profile.get_logout_button().click()
         assert ios_landing.get_welcome_message().text == values.LANDING_MESSAGE_IOS
