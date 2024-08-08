@@ -6,13 +6,9 @@ kind: Component
 metadata:
   name: 'openedx-app-test'
   description: "Test scripts for the Open edX mobile applications"
-  links:
-    - url: "https://github.com/openedx/openedx-app-test"
-      title: "openedx/openedx-app-test"
-      icon: "GitHub"
+  links: []
   annotations:
     openedx.org/arch-interest-groups: ""
-    openedx.org/release: "main"
 spec:
   owner: group:openedx-mobile-maintainers
   type: 'service'
