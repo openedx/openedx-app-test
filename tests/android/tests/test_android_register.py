@@ -5,6 +5,7 @@
 from tests.android.pages.android_landing import AndroidLanding
 from tests.android.pages.android_register import AndroidRegister
 from tests.android.pages.android_sign_in import AndroidSignIn
+from tests.android.pages.android_main_dashboard import AndroidMainDashboard
 from tests.common import values
 from tests.common.globals import Globals
 
@@ -73,7 +74,7 @@ class TestAndroidRegister:
         global_contents.scroll_from_element(set_capabilities, android_register.get_register_tf_password())
         assert android_register.get_register_tf_country().get_attribute('clickable') == values.TRUE_LOWERCASE
         assert android_register.get_register_txt_country_description().text == values.REGISTER_COUNTRY_MESSAGE
-        privacy_honor_text = android_sign_in.get_all_textviews()[7]
+        privacy_honor_text = android_sign_in.get_all_textviews()[8]
         assert privacy_honor_text.text == values.REGISTER_HONOR_POLICY_TEXT
         assert android_register.get_register_txt_optional_field()
         assert android_register.get_register_btn_create_account().get_attribute('clickable') == values.TRUE_LOWERCASE
@@ -128,6 +129,7 @@ class TestAndroidRegister:
         android_landing = AndroidLanding(set_capabilities, setup_logging)
         android_register = AndroidRegister(set_capabilities, setup_logging)
         global_contents = Globals(setup_logging)
+        main_dashboard_page = AndroidMainDashboard(set_capabilities, setup_logging)
 
         user_name = global_contents.generate_random_credentials(5)
         email = user_name + '@example.com'
@@ -151,4 +153,4 @@ class TestAndroidRegister:
         android_register.get_register_country_search().send_keys('United States of America')
         android_register.get_txt_US_title().click()
         android_register.get_register_btn_create_account().click()
-        assert android_register.get_main_dashboard_footer().text == values.MAIN_DASHBOARD_LEARN_TAB
+        assert main_dashboard_page.get_learn_tab().get_attribute('content-desc') == values.MAIN_DASHBOARD_LEARN_TAB

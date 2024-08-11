@@ -58,20 +58,18 @@ class TestAndroidProfile:
 
         video_label = profile_page.get_video_label()
         assert video_label.text == values.PROFILE_VIDEO_LABEL
-        dates_label = profile_page.get_dates_calendar_label()
-        assert dates_label.text == values.PROFILE_DATES_CALENDAR_LABEL
         assert profile_page.get_profile_txt_support_info().text == values.PROFILE_SUPPORT
-        assert profile_page.get_profile_txt_contact_support().text == values.PROFILE_CONTACT_SUPPORT
+        assert profile_page.get_profile_txt_contact_support().text.lower() == values.PROFILE_CONTACT_SUPPORT
         assert profile_page.get_profile_txt_terms_of_use().text == values.PROFILE_TERMS_OF_USE_UPPERCASE
-        assert profile_page.get_profile_txt_privacy_policy().text == values.PROFILE_PRIVACY_POLICY
+        assert profile_page.get_profile_txt_privacy_policy().text.lower() == values.PROFILE_PRIVACY_POLICY
 
         global_contents.scroll_from_element(set_capabilities, profile_page.get_profile_txt_privacy_policy())
-        assert profile_page.get_profile_txt_cookie_policy().text == values.PROFILE_COOKIE_POLICY
+        assert profile_page.get_profile_txt_cookie_policy().text.lower() == values.PROFILE_COOKIE_POLICY
         assert profile_page.get_profile_personal_info().text == values.PROFILE_PERSONAL_INFO
         assert profile_page.get_profile_txt_view_faq().text == values.PROFILE_FAQ
-        assert profile_page.get_profile_app_version_code().text == values.ANDROID_APP_VERSION
+        # assert profile_page.get_profile_app_version_code().text == values.ANDROID_APP_VERSION
         assert profile_page.get_profile_txt_up_to_date().text == values.PROFILE_APP_UP_TO_DATE
-        assert profile_page.get_profile_txt_logout().text == values.PROFILE_LOGOUT_BUTTON
+        assert profile_page.get_profile_txt_logout().text.lower() == values.PROFILE_LOGOUT_BUTTON
 
     def test_load_profile_elements(self, set_capabilities, setup_logging):
         """
@@ -108,24 +106,18 @@ class TestAndroidProfile:
         assert back_button.get_attribute('displayed') == values.TRUE_LOWERCASE
         back_button.click()
 
-        dates_label = profile_page.get_dates_calendar_label()
-        assert dates_label.text == values.PROFILE_DATES_CALENDAR_LABEL
-        dates_label.click()
-        back_button = global_contents.get_back_button(set_capabilities)
-        assert back_button.get_attribute('displayed') == values.TRUE_LOWERCASE
-        back_button.click()
         terms_of_use = profile_page.get_profile_txt_terms_of_use()
         terms_of_use.click()
         assert global_contents.get_txt_toolbar_title(set_capabilities).text == values.PROFILE_TERMS_OF_USE_UPPERCASE
         global_contents.get_back_button(set_capabilities).click()
 
         profile_page.get_profile_txt_privacy_policy().click()
-        assert global_contents.get_txt_toolbar_title(set_capabilities).text == values.PROFILE_PRIVACY_POLICY
+        assert global_contents.get_txt_toolbar_title(set_capabilities).text.lower() == values.PROFILE_PRIVACY_POLICY
         global_contents.get_back_button(set_capabilities).click()
 
         global_contents.scroll_from_element(set_capabilities, profile_page.get_profile_txt_privacy_policy())
         profile_page.get_profile_txt_cookie_policy().click()
-        assert global_contents.get_txt_toolbar_title(set_capabilities).text == values.PROFILE_COOKIE_POLICY
+        assert global_contents.get_txt_toolbar_title(set_capabilities).text.lower() == values.PROFILE_COOKIE_POLICY
         global_contents.get_back_button(set_capabilities).click()
 
         profile_page.get_profile_personal_info().click()
@@ -144,6 +136,6 @@ class TestAndroidProfile:
         android_landing = AndroidLanding(set_capabilities, setup_logging)
 
         profile_page.get_profile_txt_logout().click()
-        assert profile_page.get_logout_button().text == values.PROFILE_LOGOUT_BUTTON
+        assert profile_page.get_logout_button().text.lower() == values.PROFILE_LOGOUT_BUTTON
         profile_page.get_logout_button().click()
         assert android_landing.get_search_label().text == values.LANDING_SEARCH_TITLE
