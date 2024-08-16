@@ -36,7 +36,7 @@ class Globals:
         self.maximum_timeout = 15
         self.index = 0
         self.android_enter_key = 66
-        self.whats_new_enable = False
+        self.whats_new_enable = True
 
     def setup_global_environment(self):
         """
@@ -258,7 +258,7 @@ class Globals:
 
         try:
             if self.target_environment == values.ANDROID:
-                element = WebDriverWait(driver, self.maximum_timeout).until(
+                element = WebDriverWait(driver, self.medium_timeout).until(
                     expected_conditions.visibility_of_element_located((
                         By.ID,
                         target_elements

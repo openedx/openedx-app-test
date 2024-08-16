@@ -88,7 +88,6 @@ class TestIosMainDashboard:
         course_switcher = global_contents.wait_and_get_element(set_capabilities, 'Courses')
         course_switcher.click()
         assert switcher_label.get_attribute('label') == 'Courses'
-        course_switcher = global_contents.wait_and_get_element(set_capabilities, 'settings').click()
 
     def test_sign_out_smoke(self, set_capabilities, setup_logging):
         """
@@ -100,7 +99,14 @@ class TestIosMainDashboard:
 
         ios_profile = IosProfile(set_capabilities, setup_logging)
         ios_landing = IosLanding(set_capabilities, setup_logging)
+        main_dashboard = IosMainDashboard(set_capabilities, setup_logging)
 
+        profile_tab = main_dashboard.get_main_dashboard_profile_tab()
+        assert profile_tab.text == values.MAIN_DASHBOARD_PROFILE_TAB
+        profile_tab.click()
+        assert profile_tab.get_attribute('value') == values.IOS_SELECTED_TAB_VALUE
+        assert ios_profile.get_profile_settings_button().text == values.PROFILE_SETTINGS_TEXT
+        ios_profile.get_profile_settings_button().click()
         assert ios_profile.get_profile_logout_button().text.lower() == values.PROFILE_LOGOUT_BUTTON
         ios_profile.get_profile_logout_button().click()
         assert ios_profile.get_logout_close_button().text == 'Close'

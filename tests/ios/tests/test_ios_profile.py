@@ -62,16 +62,15 @@ class TestIosProfile:
         assert ios_profile.get_profile_settings_text().text == values.PROFILE_SETTINGS_UPPER_TEXT
         assert ios_profile.get_profile_manage_account_label().text == values.PROFILE_MANAGE_ACCOUNT
         assert ios_profile.get_profile_video_settings_button().text == values.PROFILE_VIDEO_SETTINGS
-        assert ios_profile.get_profile_dates_calendar_label().text == values.PROFILE_DATES_CALENDAR
         assert ios_profile.get_profile_support_info_text().text == values.PROFILE_SUPPORT_INFO
         assert ios_profile.get_profile_tos_text().text == values.PROFILE_TERMS_OF_USE
-        assert ios_profile.get_profile_privacy_policy().text == values.PROFILE_PRIVACY_POLICY
-        assert ios_profile.get_profile_cookies_policy().text == values.PROFILE_COOKIE_POLICY
+        assert ios_profile.get_profile_privacy_policy().text.lower() == values.PROFILE_PRIVACY_POLICY
+        assert ios_profile.get_profile_cookies_policy().text.lower() == values.PROFILE_COOKIE_POLICY
         assert ios_profile.get_profile_dont_sell_data().text == values.PROFILE_PERSONAL_INFO
-        assert ios_profile.get_profile_contact_support().text == values.PROFILE_CONTACT_SUPPORT
+        assert ios_profile.get_profile_contact_support().text.lower() == values.PROFILE_CONTACT_SUPPORT
         assert ios_profile.get_profile_view_faq().text == values.PROFILE_FAQ
-        # assert ios_profile.get_profile_version_info().text == values.IOS_APP_VERSION
-        assert ios_profile.get_profile_logout_button().text == values.PROFILE_LOGOUT_BUTTON
+        assert ios_profile.get_profile_version_info().text == values.IOS_APP_VERSION
+        assert ios_profile.get_profile_logout_button().text.lower() == values.PROFILE_LOGOUT_BUTTON
 
     def test_load_manage_account(self, set_capabilities, setup_logging):
         """
@@ -99,6 +98,8 @@ class TestIosProfile:
             Verify that tapping back button should leave manage account screen
         """
         ios_profile = IosProfile(set_capabilities, setup_logging)
+        global_contents = Globals(setup_logging)
+
         video_settings = ios_profile.get_profile_video_settings_button()
         assert video_settings.text == values.PROFILE_VIDEO_SETTINGS
         video_settings.click()
@@ -128,16 +129,18 @@ class TestIosProfile:
         global_contents = Globals(setup_logging)
 
         terms_of_use = ios_profile.get_profile_tos_text()
+        assert terms_of_use.text == values.PROFILE_TERMS_OF_USE
+        global_contents.scroll_from_element(set_capabilities, terms_of_use)
         terms_of_use.click()
         assert global_contents.get_screen_heading_title(set_capabilities).text == values.PROFILE_TERMS_OF_USE
         ios_profile.get_header_back_button().click()
 
         ios_profile.get_profile_privacy_policy().click()
-        assert global_contents.get_screen_heading_title(set_capabilities).text == values.PROFILE_PRIVACY_POLICY
+        assert global_contents.get_screen_heading_title(set_capabilities).text.lower() == values.PROFILE_PRIVACY_POLICY
         ios_profile.get_header_back_button().click()
 
         ios_profile.get_profile_cookies_policy().click()
-        assert global_contents.get_screen_heading_title(set_capabilities).text == values.PROFILE_COOKIE_POLICY
+        assert global_contents.get_screen_heading_title(set_capabilities).text.lower() == values.PROFILE_COOKIE_POLICY
         ios_profile.get_header_back_button().click()
 
         ios_profile.get_profile_dont_sell_data().click()
@@ -155,10 +158,10 @@ class TestIosProfile:
         ios_profile = IosProfile(set_capabilities, setup_logging)
         ios_landing = IosLanding(set_capabilities, setup_logging)
 
-        assert ios_profile.get_profile_logout_button().text == values.PROFILE_LOGOUT_BUTTON
+        assert ios_profile.get_profile_logout_button().text.lower() == values.PROFILE_LOGOUT_BUTTON
         ios_profile.get_profile_logout_button().click()
         assert ios_profile.get_logout_close_button().text == 'Close'
         assert ios_profile.get_logout_dialog_title().text == values.LOGOUT_DIALOG_TITLE
-        assert ios_profile.get_logout_button().text == values.PROFILE_LOGOUT_BUTTON
+        assert ios_profile.get_logout_button().text.lower() == values.PROFILE_LOGOUT_BUTTON
         ios_profile.get_logout_button().click()
         assert ios_landing.get_welcome_message().text == values.LANDING_MESSAGE_IOS

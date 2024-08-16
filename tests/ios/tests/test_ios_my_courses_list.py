@@ -56,13 +56,13 @@ class TestIosMyCoursesList:
         assert 'Ends' in my_courses_list.get_my_course_end_text().text
         buttons = my_courses_list.get_all_buttons()
 
-        due_assignment = buttons[6]
+        due_assignment = buttons[5]
         assert 'Assignments' in due_assignment.text
-        resume_course = buttons[7]
+        resume_course = buttons[6]
         assert 'Resume' in resume_course.text
-        second_course = buttons[9]
+        second_course = buttons[8]
         assert second_course.text == values.MY_COURSES_SECOND_COURSE_NAME
-        third_course = buttons[10]
+        third_course = buttons[9]
         assert third_course.text == 'How to Learn Online'
         assert values.MAIN_DASHBOARD_COURSE_DESCRIPTION in my_courses_list.get_my_courses_welcomeback_text().text
         my_courses_list.get_my_courses_welcomeback_text().click()

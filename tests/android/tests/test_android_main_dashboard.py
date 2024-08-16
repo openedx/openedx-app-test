@@ -106,6 +106,6 @@ class TestAndroidMainDashboard:
         global_contents.scroll_from_element(set_capabilities, profile_page.get_profile_txt_privacy_policy())
 
         profile_page.get_profile_txt_logout().click()
-        assert profile_page.get_logout_button().text == values.PROFILE_LOGOUT_BUTTON
+        assert profile_page.get_logout_button().text.lower() == values.PROFILE_LOGOUT_BUTTON
         profile_page.get_logout_button().click()
         assert android_landing.get_search_label().text == values.LANDING_SEARCH_TITLE

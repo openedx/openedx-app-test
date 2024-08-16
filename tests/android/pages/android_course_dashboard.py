@@ -92,3 +92,19 @@ class AndroidCourseDashboard(AndroidBasePage):
         """
 
         return self.driver.find_element(MobileBy.ACCESSIBILITY_ID, 'back')
+
+    def get_allow_notifications_button(self):
+        """
+        Get Allow button
+
+        Returns:
+            webdriver element: Allow Element
+        """
+
+        self.global_contents.wait_for_element_visibility(
+            self.driver,
+            android_elements.permission_allow_button)
+
+        return self.global_contents.wait_and_get_element(
+            self.driver,
+            android_elements.permission_allow_button)

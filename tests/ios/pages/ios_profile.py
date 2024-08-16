@@ -164,7 +164,10 @@ class IosProfile(IosBasePage):
             webdriver element: Tos text element
         """
 
-        return self.driver.find_element(MobileBy.NAME, 'tos')
+        return self.global_contents.get_element_by_name_ios(
+            self.driver,
+            'tos'
+        )
 
     def get_profile_privacy_policy(self):
         """
@@ -174,7 +177,7 @@ class IosProfile(IosBasePage):
             webdriver element: Privacy policy element
         """
 
-        return self.global_contents.wait_and_get_element(
+        return self.global_contents.get_element_by_name_ios(
             self.driver,
             ios_elements.profile_privacy_policy
         )
@@ -213,7 +216,7 @@ class IosProfile(IosBasePage):
             webdriver element: Contact support element
         """
 
-        return self.global_contents.wait_and_get_element(
+        return self.global_contents.get_element_by_label_ios(
             self.driver,
             ios_elements.profile_contact_support
         )
