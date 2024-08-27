@@ -106,6 +106,11 @@ my_course_name_text = 'Infinity test course'
 my_course_end_text = 'course_end_text'
 my_course_arrow_image = 'arrow_image'
 my_course_item_list = 'course_item'
+all_courses_header_text = 'all_courses_header_text'
+all_courses_label = 'All'
+all_courses_inprogress_label = 'In Progress'
+all_courses_completed_label = 'Completed'
+all_courses_expired_label = 'Expired'
 
 # PROFILE SCREEN
 profile_screen_title = 'Profile'
