@@ -124,7 +124,7 @@ class IosMyCoursesList(IosBasePage):
             self.driver,
             ios_elements.my_course_item_list
         )
-    
+
     def get_all_buttons(self):
         """
         Get all buttons
@@ -136,4 +136,69 @@ class IosMyCoursesList(IosBasePage):
         return self.global_contents.get_all_views_on_ios_screen(
             self.driver,
             ios_elements.all_buttons
+        )
+
+    def get_all_courses_header_text(self):
+        """
+        Get all courses header text
+
+        Returns:
+            webdriver element: all courses header text element
+        """
+
+        return self.global_contents.wait_and_get_element(
+            self.driver,
+            ios_elements.all_courses_header_text
+        )
+
+    def get_all_courses_label(self):
+        """
+        Get all courses label
+
+        Returns:
+            webdriver element: all courses label element
+        """
+
+        return self.global_contents.wait_and_get_element(
+            self.driver,
+            ios_elements.all_courses_label
+        )
+
+    def get_all_courses_inprogress_label(self):
+        """
+        Get all courses in progress label element
+
+        Returns:
+            webdriver element: all courses in progress label element
+        """
+
+        return self.global_contents.wait_and_get_element(
+            self.driver,
+            ios_elements.all_courses_inprogress_label
+        )
+
+    def get_all_courses_completed_label(self):
+        """
+        Get all courses completed label element
+
+        Returns:
+            webdriver element: all courses completed label element
+        """
+
+        return self.global_contents.wait_and_get_element(
+            self.driver,
+            ios_elements.all_courses_completed_label
+        )
+
+    def get_all_courses_expired_label(self):
+        """
+        Get all courses expired label element
+
+        Returns:
+            webdriver element: all courses expired label element
+        """
+
+        return self.global_contents.wait_and_get_element(
+            self.driver,
+            ios_elements.all_courses_expired_label
         )
