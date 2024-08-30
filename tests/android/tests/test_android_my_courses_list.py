@@ -82,6 +82,52 @@ class TestAndroidMyCoursesList:
         third_course_name = course_view.find_elements(By.CLASS_NAME, 'android.widget.TextView')[10]
         assert third_course_name.text
 
+    def test_view_all_courses(self, set_capabilities, setup_logging):
+        """
+        Scenarios:
+            Verify that tapping View All My Courses label should load My Courses List screen
+            Verify All Courses  label should be displayed
+            Verify that tapping All label should load all enrolled courses
+            Verify that tapping In Progress label should load all in progress courses
+            Verify that tapping Completed label should load all completed courses
+            Verify that tapping Expired label should load all expired courses
+            Verify that tapping back button should load Main Dashboard screen
+        """
+
+        global_contents = Globals(setup_logging)
+
+        course_view = global_contents.wait_and_get_element(set_capabilities, 'org.edx.mobile:id/view_pager')
+        view_all_courses_label = course_view.find_elements(By.CLASS_NAME, 'android.widget.TextView')[8]
+        assert values.MAIN_DASHBOARD_ALL_COURSES_LABEL in view_all_courses_label.text
+        view_all_courses_label.click()
+
+        all_courses_label = global_contents.get_element_by_text(set_capabilities, 'All Courses')
+        assert all_courses_label.text == values.MY_COURSES_ALL_COURSES_LABEL
+
+        all_courses = global_contents.get_element_by_text(set_capabilities, 'All')
+        assert all_courses.text == values.MY_COURSES_ALL_COURSES_LABEL
+        all_courses.click()
+
+        all_enrolled_courses = global_contents.get_all_views_on_screen(set_capabilities, 'android.widget.ProgressBar')
+        assert len(all_enrolled_courses) == 3
+
+        in_progress = global_contents.get_element_by_text(set_capabilities, 'In Progress')
+        assert in_progress.text == values.MY_COURSES_IN_PROGRESS_LABEL
+        in_progress.click()
+        assert len(all_enrolled_courses) == 3
+
+        completed = global_contents.get_element_by_text(set_capabilities, 'Completed')
+        assert completed.text == values.MY_COURSES_COMPLETED_LABEL
+        completed.click()
+        assert global_contents.wait_and_get_element(set_capabilities, 'txt_empty_state_title').text == 'No Completed Courses'
+
+        expired = global_contents.get_element_by_text(set_capabilities, 'Expired')
+        assert expired.text == values.MY_COURSES_EXPIRED_LABEL
+        expired.click()
+        assert global_contents.wait_and_get_element(set_capabilities, 'txt_empty_state_title').text == 'No Expired Courses'
+        assert global_contents.get_back_button(set_capabilities)
+        global_contents.get_back_button(set_capabilities).click()
+
     def test_sign_out_smoke(self, set_capabilities, setup_logging):
         """
         Scenarios:

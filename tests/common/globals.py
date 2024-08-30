@@ -67,7 +67,7 @@ class Globals:
             webdriver element: target_element
         """
         element = None
-        time_out = self.maximum_timeout
+        time_out = self.minimum_timeout
 
         if optional_time is not None:
             time_out = optional_time
@@ -118,7 +118,7 @@ class Globals:
 
         try:
             if self.target_environment == values.ANDROID:
-                all_views = WebDriverWait(driver, self.maximum_timeout).until(
+                all_views = WebDriverWait(driver, self.medium_timeout).until(
                     expected_conditions.presence_of_all_elements_located((By.CLASS_NAME, target_elements)))
             elif self.target_environment == values.IOS:
                 all_views = WebDriverWait(driver, self.maximum_timeout).until(
