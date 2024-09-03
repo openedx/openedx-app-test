@@ -124,6 +124,7 @@ logout_button = 'txt_logout'
 # EDIT PROFILE SCREEN
 edit_profile_title = 'txt_edit_profile_title'
 edit_profile_leave_button = 'txt_leave'
+edit_profile_button = 'txt_edit_profile'
 
 # COURSE DASHBOARD SCREEN
 course_dashboard_more_tab = 'More'
