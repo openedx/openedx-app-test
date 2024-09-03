@@ -108,7 +108,7 @@ profile_txt_privacy_policy = 'Privacy Policy'
 profile_txt_cookie_policy = 'Cookie policy'
 profile_personal_info = 'Do not sell my personal information'
 profile_txt_view_faq = 'View FAQ'
-profile_app_version_code = 'Version: 8.0.0'
+profile_app_version_code = 'Version: 6.0.1'
 profile_txt_up_to_date = 'Up-to-date'
 profile_txt_logout = 'Log Out'
 profile_settings_txt = 'Settings'
@@ -124,6 +124,7 @@ logout_button = 'txt_logout'
 # EDIT PROFILE SCREEN
 edit_profile_title = 'txt_edit_profile_title'
 edit_profile_leave_button = 'txt_leave'
+edit_profile_button = 'txt_edit_profile'
 
 # COURSE DASHBOARD SCREEN
 course_dashboard_more_tab = 'More'
