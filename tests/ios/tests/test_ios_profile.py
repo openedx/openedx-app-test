@@ -57,4 +57,5 @@ class TestIosProfile:
         assert ios_profile.get_profile_user_name_text().text == values.PROFILE_NAME_TEXT
         assert ios_profile.profile_user_username_text().text == values.PROFILE_USERNAME_TEXT
         assert ios_profile.get_profile_settings_button().text == values.PROFILE_SETTINGS_TEXT
-        assert global_contents.get_element_by_name_ios(set_capabilities, values.EDIT_PROFILE_TITLE).text == values.EDIT_PROFILE_TITLE
+        assert global_contents.get_element_by_name_ios(set_capabilities,
+                                                       values.EDIT_PROFILE_TITLE).text == values.EDIT_PROFILE_TITLE

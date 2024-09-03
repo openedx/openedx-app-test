@@ -67,7 +67,7 @@ class TestAndroidSettings:
         assert profile_page.get_profile_txt_cookie_policy().text.lower() == values.PROFILE_COOKIE_POLICY
         assert profile_page.get_profile_personal_info().text == values.PROFILE_PERSONAL_INFO
         assert profile_page.get_profile_txt_view_faq().text == values.PROFILE_FAQ
-        # assert profile_page.get_profile_app_version_code().text == values.ANDROID_APP_VERSION
+        assert profile_page.get_profile_app_version_code().text == values.ANDROID_APP_VERSION
         assert profile_page.get_profile_txt_up_to_date().text == values.PROFILE_APP_UP_TO_DATE
         assert profile_page.get_profile_txt_logout().text.lower() == values.PROFILE_LOGOUT_BUTTON
 
@@ -91,7 +91,8 @@ class TestAndroidSettings:
         profile_page = AndroidProfile(set_capabilities, setup_logging)
         global_contents = Globals(setup_logging)
 
-        global_contents.scroll_screen(set_capabilities, profile_page.get_profile_txt_contact_support(), profile_page.get_profile_txt_view_faq())
+        global_contents.scroll_screen(set_capabilities, profile_page.get_profile_txt_contact_support(),
+                                       profile_page.get_profile_txt_view_faq())
         manage_account_label = profile_page.get_manage_account_label()
         assert manage_account_label.text == values.PROFILE_MANAGE_ACCOUNT_LABEL
         manage_account_label.click()
