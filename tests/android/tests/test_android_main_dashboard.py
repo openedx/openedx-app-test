@@ -100,8 +100,11 @@ class TestAndroidMainDashboard:
 
         profile_page = AndroidProfile(set_capabilities, setup_logging)
         android_landing = AndroidLanding(set_capabilities, setup_logging)
+        main_dashboard_page = AndroidMainDashboard(set_capabilities, setup_logging)
         global_contents = Globals(setup_logging)
 
+        profile_tab = main_dashboard_page.get_profile_tab()
+        profile_tab.click()
         profile_page.get_settings_button().click()
         global_contents.scroll_from_element(set_capabilities, profile_page.get_profile_txt_privacy_policy())
 
