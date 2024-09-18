@@ -62,6 +62,11 @@ class IosWhatsNew(IosBasePage):
             webdriver element: Next button element
         """
 
+        self.global_contents.wait_for_element_visibility(
+            self.driver,
+            ios_elements.whats_new_btn_next
+        )
+
         next_btn = self.global_contents.wait_and_get_element(
             self.driver,
             ios_elements.whats_new_btn_next
