@@ -136,3 +136,16 @@ permission_icon = 'com.android.permissioncontroller:id/permission_icon'
 permission_title = 'com.android.permissioncontroller:id/permission_message'
 permission_allow_button = 'com.android.permissioncontroller:id/permission_allow_button'
 permission_dont_allow_button = 'com.android.permissioncontroller:id/permission_deny_button'
+
+# EDIT PROFILE SCREEN
+edit_profile_done_button = "txt_done"
+edit_profile_type_label = "txt_edit_profile_type_label"
+edit_profile_user_image = "img_edit_profile_user_image"
+edit_profile_user_name = "txt_edit_profile_user_name"
+edit_profile_limited_profile_message = "txt_edit_profile_limited_profile_message"
+edit_profile_txt_label_location = "txt_label_location"
+edit_profile_tf_select_location = "tf_select_location"
+edit_profile_txt_label_spoken_language = "txt_label_spoken_language"
+edit_profile_select_spoken_language = "tf_select_spoken_language"
+edit_profile_txt_label_about_me = "txt_label_about_me"
+edit_profile_txt_placeholder_about_me = "txt_placeholder_about_me"

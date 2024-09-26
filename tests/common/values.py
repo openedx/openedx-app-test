@@ -14,7 +14,7 @@ ERROR_UTF_ELEMENT = 'Unable to find specific element - '
 TRUE_LOWERCASE = 'true'
 FALSE_LOWERCASE = 'false'
 ANDROID_APP_VERSION = 'Version: 6.0.2'
-IOS_APP_VERSION = 'Version: 6.0.0, Up-to-date'
+IOS_APP_VERSION = 'Version: 6.0.3, Up-to-date'
 IOS_SELECTED_TAB_VALUE = '1'
 
 # LANDING SCREEN
@@ -135,6 +135,19 @@ PROFILE_MANAGE_ACCOUNT_LABEL = 'Manage Account'
 PROFILE_VIDEO_LABEL = 'Video'
 PROFILE_DATES_CALENDAR_LABEL = 'Dates & Calendar'
 
+# EDIT PROFILE
+EDIT_PROFILE_TYPE_LABEL = 'Limited profile'
+EDIT_PROFILE_USER_IMAGE = 'test-mobile-automation profile image'
+EDIT_PROFILE_USER_NAME = 'Service Test Mobile Automation'
+EDIT_PROFILE_MESSAGE = 'Your profile information is only visible to you. Only your username is visible to others.'
+EDIT_PROFILE_LOCATION_LABEL = 'Location'
+EDIT_PROFILE_LOCATION = 'Australia'
+EDIT_PROFILE_EMAIL_LABEL = 'Email'
+EDIT_PROFILE_LANGUAGE_LABEL = 'Spoken Language'
+EDIT_PROFILE_LANGUAGE = 'English'
+EDIT_PROFILE_ABOUT_ME_LABEL = 'About Me'
+EDIT_PROFILE_ABOUT_ME = 'About Me'
+
 # LOG OUT
 LOGOUT_DIALOG_TITLE = 'Are you sure you want to log out?'
 
@@ -142,11 +155,12 @@ LOGOUT_DIALOG_TITLE = 'Are you sure you want to log out?'
 EDIT_PROFILE_TITLE = 'Edit Profile'
 EDIT_PROFILE_TITLE_IOS = 'Edit profile'
 EDIT_PROFILE_LEAVE_BUTTON = 'Leave'
+EDIT_PROFILE_DONE_BUTTON = 'Done'
 
 # MY COURSES LIST SCREEN
 MY_COURSES_SECOND_COURSE_NAME = 'DemoX'
 MY_COURSES_ARROW_IMAGE_TEXT = 'arrowRight16'
-MAIN_DASHBOARD_COURSE_ORG = 'edX Dev'
+MAIN_DASHBOARD_COURSE_ORG = 'edX'
 MAIN_DASHBOARD_COURSE_NAME = 'Infinity test course'
 MAIN_DASHBOARD_RESUME_LABEL = 'Resume Course'
 MAIN_DASHBOARD_ALL_COURSES_LABEL = 'View All My Courses'
