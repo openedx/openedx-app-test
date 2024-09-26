@@ -34,13 +34,22 @@ class TestAndroidEditProfile:
     def test_validate_ui_elements(self, set_capabilities, setup_logging):
         """
         Scenarios:
-            Verify that Profile screen will show following contents:
-                Back icon 
-                "Profile" as Title
-                Edit Profile Button
+            Verify that on clicking edit profile button,
+            Edit Profile screen will show following contents:
+            Verify that Edit Profile screen will show following contents:
+                Back icon
+                "Edit Profile" as Title
+                Done button
+                Profile type
+                Limited profile message
                 Profile Image
                 User Name
-                Video Settings
+                Location label
+                Location
+                Spoken Language label
+                Spoken Language
+                About Me label
+                About Me placeholder
         """
 
         main_dashboard_page = AndroidMainDashboard(set_capabilities, setup_logging)
