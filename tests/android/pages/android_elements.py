@@ -108,7 +108,7 @@ profile_txt_privacy_policy = 'Privacy Policy'
 profile_txt_cookie_policy = 'Cookie policy'
 profile_personal_info = 'Do not sell my personal information'
 profile_txt_view_faq = 'View FAQ'
-profile_app_version_code = 'Version: 6.0.2'
+profile_app_version_code = 'Version: 6.0.6'
 profile_txt_up_to_date = 'Up-to-date'
 profile_txt_logout = 'Log Out'
 profile_settings_txt = 'Settings'
@@ -149,3 +149,12 @@ edit_profile_txt_label_spoken_language = "txt_label_spoken_language"
 edit_profile_select_spoken_language = "tf_select_spoken_language"
 edit_profile_txt_label_about_me = "txt_label_about_me"
 edit_profile_txt_placeholder_about_me = "txt_placeholder_about_me"
+
+# discovery screen
+discovery_search_field = "pgn-searchfield-input-1"
+discovery_search_button = "search-landing-search-submit"
+discovery_main_content = "main-content"
+Discovery_first_popular_course = "subject-filter-0"
+Discovery_second_popular_course = "subject-filter-1"
+Discovery_engineering_popular_course = "Engineering"
+Discovery_third_popular_course = "subject-filter-2"
