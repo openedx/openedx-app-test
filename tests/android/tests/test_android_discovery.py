@@ -2,10 +2,10 @@
     Discovery Test Module
 """
 
-from tests.android.pages.android_landing import AndroidLanding
 from tests.common import values
 from tests.common.globals import Globals
 from tests.android.pages import android_elements
+from tests.android.pages.android_landing import AndroidLanding
 
 
 class TestAndroidDiscovery:
@@ -141,5 +141,6 @@ class TestAndroidDiscovery:
         show_results_number.click()
         pagination_results = global_contents.get_element_by_exact_text_android(set_capabilities, values.DISCOVERY_MATH_PAGINATION_RESULTS)
         assert pagination_results.text == values.DISCOVERY_MATH_PAGINATION_RESULTS
-        pagination_text = global_contents.get_element_by_exact_text_android(set_capabilities, values.DISCOVERY_PAGINATION_TEXT)
+        pagination_text = global_contents.get_element_by_exact_text_android(
+            set_capabilities, values.DISCOVERY_PAGINATION_TEXT)
         assert pagination_text.text == values.DISCOVERY_PAGINATION_TEXT
