@@ -158,3 +158,6 @@ Discovery_first_popular_course = "subject-filter-0"
 Discovery_second_popular_course = "subject-filter-1"
 Discovery_engineering_popular_course = "Engineering"
 Discovery_third_popular_course = "subject-filter-2"
+discovery_chat_bot_close_button = "Close proactive message"
+discovery_enroll_main_element = '//android.view.View[@resource-id="enroll"]/android.view.View[1]/android.view.View'
+discovery_first_search_result = 'search-landing-product-result-0'
