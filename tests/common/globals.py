@@ -258,7 +258,7 @@ class Globals:
 
         try:
             if self.target_environment == values.ANDROID:
-                element = WebDriverWait(driver, self.medium_timeout).until(
+                element = WebDriverWait(driver, self.maximum_timeout).until(
                     expected_conditions.visibility_of_element_located((
                         By.ID,
                         target_elements
