@@ -151,7 +151,7 @@ edit_profile_txt_label_about_me = "txt_label_about_me"
 edit_profile_txt_placeholder_about_me = "txt_placeholder_about_me"
 
 # discovery screen
-discovery_search_field = "pgn-searchfield-input-1"
+discovery_search_field = "pgn-searchfield-input-7"
 discovery_search_button = "search-landing-search-submit"
 discovery_main_content = "main-content"
 Discovery_first_popular_course = "subject-filter-0"
