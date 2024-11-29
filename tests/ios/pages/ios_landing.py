@@ -186,3 +186,17 @@ class IosLanding(IosBasePage):
         return self.global_contents.wait_and_get_element(
             self.driver,
             ios_elements.notification_allow_button)
+
+    def get_get_explore_courses_button(self):
+        """
+        Get Explore Courses button
+
+        Returns:
+            webdriver element: Explore Courses Element
+        """
+
+        explore_courses_button = self.global_contents.wait_and_get_element(
+            self.driver,
+            ios_elements.landing_explore_courses_button
+        )
+        return explore_courses_button
