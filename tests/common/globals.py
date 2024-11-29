@@ -28,7 +28,7 @@ class Globals:
         self.setup_global_environment()
 
         # CAPABILITIES
-        self.ios_device_name = 'iPhone 15 Pro'
+        self.ios_device_name = 'iPhone 16 Pro'
         self.android_device_name = 'Android Phone'
         self.project_log = project_log
         self.medium_timeout = 7

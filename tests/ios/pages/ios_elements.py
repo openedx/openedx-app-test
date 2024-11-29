@@ -24,6 +24,7 @@ logistration_register_button = 'logistration_register_button'
 logistration_signin_button = 'logistration_signin_button'
 register_screen_title = 'register_text'
 notification_allow_button = 'Allow'
+landing_explore_courses_button = 'explore_courses_button'
 
 # SIGN IN SCREEN
 signin_text = 'signin_text'
@@ -147,3 +148,8 @@ course_dashboard_videos_tab = 'Videos'
 course_dashboard_discussions_tab = 'Discussions'
 course_dashboard_dates_tab = 'Dates'
 course_dashboard_more_tab = 'More'
+
+# DISCOVERY SCREEN
+discovery_back_button = 'Start'
+discovery_search_field = 'XCUIElementTypeSearchField'
+discovery_search_button = 'Search'
