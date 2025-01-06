@@ -55,3 +55,53 @@ It aims to ensure the reliability and functionality of the Open edX mobile apps 
 - `pytest -v <test case name> --self-contained-html` to run specific test case
 
 - `pytest -v <test case name> --html=report.html --self-contained-html` to run specific test case and create html report at end of execution
+
+
+### To run test cases on BrowserStack
+
+### Prerequisites
+- [Python3](https://www.python.org/downloads/)
+- [Pip3](https://stackoverflow.com/questions/6587507/how-to-install-pip-with-python-3)
+
+### Integration Steps
+- Complete the following steps to integrate your Python test suite using BrowserStack SDK.
+
+### Set BrowserStack Credentials
+- `export BROWSERSTACK_USERNAME="************"`
+- `export BROWSERSTACK_ACCESS_KEY="************"`
+
+Saving your BrowserStack credentials as environment variables makes it simple to run your test suite from your local or CI environment.
+
+### Install BrowserStack Python SDK
+- `python3 -m pip install browserstack-sdk`
+- `browserstack-sdk setup --username "**************" --key "**************"`
+
+Execute the following commands to install BrowserStack Python SDK for plug-and-play integration of your test suite with BrowserStack.
+
+### Setup
+- Update `BROWSERSTACK_USERNAME` and `BROWSERSTACK_ACCESS_KEY` in `browserstack.yml` file
+
+- Update device name and version for android and ios in `browserstack.yml` file
+  - platformName: `Android`/`iOS`
+  - deviceName: `Google Pixel 7 pro`/`iPhone 14 pro max`
+  - platformVersion: `13.0`/`16`
+
+- Rename `user_preferences_sample.yml` to `user_preferences.yml` and set the following values:
+
+    - set `target_environment` to `Android` or `iOS`
+      - target_environment: Android
+
+    - set valid credentials to login
+      - login_user_name: username
+      - login_password: password
+
+- If you want to run on any other device/OS for android/iOS you can visit this link to see all available devices in browserstack (https://www.browserstack.com/list-of-browsers-and-platforms/automate)
+
+- To run parallel execution on multiple devices, more platform details can be given with their device name and platform version
+### Run
+
+- `PLATFORM_NAME=Android browserstack-sdk pytest -v tests/android/tests/` to run all android 
+test screens
+
+- `PLATFORM_NAME=iOS browserstack-sdk pytest -v tests/ios/tests/` to run all ios
+test screens
