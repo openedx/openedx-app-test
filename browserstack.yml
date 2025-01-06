@@ -1,0 +1,48 @@
+
+# =============================
+# Set BrowserStack Credentials
+# =============================
+# Add your BrowserStack userName and accessKey here or set BROWSERSTACK_USERNAME and
+# BROWSERSTACK_ACCESS_KEY as env variables
+userName: xxxxxxxxxxxxx
+accessKey: xxxxxxxxxxxx
+# ======================
+# BrowserStack Reporting
+# ======================
+# The following capabilities are used to set up reporting on BrowserStack:
+# Set 'projectName' to the name of your project. Example, Marketing Website
+projectName: edX Mobile ${PLATFORM_NAME} App Tests
+# # Set `buildName` as the name of the job / testsuite being run
+buildName: edX Mobile ${PLATFORM_NAME} App Tests
+# `buildIdentifier` is a unique id to differentiate every execution that gets appended to
+# buildName. Choose your buildIdentifier format from the available expressions:
+# ${BUILD_NUMBER} (Default): Generates an incremental counter with every execution
+# ${DATE_TIME}: Generates a Timestamp with every execution. Eg. 05-Nov-19:30
+# Read more about buildIdentifiers here -> https://www.browserstack.com/docs/automate/selenium/organize-tests
+buildIdentifier: '${BUILD_NUMBER}'
+# =======================================
+# Platforms (Browsers / Devices to test)
+# =======================================
+# Platforms object contains all the browser / device combinations you want to test on.
+# Entire list available here -> (https://www.browserstack.com/list-of-browsers-and-platforms/automate)
+platforms:
+  - platformName: Android
+    deviceName: Google Pixel 7 pro
+    platformVersion: 13.0
+  # - platformName: ios
+  #   deviceName: iPhone 14 Pro Max
+  #   platformVersion: 16
+
+# Update the local path to the app file below (Android: .apk, iOS: .ipa) 
+app: '/path-to-app/sample-app.apk'
+
+# ===================
+# Debugging features
+# ===================
+debug: true # <boolean> # Set to true if you need screenshots for every selenium command ran
+networkLogs: true # <boolean> Set to true to enable HAR logs capturing
+consoleLogs: errors # <string> Remote browser's console debug levels to be printed (Default: errors)
+# Available options are `disable`, `errors`, `warnings`, `info`, `verbose` (Default: errors)
+testObservability: true
+appProfiling: true
+appiumLogs: true
