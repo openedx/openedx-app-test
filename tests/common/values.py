@@ -13,7 +13,7 @@ ERROR_SETTING_CAPS = 'Problem, setting environment specific caps'
 ERROR_UTF_ELEMENT = 'Unable to find specific element - '
 TRUE_LOWERCASE = 'true'
 FALSE_LOWERCASE = 'false'
-ANDROID_APP_VERSION = 'Version: 6.0.2'
+ANDROID_APP_VERSION = 'Version: 6.0.7'
 IOS_APP_VERSION = 'Version: 6.0.3, Up-to-date'
 IOS_SELECTED_TAB_VALUE = '1'
 

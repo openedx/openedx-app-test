@@ -58,9 +58,12 @@ class TestAndroidSignIn:
 
         assert android_sign_in.get_signin_button().get_attribute('clickable') == values.TRUE_LOWERCASE
 
-        assert android_sign_in.get_google_auth_button().text == values.GOOGLE_SIGNIN
-        assert android_sign_in.get_facebook_auth_button().text == values.FACEBOOK_SIGNIN
-        assert android_sign_in.get_microsoft_auth_button().text == values.MICROSOFT_SIGNIN
+        assert android_sign_in.get_google_auth_button().get_attribute(
+            'content-desc') == values.GOOGLE_SIGNIN
+        assert android_sign_in.get_facebook_auth_button().get_attribute(
+            'content-desc') == values.FACEBOOK_SIGNIN
+        assert android_sign_in.get_microsoft_auth_button().get_attribute(
+            'content-desc') == values.MICROSOFT_SIGNIN
 
     def test_forgot_password_alert(self, set_capabilities, setup_logging):
         """

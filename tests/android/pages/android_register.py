@@ -4,7 +4,7 @@
 
 from tests.android.pages import android_elements
 from tests.android.pages.android_base_page import AndroidBasePage
-
+from appium.webdriver.common.appiumby import AppiumBy
 
 class AndroidRegister(AndroidBasePage):
     """
@@ -345,18 +345,17 @@ class AndroidRegister(AndroidBasePage):
         Get register google auth text
         """
 
-        return self.global_contents.wait_and_get_element(
-            self.driver,
-            android_elements.txt_google_auth
-        )
+        return self.driver.find_element(
+            AppiumBy.ACCESSIBILITY_ID,
+            android_elements.google_auth_button)
 
     def get_txt_facebook_auth(self):
         """
         Get register facebook auth text
         """
 
-        return self.global_contents.wait_and_get_element(
-            self.driver,
+        return self.driver.find_element(
+            AppiumBy.ACCESSIBILITY_ID,
             android_elements.txt_facebook_auth
         )
 
@@ -365,8 +364,8 @@ class AndroidRegister(AndroidBasePage):
         Get register microsoft auth text
         """
 
-        return self.global_contents.wait_and_get_element(
-            self.driver,
+        return self.driver.find_element(
+            AppiumBy.ACCESSIBILITY_ID,
             android_elements.txt_microsoft_auth
         )
 

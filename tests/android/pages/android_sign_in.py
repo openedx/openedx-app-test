@@ -4,6 +4,7 @@
 
 from tests.android.pages import android_elements
 from tests.android.pages.android_base_page import AndroidBasePage
+from appium.webdriver.common.mobileby import MobileBy
 
 
 class AndroidSignIn(AndroidBasePage):
@@ -97,10 +98,8 @@ class AndroidSignIn(AndroidBasePage):
             element: google auth button element
         """
 
-        google_btn = self.global_contents.wait_and_get_element(
-            self.driver,
-            android_elements.txt_google_auth
-        )
+        google_btn = self.driver.find_element(MobileBy.ANDROID_UIAUTOMATOR,
+                                            f'new UiSelector().description("Sign in with Google")')
         return google_btn
 
     def get_facebook_auth_button(self):
@@ -111,10 +110,8 @@ class AndroidSignIn(AndroidBasePage):
             element: facebook auth button element
         """
 
-        facebook_btn = self.global_contents.wait_and_get_element(
-            self.driver,
-            android_elements.txt_facebook_auth
-        )
+        facebook_btn = self.driver.find_element(MobileBy.ANDROID_UIAUTOMATOR,
+                                            f'new UiSelector().description("Sign in with Facebook")')
         return facebook_btn
 
     def get_microsoft_auth_button(self):
@@ -125,10 +122,8 @@ class AndroidSignIn(AndroidBasePage):
             element: microsoft auth button element
         """
 
-        microsoft_btn = self.global_contents.wait_and_get_element(
-            self.driver,
-            android_elements.txt_microsoft_auth
-        )
+        microsoft_btn = self.driver.find_element(MobileBy.ANDROID_UIAUTOMATOR,
+                                            f'new UiSelector().description("Sign in with Microsoft")')
         return microsoft_btn
 
     def get_signin_button(self):
