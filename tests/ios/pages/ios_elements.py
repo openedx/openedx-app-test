@@ -136,7 +136,7 @@ profile_settings_button = 'settings'
 manage_account_title = 'manage_account_text'
 
 # LOGOUT DIALOGUE
-logout_close_button = 'Close'
+logout_close_button = 'xmark'
 logout_dialog_title = 'Are you sure you want to log out?'
 logout_button = 'Log out'
 

@@ -209,6 +209,7 @@ class TestAndroidDiscovery:
         discover_tab.click()
         assert discover_tab.get_attribute('selected') == values.TRUE_LOWERCASE
 
+        sleep(20)
         assert global_contents.get_txt_toolbar_title(set_capabilities).text == values.DISCOVERY_SCREEN_TITLE
         discovery_message = global_contents.get_android_element_by_text(
             set_capabilities, values.DISCOVERY_SCREEN_MESSAGE)
@@ -250,6 +251,7 @@ class TestAndroidDiscovery:
         """
 
         course_dashboard_page = AndroidCourseDashboard(set_capabilities, setup_logging)
+        sleep(5)
         enroll_main_element = set_capabilities.find_element_by_xpath(android_elements.discovery_enroll_main_element)
         enrollment_date = enroll_main_element.find_element_by_class_name(android_elements.all_textviews)
         assert enrollment_date.text

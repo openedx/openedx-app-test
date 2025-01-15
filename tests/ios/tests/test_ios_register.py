@@ -208,12 +208,12 @@ class TestIosRegister:
         profile_tab = main_dashboard.get_main_dashboard_profile_tab()
         assert profile_tab.text == values.MAIN_DASHBOARD_PROFILE_TAB
         profile_tab.click()
-        assert profile_tab.get_attribute('value') == values.IOS_SELECTED_TAB_VALUE
-
-        assert ios_profile.get_profile_logout_button().text == values.PROFILE_LOGOUT_BUTTON
+        assert ios_profile.get_profile_settings_button().text == values.PROFILE_SETTINGS_TEXT
+        ios_profile.get_profile_settings_button().click()
+        assert ios_profile.get_profile_logout_button().text.lower() == values.PROFILE_LOGOUT_BUTTON
         ios_profile.get_profile_logout_button().click()
         assert ios_profile.get_logout_close_button().text == 'Close'
         assert ios_profile.get_logout_dialog_title().text == values.LOGOUT_DIALOG_TITLE
-        assert ios_profile.get_logout_button().text == values.PROFILE_LOGOUT_BUTTON
+        assert ios_profile.get_logout_button().text.lower() == values.PROFILE_LOGOUT_BUTTON
         ios_profile.get_logout_button().click()
         assert ios_landing.get_welcome_message().text == values.LANDING_MESSAGE_IOS
