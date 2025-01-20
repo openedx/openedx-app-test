@@ -4,7 +4,6 @@
 
 from tests.android.pages.android_landing import AndroidLanding
 from tests.android.pages.android_register import AndroidRegister
-from tests.android.pages.android_sign_in import AndroidSignIn
 from tests.android.pages.android_main_dashboard import AndroidMainDashboard
 from tests.common import values
 from tests.common.globals import Globals
@@ -53,7 +52,6 @@ class TestAndroidRegister:
 
         android_register = AndroidRegister(set_capabilities, setup_logging)
         global_contents = Globals(setup_logging)
-        android_sign_in = AndroidSignIn(set_capabilities, setup_logging)
 
         assert android_register.get_register_title().text == values.REGISTER
         assert android_register.get_register_description().text == values.REGISTER_CREATE_ACCOUNT_MESSAGE
@@ -115,7 +113,8 @@ class TestAndroidRegister:
 
         android_register.get_register_txt_optional_field().click()
         assert android_register.get_register_education_level().text == values.REGISTER_EDUCATION_LEVEL
-        assert android_register.get_register_education_level_placeholder().text == values.REGISTER_EDUCATION_LEVEL_PLACEHOLDER
+        assert android_register.get_register_education_level_placeholder().text \
+            == values.REGISTER_EDUCATION_LEVEL_PLACEHOLDER
         assert android_register.get_register_gender_label().text == values.REGISTER_GENDER_LABEL
         assert android_register.get_gender_label_placeholder().text == values.REGISTER_GENDER_LABEL
 
@@ -138,7 +137,7 @@ class TestAndroidRegister:
         first_name = global_contents.generate_random_credentials(4)
         last_name = global_contents.generate_random_credentials(4)
         full_name = first_name + ' ' + last_name
-        password = (global_contents.generate_random_credentials(6) + global_contents.login_password)
+        password = global_contents.generate_random_credentials(6) + global_contents.login_password
 
         android_register.get_back_button().click()
         assert android_landing.get_screen_title().text == values.LANDING_MESSAGE_IOS
@@ -151,7 +150,7 @@ class TestAndroidRegister:
 
         global_contents.scroll_from_element(set_capabilities, android_register.get_register_tf_password())
         android_register.get_register_tf_country().click()
-        android_register.get_register_country_selection_dialogue().text == values.REGISTER_COUNTRY_PICKER_TITLE
+        assert android_register.get_register_country_selection_dialogue().text == values.REGISTER_COUNTRY_PICKER_TITLE
         android_register.get_register_country_search().send_keys('United States of America')
         android_register.get_txt_US_title().click()
         android_register.get_register_btn_create_account().click()
