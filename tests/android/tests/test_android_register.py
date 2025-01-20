@@ -57,6 +57,9 @@ class TestAndroidRegister:
 
         assert android_register.get_register_title().text == values.REGISTER
         assert android_register.get_register_description().text == values.REGISTER_CREATE_ACCOUNT_MESSAGE
+        assert android_register.get_txt_google_auth().get_attribute('content-desc') == values.GOOGLE_AUTH_TEXT
+        assert android_register.get_txt_facebook_auth().get_attribute('content-desc') == values.FACEBOOK_AUTH_TEXT
+        assert android_register.get_txt_microsoft_auth().get_attribute('content-desc') == values.MICROSOFT_AUTH_TEXT
         assert android_register.get_register_txt_name_label().text == values.REGISTER_FULL_NAME_TITLE
         assert android_register.get_register_tf_name().get_attribute('clickable') == values.TRUE_LOWERCASE
         assert android_register.get_register_txt_name_description().text == values.REGISTER_FULL_NAME_MESSAGE
@@ -68,19 +71,18 @@ class TestAndroidRegister:
         assert android_register.get_register_txt_email_description().text == values.REGISTER_EMAIL_MESSAGE
         assert android_register.get_register_txt_password_label().text == values.REGISTER_PASSWORD_TITLE
         assert android_register.get_register_tf_password().get_attribute('clickable') == values.TRUE_LOWERCASE
+        global_contents.scroll_from_element(set_capabilities, android_register.get_register_txt_password_label())
         assert android_register.get_register_txt_password_description().text == values.REGISTER_PASSWORD_MESSAGE
         assert android_register.get_register_txt_country_label().text == values.REGISTER_COUNTRY_TITLE
 
-        global_contents.scroll_from_element(set_capabilities, android_register.get_register_tf_password())
+        # global_contents.scroll_from_element(set_capabilities, android_register.get_register_tf_password())
         assert android_register.get_register_tf_country().get_attribute('clickable') == values.TRUE_LOWERCASE
         assert android_register.get_register_txt_country_description().text == values.REGISTER_COUNTRY_MESSAGE
-        privacy_honor_text = android_sign_in.get_all_textviews()[8]
+        privacy_honor_text = global_contents.get_element_by_text(set_capabilities, values.REGISTER_HONOR_POLICY_TEXT)
         assert privacy_honor_text.text == values.REGISTER_HONOR_POLICY_TEXT
         assert android_register.get_register_txt_optional_field()
         assert android_register.get_register_btn_create_account().get_attribute('clickable') == values.TRUE_LOWERCASE
-        assert android_register.get_txt_google_auth().text == values.GOOGLE_AUTH_TEXT
-        assert android_register.get_txt_facebook_auth().text == values.FACEBOOK_AUTH_TEXT
-        assert android_register.get_txt_microsoft_auth().text == values.MICROSOFT_AUTH_TEXT
+
 
     def test_fields_error_description_smoke(self, set_capabilities, setup_logging):
         """
@@ -97,8 +99,8 @@ class TestAndroidRegister:
         assert android_register.get_register_txt_name_description().text == values.REGISTER_ERROR_FULL_NAME
         assert android_register.get_register_txt_username_description().text == values.REGISTER_ERROR_USER_NAME
         assert android_register.get_register_txt_email_description().text == values.REGISTER_ERROR_EMAIL
+        global_contents.scroll_from_element(set_capabilities, android_register.get_register_txt_email_description())
         assert android_register.get_register_txt_password_description().text == values.REGISTER_ERROR_PASSWORD
-        global_contents.scroll_from_element(set_capabilities, android_register.get_register_tf_password())
         assert android_register.get_register_txt_country_description().text == values.REGISTER_ERROR_SELECT_COUNTRY
 
     def test_show_optional_fields_smoke(self, set_capabilities, setup_logging):

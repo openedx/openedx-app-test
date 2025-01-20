@@ -94,7 +94,7 @@ class IosMainDashboard(IosBasePage):
             webdriver element: profile tab element
         """
 
-        profile_tab = self.global_contents.wait_and_get_element(
+        profile_tab = self.global_contents.get_element_by_name_ios(
             self.driver,
             'Profile')
         return profile_tab

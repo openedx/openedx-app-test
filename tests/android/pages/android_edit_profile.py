@@ -18,6 +18,11 @@ class AndroidEditProfile(AndroidBasePage):
             element: edit profile title element
         """
 
+        self.global_contents.wait_for_element_visibility(
+            self.driver,
+            android_elements.edit_profile_title
+        )
+
         return self.global_contents.wait_and_get_element(
             self.driver,
             android_elements.edit_profile_title

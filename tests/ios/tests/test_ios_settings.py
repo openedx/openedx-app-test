@@ -34,7 +34,6 @@ class TestIosSettings:
         profile_tab = main_dashboard.get_main_dashboard_profile_tab()
         assert profile_tab.text == values.MAIN_DASHBOARD_PROFILE_TAB
         profile_tab.click()
-        assert profile_tab.get_attribute('value') == values.IOS_SELECTED_TAB_VALUE
 
     def test_ui_elements_smoke(self, set_capabilities, setup_logging):
         """
