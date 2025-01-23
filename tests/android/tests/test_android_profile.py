@@ -6,7 +6,6 @@
 from tests.android.pages.android_whats_new import AndroidWhatsNew
 from tests.android.pages.android_main_dashboard import AndroidMainDashboard
 from tests.android.pages.android_profile import AndroidProfile
-from tests.android.pages.android_landing import AndroidLanding
 from tests.common import values
 from tests.common.globals import Globals
 
@@ -44,7 +43,6 @@ class TestAndroidProfile:
 
         main_dashboard_page = AndroidMainDashboard(set_capabilities, setup_logging)
         profile_page = AndroidProfile(set_capabilities, setup_logging)
-        global_contents = Globals(setup_logging)
 
         profile_tab = main_dashboard_page.get_profile_tab()
         assert profile_tab.get_attribute('content-desc') == values.MAIN_DASHBOARD_PROFILE_TAB

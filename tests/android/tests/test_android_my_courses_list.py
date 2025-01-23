@@ -2,12 +2,11 @@
     My Courses Test Module
 """
 
+from selenium.webdriver.common.by import By
 from tests.android.pages.android_whats_new import AndroidWhatsNew
 from tests.android.pages.android_main_dashboard import AndroidMainDashboard
-from tests.android.pages.android_my_courses_list import AndroidMyCoursesList
 from tests.android.pages.android_profile import AndroidProfile
 from tests.android.pages.android_landing import AndroidLanding
-from selenium.webdriver.common.by import By
 from tests.common import values
 from tests.common.globals import Globals
 
@@ -119,15 +118,25 @@ class TestAndroidMyCoursesList:
         completed = global_contents.get_element_by_text(set_capabilities, 'Completed')
         assert completed.text == values.MY_COURSES_COMPLETED_LABEL
         completed.click()
+
         global_contents.wait_for_element_visibility(set_capabilities, 'txt_empty_state_title')
-        assert global_contents.wait_and_get_element(set_capabilities, 'txt_empty_state_title').text == 'No Completed Courses'
+        assert global_contents.wait_and_get_element(
+            set_capabilities, 'txt_empty_state_title').text == 'No Completed Courses'
+
+        assert global_contents.wait_and_get_element(
+            set_capabilities, 'txt_empty_state_title').text == 'No Completed Courses'
 
         expired = global_contents.get_element_by_text(set_capabilities, 'Expired')
         assert expired.text == values.MY_COURSES_EXPIRED_LABEL
         expired.click()
 
         global_contents.wait_for_element_visibility(set_capabilities, 'How to Learn Online')
-        assert global_contents.get_android_element_by_text(set_capabilities, 'How to Learn Online').text == 'How to Learn Online'
+        assert global_contents.get_android_element_by_text(
+            set_capabilities, 'How to Learn Online').text == 'How to Learn Online'
+
+        assert global_contents.wait_and_get_element(
+            set_capabilities, 'txt_empty_state_title').text == 'No Expired Courses'
+
         assert global_contents.get_back_button(set_capabilities)
         global_contents.get_back_button(set_capabilities).click()
 

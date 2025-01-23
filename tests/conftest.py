@@ -34,14 +34,12 @@ def set_capabilities(setup_logging):
     globals_contents = Globals(log)
     desired_capabilities = {}
 
-    log.info('{} - {} - {} - {} - {}'.format(
-        globals_contents.target_environment,
-        globals_contents.login_user_name,
-        globals_contents.login_password,
-        globals_contents.android_platform_version,
-        globals_contents.ios_platform_version
-    ))
-    log.info('- Setting {} capabilities'.format(globals_contents.target_environment))
+    log.info(f'{globals_contents.target_environment} - '
+         f'{globals_contents.login_user_name} - '
+         f'{globals_contents.login_password} - '
+         f'{globals_contents.android_platform_version} - '
+         f'{globals_contents.ios_platform_version}')
+    log.info(f'- Setting {globals_contents.target_environment} capabilities')
 
     if globals_contents.target_environment == values.ANDROID:
         desired_capabilities['platformName'] = values.ANDROID
@@ -63,17 +61,17 @@ def set_capabilities(setup_logging):
         desired_capabilities['newCommandTimeout'] = '0'
 
     else:
-        log.info('{} on - {}'.format(values.ERROR_SETTING_CAPS, globals_contents.target_environment))
+        log.info(f'{values.ERROR_SETTING_CAPS} on - {globals_contents.target_environment}')
         return None
 
     driver = webdriver.Remote(globals_contents.server_url, desired_capabilities)
 
     if driver is not None:
-        log.info('- Setting {} capabilities are done'.format(globals_contents.target_environment))
+        log.info(f'- Setting {globals_contents.target_environment} capabilities are done')
         return driver
-    else:
-        log.info('Problem setting {} capabilities'.format(globals_contents.target_environment))
-        return None
+
+    log.info(f'Problem setting {globals_contents.target_environment} capabilities')
+    return None
 
 @pytest.fixture(scope="session")
 def setup_logging():
@@ -89,7 +87,7 @@ def setup_logging():
     create_result_directory(values.RESULTS_DIRECTORY)
 
     iteration_directory = os.path.join(os.path.dirname(__file__), values.RESULTS_DIRECTORY,
-                                       'Iteration_{}'.format(current_day))
+                                   f'Iteration_{current_day}')
     create_result_directory(iteration_directory)
 
     logs_directory = os.path.join(iteration_directory, "logs")

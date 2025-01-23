@@ -9,7 +9,6 @@ from tests.android.pages.android_profile import AndroidProfile
 from tests.android.pages.android_landing import AndroidLanding
 from tests.common import values
 from tests.common.globals import Globals
-from tests.android.pages import android_elements
 
 
 class TestAndroidCourseDashboard:
