@@ -42,6 +42,9 @@ APPLE_SIGNIN = 'Continue with: Apple'
 BACK_BUTTON = 'Start'
 BACK_BUTTON_SMALL = 'back'
 SOCIAL_AUTH_TITLE = 'Or sign in with:'
+GOOGLE_SIGNIN_ANDROID = 'Sign in with Google'
+FACEBOOK_SIGNIN_ANDRIOD = 'Sign in with Facebook'
+MICROSOFT_SIGNIN_ANDROID = 'Sign in with Microsoft'
 
 # REGISTER SCREEN
 REGISTER = 'Register'
@@ -209,3 +212,16 @@ DISCOVERY_MATH_PAGINATION_RESULTS = '204 results'
 DISCOVERY_PAGINATION_TEXT = 'pagination'
 DISCOVERY_PAGINATION_TEXT_IOS = 'pagination, navigation'
 DISCOVERY_DEMOX_COURSE = 'DemoX edX Course'
+
+# COURSE HOME TAB SCREEN
+COURSE_MISSED_DEADLINES_LABEL = "Missed some deadlines?"
+COURSE_DEADLINE_DESCRIPTION_LABEL = ("Don't worry - shift our suggested schedule to complete past "
+                                    "due assignments without losing any progress.")
+COURSE_SHIFT_DUE_DATES = "Shift due dates"
+COURSE_RESUME_WITH_LABEL = "Resume with:"
+COURSE_RESUME_BUTTON = "Resume"
+COURSE_SECTION_LABEL = "Introduction"
+COURSE_SUBSECTION_LABEL = "Welcome to an edX Course!"
+COURSE_SECTION_1_LABEL = "Module 1: Experiencing Course Content"
+COURSE_SUBSECTION_1_LABEL = "Lesson 1: edX Content Basics"
+COURSE_COMPONENT_LABEL = "Homework 1: Your First Grade"

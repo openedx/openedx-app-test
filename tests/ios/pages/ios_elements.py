@@ -148,6 +148,7 @@ course_dashboard_videos_tab = 'Videos'
 course_dashboard_discussions_tab = 'Discussions'
 course_dashboard_dates_tab = 'Dates'
 course_dashboard_more_tab = 'More'
+course_dashboard_back_button = "back_button"
 
 # DISCOVERY SCREEN
 discovery_back_button = 'Start'
