@@ -219,6 +219,7 @@ COURSE_DEADLINE_DESCRIPTION_LABEL = ("Don't worry - shift our suggested schedule
                                     "due assignments without losing any progress.")
 COURSE_SHIFT_DUE_DATES = "Shift due dates"
 COURSE_RESUME_WITH_LABEL = "Resume with:"
+COURSE_CONTINUE_WITH_LABEL = "Continue with:"
 COURSE_RESUME_BUTTON = "Resume"
 COURSE_SECTION_LABEL = "Introduction"
 COURSE_SUBSECTION_LABEL = "Welcome to an edX Course!"
