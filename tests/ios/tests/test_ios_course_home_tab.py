@@ -66,7 +66,8 @@ class TestIosCourseHomeTab:
         global_contents = Globals(setup_logging)
         ios_landing = IosLanding(set_capabilities, setup_logging)
 
-        second_course_name = global_contents.get_element_by_name_ios(set_capabilities, values.MY_COURSES_SECOND_COURSE_NAME)
+        second_course_name = global_contents.get_element_by_name_ios(
+            set_capabilities, values.MY_COURSES_SECOND_COURSE_NAME)
 
         second_course_name.click()
         if ios_landing.get_allow_notifications_button():
@@ -75,16 +76,20 @@ class TestIosCourseHomeTab:
         course_tab = course_dashboard_page.get_course_dashboard_course_tab()
         assert course_tab.text == values.COURSE_DASHBOARD_HOME_TAB
 
-        deadline_title = global_contents.get_element_by_label_ios(set_capabilities, values.COURSE_MISSED_DEADLINES_LABEL)
+        deadline_title = global_contents.get_element_by_label_ios(
+            set_capabilities, values.COURSE_MISSED_DEADLINES_LABEL)
         assert deadline_title.text == values.COURSE_MISSED_DEADLINES_LABEL
 
-        deadline_description = global_contents.get_element_by_label_ios(set_capabilities, values.COURSE_DEADLINE_DESCRIPTION_LABEL)
+        deadline_description = global_contents.get_element_by_label_ios(
+            set_capabilities, values.COURSE_DEADLINE_DESCRIPTION_LABEL)
         assert deadline_description.text == values.COURSE_DEADLINE_DESCRIPTION_LABEL
 
-        shift_due_dates_button = global_contents.get_element_by_label_ios(set_capabilities, values.COURSE_SHIFT_DUE_DATES)
+        shift_due_dates_button = global_contents.get_element_by_label_ios(
+            set_capabilities, values.COURSE_SHIFT_DUE_DATES)
         assert shift_due_dates_button.text == values.COURSE_SHIFT_DUE_DATES
 
-        continue_with_lable = global_contents.get_element_by_label_ios(set_capabilities, values.COURSE_RESUME_WITH_LABEL)
+        continue_with_lable = global_contents.get_element_by_label_ios(
+            set_capabilities, values.COURSE_RESUME_WITH_LABEL)
         assert continue_with_lable.text == values.COURSE_RESUME_WITH_LABEL
 
         resume_button = global_contents.get_elements_by_name_ios(set_capabilities, values.COURSE_RESUME_BUTTON)[1]
@@ -99,7 +104,8 @@ class TestIosCourseHomeTab:
         assert subsection_elem.text == values.COURSE_SUBSECTION_LABEL
         subsection_elem.click()
 
-        component_header_title = global_contents.get_element_by_label_ios(set_capabilities, values.COURSE_SUBSECTION_LABEL)
+        component_header_title = global_contents.get_element_by_label_ios(
+            set_capabilities, values.COURSE_SUBSECTION_LABEL)
         assert component_header_title.text == values.COURSE_SUBSECTION_LABEL
 
         back_btn = global_contents.wait_and_get_element(set_capabilities, ios_elements.course_dashboard_back_button)
