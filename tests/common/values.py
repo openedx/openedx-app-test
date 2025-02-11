@@ -42,6 +42,9 @@ APPLE_SIGNIN = 'Continue with: Apple'
 BACK_BUTTON = 'Start'
 BACK_BUTTON_SMALL = 'back'
 SOCIAL_AUTH_TITLE = 'Or sign in with:'
+GOOGLE_SIGNIN_ANDROID = 'Sign in with Google'
+FACEBOOK_SIGNIN_ANDRIOD = 'Sign in with Facebook'
+MICROSOFT_SIGNIN_ANDROID = 'Sign in with Microsoft'
 
 # REGISTER SCREEN
 REGISTER = 'Register'
@@ -215,6 +218,7 @@ COURSE_MISSED_DEADLINES_LABEL = "Missed some deadlines?"
 COURSE_DEADLINE_DESCRIPTION_LABEL = ("Don't worry - shift our suggested schedule to complete past "
                                     "due assignments without losing any progress.")
 COURSE_SHIFT_DUE_DATES = "Shift due dates"
+COURSE_RESUME_WITH_LABEL = "Resume with:"
 COURSE_CONTINUE_WITH_LABEL = "Continue with:"
 COURSE_RESUME_BUTTON = "Resume"
 COURSE_SECTION_LABEL = "Introduction"
