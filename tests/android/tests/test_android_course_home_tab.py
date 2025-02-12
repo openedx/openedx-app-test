@@ -7,6 +7,7 @@ from tests.android.pages.android_main_dashboard import AndroidMainDashboard
 from tests.android.pages.android_course_dashboard import AndroidCourseDashboard
 from tests.android.pages.android_profile import AndroidProfile
 from tests.android.pages.android_landing import AndroidLanding
+from tests.android.pages.android_course_home_tab import AndroidCourseHomeTab
 from tests.common import values
 from tests.common.globals import Globals
 
@@ -99,8 +100,8 @@ class TestAndroidCourseHomeTab:
         component_header_title = global_contents.get_android_element_by_text(set_capabilities, values.COURSE_SUBSECTION_LABEL)
         assert component_header_title.text == values.COURSE_SUBSECTION_LABEL
 
-        back_btn = global_contents.get_element_by_description_android(set_capabilities, 'Back')
-        assert back_btn.get_attribute('content-desc').lower() == values.BACK_BUTTON_SMALL
+        back_btn = global_contents.get_element_by_description_android(set_capabilities, values.LANDING_BACK_BUTTON)
+        assert back_btn.get_attribute('content-desc') == values.LANDING_BACK_BUTTON
         back_btn.click()
         global_contents.scroll_from_element(set_capabilities, component_header_title)
 
@@ -118,10 +119,41 @@ class TestAndroidCourseHomeTab:
         component_header = global_contents.get_android_element_by_text(set_capabilities, values.COURSE_COMPONENT_LABEL)
         assert component_header.text == values.COURSE_COMPONENT_LABEL
 
-        back_btn = global_contents.get_element_by_description_android(set_capabilities, 'Back')
-        assert back_btn.get_attribute('content-desc').lower() == values.BACK_BUTTON_SMALL
+    def test_component_navigation_smoke(self, set_capabilities, setup_logging):
+        """
+        Scenarios:
+            Verify next button element and it is clickable
+            Verify previous button element and it is clickable
+            Verify user can click on next button until finish button appears
+            Verify clicking finish button will load the celebratory modal
+            Verify Back to outline button on Modal and clicking this button
+                loads the compoenents screen
+            Verify clicking on back button will navigate the user to dashboard page
+        """
+
+        global_contents = Globals(setup_logging)
+        course_home_page = AndroidCourseHomeTab(set_capabilities, setup_logging)
+
+        next_btn = course_home_page.get_next_btn()
+        assert next_btn.text == values.COURSE_COMPONENT_NEXT_BUTTON
+        next_btn.click()
+
+        prev_btn = course_home_page.get_prev_btn()
+        assert prev_btn.text == values.COURSE_COMPONENT_PREVIOUS_BUTTON
+        prev_btn.click()
+
+        finish_button = course_home_page.component_navigation()
+        assert finish_button.text == values.COURSE_COMPONENT_FINISH_BUTTON
+        finish_button.click()
+
+        back_to_outline = global_contents.get_android_element_by_text(
+            set_capabilities, values.COURSE_COMPLETION_BACK_BUTTON)
+        assert back_to_outline.text == values.COURSE_COMPLETION_BACK_BUTTON
+        back_to_outline.click()
+
+        back_btn = global_contents.get_element_by_description_android(set_capabilities, values.LANDING_BACK_BUTTON)
+        assert back_btn.get_attribute('content-desc') == values.LANDING_BACK_BUTTON
         back_btn.click()
-        set_capabilities.back()
 
     def test_sign_out_smoke(self, set_capabilities, setup_logging):
         """
