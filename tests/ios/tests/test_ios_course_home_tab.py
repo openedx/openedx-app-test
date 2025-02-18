@@ -10,6 +10,7 @@ from tests.ios.pages.ios_whats_new import IosWhatsNew
 from tests.ios.pages import ios_elements
 from tests.common import values
 from tests.common.globals import Globals
+from tests.ios.pages.ios_course_home_tab import IosCourseHomeTab
 
 
 class TestIosCourseHomeTab:
@@ -126,10 +127,41 @@ class TestIosCourseHomeTab:
         component_header = global_contents.get_element_by_label_ios(set_capabilities, values.COURSE_COMPONENT_LABEL)
         assert component_header.text == values.COURSE_COMPONENT_LABEL
 
+    def test_component_navigation_smoke(self, set_capabilities, setup_logging):
+        """
+        Scenarios:
+            Verify next button element and it is clickable
+            Verify previous button element and it is clickable
+            Verify user can click on next button until finish button appears
+            Verify clicking finish button will load the celebratory modal
+            Verify Back to outline button on Modal and clicking this button
+                loads the compoenents screen
+            Verify clicking on back button will navigate the user to dashboard page
+        """
+
+        global_contents = Globals(setup_logging)
+        course_home_page = IosCourseHomeTab(set_capabilities, setup_logging)
+
+        next_btn = course_home_page.get_next_btn()
+        assert next_btn.text == values.COURSE_COMPONENT_NEXT_BUTTON
+        next_btn.click()
+
+        prev_btn = course_home_page.get_prev_btn()
+        assert prev_btn.text == values.COURSE_COMPONENT_PREVIOUS_BUTTON
+        prev_btn.click()
+
+        finish_button = course_home_page.component_navigation()
+        assert finish_button.text == values.COURSE_COMPONENT_FINISH_BUTTON
+        finish_button.click()
+
+        back_to_outline = global_contents.get_element_by_label_ios(
+            set_capabilities, values.COURSE_COMPLETION_BACK_BUTTON)
+        assert back_to_outline.text == values.COURSE_COMPLETION_BACK_BUTTON
+        back_to_outline.click()
+
         back_btn = global_contents.wait_and_get_element(set_capabilities, ios_elements.course_dashboard_back_button)
         assert back_btn.text == values.LANDING_BACK_BUTTON
         back_btn.click()
-        global_contents.wait_and_get_element(set_capabilities, ios_elements.course_dashboard_back_button).click()
 
     def test_sign_out_smoke(self, set_capabilities, setup_logging):
         """
