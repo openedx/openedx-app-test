@@ -44,7 +44,7 @@ class IosCourseHomeTab(IosBasePage):
             return self.global_contents.get_element_by_label_ios(
                 self.driver, values.COURSE_COMPONENT_FINISH_BUTTON)
         except NoSuchElementException:
-            return None
+            return
 
     def get_next_btn(self):
         """
