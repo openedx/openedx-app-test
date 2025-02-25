@@ -5,26 +5,63 @@
 import datetime
 import logging.handlers
 import os
+from typing import Optional
 
 import pytest
+from pytest_html import extras as pytest_html_extras
 from appium import webdriver
+from appium.webdriver.webdriver import WebDriver
+from selenium.common.exceptions import WebDriverException
 
 from tests.common import values
 from tests.common.globals import Globals
 from tests.android.pages.android_landing import AndroidLanding
 from tests.android.pages.android_sign_in import AndroidSignIn
+from tests.common import utils
+from tests.common.utils import sanitize_name, get_formatted_datetime
 from tests.ios.pages.ios_landing import IosLanding
 from tests.ios.pages.ios_login import IosLogin
 
 
+
+
+def is_test_failed(report: pytest.TestReport) -> bool:
+    x_fail = hasattr(report, "wasxfail")
+    return (report.skipped and x_fail) or (report.failed and not x_fail)
+
+def is_controller_node(config: pytest.Config) -> bool:
+    return not hasattr(config, "workerinput")
+
+def report_screenshot():
+    """
+        Get screenshots of the different screens
+    Arguments:
+    Returns:
+        str : file path
+    """
+    try:
+        file_path = (
+            f"{SessionData.screenshots_directory}/{SessionData.test_case_name}_"
+            f"{get_formatted_datetime()}.png"
+        )
+        SessionData.driver.save_screenshot(file_path)
+        return (
+            '<div><img src="{}" alt="screenshot" style="width:304px;height:228px;" '
+            'onclick="window.open(this.src)" align="right"/></div>'.format(file_path)
+        )
+
+    except Exception:
+        pass
+
 @pytest.fixture(scope="module")
-def set_capabilities(setup_logging):
+def set_capabilities(setup_logging, request):
     """
     set_capabilities will setup environment capabilities based on
     environment given, and return driver object accessible in all Tests
 
     Arguments:
         setup_logging (logger): logger object
+        request: (_pytest.fixtures.SubRequest): request object
 
     Returns:
         driver: webdriver object
@@ -33,6 +70,8 @@ def set_capabilities(setup_logging):
     log = setup_logging
     globals_contents = Globals(log)
     desired_capabilities = {}
+    SessionData.globals_contents = globals_contents
+    SessionData.test_case_name = str(request.node.name).replace(".py", "")
 
     log.info(f'{globals_contents.target_environment} - '
          f'{globals_contents.login_user_name} - '
@@ -47,6 +86,7 @@ def set_capabilities(setup_logging):
         desired_capabilities['deviceName'] = globals_contents.android_device_name
         desired_capabilities['appWaitDuration'] = '50000'
         desired_capabilities['appPackage'] = globals_contents.AUT_PACKAGE_NAME
+        desired_capabilities['appActivity'] = 'org.openedx.app.AppActivity'
         desired_capabilities['automationName'] = 'UiAutomator2'
         desired_capabilities['newCommandTimeout'] = '0'
 
@@ -68,40 +108,78 @@ def set_capabilities(setup_logging):
 
     if driver is not None:
         log.info(f'- Setting {globals_contents.target_environment} capabilities are done')
+        SessionData.driver = driver
         return driver
 
     log.info(f'Problem setting {globals_contents.target_environment} capabilities')
     return None
 
-@pytest.fixture(scope="session")
-def setup_logging():
+@pytest.fixture(scope="module")
+def setup_logging(request) -> logging.Logger:
     """
     setup execution logging, it will be reusable in all files
 
     Returns:
         my_logger: logger object
     """
+    test_case_name = str(request.node.name).replace(".py", "")
+    current_directory = os.path.dirname(__file__)
+    # main results directory
+    utils.create_directory(values.RESULTS_DIRECTORY)
+    # main iteration directory
+    utils.create_directory(SessionData.iteration_directory_base)
 
-    current_day = (datetime.datetime.now().strftime("%Y_%m_%d_%H_%M"))
+    SessionData.iteration_directory = str(os.path.join(
+        current_directory, values.RESULTS_DIRECTORY, SessionData.iteration_directory_base, test_case_name
+    ))
 
-    create_result_directory(values.RESULTS_DIRECTORY)
+    utils.create_directory(SessionData.iteration_directory)
 
-    iteration_directory = os.path.join(os.path.dirname(__file__), values.RESULTS_DIRECTORY,
-                                   f'Iteration_{current_day}')
-    create_result_directory(iteration_directory)
+    SessionData.screenshots_directory = os.path.join(current_directory, SessionData.iteration_directory)
+    log_file = os.path.join(current_directory, SessionData.iteration_directory, values.LOG_FILE_NAME)
 
-    logs_directory = os.path.join(iteration_directory, "logs")
-    create_result_directory(logs_directory)
-
-    log_file = os.path.join(os.path.dirname(__file__), logs_directory, values.LOG_FILE_NAME)
-    my_logger = logging.getLogger('edX Logs')
+    my_logger = logging.getLogger('edX Automation Logs')
     my_logger.setLevel(logging.INFO)
-    log_handler = logging.FileHandler(log_file)
+    log_handler = logging.FileHandler(log_file, encoding="utf-8")
     formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
     log_handler.setFormatter(formatter)
     my_logger.addHandler(log_handler)
-    my_logger.info("Logging is successfully set up")
+
+    def finalizer():
+        """finalizer run when test case finishes"""
+
+        my_logger.info(f"================logging Stopped=====================")
+        log_handler.close()
+
+    request.addfinalizer(finalizer)
+
+    my_logger.info("=================Logging is successfully set up=================")
     return my_logger
+
+def pytest_configure(config: pytest.Config):
+    """
+    called after command line options have been parsed
+    and all plugins and initial conftest files been loaded
+    """
+    marker = config.getoption("-m")
+
+    if is_controller_node(config):
+        job_id = datetime.datetime.now().strftime("%Y_%m_%d__%H:%M_")
+        iteration_name = f"{marker}_{job_id}" if marker else f"Iteration_{job_id}_android"
+        iteration_name = sanitize_name(iteration_name)
+        config.iteration_name = iteration_name
+    else:
+        iteration_name: str = config.workerinput["iterationName"]
+
+    SessionData.iteration_directory_base = str(
+        os.path.join(os.path.dirname(__file__), values.RESULTS_DIRECTORY, iteration_name.lower())
+    )
+    SessionData.iteration_name = iteration_name
+
+    config.option.htmlpath = os.path.join(
+        SessionData.iteration_directory_base, f"{iteration_name}{values.HTML_REPORT_FILE_NAME}"
+    )
+
 
 @pytest.fixture(scope="module")
 def login(set_capabilities, setup_logging):
@@ -171,13 +249,47 @@ def login(set_capabilities, setup_logging):
 
     return setup_logging
 
-def create_result_directory(target_directory):
+@pytest.hookimpl(hookwrapper=True)
+def pytest_runtest_makereport():
     """
-    Create directory by specific given name
+    Adds screenshot to HTML report when test fails
 
-    Argument:
-        target_directory (str): directory name to create
     """
+    outcome = yield
+    report: pytest.TestReport = outcome.get_result()
+    extras = getattr(report, "extras", [])
 
-    if not os.path.exists(target_directory):
-        os.makedirs(target_directory)
+    if report.when == "call":
+        # _log_test_case_status(report)
+
+        try:
+            if SessionData.driver:
+                if is_test_failed(report):
+                    html = report_screenshot()
+                    extras.append(pytest_html_extras.html(html))
+                    report.extras = extras
+
+        except WebDriverException as wde:
+            SessionData.globals_contents.project_log.error(f"Failed to Quit Session: {wde}")
+
+
+class SessionData:
+    """class for keeping necessary session related info"""
+
+    iteration_directory_base: str
+    iteration_video_directory_base: str = None
+    globals_contents: Globals = None
+    driver: WebDriver = None
+    screenshots_directory = None
+    test_case_name = None
+    is_case_running = True
+    iteration_directory: Optional[str] = None
+    iteration_name = None
+    target_environment = None
+
+    @staticmethod
+    def reset():
+        """reset critical session related info"""
+
+        SessionData.driver = None
+        SessionData.globals_contents = None
