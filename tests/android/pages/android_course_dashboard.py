@@ -4,8 +4,7 @@
 
 from tests.android.pages import android_elements
 from tests.android.pages.android_base_page import AndroidBasePage
-from appium.webdriver.common.mobileby import MobileBy
-from selenium.webdriver.common.by import By
+from appium.webdriver.common.appiumby import AppiumBy
 
 
 class AndroidCourseDashboard(AndroidBasePage):
@@ -91,7 +90,7 @@ class AndroidCourseDashboard(AndroidBasePage):
         Get course dashboard discussions tab
         """
 
-        return self.driver.find_element(MobileBy.ACCESSIBILITY_ID, 'back')
+        return self.driver.find_element(AppiumBy.ACCESSIBILITY_ID, 'back')
 
     def get_allow_notifications_button(self):
         """

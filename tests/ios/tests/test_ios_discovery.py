@@ -16,7 +16,6 @@ from tests.ios.pages import ios_elements
 from tests.ios.pages.ios_landing import IosLanding
 from tests.ios.pages.ios_whats_new import IosWhatsNew
 from tests.ios.pages.ios_main_dashboard import IosMainDashboard
-from appium.webdriver.common.mobileby import MobileBy
 from tests.ios.pages.ios_course_dashboard import IosCourseDashboard
 
 

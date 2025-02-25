@@ -1,7 +1,7 @@
 """
     Profile Page Module
 """
-from appium.webdriver.common.mobileby import MobileBy
+from appium.webdriver.common.appiumby import AppiumBy
 from tests.ios.pages import ios_elements
 from tests.ios.pages.ios_base_page import IosBasePage
 
@@ -24,7 +24,7 @@ class IosProfile(IosBasePage):
             ios_elements.profile_screen_title
         )
 
-        return self.driver.find_element(MobileBy.NAME, 'Profile')
+        return self.driver.find_element(AppiumBy.NAME, 'Profile')
 
     def get_profile_edit_button(self):
         """
@@ -286,7 +286,7 @@ class IosProfile(IosBasePage):
             webdriver element: Dialog title element
         """
 
-        return self.driver.find_element(MobileBy.NAME, ios_elements.logout_dialog_title)
+        return self.driver.find_element(AppiumBy.NAME, ios_elements.logout_dialog_title)
 
     def get_logout_button(self):
         """
@@ -296,7 +296,7 @@ class IosProfile(IosBasePage):
             webdriver element: Logout button element
         """
 
-        return self.driver.find_element(MobileBy.NAME, ios_elements.logout_button)
+        return self.driver.find_element(AppiumBy.NAME, ios_elements.logout_button)
 
     def get_back_button(self):
         """
@@ -306,7 +306,7 @@ class IosProfile(IosBasePage):
             webdriver element: discovery title element
         """
 
-        return self.driver.find_element(MobileBy.NAME, 'arrowLeft')
+        return self.driver.find_element(AppiumBy.NAME, 'arrowLeft')
 
     def get_videos_back_button(self):
         """

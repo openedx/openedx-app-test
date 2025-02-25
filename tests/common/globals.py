@@ -7,7 +7,7 @@ import string
 import random
 import yaml
 
-from appium.webdriver.common.mobileby import MobileBy
+from appium.webdriver.common.appiumby import AppiumBy
 from selenium.common.exceptions import NoSuchElementException, WebDriverException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions
@@ -21,15 +21,12 @@ class Globals:
     Contains all global level contents, accessible in Pages & Tests
     """
 
-    AUT_PACKAGE_NAME = 'org.edx.mobile'
-
-    def __init__(self, project_log):
-        # Read user_preferences.yml and set globals accordingly
-        self.setup_global_environment()
-
-        # CAPABILITIES
-        self.ios_device_name = 'iPhone 16 Pro'
-        self.android_device_name = 'Android Phone'
+    def __init__(self, project_log, config_path="./tests/user_preferences.yml"):
+        """
+        Args:
+            project_log (logging.Logger): logger object
+            config_path (str): Path to the configuration file
+        """
         self.project_log = project_log
         self.medium_timeout = 7
         self.minimum_timeout = 3
@@ -38,22 +35,41 @@ class Globals:
         self.android_enter_key = 66
         self.whats_new_enable = True
 
-    def setup_global_environment(self):
-        """
-        set environment and read user_preferences for local run
-        """
+        # Read user_preferences.yml and set globals accordingly
+        self.config_path = config_path
+        self._load_user_preferences()
 
-        with open("./tests/user_preferences.yml", "r") as user_file:
-            user_preferences = yaml.safe_load(user_file)
 
-        self.target_environment = user_preferences.get('Settings', {}).get('target_environment')
-        self.server_url = user_preferences.get('Settings', {}).get('appium_server')
-        self.android_platform_version = user_preferences.get('Settings', {}).get('android_platform_version')
-        self.ios_platform_version = user_preferences.get('Settings', {}).get('ios_platform_version')
-        self.aut_current_path = user_preferences.get('Settings', {}).get('aut_current_path')
-        self.aut_latest_path = user_preferences.get('Settings', {}).get('aut_latest_path')
-        self.login_user_name = user_preferences.get('User', {}).get('login_user_name')
-        self.login_password = user_preferences.get('User', {}).get('login_password')
+
+
+    def _load_user_preferences(self):
+        """
+        Load user preferences from YAML file and set instance variables
+        """
+        try:
+            with open(self.config_path, "r") as user_file:
+                user_preferences = yaml.safe_load(user_file)
+
+            # Settings section
+            settings = user_preferences.get('Settings', {})
+            self.target_environment = settings.get('target_environment')
+            self.server_url = settings.get('appium_server')
+            self.platform_version = settings.get('platform_version')
+            self.device_name = settings.get('device_name')
+            self.full_reset = settings.get('full_reset')
+            self.aut_current_path = settings.get('aut_current_path')
+            self.app_path = settings.get('app_path')
+            self.aut_latest_path = settings.get('aut_latest_path')
+
+            # User section
+            user = user_preferences.get('User', {})
+            self.login_user_name = user.get('login_user_name')
+            self.login_password = user.get('login_password')
+
+        except FileNotFoundError:
+            self.project_log.info(f"Configuration file not found: {self.config_path}")
+        except yaml.YAMLError as e:
+            self.project_log.info(f"Error parsing YAML configuration: {e}")
 
     def wait_and_get_element(self, driver, element_locator, optional_time=None):
         """
@@ -74,11 +90,11 @@ class Globals:
 
         try:
             if self.target_environment == values.ANDROID:
-                element = driver.find_element(MobileBy.ANDROID_UIAUTOMATOR,
+                element = driver.find_element(AppiumBy.ANDROID_UIAUTOMATOR,
                                             f'new UiSelector().resourceId("{element_locator}")')
             elif self.target_environment == values.IOS:
                 element = WebDriverWait(driver, time_out).until(
-                    expected_conditions.presence_of_element_located((MobileBy.ACCESSIBILITY_ID, element_locator)))
+                    expected_conditions.presence_of_element_located((AppiumBy.ACCESSIBILITY_ID, element_locator)))
 
             self.project_log.info('Found - {} - {} - {} - {}'.format(
                 element_locator,
@@ -122,7 +138,7 @@ class Globals:
                     expected_conditions.presence_of_all_elements_located((By.CLASS_NAME, target_elements)))
             elif self.target_environment == values.IOS:
                 all_views = WebDriverWait(driver, self.maximum_timeout).until(
-                    expected_conditions.presence_of_all_elements_located((MobileBy.CLASS_NAME, target_elements)))
+                    expected_conditions.presence_of_all_elements_located((AppiumBy.CLASS_NAME, target_elements)))
             self.index = 0
             if all_views:
                 no_of_all_views = len(all_views)
@@ -213,10 +229,10 @@ class Globals:
 
         try:
             if self.target_environment == values.ANDROID:
-                all_views = driver.find_elements(MobileBy.ANDROID_UIAUTOMATOR,
+                all_views = driver.find_elements(AppiumBy.ANDROID_UIAUTOMATOR,
                                                 f'new UiSelector().resourceId("{target_elements}")')
             elif self.target_environment == values.IOS:
-                all_views = driver.find_elements(MobileBy.ACCESSIBILITY_ID, target_elements)
+                all_views = driver.find_elements(AppiumBy.ACCESSIBILITY_ID, target_elements)
             if all_views:
                 self.project_log.info('Total {} - {} found on screen'.format(len(all_views), target_elements))
                 for view in all_views:
@@ -266,7 +282,7 @@ class Globals:
             elif self.target_environment == values.IOS:
                 element = WebDriverWait(driver, self.medium_timeout).until(
                     expected_conditions.visibility_of_element_located((
-                        MobileBy.ACCESSIBILITY_ID,
+                        AppiumBy.ACCESSIBILITY_ID,
                         target_elements
                     )))
 
@@ -472,7 +488,7 @@ class Globals:
             element: back button element
         """
 
-        return parent_element.find_element(MobileBy.ANDROID_UIAUTOMATOR,
+        return parent_element.find_element(AppiumBy.ANDROID_UIAUTOMATOR,
                                             f'new UiSelector().resourceId("{child_element_locator}")')
 
     def get_element_by_label_ios(self, driver, element_text):
@@ -485,7 +501,7 @@ class Globals:
             driver,
             element_text
         )
-        return driver.find_element(MobileBy.IOS_PREDICATE,
+        return driver.find_element(AppiumBy.IOS_PREDICATE,
                                    f'label CONTAINS "{element_text}"')
 
     def get_elements_by_name_ios(self, driver, element_name):
@@ -498,7 +514,7 @@ class Globals:
             driver,
             element_name
         )
-        return driver.find_elements(MobileBy.IOS_PREDICATE,
+        return driver.find_elements(AppiumBy.IOS_PREDICATE,
                                    f'name CONTAINS "{element_name}"')
 
     def get_element_by_name_ios(self, driver, element_name):
@@ -511,7 +527,7 @@ class Globals:
             driver,
             element_name
         )
-        return driver.find_element(MobileBy.IOS_PREDICATE,
+        return driver.find_element(AppiumBy.IOS_PREDICATE,
                                    f'name CONTAINS "{element_name}"')
 
     def get_element_by_text(self, driver, element_text):
@@ -524,7 +540,7 @@ class Globals:
             driver,
             element_text
         )
-        return driver.find_element(MobileBy.ANDROID_UIAUTOMATOR,
+        return driver.find_element(AppiumBy.ANDROID_UIAUTOMATOR,
                                             f'new UiSelector().textContains("{element_text}")')
 
     def get_elements_by_text(self, driver, element_text):
@@ -537,7 +553,7 @@ class Globals:
             driver,
             element_text
         )
-        return driver.find_elements(MobileBy.ANDROID_UIAUTOMATOR,
+        return driver.find_elements(AppiumBy.ANDROID_UIAUTOMATOR,
                                             f'new UiSelector().textContains("{element_text}")')
 
     def get_android_element_by_text(self, driver, element_text):
@@ -550,7 +566,7 @@ class Globals:
             driver,
             element_text
         )
-        return driver.find_element(MobileBy.ANDROID_UIAUTOMATOR,
+        return driver.find_element(AppiumBy.ANDROID_UIAUTOMATOR,
                                             f'new UiSelector().textContains("{element_text}")')
 
     def get_element_by_exact_text_android(self, driver, element_text):
@@ -563,7 +579,7 @@ class Globals:
             driver,
             element_text
         )
-        return driver.find_element(MobileBy.ANDROID_UIAUTOMATOR,
+        return driver.find_element(AppiumBy.ANDROID_UIAUTOMATOR,
                                             f'new UiSelector().text("{element_text}")')
 
     def get_element_by_description_android(self, driver, element_desctiption):
@@ -576,5 +592,5 @@ class Globals:
             driver,
             element_desctiption
         )
-        return driver.find_element(MobileBy.ANDROID_UIAUTOMATOR,
+        return driver.find_element(AppiumBy.ANDROID_UIAUTOMATOR,
                                             f'new UiSelector().description("{element_desctiption}")')

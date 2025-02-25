@@ -10,6 +10,9 @@ It aims to ensure the reliability and functionality of the Open edX mobile apps 
 - [Appium-Python-Client](https://pypi.org/project/Appium-Python-Client/)
 - [PyYAML](https://pypi.org/project/PyYAML/)
 
+- Recommended to install requirements other than appium and node via pip
+  -     pip install -r requirements.txt 
+
 ###### iOS(Simulator)
  - Xcode with command line tools
 
@@ -29,9 +32,18 @@ It aims to ensure the reliability and functionality of the Open edX mobile apps 
 
     - set above selected target_environment's OS Version(of specific running device/simulator) like below
 
-          ios_platform_version: iOS emulator version 
+          platform_version: iOS device/simulator version | Android device/emulator version
 
-          android_platform_version: Android device/emulator version
+    - device name is only useful for iOS simulator, in case of multiple connected real devices use udid 
+        
+          device_name: 'iPhone 15'
+        or leave empty string
+
+    - add reset option true/false
+      -     full_reset: true
+      
+    - add path to apk/ipa file
+      -     app_path: "path/to/file"
 
     - set valid credentials to login
 

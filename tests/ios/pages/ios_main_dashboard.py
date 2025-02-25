@@ -1,7 +1,7 @@
 """
     Main Dashboard Page Module
 """
-from appium.webdriver.common.mobileby import MobileBy
+from appium.webdriver.common.appiumby import AppiumBy
 from tests.ios.pages import ios_elements
 from tests.ios.pages.ios_base_page import IosBasePage
 
@@ -24,7 +24,7 @@ class IosMainDashboard(IosBasePage):
             ios_elements.whats_new_btn_next
         )
 
-        return self.driver.find_element(MobileBy.NAME, 'close_button')
+        return self.driver.find_element(AppiumBy.NAME, 'close_button')
 
     def get_main_dashboard_discover_tab(self):
         """

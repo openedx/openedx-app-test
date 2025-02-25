@@ -1,7 +1,6 @@
 """
     My Courses List Page Module
 """
-from appium.webdriver.common.mobileby import MobileBy
 from tests.ios.pages import ios_elements
 from tests.ios.pages.ios_base_page import IosBasePage
 
