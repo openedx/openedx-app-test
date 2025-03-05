@@ -34,7 +34,7 @@ def is_controller_node(config: pytest.Config) -> bool:
 
 def report_screenshot():
     """
-        Get screenshots of the different screens
+    Get screenshots of the different screens
     Arguments:
     Returns:
         str : file path
@@ -260,14 +260,12 @@ def pytest_runtest_makereport():
     extras = getattr(report, "extras", [])
 
     if report.when == "call":
-        # _log_test_case_status(report)
 
         try:
-            if SessionData.driver:
-                if is_test_failed(report):
-                    html = report_screenshot()
-                    extras.append(pytest_html_extras.html(html))
-                    report.extras = extras
+            if SessionData.driver and is_test_failed(report):
+                html = report_screenshot()
+                extras.append(pytest_html_extras.html(html))
+                report.extras = extras
 
         except WebDriverException as wde:
             SessionData.globals_contents.project_log.error(f"Failed to Quit Session: {wde}")

@@ -22,7 +22,7 @@ def sanitize_name(name):
 
 def get_formatted_datetime():
     """
-        Get a string from current datetime in year, month, day, hour, min & sec format
+    Get a string from current datetime in year, month, day, hour, min & sec format
     Returns:
         str : i.e. 2020_01_08_12_51
     """
