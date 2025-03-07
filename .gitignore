@@ -1,7 +1,10 @@
 node_modules
 __pycache__/
-node_modules
 package-lock.json
 user_preferences.yml
 results/
-package-lock.json
+venv
+report.html
+.idea/
+.DS_Store
+builds

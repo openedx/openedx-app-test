@@ -21,7 +21,7 @@ class Globals:
     Contains all global level contents, accessible in Pages & Tests
     """
 
-    AUT_PACKAGE_NAME = 'org.openedx.app'
+    AUT_PACKAGE_NAME = 'org.edx.mobile'
 
     def __init__(self, project_log):
         # Read user_preferences.yml and set globals accordingly

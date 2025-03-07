@@ -49,7 +49,7 @@ class TestAndroidProfile:
         assert profile_tab.get_attribute('selected') == values.FALSE_LOWERCASE
         profile_tab.click()
         assert profile_page.get_settings_button().get_attribute('content-desc').lower() == values.PROFILE_SETTINGS_TEXT
-        assert values.PROFILE_NAME_TEXT in profile_page.get_profile_img_profile().get_attribute('content-desc')
+        assert values.PROFILE_IMAGE_TEXT in profile_page.get_profile_img_profile().get_attribute('content-desc')
         assert profile_page.get_profile_txt_name().text == values.PROFILE_NAME_TEXT
         assert profile_page.get_profile_username().text == values.PROFILE_USERNAME_TEXT
         assert profile_page.get_edit_profile_button().text == values.EDIT_PROFILE_TITLE
