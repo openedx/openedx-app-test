@@ -2,65 +2,84 @@
     Main Dashboard Page Module
 """
 
-from tests.android.pages import android_elements
+from appium.webdriver.common.appiumby import AppiumBy
+
+from framework.element import Element
 from tests.android.pages.android_base_page import AndroidBasePage
 
 
 class AndroidMainDashboard(AndroidBasePage):
     """
-    Main Dashbaord screen
+    Main Dashboard screen
     """
 
-    def get_discover_tab(self):
-        """
-        Get discover tab
+    def __init__(self):
+        super().__init__()
+        self._main_dashboard_fragment_discover = Element(
+            AppiumBy.ANDROID_UIAUTOMATOR,
+            'new UiSelector().resourceId("org.edx.mobile:id/fragmentDiscover")',
+        )
+        self._main_dashboard_fragment_learn = Element(
+            AppiumBy.ANDROID_UIAUTOMATOR,
+            'new UiSelector().resourceId("org.edx.mobile:id/fragmentLearn")',
+        )
+        self._main_dashboard_fragment_profile = Element(
+            AppiumBy.ANDROID_UIAUTOMATOR,
+            'new UiSelector().resourceId("org.edx.mobile:id/fragmentProfile")',
+        )
+        self._switcher_label_courses = Element(
+            AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("Courses")'
+        )
+        self._switcher_label_program = Element(
+            AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("Programs")'
+        )
+
+    @property
+    def discover_tab(self) -> Element:
+        """Get discover tab
 
         Returns:
-            element: sign in description element
+            Element: sign in description element
         """
 
-        self.global_contents.wait_for_element_visibility(
-            self.driver,
-            android_elements.main_dashboard_fragment_discover
-        )
+        return self._main_dashboard_fragment_discover.find()
 
-        return self.global_contents.wait_and_get_element(
-            self.driver,
-            android_elements.main_dashboard_fragment_discover
-        )
-
-    def get_learn_tab(self):
-        """
-        Get learn tab
+    @property
+    def learn_tab(self) -> Element:
+        """Get learn tab
 
         Returns:
-            element: learn fragment element
+            Element: learn fragment element
         """
 
-        self.global_contents.wait_for_element_visibility(
-            self.driver,
-            android_elements.main_dashboard_fragment_learn
-        )
+        return self._main_dashboard_fragment_learn
 
-        return self.global_contents.wait_and_get_element(
-            self.driver,
-            android_elements.main_dashboard_fragment_learn
-        )
-
-    def get_profile_tab(self):
-        """
-        Get profile tab
+    @property
+    def profile_tab(self) -> Element:
+        """Get profile tab
 
         Returns:
-            element: profile framgent element
+            Element: profile fragment element
         """
 
-        self.global_contents.wait_for_element_visibility(
-            self.driver,
-            android_elements.main_dashbaord_fragment_profile
-        )
+        return self._main_dashboard_fragment_profile
 
-        return self.global_contents.wait_and_get_element(
-            self.driver,
-            android_elements.main_dashbaord_fragment_profile
-        )
+    @property
+    def switcher_label_courses(self) -> Element:
+        """Get profile tab
+
+        Returns:
+            Element: profile fragment element
+        """
+
+        return self._switcher_label_courses
+
+    @property
+    def switcher_label_programs(self) -> Element:
+        """Get profile tab
+
+        Returns:
+            Element: profile fragment element
+        """
+
+        return self._switcher_label_program

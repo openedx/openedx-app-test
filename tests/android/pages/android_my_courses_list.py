@@ -1,8 +1,9 @@
 """
     My Courses List Page Module
 """
+from appium.webdriver.common.appiumby import AppiumBy
 
-from tests.android.pages import android_elements
+from framework import Element
 from tests.android.pages.android_base_page import AndroidBasePage
 
 
@@ -11,77 +12,45 @@ class AndroidMyCoursesList(AndroidBasePage):
     My Courses List screen
     """
 
-    def get_my_course_toolbar_title(self):
-        """
-        Get toolbar title
+    def __init__(self):
+        super().__init__()
+        self._my_course_screen_title = Element(AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("txt_courses_title")')
+        self._my_courses_description = Element(AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("txt_courses_description")')
+        self._my_courses_org_name = Element(AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("txt_course_org")')
+        self._my_courses_course_date = Element(AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("txt_course_date")')
+
+    def get_my_course_screen_title(self) -> Element:
+        """Get screen title
 
         Returns:
-            element: toolbar title element
+            Element: screen title element
         """
 
-        self.global_contents.wait_for_element_visibility(
-            self.driver,
-            android_elements.my_course_toolbar_title
-        )
+        return self._my_course_screen_title
 
-        return self.global_contents.wait_and_get_element(
-            self.driver,
-            android_elements.my_course_toolbar_title
-        )
-
-    def get_my_course_screen_title(self):
-        """
-        Get screen title
+    def get_my_courses_description(self) -> Element:
+        """Get course description title
 
         Returns:
-            element: screen title element
+            Element: course description element
         """
 
-        return self.global_contents.wait_and_get_element(
-            self.driver,
-            android_elements.my_course_screen_title
-        )
-
-    def get_my_courses_description(self):
-        """
-        Get course description title
-
-        Returns:
-            element: course description element
-        """
-
-        self.global_contents.wait_for_element_visibility(
-            self.driver,
-            android_elements.my_courses_description
-        )
-
-        return self.global_contents.wait_and_get_element(
-            self.driver,
-            android_elements.my_courses_description
-        )
+        return self._my_courses_description
 
     def get_my_courses_org_name(self):
-        """
-        Get course organization title
+        """Get course organization title
 
         Returns:
-            element: course organization element
+            Element: course organization element
         """
 
-        return self.global_contents.wait_and_get_element(
-            self.driver,
-            android_elements.my_courses_org_name
-        )
+        return self._my_courses_org_name
 
     def get_my_courses_course_date(self):
-        """
-        Get course date title
+        """Get course date title
 
         Returns:
-            element: course date element
+            Element: course date element
         """
 
-        return self.global_contents.wait_and_get_element(
-            self.driver,
-            android_elements.my_courses_course_date
-        )
+        return self._my_courses_course_date

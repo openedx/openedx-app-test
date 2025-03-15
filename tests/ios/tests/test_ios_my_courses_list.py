@@ -39,14 +39,17 @@ class TestIosMyCoursesList:
         buttons = my_courses_list.get_all_buttons()
 
         due_assignment = buttons[5]
-        assert 'Assignments' in due_assignment.text
+        assert "Assignments" in due_assignment.text
         resume_course = buttons[6]
-        assert 'Resume' in resume_course.text
+        assert "Resume" in resume_course.text
         second_course = buttons[8]
         assert second_course.text == values.MAIN_DASHBOARD_COURSE_NAME
         third_course = buttons[9]
-        assert third_course.text == 'How to Learn Online'
-        assert values.MAIN_DASHBOARD_COURSE_DESCRIPTION in my_courses_list.get_my_courses_welcomeback_text().text
+        assert third_course.text == "How to Learn Online"
+        assert (
+            values.MAIN_DASHBOARD_COURSE_DESCRIPTION
+            in my_courses_list.get_my_courses_welcomeback_text().text
+        )
         my_courses_list.get_my_courses_welcomeback_text().click()
 
     def test_view_all_courses(self, set_capabilities, setup_logging):
@@ -65,27 +68,47 @@ class TestIosMyCoursesList:
         my_courses_list = IosMyCoursesList(set_capabilities, setup_logging)
         course_dashboard_page = IosCourseDashboard(set_capabilities, setup_logging)
 
-        assert my_courses_list.get_all_courses_header_text().text == values.ALL_COURSES_HEADER_LABEL
+        assert (
+            my_courses_list.get_all_courses_header_text().text
+            == values.ALL_COURSES_HEADER_LABEL
+        )
         assert my_courses_list.get_all_courses_label().text == values.ALL_COURSES_LABEL
         my_courses_list.get_all_courses_label().click()
-        all_enrolled_courses = global_contents.get_elements_by_name_ios(set_capabilities , 'course_item')
+        all_enrolled_courses = global_contents.get_elements_by_name_ios(
+            set_capabilities, "course_item"
+        )
         assert len(all_enrolled_courses) == 3
 
-        assert my_courses_list.get_all_courses_inprogress_label().text == values.ALL_COURSES_INPROGRESS_LABEL
+        assert (
+            my_courses_list.get_all_courses_inprogress_label().text
+            == values.ALL_COURSES_INPROGRESS_LABEL
+        )
         my_courses_list.get_all_courses_inprogress_label().click()
-        in_progress_courses = global_contents.get_elements_by_name_ios(set_capabilities, 'course_item')
+        in_progress_courses = global_contents.get_elements_by_name_ios(
+            set_capabilities, "course_item"
+        )
         assert len(in_progress_courses) == 2
 
-        assert my_courses_list.get_all_courses_completed_label().text == values.ALL_COURSES_COMPLETED_LABEL
+        assert (
+            my_courses_list.get_all_courses_completed_label().text
+            == values.ALL_COURSES_COMPLETED_LABEL
+        )
         my_courses_list.get_all_courses_completed_label().click()
-        completed_courses = global_contents.get_element_by_name_ios(set_capabilities, 'No Completed Courses')
-        assert completed_courses.text == 'No Completed Courses'
+        completed_courses = global_contents.get_element_by_name_ios(
+            set_capabilities, "No Completed Courses"
+        )
+        assert completed_courses.text == "No Completed Courses"
 
-        assert my_courses_list.get_all_courses_expired_label().text == values.ALL_COURSES_EXPIRED_LABEL
+        assert (
+            my_courses_list.get_all_courses_expired_label().text
+            == values.ALL_COURSES_EXPIRED_LABEL
+        )
         my_courses_list.get_all_courses_expired_label().click()
-        expired_courses = global_contents.get_element_by_name_ios(set_capabilities, 'How to Learn Online')
-        assert expired_courses.text == 'How to Learn Online'
+        expired_courses = global_contents.get_element_by_name_ios(
+            set_capabilities, "How to Learn Online"
+        )
+        assert expired_courses.text == "How to Learn Online"
 
         dashboard_tab = course_dashboard_page.navigate_to_main_dashboard_tab()
-        assert dashboard_tab.get_attribute('label') == values.LANDING_BACK_BUTTON
+        assert dashboard_tab.get_attribute("label") == values.LANDING_BACK_BUTTON
         dashboard_tab.click()

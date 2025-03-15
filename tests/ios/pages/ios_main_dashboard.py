@@ -2,6 +2,7 @@
     Main Dashboard Page Module
 """
 from appium.webdriver.common.appiumby import AppiumBy
+
 from tests.ios.pages import ios_elements
 from tests.ios.pages.ios_base_page import IosBasePage
 
@@ -20,11 +21,10 @@ class IosMainDashboard(IosBasePage):
         """
 
         self.global_contents.wait_for_element_visibility(
-            self.driver,
-            ios_elements.whats_new_btn_next
+            self.driver, ios_elements.whats_new_btn_next
         )
 
-        return self.driver.find_element(AppiumBy.NAME, 'close_button')
+        return self.driver.find_element(AppiumBy.NAME, "close_button")
 
     def get_main_dashboard_discover_tab(self):
         """
@@ -35,12 +35,12 @@ class IosMainDashboard(IosBasePage):
         """
 
         self.global_contents.wait_for_element_visibility(
-            self.driver,
-            ios_elements.main_dashboard_discover_tab)
+            self.driver, ios_elements.main_dashboard_discover_tab
+        )
 
         discover_tab = self.global_contents.wait_and_get_element(
-            self.driver,
-            ios_elements.main_dashboard_discover_tab)
+            self.driver, ios_elements.main_dashboard_discover_tab
+        )
         return discover_tab
 
     def get_main_dashboard_learn_tab(self):
@@ -52,12 +52,12 @@ class IosMainDashboard(IosBasePage):
         """
 
         self.global_contents.wait_for_element_visibility(
-            self.driver,
-            ios_elements.main_dashboard_learn_tab)
+            self.driver, ios_elements.main_dashboard_learn_tab
+        )
 
         discover_tab = self.global_contents.wait_and_get_element(
-            self.driver,
-            ios_elements.main_dashboard_learn_tab)
+            self.driver, ios_elements.main_dashboard_learn_tab
+        )
         return discover_tab
 
     def get_main_dashboard_programs_tab(self):
@@ -69,8 +69,8 @@ class IosMainDashboard(IosBasePage):
         """
 
         programs_tab = self.global_contents.wait_and_get_element(
-            self.driver,
-            ios_elements.main_dashboard_programs_tab)
+            self.driver, ios_elements.main_dashboard_programs_tab
+        )
         return programs_tab
 
     def get_main_dashboard_tab(self):
@@ -82,8 +82,8 @@ class IosMainDashboard(IosBasePage):
         """
 
         dashboard = self.global_contents.wait_and_get_element(
-            self.driver,
-            ios_elements.main_dashboard_tab)
+            self.driver, ios_elements.main_dashboard_tab
+        )
         return dashboard
 
     def get_main_dashboard_profile_tab(self):
@@ -95,6 +95,6 @@ class IosMainDashboard(IosBasePage):
         """
 
         profile_tab = self.global_contents.get_element_by_name_ios(
-            self.driver,
-            'Profile')
+            self.driver, "Profile"
+        )
         return profile_tab

@@ -1,5 +1,5 @@
 """
-   Module ensure environment level initial settings before starting execution
+Module ensure environment level initial settings before starting execution
 """
 
 import datetime
@@ -8,21 +8,23 @@ import os
 from typing import Optional
 
 import pytest
-from pytest_html import extras as pytest_html_extras
 from appium import webdriver
 from appium.webdriver.webdriver import WebDriver
+from pytest_html import extras as pytest_html_extras
 from selenium.common.exceptions import WebDriverException
 
 from tests.android.pages.android_main_dashboard import AndroidMainDashboard
 from tests.android.pages.android_profile import AndroidProfile
 from tests.android.pages.android_whats_new import AndroidWhatsNew
-from tests.common import values
-from tests.common.capabilities import caps_factory
-from tests.common.globals import Globals
+from framework import expect
+from framework.element import Element
 from tests.android.pages.android_landing import AndroidLanding
 from tests.android.pages.android_sign_in import AndroidSignIn
-from tests.common import utils
-from tests.common.utils import sanitize_name, get_formatted_datetime
+from tests.common import utils, values
+from tests.common.capabilities import caps_factory
+from tests.common.enums import ElementAttribute
+from tests.common.globals import Globals
+from tests.common.utils import get_formatted_datetime, sanitize_name
 from tests.ios.pages.ios_landing import IosLanding
 from tests.ios.pages.ios_login import IosLogin
 from tests.ios.pages.ios_main_dashboard import IosMainDashboard
@@ -34,8 +36,10 @@ def is_test_failed(report: pytest.TestReport) -> bool:
     x_fail = hasattr(report, "wasxfail")
     return (report.skipped and x_fail) or (report.failed and not x_fail)
 
+
 def is_controller_node(config: pytest.Config) -> bool:
     return not hasattr(config, "workerinput")
+
 
 def report_screenshot():
     """
@@ -46,8 +50,7 @@ def report_screenshot():
     """
     try:
         file_path = (
-            f"{SessionData.screenshots_directory}/{SessionData.test_case_name}_"
-            f"{get_formatted_datetime()}.png"
+            f"{SessionData.screenshots_directory}/{SessionData.test_case_name}_" f"{get_formatted_datetime()}.png"
         )
         SessionData.driver.save_screenshot(file_path)
         return (
@@ -57,6 +60,7 @@ def report_screenshot():
 
     except Exception:
         pass
+
 
 @pytest.fixture(scope="module")
 def set_capabilities(setup_logging, request):
@@ -78,30 +82,33 @@ def set_capabilities(setup_logging, request):
     desired_capabilities = {}
     SessionData.globals_contents = globals_contents
     SessionData.test_case_name = os.path.basename(str(request.node.name)).replace(".py", "")
-    logger.info(f'{globals_contents.target_environment} - '
-         f'{globals_contents.login_user_name} - '
-         f'{globals_contents.login_password} - '
-         f'{globals_contents.platform_version} - ')
-    logger.info(f'- Setting {globals_contents.target_environment} capabilities')
+    logger.info(
+        f"{globals_contents.target_environment} - "
+        f"{globals_contents.login_user_name} - "
+        f"{globals_contents.login_password} - "
+        f"{globals_contents.platform_version} - "
+    )
+    logger.info(f"- Setting {globals_contents.target_environment} capabilities")
 
-    desired_capabilities['appium:platformVersion'] = globals_contents.platform_version
-    desired_capabilities['appium:fullReset'] = globals_contents.full_reset
+    desired_capabilities["appium:platformVersion"] = globals_contents.platform_version
+    desired_capabilities["appium:fullReset"] = globals_contents.full_reset
     if globals_contents.app_path:
-        desired_capabilities['appium:app'] = globals_contents.app_path
+        desired_capabilities["appium:app"] = globals_contents.app_path
     if globals_contents.device_name:
-        desired_capabilities['appium:deviceName'] = globals_contents.device_name
+        desired_capabilities["appium:deviceName"] = globals_contents.device_name
 
     capabilities.update(desired_capabilities)
     setup_logging.info(f"Requesting session with capabilities:{capabilities.get_as_options()}")
     driver = webdriver.Remote(globals_contents.server_url, options=capabilities.get_as_options())
 
     if driver is not None:
-        logger.info(f'- Setting {globals_contents.target_environment} capabilities are done')
+        logger.info(f"- Setting {globals_contents.target_environment} capabilities are done")
         SessionData.driver = driver
         return driver
 
-    logger.info(f'Problem setting {globals_contents.target_environment} capabilities')
+    logger.info(f"Problem setting {globals_contents.target_environment} capabilities")
     return None
+
 
 @pytest.fixture(scope="module")
 def setup_logging(request) -> logging.Logger:
@@ -119,16 +126,21 @@ def setup_logging(request) -> logging.Logger:
     # main iteration directory
     utils.create_directory(SessionData.iteration_directory_base)
     test_case_name = os.path.basename(str(request.node.name)).replace(".py", "")
-    SessionData.iteration_directory = str(os.path.join(
-        current_directory, values.RESULTS_DIRECTORY, SessionData.iteration_directory_base, test_case_name
-    ))
+    SessionData.iteration_directory = str(
+        os.path.join(
+            current_directory,
+            values.RESULTS_DIRECTORY,
+            SessionData.iteration_directory_base,
+            test_case_name,
+        )
+    )
 
     utils.create_directory(SessionData.iteration_directory)
 
     SessionData.screenshots_directory = os.path.join(current_directory, SessionData.iteration_directory)
     log_file = os.path.join(current_directory, SessionData.iteration_directory, values.LOG_FILE_NAME)
 
-    my_logger = logging.getLogger('edX Automation Logs')
+    my_logger = logging.getLogger("edX Automation Logs")
     my_logger.setLevel(logging.INFO)
     log_handler = logging.FileHandler(log_file, encoding="utf-8")
     formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
@@ -138,19 +150,19 @@ def setup_logging(request) -> logging.Logger:
     def finalizer():
         """finalizer run when test case finishes"""
 
-        my_logger.info(f"================logging Stopped=====================")
+        my_logger.info("================logging Stopped=====================")
         log_handler.close()
 
     request.addfinalizer(finalizer)
 
     my_logger.info("=================Logging is successfully set up=================")
-    my_logger.info(f'@@@ current dir: {current_directory}')
-    my_logger.info(f'@@@ base iteration dir: {SessionData.iteration_directory_base}')
-    my_logger.info(f'@@@ iteration dir: {SessionData.iteration_directory}')
-    my_logger.info(f'@@@ node name : {str(request.node.name)}')
-
+    my_logger.info(f"@@@ current dir: {current_directory}")
+    my_logger.info(f"@@@ base iteration dir: {SessionData.iteration_directory_base}")
+    my_logger.info(f"@@@ iteration dir: {SessionData.iteration_directory}")
+    my_logger.info(f"@@@ node name : {str(request.node.name)}")
 
     return my_logger
+
 
 def pytest_configure(config: pytest.Config):
     """
@@ -173,7 +185,8 @@ def pytest_configure(config: pytest.Config):
     SessionData.iteration_name = iteration_name
 
     config.option.htmlpath = os.path.join(
-        SessionData.iteration_directory_base, f"{iteration_name}{values.HTML_REPORT_FILE_NAME}"
+        SessionData.iteration_directory_base,
+        f"{iteration_name}{values.HTML_REPORT_FILE_NAME}",
     )
 
 
@@ -192,45 +205,47 @@ def android_login(set_capabilities, setup_logging):
 
     log = setup_logging
     global_contents = Globals(log)
-    android_landing = AndroidLanding(set_capabilities, setup_logging)
-    android_sign_in = AndroidSignIn(set_capabilities, setup_logging)
-    whats_new_page = AndroidWhatsNew(set_capabilities, setup_logging)
-    main_dashboard_page = AndroidMainDashboard(set_capabilities, setup_logging)
-    profile_page = AndroidProfile(set_capabilities, setup_logging)
+    Element.set_driver(set_capabilities)
+    Element.set_logger(setup_logging)
+    android_landing = AndroidLanding()
+    android_sign_in = AndroidSignIn()
+    whats_new_page = AndroidWhatsNew()
+    main_dashboard_page = AndroidMainDashboard()
+    profile_page = AndroidProfile()
 
-    assert android_landing.get_screen_title().text == values.LANDING_MESSAGE_IOS
-    assert android_landing.get_signin_button()
-    assert android_landing.load_signin_screen().text == values.LOGIN
+    expect(android_landing.screen_title).to_have(values.LANDING_MESSAGE)
+    assert android_landing.signin_button.exists()
+    assert android_landing.load_signin_screen()
+    expect(android_sign_in.signin_title, "Sign in screen not loaded successfully").to_have(values.LOGIN)
 
-    assert android_sign_in.get_sign_in_email_label().text == values.EMAIL_OR_USERNAME
-    email_field = android_sign_in.get_sign_in_tf_email()
-    assert email_field.get_attribute('clickable') == values.TRUE_LOWERCASE
-    email_field.send_keys(global_contents.login_user_name)
+    expect(android_sign_in.sign_in_email_label).to_have(values.EMAIL_OR_USERNAME)
+    expect(android_sign_in.sign_in_tf_email).to_be_clickable()
+    assert android_sign_in.sign_in_tf_email.send_keys(global_contents.login_user_name)
 
-    assert android_sign_in.get_sign_in_password_label().text == values.PASSWORD
-    password_field = android_sign_in.get_sign_in_password_field()
-    assert password_field.get_attribute('clickable') == values.TRUE_LOWERCASE
-    password_field.send_keys(global_contents.login_password)
-    assert android_sign_in.get_signin_button().get_attribute('clickable') == values.TRUE_LOWERCASE
-    android_sign_in.get_signin_button().click()
-    setup_logging.info(f'{global_contents.login_user_name} is successfully logged in')
+    expect(android_sign_in.sign_in_password_label).to_have(values.PASSWORD)
+    expect(android_sign_in.sign_in_password_field).to_be_clickable()
+    assert android_sign_in.sign_in_password_field.send_keys(global_contents.login_password)
+    expect(android_sign_in.signin_button).to_be_clickable()
+    assert android_sign_in.signin_button.click()
+    setup_logging.info(f"{global_contents.login_user_name} is successfully logged in")
     if global_contents.whats_new_enable:
-        whats_new_page.get_close_button().click()
-    learn_tab = main_dashboard_page.get_learn_tab()
-    assert learn_tab.get_attribute('content-desc') == values.MAIN_DASHBOARD_LEARN_TAB
-    assert learn_tab.get_attribute('selected') == values.TRUE_LOWERCASE
+        assert whats_new_page.get_close_button.click()
+    learn_tab = main_dashboard_page.learn_tab
+    expect(learn_tab).to_have(values.MAIN_DASHBOARD_LEARN_TAB, ElementAttribute.CONTENT_DESC)
+    expect(learn_tab).to_be_selected()
 
     yield set_capabilities
 
-    profile_tab = main_dashboard_page.get_profile_tab()
-    profile_tab.click()
-    profile_page.get_settings_button().click()
-    global_contents.scroll_from_element(set_capabilities, profile_page.get_profile_txt_privacy_policy())
+    profile_tab = main_dashboard_page.profile_tab
+    assert profile_tab.click()
+    assert profile_page.settings_button.click()
+    profile_page.get_profile_txt_terms_of_use.scroll_vertically_from_element()
 
-    profile_page.get_profile_txt_logout().click()
-    assert profile_page.get_logout_button().text.lower() == values.PROFILE_LOGOUT_BUTTON
-    profile_page.get_logout_button().click()
-    assert android_landing.get_search_label().text == values.LANDING_SEARCH_TITLE
+    assert profile_page.profile_txt_logout.click()
+    expect(profile_page.logout_prompt_logout_button_text).to_have(values.PROFILE_LOGOUT_BUTTON)
+    assert profile_page.logout_prompt_logout_button_text.click()
+    expect(android_landing.get_search_label).to_have(values.LANDING_SEARCH_TITLE)
+
 
 @pytest.fixture(scope="module")
 def ios_login(set_capabilities, setup_logging):
@@ -251,7 +266,7 @@ def ios_login(set_capabilities, setup_logging):
     whats_new_page = IosWhatsNew(set_capabilities, setup_logging)
     main_dashboard = IosMainDashboard(set_capabilities, setup_logging)
 
-    log.info('Login screen successfully loaded')
+    log.info("Login screen successfully loaded")
     if ios_landing.get_allow_notifications_button():
         ios_landing.get_allow_notifications_button().click()
 
@@ -269,17 +284,17 @@ def ios_login(set_capabilities, setup_logging):
     assert password_title.text == values.PASSWORD
     password_title.click()
     password_field = ios_login.get_signin_password_textfield()
-    assert password_field.get_attribute('value') == values.PASSWORD
+    assert password_field.get_attribute("value") == values.PASSWORD
     password_field.send_keys(global_contents.login_password)
     password_title.click()
     sign_in_button = ios_login.get_signin_button()
     assert sign_in_button.text == values.LOGIN
     sign_in_button.click()
-    setup_logging.info(f'{global_contents.login_user_name} is successfully logged in')
+    setup_logging.info(f"{global_contents.login_user_name} is successfully logged in")
 
     if global_contents.whats_new_enable:
         whats_new_page.get_close_button().click()
-        setup_logging.info('Whats New screen is successfully loaded')
+        setup_logging.info("Whats New screen is successfully loaded")
 
     profile_tab = main_dashboard.get_main_dashboard_profile_tab()
     assert profile_tab.text == values.MAIN_DASHBOARD_PROFILE_TAB
@@ -287,7 +302,7 @@ def ios_login(set_capabilities, setup_logging):
     learn_tab = main_dashboard.get_main_dashboard_learn_tab()
     learn_tab.click()
     learn_tab = main_dashboard.get_main_dashboard_learn_tab()
-    assert learn_tab.get_attribute('value') == values.IOS_SELECTED_TAB_VALUE
+    assert learn_tab.get_attribute("value") == values.IOS_SELECTED_TAB_VALUE
 
     yield set_capabilities
 
@@ -302,7 +317,7 @@ def ios_login(set_capabilities, setup_logging):
     setup_logging.info("clicking log out")
     ios_profile.get_logout_button().click()
     setup_logging.info("log out successful")
-    assert ios_landing.get_welcome_message().text == values.LANDING_MESSAGE_IOS
+    assert ios_landing.get_welcome_message().text == values.LANDING_MESSAGE
 
 
 @pytest.hookimpl(hookwrapper=True)
