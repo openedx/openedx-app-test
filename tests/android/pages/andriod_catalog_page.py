@@ -6,6 +6,7 @@ from tests.common import values
 from appium.webdriver.common.appiumby import AppiumBy
 
 
+
 class AndroidCatalogPage(AndroidBasePage):
     """A Class for handling Catalog Screen UI interactions."""
 
@@ -137,11 +138,19 @@ class AndroidCatalogPage(AndroidBasePage):
         return self._third_popular_course
 
     @property
+    def catalog_screen_toolbar_title(self) -> Element:
+        """
+        catalog screen toolbar title
+        """
+        return self._catalog_screen_toolbar_title
+
+    @property
     def catalog_screen_heading_msg(self) -> Element:
         """catalog screen heading message
         Returns:
             Element: catalog screen heading message
         """
+
         return self._catalog_screen_heading_msg
 
     def trending_tag(self, tag: str) -> Element:
@@ -149,6 +158,7 @@ class AndroidCatalogPage(AndroidBasePage):
         Returns:
             Element: catalog screen trending marketing tag
         """
+
         return self._trending_tags.get(tag)
 
     @property

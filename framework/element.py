@@ -24,6 +24,10 @@ class Element:
         cls.__driver = driver
 
     @classmethod
+    def get_driver(cls) -> WebDriver:
+        return cls.__driver
+
+    @classmethod
     def set_logger(cls, logger: Logger):
         cls.__logger = logger
 
@@ -311,6 +315,13 @@ class Element:
 
     def scroll_vertically_from_element(self):
         """Scroll from element"""
+        """
+            Scroll from element
+
+        Arguments:
+            driver (webdriver element): webdriver instance variable
+            from_element (webdriver element): element from which scroll will start
+        """
 
         screen_width = Element.__driver.get_window_size()["width"]
         screen_height = Element.__driver.get_window_size()["height"]
