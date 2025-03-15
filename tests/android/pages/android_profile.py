@@ -13,6 +13,17 @@ class AndroidProfile(AndroidBasePage):
     """
     Profile screen
     """
+    def __init__(self):
+        super().__init__()
+        self._settings_button = Element(AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().description("Settings")')
+        self._profile_img_profile = Element(AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("img_profile")')
+        self._profile_txt_name = Element(AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("txt_profile_name")')
+        self._profile_username = Element(AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("txt_profile_username")')
+        self._edit_profile_btn = Element(AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("txt_edit_profile")')
+        self._privacy_policy = Element(AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("Privacy Policy")')
+        self._logout_text = Element(AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("Log Out")')
+        self._logout_prompt_logout_button_text = Element(AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("txt_logout")')
+
 
     def __init__(self):
         super().__init__()

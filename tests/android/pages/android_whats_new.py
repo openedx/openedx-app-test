@@ -2,6 +2,7 @@
     What's New Page Module
 """
 
+from tests.android.pages import android_elements
 from appium.webdriver.common.appiumby import AppiumBy
 
 from framework.element import Element

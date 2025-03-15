@@ -12,6 +12,7 @@ from tests.common.utils import normalize_string
 
 
 class Element:
+
     def __init__(self, strategy: AppiumBy, locator: str):
         self.locator = (strategy, locator)
         self.element: MobileWebElement = None
@@ -21,6 +22,10 @@ class Element:
     @classmethod
     def set_driver(cls, driver: WebDriver):
         cls.__driver = driver
+
+    @classmethod
+    def get_driver(cls) -> WebDriver:
+        return cls.__driver
 
     @classmethod
     def set_logger(cls, logger: Logger):
@@ -82,12 +87,13 @@ class Element:
         """Get child elements from parent element
         Arguments:
             child_locator: Element instance initialized with child locator
+            raise_exception (bool): True or False
         Returns:
             Element: Returns instance of Element class for child elements
         """
         try:
             child_locator.element = self.find().element.find_element(
-                child_locator.locator
+                *child_locator.locator
             )
             Element.__logger.info(f"found elements matching {child_locator.locator}")
             return child_locator
@@ -108,7 +114,7 @@ class Element:
             Element: Returns instance of Element class for child elements
         """
         try:
-            child_elements = self.find().element.find_elements(child_locator.locator)
+            child_elements = self.find().element.find_elements(*child_locator.locator)
             if len(child_elements) > 0:
                 child_locator.elements = child_elements
                 Element.__logger.info(
