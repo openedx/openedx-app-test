@@ -2,6 +2,8 @@
     Whats New Page Module
 """
 
+from framework.element import Element
+from appium.webdriver.common.appiumby import AppiumBy
 from tests.android.pages import android_elements
 from tests.android.pages.android_base_page import AndroidBasePage
 
@@ -11,7 +13,16 @@ class AndroidWhatsNew(AndroidBasePage):
     Whats New screen
     """
 
-    def get_close_button(self):
+    def __init__(self):
+        super().__init__()
+        self._whats_new_msg_title = Element(AppiumBy.ANDROID_UIAUTOMATOR,'new UiSelector().resourceId("txt_whats_new_title")')
+        self._whats_new_description = Element(AppiumBy.ANDROID_UIAUTOMATOR,'new UiSelector().resourceId("txt_whats_new_description")')
+        self._whats_new_btn_next = Element(AppiumBy.ANDROID_UIAUTOMATOR,'new UiSelector().resourceId("btn_next")')
+        self._whats_new_done_button = Element(AppiumBy.ANDROID_UIAUTOMATOR,'new UiSelector().resourceId("txt_done")')
+        self._whats_new_close_button = Element(AppiumBy.ANDROID_UIAUTOMATOR,'new UiSelector().resourceId("txt_done")')
+
+    @property
+    def get_close_button(self) -> Element:
         """
         Get close button
 
@@ -19,17 +30,10 @@ class AndroidWhatsNew(AndroidBasePage):
             element: sign in description element
         """
 
-        self.global_contents.wait_for_element_visibility(
-            self.driver,
-            android_elements.whats_new_close_button
-        )
+        return self._whats_new_close_button
 
-        return self.global_contents.wait_and_get_element(
-            self.driver,
-            android_elements.whats_new_close_button
-        )
-
-    def get_whats_new_msg_title(self):
+    @property
+    def get_whats_new_msg_title(self) -> Element:
         """
         Get title
 
@@ -37,17 +41,10 @@ class AndroidWhatsNew(AndroidBasePage):
             element: whats new title element
         """
 
-        self.global_contents.wait_for_element_visibility(
-            self.driver,
-            android_elements.whats_new_msg_title
-        )
+        return self._whats_new_msg_title
 
-        return self.global_contents.wait_and_get_element(
-            self.driver,
-            android_elements.whats_new_msg_title
-        )
-
-    def get_whats_new_description(self):
+    @property
+    def get_whats_new_description(self) -> Element:
         """
         Get description
 
@@ -55,17 +52,11 @@ class AndroidWhatsNew(AndroidBasePage):
             element: whats new description element
         """
 
-        self.global_contents.wait_for_element_visibility(
-            self.driver,
-            android_elements.whats_new_description
-        )
+        
+        return self._whats_new_description.find()
 
-        return self.global_contents.wait_and_get_element(
-            self.driver,
-            android_elements.whats_new_description
-        )
-
-    def get_next_btn(self):
+    @property
+    def next_btn(self) -> Element:
         """
         Get next button
 
@@ -73,15 +64,18 @@ class AndroidWhatsNew(AndroidBasePage):
             element: next button element
         """
 
-        self.global_contents.wait_for_element_visibility(
-            self.driver,
-            android_elements.whats_new_btn_next
-        )
+        return self._whats_new_btn_next
 
-        return self.global_contents.wait_and_get_element(
-            self.driver,
-            android_elements.whats_new_btn_next
-        )
+    @property
+    def done_button(self) -> Element:
+        """
+        Get done button
+
+        Returns:
+            element: done element
+        """
+
+        return self._whats_new_done_button
 
     def navigate_features(self):
         """
@@ -91,28 +85,10 @@ class AndroidWhatsNew(AndroidBasePage):
             webdriver element: Done Element
         """
 
-        self.get_next_btn().click()
+        self.next_btn.click()
 
-        if self.get_done_button():
-            return self.get_done_button()
+        if self.done_button.exists():
+            return self.done_button
         else:
             self.navigate_features()
-            return self.get_done_button()
-
-    def get_done_button(self):
-        """
-        Get done button
-
-        Returns:
-            element: done element
-        """
-
-        self.global_contents.wait_for_element_visibility(
-            self.driver,
-            android_elements.whats_new_done_button
-        )
-
-        return self.global_contents.wait_and_get_element(
-            self.driver,
-            android_elements.whats_new_done_button
-        )
+            return self.done_button

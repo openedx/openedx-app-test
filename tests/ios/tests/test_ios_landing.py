@@ -35,7 +35,7 @@ class TestIosNewLanding():
         assert logo_image.text == values.LANDING_LOGO_IMAGE
 
         welcome_message = ios_landing.get_welcome_message()
-        assert welcome_message.text == values.LANDING_MESSAGE_IOS
+        assert welcome_message.text == values.LANDING_MESSAGE
 
         search_title = ios_landing.get_search_title()
         assert search_title.text == values.LANDING_SEARCH_TITLE
@@ -94,5 +94,5 @@ class TestIosNewLanding():
         back_button.click()
 
         welcome_message = ios_landing.get_welcome_message()
-        assert welcome_message.text == values.LANDING_MESSAGE_IOS
+        assert welcome_message.text == values.LANDING_MESSAGE
         setup_logging.info('Ending Test Case')

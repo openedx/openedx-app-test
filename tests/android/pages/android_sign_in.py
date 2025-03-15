@@ -2,9 +2,13 @@
     Sign In Page Module
 """
 
+from framework import expect
 from tests.android.pages import android_elements
 from tests.android.pages.android_base_page import AndroidBasePage
 from appium.webdriver.common.appiumby import AppiumBy
+from appium.webdriver.webelement import WebElement as MobileWebElement
+
+from framework.element import Element
 
 
 class AndroidSignIn(AndroidBasePage):
@@ -12,7 +16,37 @@ class AndroidSignIn(AndroidBasePage):
     Sign in screen
     """
 
-    def get_sign_in_description(self):
+    def __init__(self):
+        super().__init__()
+        self._txt_sign_in_title = Element(AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("txt_sign_in_title")')
+        self._sign_in_screen_description = Element(AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("txt_sign_in_description")')
+        self._sign_in_email_label = Element(AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("txt_email_label")')
+        self._sign_in_password_label = Element(AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("txt_password_label")')
+        self._sign_in_tf_email = Element(AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("tf_email")')
+        self._sign_in_tf_password = Element(AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("tf_password")')
+        self._landing_signin_button = Element(AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("btn_sign_in")')
+        self._google_signin_button = Element(AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().description("Sign in with Google")')
+        self._facebook_signin_button = Element(AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().description("Sign in with Facebook")')
+        self._microsoft_signin_button = Element(AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().description("Sign in with Microsoft")')
+        self._sign_in_forgot_password_button = Element(AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("txt_forgot_password")')
+        self._forgot_password_title = Element(AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("txt_forgot_password_title")')
+        self._forgot_password_reset_button = Element(AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("txt_reset_password")')
+        self._forgot_password_email_error = Element(AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("txt_email_error")')
+        self._check_email_title_text = Element(AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("Check your email")')
+        self._password_recovery_sign_in_btn = Element(AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("txt_sign_in")')
+
+    @property
+    def signin_title(self) -> 'Element':
+        """
+        Get the sign-in title element.
+
+            Element: The Element object representing the sign-in title
+        """
+
+        return self._txt_sign_in_title
+
+    @property
+    def sign_in_description(self) -> Element:
         """
         Get sign in description
 
@@ -20,12 +54,10 @@ class AndroidSignIn(AndroidBasePage):
             element: sign in description element
         """
 
-        return self.global_contents.wait_and_get_element(
-            self.driver,
-            android_elements.sign_in_description
-        )
+        return self._sign_in_screen_description
 
-    def get_sign_in_email_label(self):
+    @property
+    def sign_in_email_label(self) -> Element:
         """
         Get sign in email label
 
@@ -33,12 +65,10 @@ class AndroidSignIn(AndroidBasePage):
             element: sign in email label element
         """
 
-        return self.global_contents.wait_and_get_element(
-            self.driver,
-            android_elements.sign_in_email_label
-        )
+        return self._sign_in_email_label
 
-    def get_sign_in_tf_email(self):
+    @property
+    def sign_in_tf_email(self) -> Element:
         """
         Get sign in email text field
 
@@ -46,12 +76,10 @@ class AndroidSignIn(AndroidBasePage):
             element: sign in email text field element
         """
 
-        return self.global_contents.wait_and_get_element(
-            self.driver,
-            android_elements.sign_in_tf_email
-        )
+        return self._sign_in_tf_email
 
-    def get_sign_in_password_label(self):
+    @property
+    def sign_in_password_label(self) -> Element:
         """
         Get sign in password label
 
@@ -59,12 +87,10 @@ class AndroidSignIn(AndroidBasePage):
             element: sign in password label element
         """
 
-        return self.global_contents.wait_and_get_element(
-            self.driver,
-            android_elements.sign_in_password_label
-        )
+        return self._sign_in_password_label
 
-    def get_sign_in_password_field(self):
+    @property
+    def sign_in_password_field(self) -> Element:
         """
         Get sign in password field
 
@@ -72,12 +98,10 @@ class AndroidSignIn(AndroidBasePage):
             element: sign in password field element
         """
 
-        return self.global_contents.wait_and_get_element(
-            self.driver,
-            android_elements.sign_in_tf_password
-        )
+        return self._sign_in_tf_password
 
-    def get_sign_in_forgot_password(self):
+    @property
+    def forgot_password_button(self) -> Element:
         """
         Get sign in forgot password
 
@@ -85,12 +109,10 @@ class AndroidSignIn(AndroidBasePage):
             element: sign in forgot password element
         """
 
-        return self.global_contents.wait_and_get_element(
-            self.driver,
-            android_elements.sign_in_forgot_password
-        )
+        return self._sign_in_forgot_password_button
 
-    def get_google_auth_button(self):
+    @property
+    def google_auth_button(self) -> Element:
         """
         Get google auth button
 
@@ -98,11 +120,10 @@ class AndroidSignIn(AndroidBasePage):
             element: google auth button element
         """
 
-        google_btn = self.driver.find_element(AppiumBy.ANDROID_UIAUTOMATOR,
-                                            f'new UiSelector().description("Sign in with Google")')
-        return google_btn
+        return self._google_signin_button
 
-    def get_facebook_auth_button(self):
+    @property
+    def get_facebook_auth_button(self) -> Element:
         """
         Get facebook auth button
 
@@ -110,11 +131,10 @@ class AndroidSignIn(AndroidBasePage):
             element: facebook auth button element
         """
 
-        facebook_btn = self.driver.find_element(AppiumBy.ANDROID_UIAUTOMATOR,
-                                            f'new UiSelector().description("Sign in with Facebook")')
-        return facebook_btn
+        return self._facebook_signin_button
 
-    def get_microsoft_auth_button(self):
+    @property
+    def get_microsoft_auth_button(self) -> Element:
         """
         Get microsoft auth button
 
@@ -122,11 +142,10 @@ class AndroidSignIn(AndroidBasePage):
             element: microsoft auth button element
         """
 
-        microsoft_btn = self.driver.find_element(AppiumBy.ANDROID_UIAUTOMATOR,
-                                            f'new UiSelector().description("Sign in with Microsoft")')
-        return microsoft_btn
+        return self._microsoft_signin_button
 
-    def get_signin_button(self):
+    @property
+    def signin_button(self) -> Element:
         """
         Get signin button
 
@@ -134,12 +153,10 @@ class AndroidSignIn(AndroidBasePage):
             element: Signin button element
         """
 
-        return self.global_contents.wait_and_get_element(
-            self.driver,
-            android_elements.landing_signin_button
-        )
+        return self._landing_signin_button
 
-    def get_forgot_password_title(self):
+    @property
+    def forgot_password_title(self) -> Element:
         """
         Get forgot password title
 
@@ -147,12 +164,10 @@ class AndroidSignIn(AndroidBasePage):
             element: forgot password title element
         """
 
-        return self.global_contents.wait_and_get_element(
-            self.driver,
-            android_elements.forgot_password_title
-        )
+        return self._forgot_password_title
 
-    def get_forgot_password_reset_button(self):
+    @property
+    def forgot_password_reset_button(self) -> Element:
         """
         Get forgot password reset button
 
@@ -160,13 +175,28 @@ class AndroidSignIn(AndroidBasePage):
             element: forgot password reset button element
         """
 
-        reset_btn = self.global_contents.wait_and_get_element(
-            self.driver,
-            android_elements.forgot_password_reset_button
-        )
-        btn_text = reset_btn.find_element(AppiumBy.CLASS_NAME,
-            android_elements.all_textviews)
-        return btn_text
+        return self._forgot_password_reset_button
+
+    @property
+    def forgot_password_email_error(self) -> Element:
+        """
+        Get forgot password email error
+        Returns:
+            element: forgot password email error element
+        """
+
+        return self._forgot_password_email_error
+
+    @property
+    def password_recovery_sign_in_btn(self) -> Element:
+        """
+        Get password recovery sign in button
+
+        Returns:
+            element: password recovery sign in button element
+        """
+
+        return self._password_recovery_sign_in_btn
 
     def get_all_textviews(self):
         """
@@ -185,3 +215,14 @@ class AndroidSignIn(AndroidBasePage):
             android_elements.all_textviews
         )
         return all_textview_elements
+
+    def verify_password_recovery_prompts(self, email: str):
+        """
+        Verify password recovery prompts
+
+        Returns:
+            element: check email title text element
+        """
+
+        expect(self._check_email_title_text).to_be_displayed()
+        expect(Element(AppiumBy.ANDROID_UIAUTOMATOR, f'new UiSelector().text("We have sent a password recover instructions to your email {email}")')).to_be_displayed()

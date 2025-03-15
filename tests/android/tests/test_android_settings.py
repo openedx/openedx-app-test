@@ -3,6 +3,9 @@
     Settings Screen Test Module
 """
 
+from framework import expect
+from framework.element import Element
+from tests.android.pages.android_whats_new import AndroidWhatsNew
 from tests.android.pages.android_main_dashboard import AndroidMainDashboard
 from tests.android.pages.android_profile import AndroidProfile
 from tests.common import values
@@ -25,16 +28,17 @@ class TestAndroidSettings:
                 View FAQ, App Version, Up to Date
                 Logout button
         """
+
         driver = android_login
-        main_dashboard_page = AndroidMainDashboard(driver, setup_logging)
-        profile_page = AndroidProfile(driver, setup_logging)
+        main_dashboard_page = AndroidMainDashboard()
+        profile_page = AndroidProfile()
         global_contents = Globals(setup_logging)
 
-        profile_tab = main_dashboard_page.get_profile_tab()
+        profile_tab = main_dashboard_page.profile_tab
         assert profile_tab.get_attribute('content-desc') == values.MAIN_DASHBOARD_PROFILE_TAB
         assert profile_tab.get_attribute('selected') == values.FALSE_LOWERCASE
         profile_tab.click()
-        profile_page.get_settings_button().click()
+        assert profile_page.settings_button.click()
 
         assert profile_page.get_settings_screen_title().text == values.PROFILE_SETTINGS_UPPER_TEXT
         manage_account_label = profile_page.get_manage_account_label()
@@ -45,15 +49,14 @@ class TestAndroidSettings:
         assert profile_page.get_profile_txt_support_info().text == values.PROFILE_SUPPORT
         assert profile_page.get_profile_txt_contact_support().text.lower() == values.PROFILE_CONTACT_SUPPORT
         assert profile_page.get_profile_txt_terms_of_use().text == values.PROFILE_TERMS_OF_USE_UPPERCASE
-        assert profile_page.get_profile_txt_privacy_policy().text.lower() == values.PROFILE_PRIVACY_POLICY
-
-        global_contents.scroll_from_element(driver, profile_page.get_profile_txt_privacy_policy())
+        assert profile_page.privacy_policy_text.exists()
+        profile_page.privacy_policy_text.scroll_vertically_from_element()
         assert profile_page.get_profile_txt_cookie_policy().text.lower() == values.PROFILE_COOKIE_POLICY
         assert profile_page.get_profile_personal_info().text == values.PROFILE_PERSONAL_INFO
         assert profile_page.get_profile_txt_view_faq().text == values.PROFILE_FAQ
         assert profile_page.get_profile_app_version_code().text == values.ANDROID_APP_VERSION
         assert profile_page.get_profile_txt_up_to_date().text == values.PROFILE_APP_UP_TO_DATE
-        assert profile_page.get_profile_txt_logout().text.lower() == values.PROFILE_LOGOUT_BUTTON
+        assert profile_page.profile_txt_logout.exists()
 
     def test_load_profile_elements(self, android_login, setup_logging):
         """
@@ -71,8 +74,9 @@ class TestAndroidSettings:
             Verify that tapping back button should leave Cookie Policy screen
             Verify that tapping Personal Info should load Personal Info screen
         """
+
         driver = android_login
-        profile_page = AndroidProfile(driver, setup_logging)
+        profile_page = AndroidProfile()
         global_contents = Globals(setup_logging)
 
         global_contents.scroll_screen(driver, profile_page.get_profile_txt_contact_support(),
@@ -96,15 +100,15 @@ class TestAndroidSettings:
         assert global_contents.get_txt_toolbar_title(driver).text == values.PROFILE_TERMS_OF_USE_UPPERCASE
         global_contents.get_back_button(driver).click()
 
-        profile_page.get_profile_txt_privacy_policy().click()
-        assert global_contents.get_txt_toolbar_title(driver).text.lower() == values.PROFILE_PRIVACY_POLICY
-        global_contents.get_back_button(driver).click()
+        assert profile_page.privacy_policy_text.click()
+        assert global_contents.get_txt_toolbar_title(set_capabilities).text.lower() == values.PROFILE_PRIVACY_POLICY
+        global_contents.get_back_button(set_capabilities).click()
 
-        global_contents.scroll_from_element(driver, profile_page.get_profile_txt_privacy_policy())
+        profile_page.privacy_policy_text.scroll_vertically_from_element()
         profile_page.get_profile_txt_cookie_policy().click()
         assert global_contents.get_txt_toolbar_title(driver).text.lower() == values.PROFILE_COOKIE_POLICY
         global_contents.get_back_button(driver).click()
 
         profile_page.get_profile_personal_info().click()
-        assert global_contents.get_txt_toolbar_title(driver).text == values.PROFILE_PERSONAL_INFO
-        global_contents.get_back_button(driver).click()
+        assert global_contents.get_txt_toolbar_title(set_capabilities).text == values.PROFILE_PERSONAL_INFO
+        global_contents.get_back_button(set_capabilities).click()

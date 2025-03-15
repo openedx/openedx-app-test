@@ -11,6 +11,10 @@ class AndroidMyCoursesList(AndroidBasePage):
     My Courses List screen
     """
 
+    def __init__(self):
+        super().__init__()
+        
+
     def get_my_course_toolbar_title(self):
         """
         Get toolbar title
