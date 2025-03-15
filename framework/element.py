@@ -22,6 +22,10 @@ class Element:
         cls.__driver = driver
 
     @classmethod
+    def get_driver(cls) -> WebDriver:
+        return cls.__driver
+
+    @classmethod
     def set_logger(cls, logger: Logger):
         cls.__logger = logger
     
@@ -183,7 +187,7 @@ class Element:
                 raise NotFoundError(f"failed to send keys to element {self.locator} with exception {exception}")
             Element.__logger.info(f"failed to send keys to element {self.locator} with exception {exception}")
             return False
-    
+
     def exists(self, timeout=10, raise_exception=True) -> bool:
         """
         Checks if the element is present in the DOM and has a size greater than zero.
@@ -260,6 +264,13 @@ class Element:
 
     def scroll_vertically_from_element(self):
         """Scroll from element"""
+        """
+            Scroll from element
+
+        Arguments:
+            driver (webdriver element): webdriver instance variable
+            from_element (webdriver element): element from which scroll will start
+        """
 
         screen_width = Element.__driver.get_window_size()["width"]
         screen_height = Element.__driver.get_window_size()["height"]

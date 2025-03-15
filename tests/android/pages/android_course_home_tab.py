@@ -68,7 +68,7 @@ class AndroidCourseHomeTab(AndroidBasePage):
         """
 
         return self._previous_button
-    
+
     @property
     def back_button(self) -> Element:
         """Back Button

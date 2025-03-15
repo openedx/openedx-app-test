@@ -17,6 +17,7 @@ from framework import expect
 from framework.element import Element
 from tests.common import values
 from tests.common.capabilities import caps_factory
+from tests.common.enums.attributes import ElementAttribute
 from tests.common.globals import Globals
 from tests.android.pages.android_landing import AndroidLanding
 from tests.android.pages.android_sign_in import AndroidSignIn

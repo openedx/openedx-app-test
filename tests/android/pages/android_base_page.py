@@ -31,7 +31,7 @@ class AndroidBasePage:
         """
 
         return self._text_toolbar_title
-    
+
     @property
     def screen_title(self) -> Element:
         """Get screen title
@@ -47,7 +47,7 @@ class AndroidBasePage:
             Element: back navigation button
         """
         return self._back_navigation_button
-    
+
     @property
     def text_view(self) -> Element:
         """Text view widget
@@ -65,7 +65,7 @@ class AndroidBasePage:
         """
 
         return self._android_native_permission_allow_button
-    
+
     @property
     def revoke_notifications_button(self) -> Element:
         """Get revoke button
@@ -82,5 +82,5 @@ class AndroidBasePage:
             Element: element with required text
         """
         if text:
-            return Element(AppiumBy.ANDROID_UIAUTOMATOR, f'new UiSelector().text("{text}")').find()        
+            return Element(AppiumBy.ANDROID_UIAUTOMATOR, f'new UiSelector().text("{text}")').find()
         raise ValueError('text cannot be empty')

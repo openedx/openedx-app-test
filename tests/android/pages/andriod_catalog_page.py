@@ -4,11 +4,13 @@ from framework.element import Element
 from appium.webdriver.common.appiumby import AppiumBy
 from tests.common import values
 
+
 class AndroidCatalogPage(AndroidBasePage):
     """A Class for handling Catalog Screen UI interactions."""
     
     def __init__(self):
         super().__init__()
+        self._catalog_screen_toolbar_title = Element(AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("txt_toolbar_title")')
         self._catalog_screen_heading_msg = Element(AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("Build skills. Earn a certificate. Advance your career.")')
         self._trending_marketing_tag = Element(AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("Marketing")')
         self._trending_python_tag = Element(AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("Python")')
@@ -26,7 +28,7 @@ class AndroidCatalogPage(AndroidBasePage):
         self._second_popular_course = Element(AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("subject-filter-1")')
         self._third_popular_course = Element(AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("subject-filter-2")')
         self._course_carousel = Element(AppiumBy.XPATH, '//android.view.View[@resource-id="main-content"]/android.view.View[4]')
-        
+
         self._trending_tags = {
            values.DISCOVERY_TRENDING_COURSE_PYTHON : self._trending_python_tag,
            values.DISCOVERY_TRENDING_COURSE_MARKETING: self._trending_marketing_tag,
@@ -90,11 +92,19 @@ class AndroidCatalogPage(AndroidBasePage):
         return self._third_popular_course
 
     @property
+    def catalog_screen_toolbar_title(self) -> Element:
+        """
+        catalog screen toolbar title
+        """
+        return self._catalog_screen_toolbar_title
+
+    @property
     def catalog_screen_heading_msg(self) -> Element:
         """catalog screen heading message
         Returns:
             Element: catalog screen heading message
         """
+
         return self._catalog_screen_heading_msg
     
     def trending_tag(self, tag: str) -> Element:
@@ -102,6 +112,7 @@ class AndroidCatalogPage(AndroidBasePage):
         Returns:
             Element: catalog screen trending marketing tag
         """
+
         return self._trending_tags.get(tag)
 
     @property
