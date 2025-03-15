@@ -3,6 +3,8 @@
     Settings Screen Test Module
 """
 
+from framework import expect
+from framework.element import Element
 from tests.android.pages.android_whats_new import AndroidWhatsNew
 from tests.android.pages.android_main_dashboard import AndroidMainDashboard
 from tests.android.pages.android_profile import AndroidProfile
@@ -24,11 +26,11 @@ class TestAndroidSettings:
 
         setup_logging.info(f'Starting {TestAndroidSettings.__name__} Test Case')
         global_contents = Globals(setup_logging)
-        whats_new_page = AndroidWhatsNew(set_capabilities, setup_logging)
+        whats_new_page = AndroidWhatsNew()
 
         if login and global_contents.whats_new_enable:
             assert whats_new_page.navigate_features().text == 'Done'
-            whats_new_page.get_done_button().click()
+            whats_new_page.done_button().click()
 
     def test_validate_ui_elements(self, set_capabilities, setup_logging):
         """
@@ -42,15 +44,15 @@ class TestAndroidSettings:
                 Logout button
         """
 
-        main_dashboard_page = AndroidMainDashboard(set_capabilities, setup_logging)
-        profile_page = AndroidProfile(set_capabilities, setup_logging)
+        main_dashboard_page = AndroidMainDashboard()
+        profile_page = AndroidProfile()
         global_contents = Globals(setup_logging)
 
         profile_tab = main_dashboard_page.get_profile_tab()
         assert profile_tab.get_attribute('content-desc') == values.MAIN_DASHBOARD_PROFILE_TAB
         assert profile_tab.get_attribute('selected') == values.FALSE_LOWERCASE
         profile_tab.click()
-        profile_page.get_settings_button().click()
+        assert profile_page.settings_button.click()
 
         assert profile_page.get_settings_screen_title().text == values.PROFILE_SETTINGS_UPPER_TEXT
         manage_account_label = profile_page.get_manage_account_label()
@@ -61,15 +63,14 @@ class TestAndroidSettings:
         assert profile_page.get_profile_txt_support_info().text == values.PROFILE_SUPPORT
         assert profile_page.get_profile_txt_contact_support().text.lower() == values.PROFILE_CONTACT_SUPPORT
         assert profile_page.get_profile_txt_terms_of_use().text == values.PROFILE_TERMS_OF_USE_UPPERCASE
-        assert profile_page.get_profile_txt_privacy_policy().text.lower() == values.PROFILE_PRIVACY_POLICY
-
-        global_contents.scroll_from_element(set_capabilities, profile_page.get_profile_txt_privacy_policy())
+        assert profile_page.privacy_policy_text.exists()
+        profile_page.privacy_policy_text.scroll_vertically_from_element()
         assert profile_page.get_profile_txt_cookie_policy().text.lower() == values.PROFILE_COOKIE_POLICY
         assert profile_page.get_profile_personal_info().text == values.PROFILE_PERSONAL_INFO
         assert profile_page.get_profile_txt_view_faq().text == values.PROFILE_FAQ
         assert profile_page.get_profile_app_version_code().text == values.ANDROID_APP_VERSION
         assert profile_page.get_profile_txt_up_to_date().text == values.PROFILE_APP_UP_TO_DATE
-        assert profile_page.get_profile_txt_logout().text.lower() == values.PROFILE_LOGOUT_BUTTON
+        assert profile_page.profile_txt_logout.exists()
 
     def test_load_profile_elements(self, set_capabilities, setup_logging):
         """
@@ -88,7 +89,7 @@ class TestAndroidSettings:
             Verify that tapping Personal Info should load Personal Info screen
         """
 
-        profile_page = AndroidProfile(set_capabilities, setup_logging)
+        profile_page = AndroidProfile()
         global_contents = Globals(setup_logging)
 
         global_contents.scroll_screen(set_capabilities, profile_page.get_profile_txt_contact_support(),
@@ -112,11 +113,11 @@ class TestAndroidSettings:
         assert global_contents.get_txt_toolbar_title(set_capabilities).text == values.PROFILE_TERMS_OF_USE_UPPERCASE
         global_contents.get_back_button(set_capabilities).click()
 
-        profile_page.get_profile_txt_privacy_policy().click()
+        assert profile_page.privacy_policy_text.click()
         assert global_contents.get_txt_toolbar_title(set_capabilities).text.lower() == values.PROFILE_PRIVACY_POLICY
         global_contents.get_back_button(set_capabilities).click()
 
-        global_contents.scroll_from_element(set_capabilities, profile_page.get_profile_txt_privacy_policy())
+        profile_page.privacy_policy_text.scroll_vertically_from_element()
         profile_page.get_profile_txt_cookie_policy().click()
         assert global_contents.get_txt_toolbar_title(set_capabilities).text.lower() == values.PROFILE_COOKIE_POLICY
         global_contents.get_back_button(set_capabilities).click()
@@ -133,10 +134,12 @@ class TestAndroidSettings:
             Verify that tapping logout button should logout from main dashboard screen
         """
 
-        profile_page = AndroidProfile(set_capabilities, setup_logging)
-        android_landing = AndroidLanding(set_capabilities, setup_logging)
+        Element.set_driver(set_capabilities)
+        Element.set_logger(setup_logging)
+        profile_page = AndroidProfile()
+        android_landing = AndroidLanding()
 
-        profile_page.get_profile_txt_logout().click()
-        assert profile_page.get_logout_button().text.lower() == values.PROFILE_LOGOUT_BUTTON
-        profile_page.get_logout_button().click()
-        assert android_landing.get_search_label().text == values.LANDING_SEARCH_TITLE
+        profile_page.profile_txt_logout.click()
+        expect(profile_page.logout_prompt_logout_button_text).to_have(values.PROFILE_LOGOUT_BUTTON)
+        profile_page.logout_prompt_logout_button_text.click()
+        expect(android_landing.get_search_label).to_have(values.LANDING_SEARCH_TITLE)

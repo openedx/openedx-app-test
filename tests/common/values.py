@@ -18,9 +18,11 @@ ANDROID_APP_VERSION = 'Version: 6.0.7'
 IOS_APP_VERSION = 'Version: 6.0.4, Up-to-date'
 IOS_SELECTED_TAB_VALUE = '1'
 
+# Exception Messages
+VERIFICATION_FAILED_ERROR = "Failed to verify {0}. Expected {1}, Found {2}"
+
 # LANDING SCREEN
-LANDING_MESSAGE = 'Welcome to edX'
-LANDING_MESSAGE_IOS = 'Courses and programs from the world\'s best universities in your pocket.'
+LANDING_MESSAGE = 'Courses and programs from the world\'s best universities in your pocket.'
 LANDING_SEARCH_TITLE = 'What do you want to learn?'
 LANDING_SEARCH_COURSES = 'Search our 3000+ courses'
 DISCOVER_SCREEN_HEADING = 'Discover'
@@ -98,6 +100,7 @@ RESET_PASSWORD_BUTTON = 'Reset password'
 FORGOT_CHECK_EMAIL_IMAGE = 'checkEmail'
 FORGOT_RECOVER_TITLE_TEXT = 'Check your email'
 FOROGT_RECOVER_DESCRIPTION = 'We have sent a password recover instructions to your email'
+FORGOT_EMAIL_ERROR = 'Please enter your e-mail address and try again.'
 
 # WHATS NEW SCREEN
 WHATS_NEW_TITLE = 'What\'s New'
@@ -132,7 +135,7 @@ PROFILE_COOKIE_POLICY = 'cookie policy'
 PROFILE_PERSONAL_INFO = 'Do not sell my personal information'
 PROFILE_FAQ = 'View FAQ'
 PROFILE_APP_UP_TO_DATE = 'Up-to-date'
-PROFILE_LOGOUT_BUTTON = 'log out'
+PROFILE_LOGOUT_BUTTON = 'Log Out'
 PROFILE_MANAGE_ACCOUNT = 'Manage Account'
 PROFILE_DATES_CALENDAR = 'Dates & Calendar'
 PROFILE_MANAGE_ACCOUNT_LABEL = 'Manage Account'
@@ -190,7 +193,7 @@ COURSE_DASHBOARD_MORE_TAB = 'More'
 # DISCOVERY SCREEN
 DISCOVERY_SCREEN_HEADING = 'Explore the catalog'
 DISCOVERY_SCREEN_MESSAGE = 'Build skills. Earn a certificate. Advance your career.'
-DISCOVERY_SEARCH_FIELD = 'What do you want to learn?'
+DISCOVERY_SEARCH_FIELD_HINT = 'What do you want to learn?'
 DISCOVERY_SEARCH_BUTTON = 'Search'
 DISCOVERY_TRENDING_LABEL = 'Trending:'
 DISCOVERY_TRENDING_LABEL_IOS = 'Trending'

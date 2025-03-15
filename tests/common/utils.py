@@ -1,5 +1,8 @@
 import os
 import logging
+import string
+import random
+from unicodedata import normalize
 from datetime import datetime, timezone
 logger = logging.getLogger(__name__)
 
@@ -28,3 +31,28 @@ def get_formatted_datetime():
     """
 
     return datetime.now(timezone.utc).strftime("%Y_%m_%d_%I_%M")
+
+def generate_random_credentials(length):
+    """
+    Generate random alphanumeric strings
+
+    Arguments:
+        length (int): length of string to generate
+
+    Return:
+        str: random string
+    """
+
+    combination = string.ascii_lowercase + string.digits
+    return ''.join(random.choice(combination) for _ in range(length))
+
+def normalize_string(text, form="NFC"):
+    """
+        Normalize Unicode Strings in Composed Form to accurately match text in Locales
+    Arguments:
+        text (str) : Unicode String to Normalize
+        form (str): Valid values for form are ‘NFC’, ‘NFKC’, ‘NFD’, and ‘NFKD’
+    Returns:
+        str : Normalized Form Composed (NFC) Version of UTF-8
+    """
+    return normalize(form, text)

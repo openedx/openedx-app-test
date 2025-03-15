@@ -82,7 +82,7 @@ class TestIosDiscovery():
         global_contents = Globals(setup_logging)
 
         search_field = global_contents.get_all_views_on_ios_screen(set_capabilities, ios_elements.discovery_search_field)[0]
-        assert search_field.get_attribute('value') == values.DISCOVERY_SEARCH_FIELD
+        assert search_field.get_attribute('value') == values.DISCOVERY_SEARCH_FIELD_HINT
 
         search_button = global_contents.wait_and_get_element(set_capabilities, ios_elements.discovery_search_button)
         assert search_button.text == values.DISCOVERY_SEARCH_BUTTON
@@ -137,7 +137,7 @@ class TestIosDiscovery():
         assert popular_courses.get_attribute('name') == values.DISCOVERY_FILTER_BY_POPULAR_COURSES
 
         search_field = global_contents.get_all_views_on_ios_screen(set_capabilities, ios_elements.discovery_search_field)[0]
-        assert search_field.get_attribute('value') == values.DISCOVERY_SEARCH_FIELD
+        assert search_field.get_attribute('value') == values.DISCOVERY_SEARCH_FIELD_HINT
 
         global_contents.scroll_screen(set_capabilities, popular_courses, search_field)
 
@@ -230,7 +230,7 @@ class TestIosDiscovery():
         assert discovery_message.get_attribute('label') in values.DISCOVERY_SCREEN_MESSAGE
 
         search_field = global_contents.get_all_views_on_ios_screen(set_capabilities, ios_elements.discovery_search_field)[0]
-        assert search_field.get_attribute('value') == values.DISCOVERY_SEARCH_FIELD
+        assert search_field.get_attribute('value') == values.DISCOVERY_SEARCH_FIELD_HINT
         search_field.click()
         search_field.send_keys('Demo X')
 

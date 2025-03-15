@@ -186,4 +186,4 @@ class TestIosCourseHomeTab:
         assert ios_profile.get_logout_dialog_title().text == values.LOGOUT_DIALOG_TITLE
         assert ios_profile.get_logout_button().text.lower() == values.PROFILE_LOGOUT_BUTTON
         ios_profile.get_logout_button().click()
-        assert ios_landing.get_welcome_message().text == values.LANDING_MESSAGE_IOS
+        assert ios_landing.get_welcome_message().text == values.LANDING_MESSAGE

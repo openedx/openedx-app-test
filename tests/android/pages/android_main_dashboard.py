@@ -2,7 +2,8 @@
     Main Dashboard Page Module
 """
 
-from tests.android.pages import android_elements
+from framework.element import Element
+from appium.webdriver.common.appiumby import AppiumBy
 from tests.android.pages.android_base_page import AndroidBasePage
 
 
@@ -11,7 +12,16 @@ class AndroidMainDashboard(AndroidBasePage):
     Main Dashbaord screen
     """
 
-    def get_discover_tab(self):
+    def __init__(self):
+        super().__init__()
+        self._main_dashboard_fragment_discover = Element(AppiumBy.ANDROID_UIAUTOMATOR,'new UiSelector().resourceId("org.edx.mobile:id/fragmentDiscover")')
+        self._main_dashboard_fragment_learn = Element(AppiumBy.ANDROID_UIAUTOMATOR,'new UiSelector().resourceId("org.edx.mobile:id/fragmentLearn")')
+        self._main_dashbaord_fragment_profile = Element(AppiumBy.ANDROID_UIAUTOMATOR,'new UiSelector().resourceId("org.edx.mobile:id/fragmentProfile")')
+        self._switcher_label_courses = Element(AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("Courses")')
+        self._switcher_label_program = Element(AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("Programs")')
+
+    @property
+    def discover_tab(self) -> Element:
         """
         Get discover tab
 
@@ -19,17 +29,10 @@ class AndroidMainDashboard(AndroidBasePage):
             element: sign in description element
         """
 
-        self.global_contents.wait_for_element_visibility(
-            self.driver,
-            android_elements.main_dashboard_fragment_discover
-        )
+        return self._main_dashboard_fragment_discover.find()
 
-        return self.global_contents.wait_and_get_element(
-            self.driver,
-            android_elements.main_dashboard_fragment_discover
-        )
-
-    def get_learn_tab(self):
+    @property
+    def learn_tab(self) -> Element:
         """
         Get learn tab
 
@@ -37,17 +40,10 @@ class AndroidMainDashboard(AndroidBasePage):
             element: learn fragment element
         """
 
-        self.global_contents.wait_for_element_visibility(
-            self.driver,
-            android_elements.main_dashboard_fragment_learn
-        )
+        return self._main_dashboard_fragment_learn
 
-        return self.global_contents.wait_and_get_element(
-            self.driver,
-            android_elements.main_dashboard_fragment_learn
-        )
-
-    def get_profile_tab(self):
+    @property
+    def profile_tab(self) -> Element:
         """
         Get profile tab
 
@@ -55,12 +51,27 @@ class AndroidMainDashboard(AndroidBasePage):
             element: profile framgent element
         """
 
-        self.global_contents.wait_for_element_visibility(
-            self.driver,
-            android_elements.main_dashbaord_fragment_profile
-        )
+        return self._main_dashbaord_fragment_profile
 
-        return self.global_contents.wait_and_get_element(
-            self.driver,
-            android_elements.main_dashbaord_fragment_profile
-        )
+    @property
+    def switcher_label_courses(self) -> Element:
+        """
+        Get profile tab
+
+        Returns:
+            element: profile framgent element
+        """
+
+        return self._switcher_label_courses
+
+    @property
+    def switcher_label_programs(self) -> Element:
+        """
+        Get profile tab
+
+        Returns:
+            element: profile framgent element
+        """
+
+        return self._switcher_label_program
+    

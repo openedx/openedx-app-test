@@ -2,17 +2,27 @@
     Course Home Page Module
 """
 
+from framework.element import Element
 from tests.android.pages.android_base_page import AndroidBasePage
 from tests.common import values
 from selenium.common.exceptions import NoSuchElementException
+from appium.webdriver.common.appiumby import AppiumBy
+
 
 
 class AndroidCourseHomeTab(AndroidBasePage):
     """
     Course Home Tab screen
     """
+    def __init__(self):
+        super().__init__()
+        self._finish_button = Element(AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("Finish")')
+        self._next_button = Element(AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("Next")')
+        self._previous_button = Element(AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("Prev")')
+        self._back_button = Element(AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().description("Back")')
 
-    def component_navigation(self, retries=5):
+
+    def component_navigation(self, retries=5) -> Element:
         """
         Navigate between components
 
@@ -25,14 +35,15 @@ class AndroidCourseHomeTab(AndroidBasePage):
         if retries == 0:
             raise Exception("Finish button not found after maximum retries")
 
-        self.get_next_btn().click()
+        assert self.next_btn.click()
 
-        if self.get_finish_button():
-            return self.get_finish_button()
+        if self.finish_button.exists():
+            return self.finish_button
         else:
             return self.component_navigation(retries=retries - 1)
 
-    def get_finish_button(self):
+    @property
+    def finish_button(self) -> Element:
         """
         Get finish button
 
@@ -40,13 +51,10 @@ class AndroidCourseHomeTab(AndroidBasePage):
             element: finish element
         """
 
-        try:
-            return self.global_contents.get_element_by_exact_text_android(
-                self.driver, values.COURSE_COMPONENT_FINISH_BUTTON)
-        except NoSuchElementException:
-            return None
+        return self._finish_button
 
-    def get_next_btn(self):
+    @property
+    def next_btn(self) -> Element:
         """
         Get next button
 
@@ -54,10 +62,10 @@ class AndroidCourseHomeTab(AndroidBasePage):
             element: next button element
         """
 
-        return self.global_contents.get_element_by_text(
-            self.driver, values.COURSE_COMPONENT_NEXT_BUTTON)
+        return self._next_button
 
-    def get_prev_btn(self):
+    @property
+    def prev_btn(self) -> Element:
         """
         Get prev button
 
@@ -65,5 +73,9 @@ class AndroidCourseHomeTab(AndroidBasePage):
             element: prev button element
         """
 
-        return self.global_contents.get_element_by_text(
-            self.driver, values.COURSE_COMPONENT_PREVIOUS_BUTTON)
+        return self._previous_button
+    
+    @property
+    def back_button(self) -> Element:
+        """"""
+        return self._back_button

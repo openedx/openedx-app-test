@@ -13,8 +13,11 @@ from appium import webdriver
 from appium.webdriver.webdriver import WebDriver
 from selenium.common.exceptions import WebDriverException
 
+from framework import expect
+from framework.element import Element
 from tests.common import values
 from tests.common.capabilities import caps_factory
+from tests.common.enums.attributes import ElementAttribute
 from tests.common.globals import Globals
 from tests.android.pages.android_landing import AndroidLanding
 from tests.android.pages.android_sign_in import AndroidSignIn
@@ -173,7 +176,7 @@ def pytest_configure(config: pytest.Config):
     )
 
 
-@pytest.fixture(scope="module")
+@pytest.fixture(scope="function")
 def login(set_capabilities, setup_logging):
     """
     Login user based on env given, it will be reusable in tests
@@ -188,27 +191,29 @@ def login(set_capabilities, setup_logging):
 
     log = setup_logging
     global_contents = Globals(log)
-    android_landing = AndroidLanding(set_capabilities, setup_logging)
-    android_sign_in = AndroidSignIn(set_capabilities, setup_logging)
+    Element.set_driver(set_capabilities)
+    Element.set_logger(setup_logging)
+    android_landing = AndroidLanding()
+    android_sign_in = AndroidSignIn()
     ios_landing = IosLanding(set_capabilities, setup_logging)
     ios_login = IosLogin(set_capabilities, setup_logging)
 
+
     if global_contents.target_environment == values.ANDROID:
-        assert android_landing.get_screen_title().text == values.LANDING_MESSAGE_IOS
-        assert android_landing.get_signin_button()
-        assert android_landing.load_signin_screen().text == values.LOGIN
+        expect(android_landing.screen_title).to_have(values.LANDING_MESSAGE)
+        assert android_landing.signin_button.exists()
+        assert android_landing.load_signin_screen()
+        expect(android_sign_in.signin_title, 'Sign in screen not loaded successfully').to_have(values.LOGIN)
 
-        assert android_sign_in.get_sign_in_email_label().text == values.EMAIL_OR_USERNAME
-        email_field = android_sign_in.get_sign_in_tf_email()
-        assert email_field.get_attribute('clickable') == values.TRUE_LOWERCASE
-        email_field.send_keys(global_contents.login_user_name)
+        expect(android_sign_in.sign_in_email_label).to_have(values.EMAIL_OR_USERNAME)
+        expect(android_sign_in.sign_in_tf_email).to_be_clickable()
+        assert android_sign_in.sign_in_tf_email.send_keys(global_contents.login_user_name)
 
-        assert android_sign_in.get_sign_in_password_label().text == values.PASSWORD
-        password_field = android_sign_in.get_sign_in_password_field()
-        assert password_field.get_attribute('clickable') == values.TRUE_LOWERCASE
-        password_field.send_keys(global_contents.login_password)
-        assert android_sign_in.get_signin_button().get_attribute('clickable') == values.TRUE_LOWERCASE
-        android_sign_in.get_signin_button().click()
+        expect(android_sign_in.sign_in_password_label).to_have(values.PASSWORD)
+        expect(android_sign_in.sign_in_password_field).to_be_clickable()
+        assert android_sign_in.sign_in_password_field.send_keys(global_contents.login_password)
+        expect(android_sign_in.signin_button).to_be_clickable()
+        assert android_sign_in.signin_button.click()
         setup_logging.info(f'{global_contents.login_user_name} is successfully logged in')
 
     elif global_contents.target_environment == values.IOS:
@@ -239,7 +244,7 @@ def login(set_capabilities, setup_logging):
         sign_in_button.click()
         setup_logging.info(f'{global_contents.login_user_name} is successfully logged in')
 
-    return setup_logging
+    return set_capabilities, setup_logging
 
 @pytest.hookimpl(hookwrapper=True)
 def pytest_runtest_makereport():

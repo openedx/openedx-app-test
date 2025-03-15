@@ -476,7 +476,7 @@ class Globals:
             driver,
             android_elements.back_button_navigation
         )
-
+        
         return self.wait_and_get_element(
             driver,
             android_elements.back_button_navigation
