@@ -1,14 +1,14 @@
 """
-    Whats New Page Module
+    What's New Page Module
 """
-from appium.webdriver.common.mobileby import MobileBy
+from appium.webdriver.common.appiumby import AppiumBy
 from tests.ios.pages import ios_elements
 from tests.ios.pages.ios_base_page import IosBasePage
 
 
 class IosWhatsNew(IosBasePage):
     """
-    Whats New screen
+    What's New screen
     """
 
     def get_close_button(self):
@@ -24,7 +24,7 @@ class IosWhatsNew(IosBasePage):
             ios_elements.whats_new_btn_next
         )
 
-        return self.driver.find_element(MobileBy.NAME, 'close_button')
+        return self.driver.find_element(AppiumBy.NAME, 'close_button')
 
     def get_whats_new_msg_title(self):
         """

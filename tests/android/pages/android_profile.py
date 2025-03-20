@@ -4,7 +4,7 @@
 
 from tests.android.pages import android_elements
 from tests.android.pages.android_base_page import AndroidBasePage
-from appium.webdriver.common.mobileby import MobileBy
+from appium.webdriver.common.appiumby import AppiumBy
 
 
 class AndroidProfile(AndroidBasePage):
@@ -317,7 +317,7 @@ class AndroidProfile(AndroidBasePage):
             element: settings button element
         """
 
-        return self.driver.find_element_by_xpath('//android.view.View[@content-desc="Settings"]')
+        return self.driver.find_element(AppiumBy.XPATH, '//android.view.View[@content-desc="Settings"]')
 
     def get_settings_screen_title(self):
         """

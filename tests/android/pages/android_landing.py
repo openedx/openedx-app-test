@@ -2,7 +2,6 @@
     Landing Page Module
 """
 
-from appium.webdriver.common.mobileby import MobileBy
 
 from tests.android.pages import android_elements
 from tests.android.pages.android_base_page import AndroidBasePage

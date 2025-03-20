@@ -2,7 +2,7 @@
     Login Page Module
 """
 
-from appium.webdriver.common.mobileby import MobileBy
+from appium.webdriver.common.appiumby import AppiumBy
 from tests.ios.pages import ios_elements
 from tests.ios.pages.ios_base_page import IosBasePage
 
@@ -35,7 +35,7 @@ class IosLogin(IosBasePage):
         """
 
         password_field = self.driver.find_element(
-            MobileBy.CLASS_NAME, ios_elements.password_field)
+            AppiumBy.CLASS_NAME, ios_elements.password_field)
         return password_field
 
     def get_signin_welcome_text(self):

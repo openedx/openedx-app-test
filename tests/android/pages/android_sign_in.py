@@ -4,7 +4,7 @@
 
 from tests.android.pages import android_elements
 from tests.android.pages.android_base_page import AndroidBasePage
-from appium.webdriver.common.mobileby import MobileBy
+from appium.webdriver.common.appiumby import AppiumBy
 
 
 class AndroidSignIn(AndroidBasePage):
@@ -98,7 +98,7 @@ class AndroidSignIn(AndroidBasePage):
             element: google auth button element
         """
 
-        google_btn = self.driver.find_element(MobileBy.ANDROID_UIAUTOMATOR,
+        google_btn = self.driver.find_element(AppiumBy.ANDROID_UIAUTOMATOR,
                                             f'new UiSelector().description("Sign in with Google")')
         return google_btn
 
@@ -110,7 +110,7 @@ class AndroidSignIn(AndroidBasePage):
             element: facebook auth button element
         """
 
-        facebook_btn = self.driver.find_element(MobileBy.ANDROID_UIAUTOMATOR,
+        facebook_btn = self.driver.find_element(AppiumBy.ANDROID_UIAUTOMATOR,
                                             f'new UiSelector().description("Sign in with Facebook")')
         return facebook_btn
 
@@ -122,7 +122,7 @@ class AndroidSignIn(AndroidBasePage):
             element: microsoft auth button element
         """
 
-        microsoft_btn = self.driver.find_element(MobileBy.ANDROID_UIAUTOMATOR,
+        microsoft_btn = self.driver.find_element(AppiumBy.ANDROID_UIAUTOMATOR,
                                             f'new UiSelector().description("Sign in with Microsoft")')
         return microsoft_btn
 
@@ -164,7 +164,7 @@ class AndroidSignIn(AndroidBasePage):
             self.driver,
             android_elements.forgot_password_reset_button
         )
-        btn_text = reset_btn.find_element_by_class_name(
+        btn_text = reset_btn.find_element(AppiumBy.CLASS_NAME,
             android_elements.all_textviews)
         return btn_text
 

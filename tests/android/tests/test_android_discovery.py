@@ -3,7 +3,7 @@
 """
 
 from time import sleep
-from appium.webdriver.common.mobileby import MobileBy
+from appium.webdriver.common.appiumby import AppiumBy
 from tests.common import values
 from tests.common.globals import Globals
 from tests.android.pages import android_elements
@@ -266,12 +266,12 @@ class TestAndroidDiscovery:
 
         course_dashboard_page = AndroidCourseDashboard(set_capabilities, setup_logging)
         sleep(5)
-        enroll_main_element = set_capabilities.find_element_by_xpath(android_elements.discovery_enroll_main_element)
-        enrollment_date = enroll_main_element.find_element_by_class_name(android_elements.all_textviews)
+        enroll_main_element = set_capabilities.find_element(AppiumBy.XPATH, android_elements.discovery_enroll_main_element)
+        enrollment_date = enroll_main_element.find_element(AppiumBy.CLASS_NAME, android_elements.all_textviews)
         assert enrollment_date.text
         enrollment_date.click()
 
-        enroll_button = set_capabilities.find_element(MobileBy.ANDROID_UIAUTOMATOR,
+        enroll_button = set_capabilities.find_element(AppiumBy.ANDROID_UIAUTOMATOR,
                                                     'new UiSelector().description("Enroll")')
         assert enroll_button.get_attribute('content-desc') == 'Enroll'
         enroll_button.click()

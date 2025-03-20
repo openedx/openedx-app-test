@@ -14,6 +14,7 @@ from appium.webdriver.webdriver import WebDriver
 from selenium.common.exceptions import WebDriverException
 
 from tests.common import values
+from tests.common.capabilities import caps_factory
 from tests.common.globals import Globals
 from tests.android.pages.android_landing import AndroidLanding
 from tests.android.pages.android_sign_in import AndroidSignIn
@@ -34,7 +35,7 @@ def is_controller_node(config: pytest.Config) -> bool:
 
 def report_screenshot():
     """
-    Get screenshots of the different screens
+        Get screenshots of the different screens
     Arguments:
     Returns:
         str : file path
@@ -67,51 +68,35 @@ def set_capabilities(setup_logging, request):
         driver: webdriver object
     """
 
-    log = setup_logging
-    globals_contents = Globals(log)
+    logger: logging.Logger = setup_logging
+    globals_contents = Globals(logger)
+    capabilities = caps_factory(globals_contents.target_environment)
     desired_capabilities = {}
     SessionData.globals_contents = globals_contents
-    SessionData.test_case_name = str(request.node.name).replace(".py", "")
-
-    log.info(f'{globals_contents.target_environment} - '
+    SessionData.test_case_name = os.path.basename(str(request.node.name)).replace(".py", "")
+    logger.info(f'{globals_contents.target_environment} - '
          f'{globals_contents.login_user_name} - '
          f'{globals_contents.login_password} - '
-         f'{globals_contents.android_platform_version} - '
-         f'{globals_contents.ios_platform_version}')
-    log.info(f'- Setting {globals_contents.target_environment} capabilities')
+         f'{globals_contents.platform_version} - ')
+    logger.info(f'- Setting {globals_contents.target_environment} capabilities')
 
-    if globals_contents.target_environment == values.ANDROID:
-        desired_capabilities['platformName'] = values.ANDROID
-        desired_capabilities['platformVersion'] = globals_contents.android_platform_version
-        desired_capabilities['deviceName'] = globals_contents.android_device_name
-        desired_capabilities['appWaitDuration'] = '50000'
-        desired_capabilities['appPackage'] = globals_contents.AUT_PACKAGE_NAME
-        desired_capabilities['appActivity'] = 'org.openedx.app.AppActivity'
-        desired_capabilities['automationName'] = 'UiAutomator2'
-        desired_capabilities['newCommandTimeout'] = '0'
+    desired_capabilities['appium:platformVersion'] = globals_contents.platform_version
+    desired_capabilities['appium:fullReset'] = globals_contents.full_reset
+    if globals_contents.app_path:
+        desired_capabilities['appium:app'] = globals_contents.app_path
+    if globals_contents.device_name:
+        desired_capabilities['appium:deviceName'] = globals_contents.device_name
 
-    elif globals_contents.target_environment == values.IOS:
-        desired_capabilities['platformName'] = values.IOS
-        desired_capabilities['platformVersion'] = globals_contents.ios_platform_version
-        desired_capabilities['deviceName'] = globals_contents.ios_device_name
-        # Required when executing on real iOS device
-        desired_capabilities['fullReset'] = True
-        desired_capabilities['appWaitDuration'] = '50000'
-        desired_capabilities['automationName'] = 'XCUITest'
-        desired_capabilities['newCommandTimeout'] = '0'
-
-    else:
-        log.info(f'{values.ERROR_SETTING_CAPS} on - {globals_contents.target_environment}')
-        return None
-
-    driver = webdriver.Remote(globals_contents.server_url, desired_capabilities)
+    capabilities.update(desired_capabilities)
+    setup_logging.info(f"Requesting session with capabilities:{capabilities.get_as_options()}")
+    driver = webdriver.Remote(globals_contents.server_url, options=capabilities.get_as_options())
 
     if driver is not None:
-        log.info(f'- Setting {globals_contents.target_environment} capabilities are done')
+        logger.info(f'- Setting {globals_contents.target_environment} capabilities are done')
         SessionData.driver = driver
         return driver
 
-    log.info(f'Problem setting {globals_contents.target_environment} capabilities')
+    logger.info(f'Problem setting {globals_contents.target_environment} capabilities')
     return None
 
 @pytest.fixture(scope="module")
@@ -124,11 +109,12 @@ def setup_logging(request) -> logging.Logger:
     """
     test_case_name = str(request.node.name).replace(".py", "")
     current_directory = os.path.dirname(__file__)
+
     # main results directory
     utils.create_directory(values.RESULTS_DIRECTORY)
     # main iteration directory
     utils.create_directory(SessionData.iteration_directory_base)
-
+    test_case_name = os.path.basename(str(request.node.name)).replace(".py", "")
     SessionData.iteration_directory = str(os.path.join(
         current_directory, values.RESULTS_DIRECTORY, SessionData.iteration_directory_base, test_case_name
     ))
@@ -154,6 +140,12 @@ def setup_logging(request) -> logging.Logger:
     request.addfinalizer(finalizer)
 
     my_logger.info("=================Logging is successfully set up=================")
+    my_logger.info(f'@@@ current dir: {current_directory}')
+    my_logger.info(f'@@@ base iteration dir: {SessionData.iteration_directory_base}')
+    my_logger.info(f'@@@ iteration dir: {SessionData.iteration_directory}')
+    my_logger.info(f'@@@ node name : {str(request.node.name)}')
+
+
     return my_logger
 
 def pytest_configure(config: pytest.Config):
@@ -165,7 +157,7 @@ def pytest_configure(config: pytest.Config):
 
     if is_controller_node(config):
         job_id = datetime.datetime.now().strftime("%Y_%m_%d__%H:%M_")
-        iteration_name = f"{marker}_{job_id}" if marker else f"Iteration_{job_id}_android"
+        iteration_name = f"{marker}_{job_id}" if marker else f"Iteration_{job_id}"
         iteration_name = sanitize_name(iteration_name)
         config.iteration_name = iteration_name
     else:

@@ -1,14 +1,20 @@
 Settings:
 
-  # appium server url - defalut value no need to change it
+  # appium server url - default value no need to change it
   appium_server: http://127.0.0.1:4723
 
   # set `Android' to execute test cases on Android or 'iOS' to execute on iOS
   target_environment: iOS
 
   # set above selected target_environment's OS Version(of specific running device/simulator) like below
-  ios_platform_version: '16.4'
-  android_platform_version: '13'
+  platform_version: '17'
+
+  # device name is only useful for iOS simulator, in case of multiple connected real devices use udid
+  device_name: 'iPhone 15'
+
+  full_reset: false
+
+  app_path: ''
 
 # set valid credentials to login
 User:
