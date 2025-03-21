@@ -8,4 +8,5 @@ report.html
 .idea/
 .DS_Store
 builds
-
+.vscode/
+edx-env/
