@@ -46,7 +46,7 @@ class TestAndroidEditProfile:
                 Profile type
                 Limited profile message
                 Profile Image
-                User Name
+                Username
                 Location label
                 Location
                 Spoken Language label
@@ -64,7 +64,7 @@ class TestAndroidEditProfile:
         expect(profile_tab).to_have(values.MAIN_DASHBOARD_PROFILE_TAB, ElementAttribute.CONTENT_DESC)
         expect(profile_tab).to_not.to_be_selected()
         assert profile_tab.click()
-        expect(profile_page.settings_button).to_have(values.PROFILE_SETTINGS_TEXT, type=ElementAttribute.CONTENT_DESC)
+        expect(profile_page.settings_button).to_have(values.PROFILE_SETTINGS_TEXT, attribute=ElementAttribute.CONTENT_DESC)
         expect(profile_page.profile_img_profile).to_contain(values.PROFILE_NAME_TEXT, type=ElementAttribute.CONTENT_DESC)
         expect(profile_page.profile_txt_name).to_have(values.PROFILE_NAME_TEXT)
         expect(profile_page.profile_username).to_have(values.PROFILE_USERNAME_TEXT)

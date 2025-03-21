@@ -2,7 +2,7 @@
     Course Dashboard Test Module
 """
 
-from enums.attributes import ElementAttribute
+from tests.common.enums.attributes import ElementAttribute
 from framework import expect
 from framework.element import Element
 from tests.android.pages.android_whats_new import AndroidWhatsNew

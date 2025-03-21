@@ -43,9 +43,9 @@ class TestAndroidRegister:
         """
         Scenarios:
         Verify following contents are visible on screen,
-            "This is what you will use to login" label below, Full Name edit-field,
+            "This is what you will use to log in" label below, Full Name edit-field,
             "The name will be used on any certificates that you earn" label below,
-            Public User Name edit-field,
+            Public Username edit-field,
             "The name that will identify you in your courses. It cannot be changed later." label below,
             Password edit-field, "Your password must contain at least 8 characters, including 1 letter & 1 number.",
             "Country or Region of Residence" spinner,
@@ -86,7 +86,7 @@ class TestAndroidRegister:
         android_register.get_register_tf_password.scroll_vertically_from_element()
         expect(android_register.get_register_tf_country).to_be_clickable()
         expect(android_register.get_register_txt_country_description).to_have(values.REGISTER_COUNTRY_MESSAGE)
-        expect(android_register.honor_policy_text, 'privacy honor text not found on registeration screen').to_be_displayed()
+        expect(android_register.honor_policy_text, 'privacy honor text not found on registration screen').to_be_displayed()
         assert android_register.get_register_txt_optional_field.exists()
         expect(android_register.get_register_btn_create_account).to_be_clickable()
 
@@ -96,7 +96,7 @@ class TestAndroidRegister:
         Scenarios:
         Verify on clicking create button all fields should show error message,
         Following fields will show error message,
-            Full Name, User Name, Email, Password, Country
+            Full Name, Username, Email, Password, Country
         """
         Element.set_driver(set_capabilities)
         Element.set_logger(setup_logging)
@@ -131,9 +131,9 @@ class TestAndroidRegister:
         """
         Scenarios:
         Verify following fields are filled with valid data,
-            Full Name, User Name, Email, Password, Country,
+            Full Name, Username, Email, Password, Country,
         Verify user should be able to click on create account button,
-        Verify main dashboard screen is loaded sucessfully
+        Verify main dashboard screen is loaded successfully
         """
 
         Element.set_driver(set_capabilities)
@@ -150,7 +150,7 @@ class TestAndroidRegister:
         full_name = first_name + ' ' + last_name
         password = generate_random_credentials(6) + global_contents.login_password
 
-        assert android_register.go_back
+        assert android_register.go_back()
         expect(android_landing.screen_title).to_have(values.LANDING_MESSAGE)
         assert android_landing.load_register_screen()
         expect(android_register.screen_title).to_have(values.REGISTER)
@@ -165,6 +165,6 @@ class TestAndroidRegister:
         assert android_register.get_register_tf_country.click()
         expect(android_register.get_register_country_selection_dialogue).to_have(values.REGISTER_COUNTRY_PICKER_TITLE)
         assert android_register.get_register_country_search.send_keys('United States of America')
-        assert android_register.get_txt_US_title.click()
+        assert android_register.get_txt_us_title.click()
         assert android_register.get_register_btn_create_account.click()
-        expect(main_dashboard_page.get_learn_tab).to_have(values.MAIN_DASHBOARD_LEARN_TAB, ElementAttribute.CONTENT_DESC)
+        expect(main_dashboard_page.learn_tab).to_have(values.MAIN_DASHBOARD_LEARN_TAB, ElementAttribute.CONTENT_DESC)

@@ -2,8 +2,7 @@
     My Courses Test Module
 """
 
-from selenium.webdriver.common.by import By
-from enums.attributes import ElementAttribute
+from tests.common.enums.attributes import ElementAttribute
 from framework import expect
 from framework.element import Element
 from tests.android.pages.android_course_dashboard import AndroidCourseDashboard
@@ -40,7 +39,7 @@ class TestAndroidMyCoursesList:
         """
          Scenarios:
             Verify that from Main Dashboard tapping Courses tab will load My Courses
-            list(of specific logged in user) in its tab
+            list(of specific logged-in user) in its tab
             Verify that Courses tab/screen will show following header contents,
             Header Contents
                 Learn
@@ -122,7 +121,7 @@ class TestAndroidMyCoursesList:
         Scenarios:
             Verify that clicking logout button should load logout dialog
             Verify that tapping close button should leave logout dialog
-            Verify that tapping logout button should logout from main dashboard screen
+            Verify that tapping logout button should log out from main dashboard screen
         """
         Element.set_driver(set_capabilities)
         Element.set_logger(setup_logging)

@@ -9,69 +9,63 @@ from tests.android.pages.android_base_page import AndroidBasePage
 
 class AndroidMainDashboard(AndroidBasePage):
     """
-    Main Dashbaord screen
+    Main Dashboard screen
     """
 
     def __init__(self):
         super().__init__()
         self._main_dashboard_fragment_discover = Element(AppiumBy.ANDROID_UIAUTOMATOR,'new UiSelector().resourceId("org.edx.mobile:id/fragmentDiscover")')
         self._main_dashboard_fragment_learn = Element(AppiumBy.ANDROID_UIAUTOMATOR,'new UiSelector().resourceId("org.edx.mobile:id/fragmentLearn")')
-        self._main_dashbaord_fragment_profile = Element(AppiumBy.ANDROID_UIAUTOMATOR,'new UiSelector().resourceId("org.edx.mobile:id/fragmentProfile")')
+        self._main_dashboard_fragment_profile = Element(AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("org.edx.mobile:id/fragmentProfile")')
         self._switcher_label_courses = Element(AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("Courses")')
         self._switcher_label_program = Element(AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("Programs")')
 
     @property
     def discover_tab(self) -> Element:
-        """
-        Get discover tab
+        """Get discover tab
 
         Returns:
-            element: sign in description element
+            Element: sign in description element
         """
 
         return self._main_dashboard_fragment_discover.find()
 
     @property
     def learn_tab(self) -> Element:
-        """
-        Get learn tab
+        """Get learn tab
 
         Returns:
-            element: learn fragment element
+            Element: learn fragment element
         """
 
         return self._main_dashboard_fragment_learn
 
     @property
     def profile_tab(self) -> Element:
-        """
-        Get profile tab
+        """Get profile tab
 
         Returns:
-            element: profile framgent element
+            Element: profile fragment element
         """
 
-        return self._main_dashbaord_fragment_profile
+        return self._main_dashboard_fragment_profile
 
     @property
     def switcher_label_courses(self) -> Element:
-        """
-        Get profile tab
+        """Get profile tab
 
         Returns:
-            element: profile framgent element
+            Element: profile fragment element
         """
 
         return self._switcher_label_courses
 
     @property
     def switcher_label_programs(self) -> Element:
-        """
-        Get profile tab
+        """Get profile tab
 
         Returns:
-            element: profile framgent element
+            Element: profile fragment element
         """
 
         return self._switcher_label_program
-    

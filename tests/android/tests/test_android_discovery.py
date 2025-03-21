@@ -116,7 +116,7 @@ class TestAndroidDiscovery:
         assert catalog_page.find_by_text_on_screen(values.DISCOVERY_SCREEN_MESSAGE).exists()
         expect(catalog_page.first_popular_course).to_have(values.DISCOVERY_FIRST_POPULAR_COURSE, ElementAttribute.CONTENT_DESC)
         expect(catalog_page.second_popular_course).to_have(values.DISCOVERY_SECOND_POPULAR_COURSE, ElementAttribute.CONTENT_DESC)
-        catalog_page.course_carosel.swipe_horizontal_on_element(ScrollDirections.LEFT)
+        catalog_page.course_carousel.swipe_horizontal_on_element(ScrollDirections.LEFT)
         expect(catalog_page.third_popular_course).to_have(values.DISCOVERY_POPULAR_MATH_COURSE, ElementAttribute.CONTENT_DESC)
         assert catalog_page.third_popular_course.click()
         sleep(10)
@@ -170,10 +170,10 @@ class TestAndroidDiscovery:
         expect(discover_tab).to_be_selected()
 
         sleep(20)
-        expect(catalog_page.catalog_screen_toolbar_title).to_have(values.DISCOVERY_SCREEN_TITLE)
+        expect(catalog_page.text_toolbar_title).to_have(values.DISCOVERY_SCREEN_TITLE)
         assert catalog_page.catalog_screen_heading_msg.exists()
         assert catalog_page.catalog_screen_heading_msg.click()
-        assert catalog_page.trending_marketing_tag.exists()
+        assert catalog_page.trending_tag(values.DISCOVERY_TRENDING_LABEL).exists()
 
         search_field = catalog_page.search_field
         expect(search_field).to_be_displayed()

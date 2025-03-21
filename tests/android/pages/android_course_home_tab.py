@@ -4,8 +4,6 @@
 
 from framework.element import Element
 from tests.android.pages.android_base_page import AndroidBasePage
-from tests.common import values
-from selenium.common.exceptions import NoSuchElementException
 from appium.webdriver.common.appiumby import AppiumBy
 
 
@@ -23,14 +21,13 @@ class AndroidCourseHomeTab(AndroidBasePage):
 
 
     def component_navigation(self, retries=5) -> Element:
-        """
-        Navigate between components
+        """Navigate between components
 
         Args:
             retries (int): Maximum number of retries to find the finish button.
 
         Returns:
-            webdriver element: finish Element
+            Element: finish button Element
         """
         if retries == 0:
             raise Exception("Finish button not found after maximum retries")
@@ -44,38 +41,38 @@ class AndroidCourseHomeTab(AndroidBasePage):
 
     @property
     def finish_button(self) -> Element:
-        """
-        Get finish button
+        """Get finish button
 
         Returns:
-            element: finish element
+            Element: finish element
         """
 
         return self._finish_button
 
     @property
     def next_btn(self) -> Element:
-        """
-        Get next button
+        """Get next button
 
         Returns:
-            element: next button element
+            Element: next button element
         """
 
         return self._next_button
 
     @property
     def prev_btn(self) -> Element:
-        """
-        Get prev button
+        """Get prev button
 
         Returns:
-            element: prev button element
+            Element: prev button element
         """
 
         return self._previous_button
     
     @property
     def back_button(self) -> Element:
-        """"""
+        """Back Button
+        Returns:
+            Element: Back button element
+        """
         return self._back_button

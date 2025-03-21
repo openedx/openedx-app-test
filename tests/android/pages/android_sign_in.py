@@ -3,10 +3,8 @@
 """
 
 from framework import expect
-from tests.android.pages import android_elements
 from tests.android.pages.android_base_page import AndroidBasePage
 from appium.webdriver.common.appiumby import AppiumBy
-from appium.webdriver.webelement import WebElement as MobileWebElement
 
 from framework.element import Element
 
@@ -37,9 +35,9 @@ class AndroidSignIn(AndroidBasePage):
 
     @property
     def signin_title(self) -> 'Element':
-        """
-        Get the sign-in title element.
+        """Get the sign-in title element.
 
+        Returns
             Element: The Element object representing the sign-in title
         """
 
@@ -47,181 +45,149 @@ class AndroidSignIn(AndroidBasePage):
 
     @property
     def sign_in_description(self) -> Element:
-        """
-        Get sign in description
+        """Get sign in description
 
         Returns:
-            element: sign in description element
+            Element: sign in description element
         """
 
         return self._sign_in_screen_description
 
     @property
     def sign_in_email_label(self) -> Element:
-        """
-        Get sign in email label
+        """Get sign in email label
 
         Returns:
-            element: sign in email label element
+            Element: sign in email label element
         """
 
         return self._sign_in_email_label
 
     @property
     def sign_in_tf_email(self) -> Element:
-        """
-        Get sign in email text field
+        """Get sign in email text field
 
         Returns:
-            element: sign in email text field element
+            Element: sign in email text field element
         """
 
         return self._sign_in_tf_email
 
     @property
     def sign_in_password_label(self) -> Element:
-        """
-        Get sign in password label
+        """Get sign in password label
 
         Returns:
-            element: sign in password label element
+            Element: sign in password label element
         """
 
         return self._sign_in_password_label
 
     @property
     def sign_in_password_field(self) -> Element:
-        """
-        Get sign in password field
+        """Get sign in password field
 
         Returns:
-            element: sign in password field element
+            Element: sign in password field element
         """
 
         return self._sign_in_tf_password
 
     @property
     def forgot_password_button(self) -> Element:
-        """
-        Get sign in forgot password
+        """Get sign in forgot password
 
         Returns:
-            element: sign in forgot password element
+            Element: sign in forgot password element
         """
 
         return self._sign_in_forgot_password_button
 
     @property
     def google_auth_button(self) -> Element:
-        """
-        Get google auth button
+        """Get google auth button
 
         Returns:
-            element: google auth button element
+            Element: google auth button element
         """
 
         return self._google_signin_button
 
     @property
     def get_facebook_auth_button(self) -> Element:
-        """
-        Get facebook auth button
+        """Get facebook auth button
 
         Returns:
-            element: facebook auth button element
+            Element: facebook auth button element
         """
 
         return self._facebook_signin_button
 
     @property
     def get_microsoft_auth_button(self) -> Element:
-        """
-        Get microsoft auth button
+        """Get microsoft auth button
 
         Returns:
-            element: microsoft auth button element
+            Element: microsoft auth button element
         """
 
         return self._microsoft_signin_button
 
     @property
     def signin_button(self) -> Element:
-        """
-        Get signin button
+        """Get signin button
 
         Returns:
-            element: Signin button element
+            Element: Signin button element
         """
 
         return self._landing_signin_button
 
     @property
     def forgot_password_title(self) -> Element:
-        """
-        Get forgot password title
+        """Get forgot password title
 
         Returns:
-            element: forgot password title element
+            Element: forgot password title element
         """
 
         return self._forgot_password_title
 
     @property
     def forgot_password_reset_button(self) -> Element:
-        """
-        Get forgot password reset button
+        """Get forgot password reset button
 
         Returns:
-            element: forgot password reset button element
+            Element: forgot password reset button element
         """
 
         return self._forgot_password_reset_button
 
     @property
     def forgot_password_email_error(self) -> Element:
-        """
-        Get forgot password email error
+        """Get forgot password email error
+
         Returns:
-            element: forgot password email error element
+            Element: forgot password email error element
         """
 
         return self._forgot_password_email_error
 
     @property
     def password_recovery_sign_in_btn(self) -> Element:
-        """
-        Get password recovery sign in button
+        """Get password recovery sign in button
 
         Returns:
-            element: password recovery sign in button element
+            Element: password recovery sign in button element
         """
 
         return self._password_recovery_sign_in_btn
 
-    def get_all_textviews(self):
-        """
-        Get all textviews elements
-
-        Returns:
-            List of webdriver elements: textview elements
-        """
-
-        self.global_contents.wait_for_element_visibility(
-            self.driver,
-            android_elements.all_textviews
-        )
-        all_textview_elements = self.global_contents.get_all_views_on_screen(
-            self.driver,
-            android_elements.all_textviews
-        )
-        return all_textview_elements
-
     def verify_password_recovery_prompts(self, email: str):
-        """
-        Verify password recovery prompts
+        """Verify password recovery prompts
 
         Returns:
-            element: check email title text element
+            Element: check email title text element
         """
 
         expect(self._check_email_title_text).to_be_displayed()

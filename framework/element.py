@@ -22,10 +22,6 @@ class Element:
         cls.__driver = driver
 
     @classmethod
-    def get_driver(cls) -> WebDriver:
-        return cls.__driver
-
-    @classmethod
     def set_logger(cls, logger: Logger):
         cls.__logger = logger
     
@@ -115,7 +111,7 @@ class Element:
         
 
     def __getitem__(self, index: int):
-        """retrive element at the given index
+        """retrieve element at the given index
         Arguments:
             index (int): index of required element
         Returns:
@@ -175,31 +171,43 @@ class Element:
             timeout (int) : time to wait for element
             raise_exception (bool): True or False
         Returns:
-            bool: true of flase
+            bool: true of false
         Raises:
             NotFoundError: If the user sets raise_exception arg to True and click fails
         """
         try:
-            return self.find(timeout).element.send_keys(*keys)
-            
+            self.find(timeout).element.send_keys(*keys)
+            return True
         except Exception as exception:
             if raise_exception:
                 raise NotFoundError(f"failed to send keys to element {self.locator} with exception {exception}")
             Element.__logger.info(f"failed to send keys to element {self.locator} with exception {exception}")
+            return False
     
     def exists(self, timeout=10, raise_exception=True) -> bool:
         """
-            Checks if element is present in DOM and has some length or width greater than 0
+        Checks if the element is present in the DOM and has a size greater than zero.
+
         Arguments:
-            timeout (int) : time to wait for element
+            timeout (int): The time to wait for the element.
+            raise_exception (bool): Whether to raise an exception if the element is not found.
+
+        Returns:
+            bool: True if the element exists; False otherwise.
+
+        Raises:
+            NotFoundError: If raise_exception is True and the element is not found.
         """
         try:
+            # Attempt to find the element within the specified timeout
             self.find(timeout)
             return True
         except Exception as exception:
             if raise_exception:
+                # Raise a NotFoundError if the element is not found and raise_exception is True
                 raise NotFoundError(f"Element with locator: {self.locator} not found with exception {exception}")
-            Element.__logger.info(f"element {self.locator} does not exist with exception {exception}")
+            # Log the exception if the element does not exist
+            Element.__logger.info(f"Element {self.locator} does not exist with exception {exception}")
             return False
         
     def is_selected(self, timeout=10) -> bool:
@@ -224,8 +232,8 @@ class Element:
             return self.get_attribute(ElementAttribute.CLICKABLE, timeout) == 'true'
         except Exception as exception:
             Element.__logger.info(f"element {self.locator} is not clickable with exception {exception}")
-            return
-    
+            return False
+
     def is_enabled(self, timeout=10) -> bool:
         """
             Checks if element is enabled
@@ -251,13 +259,7 @@ class Element:
             return False
 
     def scroll_vertically_from_element(self):
-        """
-            Scroll from element
-
-        Arguments:
-            driver (webdriver element): webdriver instance variable
-            from_element (webdriver element): element from which scroll will start
-        """
+        """Scroll from element"""
 
         screen_width = Element.__driver.get_window_size()["width"]
         screen_height = Element.__driver.get_window_size()["height"]
@@ -287,10 +289,8 @@ class Element:
         self.element = None
 
     def swipe_horizontal_on_element(self, direction, swipe_percent=0.1):
-        """
-            Swipe from left to right or vice versa on a given element
+        """Swipe from left to right or vice versa on a given element
         Arguments:
-            element (MobileWebElement) : element to swipe on
             direction (enums.ScrollDirections) : LEFT OR RIGHT
             swipe_percent (float) : device width in percentage
         Returns:
@@ -312,11 +312,11 @@ class Element:
         Element.__driver.swipe(start_x, anchor_y, end_x, anchor_y, 300)
         
     @staticmethod
-    def press_keycode(int):
+    def press_keycode(code):
         """
             Presses the key code
         Arguments:
-            int (int) : key code
+            code (int) : key code
         """
-        Element.__driver.press_keycode(int)
-        Element.__logger.info(f"pressed key code {int}")
+        Element.__driver.press_keycode(code)
+        Element.__logger.info(f"pressed key code {code}")

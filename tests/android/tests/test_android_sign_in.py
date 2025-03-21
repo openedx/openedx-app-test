@@ -7,7 +7,6 @@ from framework import expect
 from tests.android.pages.android_landing import AndroidLanding
 from tests.android.pages.android_sign_in import AndroidSignIn
 from tests.common import values
-from tests.common.enums.attributes import ElementAttribute
 from tests.common.globals import Globals
 from framework.element import Element
 
@@ -40,7 +39,7 @@ class TestAndroidSignIn:
         """
         Scenarios:
         Verify following contents are visible on screen 
-            "Back icon", "Sign In" Title, "User name or e-mail address" label, User Name edit-field
+            "Back icon", "Sign In" Title, "Username or e-mail address" label, Username edit-field
             Password edit-field, "Forgot your password?" option, "Sign In" button,
             "Or sing in with" label, "Facebook" button, "Google" button,
             "By signing in to this app, you agree to the" label,
@@ -58,16 +57,13 @@ class TestAndroidSignIn:
         assert android_landing.signin_button.exists()
         assert android_landing.load_signin_screen()
         expect(android_sign_in.signin_title, 'Sign in screen not loaded successfully').to_have(values.LOGIN)
-
         expect(android_sign_in.sign_in_email_label).to_have(values.EMAIL_OR_USERNAME)
         expect(android_sign_in.sign_in_tf_email).to_be_clickable()
         assert android_sign_in.sign_in_tf_email.send_keys(global_contents.login_user_name)
-
         expect(android_sign_in.sign_in_password_label).to_have(values.PASSWORD)
         expect(android_sign_in.sign_in_password_field).to_be_clickable()
         assert android_sign_in.sign_in_password_field.send_keys(global_contents.login_password)
         expect(android_sign_in.signin_button).to_be_clickable()
-
         expect(android_sign_in.google_auth_button).to_be_enabled()
         expect(android_sign_in.get_facebook_auth_button).to_be_enabled()
         expect(android_sign_in.get_microsoft_auth_button).to_be_enabled()
@@ -85,7 +81,6 @@ class TestAndroidSignIn:
 
         android_landing = AndroidLanding()
         android_sign_in = AndroidSignIn()
-        global_contents = Globals(setup_logging)
 
         expect(android_sign_in.forgot_password_button).to_have(values.FORGOT_PASSWORD)
         assert android_sign_in.forgot_password_button.click()
@@ -96,16 +91,12 @@ class TestAndroidSignIn:
         expect(android_sign_in.sign_in_tf_email).to_be_clickable()
         assert android_sign_in.forgot_password_reset_button.click()
         expect(android_sign_in._forgot_password_email_error).to_have(values.FORGOT_EMAIL_ERROR)
-
         random_email = utils.generate_random_credentials(8)
         assert android_sign_in.sign_in_tf_email.send_keys(random_email + '@yop.com')
         expect(android_sign_in.forgot_password_reset_button).to_not.to_be_displayed()
-
         expect(android_sign_in.forgot_password_reset_button).to_have(values.RESET_PASSWORD_BUTTON)
         assert android_sign_in.forgot_password_reset_button.click()
-
         android_sign_in.verify_password_recovery_prompts(random_email)
-
         expect(android_sign_in.password_recovery_sign_in_btn).to_have(values.LOGIN)
         assert android_sign_in.password_recovery_sign_in_btn.click()
         expect(android_sign_in.sign_in_description).to_have(values.SIGN_IN_MESSAGE)

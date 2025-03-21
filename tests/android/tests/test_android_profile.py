@@ -50,7 +50,7 @@ class TestAndroidProfile:
         main_dashboard_page = AndroidMainDashboard()
         profile_page = AndroidProfile()
 
-        expect(main_dashboard_page.profile_tab).to_have(values.MAIN_DASHBOARD_PROFILE_TAB, type=ElementAttribute.CONTENT_DESC)
+        expect(main_dashboard_page.profile_tab).to_have(values.MAIN_DASHBOARD_PROFILE_TAB, attribute=ElementAttribute.CONTENT_DESC)
         expect(main_dashboard_page.profile_tab).to_not.to_be_selected()
         assert main_dashboard_page.profile_tab.click()
         assert profile_page.settings_button.exists()

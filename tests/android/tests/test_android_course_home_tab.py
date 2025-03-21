@@ -2,7 +2,7 @@
     Course Dashboard Home Tab Test Module
 """
 
-from enums.attributes import ElementAttribute
+from tests.common.enums.attributes import ElementAttribute
 from framework import expect
 from framework.element import Element
 from tests.android.pages.android_whats_new import AndroidWhatsNew
@@ -121,7 +121,7 @@ class TestAndroidCourseHomeTab:
             Verify user can click on next button until finish button appears
             Verify clicking finish button will load the celebratory modal
             Verify Back to outline button on Modal and clicking this button
-                loads the compoenents screen
+                loads the components screen
             Verify clicking on back button will navigate the user to dashboard page
         """
 
@@ -152,7 +152,7 @@ class TestAndroidCourseHomeTab:
         Scenarios:
             Verify that clicking logout button should load logout dialog
             Verify that tapping close button should leave logout dialog
-            Verify that tapping logout button should logout from main dashboard screen
+            Verify that tapping logout button should log out from main dashboard screen
         """
 
         Element.set_driver(set_capabilities)

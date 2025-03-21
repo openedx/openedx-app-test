@@ -2,7 +2,7 @@
     Main Dashboard Test Module
 """
 
-from enums.attributes import ElementAttribute
+from tests.common.enums.attributes import ElementAttribute
 from framework import expect
 from framework.element import Element
 from tests.android.pages.android_whats_new import AndroidWhatsNew
@@ -39,8 +39,8 @@ class TestAndroidMainDashboard:
         """
          Scenarios:
             Verify following contents are visible on screen, 
-                Screen Title, Disover Tab
-                Profile Tab, Programs Tab, Profiel tab
+                Screen Title, Discover Tab
+                Profile Tab, Programs Tab, Profile tab
             Verify that Discover tab will be selected by default
             Verify that clicking each tab will load its screen
         """
@@ -100,7 +100,7 @@ class TestAndroidMainDashboard:
         Scenarios:
             Verify that clicking logout button should load logout dialog
             Verify that tapping close button should leave logout dialog
-            Verify that tapping logout button should logout from main dashboard screen
+            Verify that tapping logout button should log out from main dashboard screen
         """
 
         Element.set_driver(set_capabilities)

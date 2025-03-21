@@ -7,8 +7,6 @@ from framework.element import Element
 from tests.android.pages.android_landing import AndroidLanding
 from tests.android.pages.android_sign_in import AndroidSignIn
 from tests.common import values
-from tests.common.enums.attributes import ElementAttribute
-from tests.common.globals import Globals
 
 
 class TestAndroidLanding:
