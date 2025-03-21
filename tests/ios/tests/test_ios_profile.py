@@ -4,6 +4,7 @@
 from itertools import dropwhile
 
 from tests.ios.pages.ios_profile import IosProfile
+from tests.ios.pages.ios_whats_new import IosWhatsNew
 from tests.common import values
 from tests.common.globals import Globals
 
@@ -17,7 +18,7 @@ class TestIosProfile:
         """
         Scenarios:
             Verify that Profile screen will show following contents:
-                Back icon 
+                Back icon
                 "Profile" as Title
                 Edit Profile Button
                 Profile Image

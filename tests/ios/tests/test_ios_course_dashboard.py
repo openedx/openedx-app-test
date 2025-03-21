@@ -60,5 +60,5 @@ class TestIosCourseDashboard:
         more_tab.click()
 
         dashboard_tab = course_dashboard_page.navigate_to_main_dashboard_tab()
-        assert dashboard_tab.get_attribute('label') == values.LANDING_BACK_BUTTON
+        assert dashboard_tab.get_attribute("label") == values.LANDING_BACK_BUTTON
         dashboard_tab.click()

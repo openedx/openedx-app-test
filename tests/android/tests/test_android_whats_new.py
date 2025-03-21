@@ -1,5 +1,5 @@
 """
-    Whats New Test Module
+    What's New Test Module
 """
 
 from framework import expect
@@ -14,13 +14,13 @@ from tests.common.globals import Globals
 
 class TestAndroidWhatsNew:
     """
-    Whats new screen's Test Case
+    What's new screen's Test Case
     """
 
     def test_start_whats_new_smoke(self, set_capabilities, setup_logging):
         """
         Scenarios:
-            Verify Whats New screen is loaded successfully
+            Verify What's New screen is loaded successfully
         """
 
         setup_logging.info(f'Starting {TestAndroidWhatsNew.__name__} Test Case')
@@ -35,13 +35,10 @@ class TestAndroidWhatsNew:
             assert android_landing.signin_button.exists()
             assert android_landing.load_signin_screen()
             expect(android_sign_in.signin_title, 'Sign in screen not loaded successfully').to_have(values.LOGIN) 
-
             expect(android_sign_in.sign_in_email_label).to_have(values.EMAIL_OR_USERNAME)
             expect(android_sign_in.sign_in_tf_email).to_be_clickable()
             assert android_sign_in.sign_in_tf_email.send_keys(global_contents.login_user_name)
-
             expect(android_sign_in.sign_in_password_label).to_have(values.PASSWORD)
-            password_field = android_sign_in.sign_in_password_field
             expect(android_sign_in.sign_in_password_field).to_be_clickable()
             assert android_sign_in.sign_in_password_field.send_keys(global_contents.login_password)
             expect(android_sign_in.signin_button).to_be_clickable()

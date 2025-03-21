@@ -1,9 +1,10 @@
-import os
 import logging
-import string
+import os
 import random
-from unicodedata import normalize
+import string
 from datetime import datetime, timezone
+from unicodedata import normalize
+
 logger = logging.getLogger(__name__)
 
 
@@ -20,8 +21,10 @@ def create_directory(target_directory):
     except OSError as os_error:
         logger.warning(os_error)
 
+
 def sanitize_name(name):
     return name.replace(",", "_").replace(" ", "")
+
 
 def get_formatted_datetime():
     """
@@ -31,6 +34,7 @@ def get_formatted_datetime():
     """
 
     return datetime.now(timezone.utc).strftime("%Y_%m_%d_%I_%M")
+
 
 def generate_random_credentials(length):
     """
@@ -44,7 +48,8 @@ def generate_random_credentials(length):
     """
 
     combination = string.ascii_lowercase + string.digits
-    return ''.join(random.choice(combination) for _ in range(length))
+    return "".join(random.choice(combination) for _ in range(length))
+
 
 def normalize_string(text, form="NFC"):
     """

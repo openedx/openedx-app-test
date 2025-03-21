@@ -8,9 +8,9 @@ import os
 from typing import Optional
 
 import pytest
-from pytest_html import extras as pytest_html_extras
 from appium import webdriver
 from appium.webdriver.webdriver import WebDriver
+from pytest_html import extras as pytest_html_extras
 from selenium.common.exceptions import WebDriverException
 
 from tests.android.pages.android_main_dashboard import AndroidMainDashboard
@@ -18,14 +18,12 @@ from tests.android.pages.android_profile import AndroidProfile
 from tests.android.pages.android_whats_new import AndroidWhatsNew
 from framework import expect
 from framework.element import Element
-from tests.common import values
-from tests.common.capabilities import caps_factory
-from tests.common.enums.attributes import ElementAttribute
-from tests.common.globals import Globals
 from tests.android.pages.android_landing import AndroidLanding
 from tests.android.pages.android_sign_in import AndroidSignIn
-from tests.common import utils
-from tests.common.utils import sanitize_name, get_formatted_datetime
+from tests.common import utils, values
+from tests.common.capabilities import caps_factory
+from tests.common.globals import Globals
+from tests.common.utils import get_formatted_datetime, sanitize_name
 from tests.ios.pages.ios_landing import IosLanding
 from tests.ios.pages.ios_login import IosLogin
 from tests.ios.pages.ios_main_dashboard import IosMainDashboard
@@ -37,8 +35,10 @@ def is_test_failed(report: pytest.TestReport) -> bool:
     x_fail = hasattr(report, "wasxfail")
     return (report.skipped and x_fail) or (report.failed and not x_fail)
 
+
 def is_controller_node(config: pytest.Config) -> bool:
     return not hasattr(config, "workerinput")
+
 
 def report_screenshot():
     """
@@ -61,6 +61,7 @@ def report_screenshot():
     except Exception:
         pass
 
+
 @pytest.fixture(scope="module")
 def set_capabilities(setup_logging, request):
     """
@@ -80,31 +81,42 @@ def set_capabilities(setup_logging, request):
     capabilities = caps_factory(globals_contents.target_environment)
     desired_capabilities = {}
     SessionData.globals_contents = globals_contents
-    SessionData.test_case_name = os.path.basename(str(request.node.name)).replace(".py", "")
-    logger.info(f'{globals_contents.target_environment} - '
-         f'{globals_contents.login_user_name} - '
-         f'{globals_contents.login_password} - '
-         f'{globals_contents.platform_version} - ')
-    logger.info(f'- Setting {globals_contents.target_environment} capabilities')
+    SessionData.test_case_name = os.path.basename(str(request.node.name)).replace(
+        ".py", ""
+    )
+    logger.info(
+        f"{globals_contents.target_environment} - "
+        f"{globals_contents.login_user_name} - "
+        f"{globals_contents.login_password} - "
+        f"{globals_contents.platform_version} - "
+    )
+    logger.info(f"- Setting {globals_contents.target_environment} capabilities")
 
-    desired_capabilities['appium:platformVersion'] = globals_contents.platform_version
-    desired_capabilities['appium:fullReset'] = globals_contents.full_reset
+    desired_capabilities["appium:platformVersion"] = globals_contents.platform_version
+    desired_capabilities["appium:fullReset"] = globals_contents.full_reset
     if globals_contents.app_path:
-        desired_capabilities['appium:app'] = globals_contents.app_path
+        desired_capabilities["appium:app"] = globals_contents.app_path
     if globals_contents.device_name:
-        desired_capabilities['appium:deviceName'] = globals_contents.device_name
+        desired_capabilities["appium:deviceName"] = globals_contents.device_name
 
     capabilities.update(desired_capabilities)
-    setup_logging.info(f"Requesting session with capabilities:{capabilities.get_as_options()}")
-    driver = webdriver.Remote(globals_contents.server_url, options=capabilities.get_as_options())
+    setup_logging.info(
+        f"Requesting session with capabilities:{capabilities.get_as_options()}"
+    )
+    driver = webdriver.Remote(
+        globals_contents.server_url, options=capabilities.get_as_options()
+    )
 
     if driver is not None:
-        logger.info(f'- Setting {globals_contents.target_environment} capabilities are done')
+        logger.info(
+            f"- Setting {globals_contents.target_environment} capabilities are done"
+        )
         SessionData.driver = driver
         return driver
 
-    logger.info(f'Problem setting {globals_contents.target_environment} capabilities')
+    logger.info(f"Problem setting {globals_contents.target_environment} capabilities")
     return None
+
 
 @pytest.fixture(scope="module")
 def setup_logging(request) -> logging.Logger:
@@ -122,19 +134,30 @@ def setup_logging(request) -> logging.Logger:
     # main iteration directory
     utils.create_directory(SessionData.iteration_directory_base)
     test_case_name = os.path.basename(str(request.node.name)).replace(".py", "")
-    SessionData.iteration_directory = str(os.path.join(
-        current_directory, values.RESULTS_DIRECTORY, SessionData.iteration_directory_base, test_case_name
-    ))
+    SessionData.iteration_directory = str(
+        os.path.join(
+            current_directory,
+            values.RESULTS_DIRECTORY,
+            SessionData.iteration_directory_base,
+            test_case_name,
+        )
+    )
 
     utils.create_directory(SessionData.iteration_directory)
 
-    SessionData.screenshots_directory = os.path.join(current_directory, SessionData.iteration_directory)
-    log_file = os.path.join(current_directory, SessionData.iteration_directory, values.LOG_FILE_NAME)
+    SessionData.screenshots_directory = os.path.join(
+        current_directory, SessionData.iteration_directory
+    )
+    log_file = os.path.join(
+        current_directory, SessionData.iteration_directory, values.LOG_FILE_NAME
+    )
 
-    my_logger = logging.getLogger('edX Automation Logs')
+    my_logger = logging.getLogger("edX Automation Logs")
     my_logger.setLevel(logging.INFO)
     log_handler = logging.FileHandler(log_file, encoding="utf-8")
-    formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
+    formatter = logging.Formatter(
+        "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+    )
     log_handler.setFormatter(formatter)
     my_logger.addHandler(log_handler)
 
@@ -147,13 +170,13 @@ def setup_logging(request) -> logging.Logger:
     request.addfinalizer(finalizer)
 
     my_logger.info("=================Logging is successfully set up=================")
-    my_logger.info(f'@@@ current dir: {current_directory}')
-    my_logger.info(f'@@@ base iteration dir: {SessionData.iteration_directory_base}')
-    my_logger.info(f'@@@ iteration dir: {SessionData.iteration_directory}')
-    my_logger.info(f'@@@ node name : {str(request.node.name)}')
-
+    my_logger.info(f"@@@ current dir: {current_directory}")
+    my_logger.info(f"@@@ base iteration dir: {SessionData.iteration_directory_base}")
+    my_logger.info(f"@@@ iteration dir: {SessionData.iteration_directory}")
+    my_logger.info(f"@@@ node name : {str(request.node.name)}")
 
     return my_logger
+
 
 def pytest_configure(config: pytest.Config):
     """
@@ -171,12 +194,15 @@ def pytest_configure(config: pytest.Config):
         iteration_name: str = config.workerinput["iterationName"]
 
     SessionData.iteration_directory_base = str(
-        os.path.join(os.path.dirname(__file__), values.RESULTS_DIRECTORY, iteration_name.lower())
+        os.path.join(
+            os.path.dirname(__file__), values.RESULTS_DIRECTORY, iteration_name.lower()
+        )
     )
     SessionData.iteration_name = iteration_name
 
     config.option.htmlpath = os.path.join(
-        SessionData.iteration_directory_base, f"{iteration_name}{values.HTML_REPORT_FILE_NAME}"
+        SessionData.iteration_directory_base,
+        f"{iteration_name}{values.HTML_REPORT_FILE_NAME}",
     )
 
 
@@ -309,6 +335,7 @@ def ios_login(set_capabilities, setup_logging):
     assert ios_landing.get_welcome_message().text == values.LANDING_MESSAGE_IOS
 
 
+
 @pytest.hookimpl(hookwrapper=True)
 def pytest_runtest_makereport():
     """
@@ -328,7 +355,9 @@ def pytest_runtest_makereport():
                 report.extras = extras
 
         except WebDriverException as wde:
-            SessionData.globals_contents.project_log.error(f"Failed to Quit Session: {wde}")
+            SessionData.globals_contents.project_log.error(
+                f"Failed to Quit Session: {wde}"
+            )
 
 
 class SessionData:

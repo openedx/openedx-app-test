@@ -2,6 +2,7 @@
     What's New Page Module
 """
 from appium.webdriver.common.appiumby import AppiumBy
+
 from tests.ios.pages import ios_elements
 from tests.ios.pages.ios_base_page import IosBasePage
 
@@ -20,11 +21,10 @@ class IosWhatsNew(IosBasePage):
         """
 
         self.global_contents.wait_for_element_visibility(
-            self.driver,
-            ios_elements.whats_new_btn_next
+            self.driver, ios_elements.whats_new_btn_next
         )
 
-        return self.driver.find_element(AppiumBy.NAME, 'close_button')
+        return self.driver.find_element(AppiumBy.NAME, "close_button")
 
     def get_whats_new_msg_title(self):
         """
@@ -35,8 +35,7 @@ class IosWhatsNew(IosBasePage):
         """
 
         whats_new_msg_title = self.global_contents.wait_and_get_element(
-            self.driver,
-            ios_elements.whats_new_msg_title
+            self.driver, ios_elements.whats_new_msg_title
         )
         return whats_new_msg_title
 
@@ -49,8 +48,7 @@ class IosWhatsNew(IosBasePage):
         """
 
         whats_new_description = self.global_contents.wait_and_get_element(
-            self.driver,
-            ios_elements.whats_new_description
+            self.driver, ios_elements.whats_new_description
         )
         return whats_new_description
 
@@ -63,13 +61,11 @@ class IosWhatsNew(IosBasePage):
         """
 
         self.global_contents.wait_for_element_visibility(
-            self.driver,
-            ios_elements.whats_new_btn_next
+            self.driver, ios_elements.whats_new_btn_next
         )
 
         next_btn = self.global_contents.wait_and_get_element(
-            self.driver,
-            ios_elements.whats_new_btn_next
+            self.driver, ios_elements.whats_new_btn_next
         )
         return next_btn
 
@@ -83,7 +79,7 @@ class IosWhatsNew(IosBasePage):
 
         self.get_next_btn().click()
 
-        if self.get_next_btn().text == 'Done':
+        if self.get_next_btn().text == "Done":
             return self.get_next_btn()
         else:
             self.navigate_features()

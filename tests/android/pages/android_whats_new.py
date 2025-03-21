@@ -1,25 +1,37 @@
 """
-    Whats New Page Module
+    What's New Page Module
 """
 
-from framework.element import Element
 from appium.webdriver.common.appiumby import AppiumBy
-from tests.android.pages import android_elements
+
+from framework.element import Element
 from tests.android.pages.android_base_page import AndroidBasePage
 
 
 class AndroidWhatsNew(AndroidBasePage):
     """
-    Whats New screen
+    What's New screen
     """
 
     def __init__(self):
         super().__init__()
-        self._whats_new_msg_title = Element(AppiumBy.ANDROID_UIAUTOMATOR,'new UiSelector().resourceId("txt_whats_new_title")')
-        self._whats_new_description = Element(AppiumBy.ANDROID_UIAUTOMATOR,'new UiSelector().resourceId("txt_whats_new_description")')
-        self._whats_new_btn_next = Element(AppiumBy.ANDROID_UIAUTOMATOR,'new UiSelector().resourceId("btn_next")')
-        self._whats_new_done_button = Element(AppiumBy.ANDROID_UIAUTOMATOR,'new UiSelector().resourceId("txt_done")')
-        self._whats_new_close_button = Element(AppiumBy.ANDROID_UIAUTOMATOR,'new UiSelector().resourceId("txt_done")')
+        self._whats_new_msg_title = Element(
+            AppiumBy.ANDROID_UIAUTOMATOR,
+            'new UiSelector().resourceId("txt_whats_new_title")',
+        )
+        self._whats_new_description = Element(
+            AppiumBy.ANDROID_UIAUTOMATOR,
+            'new UiSelector().resourceId("txt_whats_new_description")',
+        )
+        self._whats_new_btn_next = Element(
+            AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("btn_next")'
+        )
+        self._whats_new_done_button = Element(
+            AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("txt_done")'
+        )
+        self._whats_new_close_button = Element(
+            AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("txt_done")'
+        )
 
     @property
     def get_close_button(self) -> Element:
@@ -27,7 +39,7 @@ class AndroidWhatsNew(AndroidBasePage):
         Get close button
 
         Returns:
-            element: sign in description element
+            Element: sign in description element
         """
 
         return self._whats_new_close_button
@@ -38,7 +50,7 @@ class AndroidWhatsNew(AndroidBasePage):
         Get title
 
         Returns:
-            element: whats new title element
+            Element: whats new title element
         """
 
         return self._whats_new_msg_title
@@ -49,10 +61,9 @@ class AndroidWhatsNew(AndroidBasePage):
         Get description
 
         Returns:
-            element: whats new description element
+            Element: whats new description element
         """
 
-        
         return self._whats_new_description.find()
 
     @property
@@ -61,28 +72,26 @@ class AndroidWhatsNew(AndroidBasePage):
         Get next button
 
         Returns:
-            element: next button element
+            Element: next button element
         """
 
         return self._whats_new_btn_next
 
     @property
     def done_button(self) -> Element:
-        """
-        Get done button
+        """Get done button
 
         Returns:
-            element: done element
+            Element: done element
         """
 
         return self._whats_new_done_button
 
     def navigate_features(self):
-        """
-        Navigate between features
+        """Navigate between features
 
         Returns:
-            webdriver element: Done Element
+            webdriver Element: Done Element
         """
 
         self.next_btn.click()

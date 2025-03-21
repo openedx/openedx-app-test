@@ -1,11 +1,11 @@
 """Capabilities For Android/iOS on Local/Remote Environments"""
 
 from abc import ABC, abstractmethod
-from typing import Dict, Union
-from appium.options.common.base import AppiumOptions
+from typing import Any, Dict, Union
+
 from appium.options.android.uiautomator2.base import UiAutomator2Options
+from appium.options.common.base import AppiumOptions
 from appium.options.ios.xcuitest.base import XCUITestOptions
-from typing import Any
 
 from tests.common.enums import TargetPlatform
 
@@ -44,7 +44,7 @@ class AndroidCapabilities(Capabilities):
                 "autoGrantPermissions": False,
                 "newCommandTimeout": 180,
                 "appActivity": "org.openedx.app.AppActivity",
-                "appPackage" : "org.edx.mobile"
+                "appPackage": "org.edx.mobile",
             }
         )
 
@@ -74,9 +74,9 @@ class IOSCapabilities(Capabilities):
             }
         )
 
-
     def get_as_options(self) -> AppiumOptions:
         return XCUITestOptions().load_capabilities(self._caps)
+
 
 def caps_factory(platform: TargetPlatform) -> Capabilities:
     if platform == TargetPlatform.ANDROID.value:

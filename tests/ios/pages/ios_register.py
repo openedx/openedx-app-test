@@ -2,6 +2,7 @@
     Login Page Module
 """
 from appium.webdriver.common.appiumby import AppiumBy
+
 from tests.ios.pages import ios_elements
 from tests.ios.pages.ios_base_page import IosBasePage
 
@@ -20,8 +21,7 @@ class IosRegister(IosBasePage):
         """
 
         register_button = self.global_contents.get_all_views_on_ios_screen(
-            self.driver,
-            ios_elements.all_buttons
+            self.driver, ios_elements.all_buttons
         )[1]
         return register_button
 
@@ -34,8 +34,7 @@ class IosRegister(IosBasePage):
         """
 
         register_heading = self.global_contents.wait_and_get_element(
-            self.driver,
-            ios_elements.register_screen_heading
+            self.driver, ios_elements.register_screen_heading
         )
         return register_heading
 
@@ -48,7 +47,8 @@ class IosRegister(IosBasePage):
         """
 
         password_field = self.driver.find_element(
-            AppiumBy.CLASS_NAME, ios_elements.password_field)
+            AppiumBy.CLASS_NAME, ios_elements.password_field
+        )
         return password_field
 
     def get_signup_text(self):
@@ -60,8 +60,7 @@ class IosRegister(IosBasePage):
         """
 
         signup_text = self.global_contents.wait_and_get_element(
-            self.driver,
-            ios_elements.register_signup_text
+            self.driver, ios_elements.register_signup_text
         )
         return signup_text
 
@@ -74,8 +73,7 @@ class IosRegister(IosBasePage):
         """
 
         signup_subtitle_text = self.global_contents.wait_and_get_element(
-            self.driver,
-            ios_elements.register_signup_subtitle_text
+            self.driver, ios_elements.register_signup_subtitle_text
         )
         return signup_subtitle_text
 
@@ -88,8 +86,7 @@ class IosRegister(IosBasePage):
         """
 
         name_text = self.global_contents.wait_and_get_element(
-            self.driver,
-            ios_elements.register_name_text
+            self.driver, ios_elements.register_name_text
         )
         return name_text
 
@@ -102,8 +99,7 @@ class IosRegister(IosBasePage):
         """
 
         name_textfield = self.global_contents.wait_and_get_element(
-            self.driver,
-            ios_elements.register_name_textfield
+            self.driver, ios_elements.register_name_textfield
         )
         return name_textfield
 
@@ -116,8 +112,7 @@ class IosRegister(IosBasePage):
         """
 
         name_instructions_text = self.global_contents.wait_and_get_element(
-            self.driver,
-            ios_elements.register_name_instructions_text
+            self.driver, ios_elements.register_name_instructions_text
         )
         return name_instructions_text
 
@@ -130,8 +125,7 @@ class IosRegister(IosBasePage):
         """
 
         username_text = self.global_contents.wait_and_get_element(
-            self.driver,
-            ios_elements.register_username_text
+            self.driver, ios_elements.register_username_text
         )
         return username_text
 
@@ -144,8 +138,7 @@ class IosRegister(IosBasePage):
         """
 
         username_textfield = self.global_contents.wait_and_get_element(
-            self.driver,
-            ios_elements.register_username_textfield
+            self.driver, ios_elements.register_username_textfield
         )
         return username_textfield
 
@@ -158,8 +151,7 @@ class IosRegister(IosBasePage):
         """
 
         username_instructions_text = self.global_contents.wait_and_get_element(
-            self.driver,
-            ios_elements.register_username_instructions_text
+            self.driver, ios_elements.register_username_instructions_text
         )
         return username_instructions_text
 
@@ -172,8 +164,7 @@ class IosRegister(IosBasePage):
         """
 
         email_text = self.global_contents.wait_and_get_element(
-            self.driver,
-            ios_elements.register_email_text
+            self.driver, ios_elements.register_email_text
         )
         return email_text
 
@@ -186,8 +177,7 @@ class IosRegister(IosBasePage):
         """
 
         email_textfield = self.global_contents.wait_and_get_element(
-            self.driver,
-            ios_elements.register_email_textfield
+            self.driver, ios_elements.register_email_textfield
         )
         return email_textfield
 
@@ -200,8 +190,7 @@ class IosRegister(IosBasePage):
         """
 
         email_instructions_text = self.global_contents.wait_and_get_element(
-            self.driver,
-            ios_elements.register_email_instructions_text
+            self.driver, ios_elements.register_email_instructions_text
         )
         return email_instructions_text
 
@@ -214,8 +203,7 @@ class IosRegister(IosBasePage):
         """
 
         password_text = self.global_contents.wait_and_get_element(
-            self.driver,
-            ios_elements.register_password_text
+            self.driver, ios_elements.register_password_text
         )
         return password_text
 
@@ -228,8 +216,7 @@ class IosRegister(IosBasePage):
         """
 
         password_textfield = self.global_contents.wait_and_get_element(
-            self.driver,
-            ios_elements.register_password_textfield
+            self.driver, ios_elements.register_password_textfield
         )
         return password_textfield
 
@@ -242,13 +229,11 @@ class IosRegister(IosBasePage):
         """
 
         self.global_contents.wait_for_element_visibility(
-            self.driver,
-            ios_elements.register_password_instructions_text
+            self.driver, ios_elements.register_password_instructions_text
         )
 
         password_instructions_text = self.global_contents.wait_and_get_element(
-            self.driver,
-            ios_elements.register_password_instructions_text
+            self.driver, ios_elements.register_password_instructions_text
         )
         return password_instructions_text
 
@@ -261,8 +246,7 @@ class IosRegister(IosBasePage):
         """
 
         country_text = self.global_contents.wait_and_get_element(
-            self.driver,
-            ios_elements.register_country_text
+            self.driver, ios_elements.register_country_text
         )
         return country_text
 
@@ -275,13 +259,11 @@ class IosRegister(IosBasePage):
         """
 
         self.global_contents.wait_for_element_visibility(
-            self.driver,
-            ios_elements.register_country_picker_button
+            self.driver, ios_elements.register_country_picker_button
         )
 
         country_textfield = self.global_contents.wait_and_get_element(
-            self.driver,
-            ios_elements.register_country_picker_button
+            self.driver, ios_elements.register_country_picker_button
         )
         return country_textfield
 
@@ -294,8 +276,7 @@ class IosRegister(IosBasePage):
         """
 
         country_instructions_text = self.global_contents.wait_and_get_element(
-            self.driver,
-            ios_elements.register_country_instructions_text
+            self.driver, ios_elements.register_country_instructions_text
         )
         return country_instructions_text
 
@@ -308,8 +289,7 @@ class IosRegister(IosBasePage):
         """
 
         show_optional_fields = self.global_contents.wait_and_get_element(
-            self.driver,
-            ios_elements.register_show_optional_fields
+            self.driver, ios_elements.register_show_optional_fields
         )
         return show_optional_fields
 
@@ -322,8 +302,7 @@ class IosRegister(IosBasePage):
         """
 
         create_account_button = self.global_contents.wait_and_get_element(
-            self.driver,
-            ios_elements.register_signup_button
+            self.driver, ios_elements.register_signup_button
         )
         return create_account_button
 
@@ -336,8 +315,7 @@ class IosRegister(IosBasePage):
         """
 
         social_auth_title_text = self.global_contents.wait_and_get_element(
-            self.driver,
-            ios_elements.register_social_auth_title_text
+            self.driver, ios_elements.register_social_auth_title_text
         )
         return social_auth_title_text
 
@@ -350,8 +328,7 @@ class IosRegister(IosBasePage):
         """
 
         country_field = self.global_contents.get_elements_by_name_ios(
-            self.driver,
-            ios_elements.register_picker_search_textfield
+            self.driver, ios_elements.register_picker_search_textfield
         )[1]
         return country_field
 
@@ -364,8 +341,7 @@ class IosRegister(IosBasePage):
         """
 
         picker_accept_button = self.global_contents.wait_and_get_element(
-            self.driver,
-            ios_elements.register_picker_accept_button
+            self.driver, ios_elements.register_picker_accept_button
         )
         return picker_accept_button
 
@@ -378,7 +354,6 @@ class IosRegister(IosBasePage):
         """
 
         picker_title_text = self.global_contents.wait_and_get_element(
-            self.driver,
-            ios_elements.register_country_picker_title
+            self.driver, ios_elements.register_country_picker_title
         )
         return picker_title_text

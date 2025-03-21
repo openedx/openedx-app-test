@@ -7,9 +7,10 @@ from tests.common.enums.attributes import ElementAttribute
 from framework import expect
 from framework.element import Element
 from tests.android.pages.android_course_dashboard import AndroidCourseDashboard
-from tests.android.pages.android_whats_new import AndroidWhatsNew
+from tests.android.pages.android_landing import AndroidLanding
 from tests.android.pages.android_main_dashboard import AndroidMainDashboard
 from tests.common import values
+from tests.common.enums.attributes import ElementAttribute
 from tests.common.globals import Globals
 from tests.conftest import android_login
 
@@ -45,23 +46,24 @@ class TestAndroidMyCoursesList:
         main_dashboard_page = AndroidMainDashboard()
         course_dashboard = AndroidCourseDashboard()
 
-
         learn_tab = main_dashboard_page.learn_tab
-        expect(learn_tab).to_have(values.MAIN_DASHBOARD_LEARN_TAB, ElementAttribute.CONTENT_DESC)
+        expect(learn_tab).to_have(
+            values.MAIN_DASHBOARD_LEARN_TAB, ElementAttribute.CONTENT_DESC
+        )
         expect(learn_tab).to_be_selected()
         course_view = course_dashboard.course_view
         expect(course_view).to_be_displayed()
-        expect(course_dashboard.course_progress_bar_view).to_have('0.0')
+        expect(course_dashboard.course_progress_bar_view).to_have("0.0")
         text_views = course_dashboard.get_all_text_views_inside_course_view()
         expect(text_views[2]).to_have(values.MAIN_DASHBOARD_COURSE_ORG)
         expect(text_views[3]).to_have(values.MAIN_DASHBOARD_COURSE_NAME)
-        expect(text_views[4]).to_have(r'.+')
-        expect(text_views[5]).to_have(r'.+')
+        expect(text_views[4]).to_have(r".+")
+        expect(text_views[5]).to_have(r".+")
         expect(text_views[6]).to_have(values.MAIN_DASHBOARD_RESUME_LABEL)
-        expect(text_views[7]).to_have(r'.+')
+        expect(text_views[7]).to_have(r".+")
         expect(text_views[8]).to_contain(values.MAIN_DASHBOARD_ALL_COURSES_LABEL)
         expect(text_views[9]).to_have(values.MY_COURSES_SECOND_COURSE_NAME)
-        expect(text_views[10]).to_have(r'.+')
+        expect(text_views[10]).to_have(r".+")
 
     def test_view_all_courses(self, android_login, setup_logging):
         """
@@ -93,9 +95,9 @@ class TestAndroidMyCoursesList:
         assert course_dashboard.all_progress_bar_views().count() == 3
         assert course_dashboard.completed_course.exists()
         assert course_dashboard.completed_course.click()
-        expect(course_dashboard.empty_state_title).to_have('No Completed Courses')
+        expect(course_dashboard.empty_state_title).to_have("No Completed Courses")
         assert course_dashboard.expired_courses.exists()
         assert course_dashboard.expired_courses.click()
         assert course_dashboard.learn_online_label.exists()
-        assert expect(course_dashboard.empty_state_title).to_have('No Expired Courses')
+        assert expect(course_dashboard.empty_state_title).to_have("No Expired Courses")
         assert course_dashboard.back_navigation_button.click()

@@ -4,12 +4,12 @@
 
 from tests.common import values
 from tests.common.globals import Globals
-from tests.ios.pages.ios_register import IosRegister
 from tests.ios.pages.ios_landing import IosLanding
 from tests.ios.pages.ios_login import IosLogin
-from tests.ios.pages.ios_whats_new import IosWhatsNew
 from tests.ios.pages.ios_main_dashboard import IosMainDashboard
 from tests.ios.pages.ios_profile import IosProfile
+from tests.ios.pages.ios_register import IosRegister
+from tests.ios.pages.ios_whats_new import IosWhatsNew
 
 
 class TestIosRegister:
@@ -23,7 +23,7 @@ class TestIosRegister:
             Verify Register screen is loaded successfully
         """
 
-        setup_logging.info('Starting Test Case')
+        setup_logging.info("Starting Test Case")
         register_page = IosRegister(set_capabilities, setup_logging)
         ios_landing = IosLanding(set_capabilities, setup_logging)
 
@@ -36,7 +36,7 @@ class TestIosRegister:
     def test_ui_elements_smoke(self, set_capabilities, setup_logging):
         """
         Scenarios:
-            Verify following contents are visible on screen, 
+            Verify following contents are visible on screen,
                 "Back icon", "Sign In" Title, "User name or e-mail address" label, User Name edit-field
                 Password edit-field, "Forgot your password?" option, "Sign In" button,
                 "Or sing in with" label, "Facebook" button, "Google" button
@@ -62,7 +62,7 @@ class TestIosRegister:
         assert full_name_title.text == values.REGISTER_FULL_NAME_TITLE
 
         name_textfield = register_page.get_name_textfield()
-        assert name_textfield.get_attribute('visible') == values.TRUE_LOWERCASE
+        assert name_textfield.get_attribute("visible") == values.TRUE_LOWERCASE
 
         name_instructions_text = register_page.get_name_instructions_text()
         assert name_instructions_text.text == values.REGISTER_FULL_NAME_MESSAGE
@@ -71,16 +71,18 @@ class TestIosRegister:
         assert user_name_content.text == values.REGISTER_PUBLIC_USERNAME_TITLE
 
         username_textfield = register_page.get_username_textfield()
-        assert username_textfield.get_attribute('visible') == values.TRUE_LOWERCASE
+        assert username_textfield.get_attribute("visible") == values.TRUE_LOWERCASE
 
         username_instructions_text = register_page.get_username_instructions_text()
-        assert username_instructions_text.text == values.REGISTER_PUBLIC_USERNAME_MESSAGE
+        assert (
+            username_instructions_text.text == values.REGISTER_PUBLIC_USERNAME_MESSAGE
+        )
 
         email_text = register_page.get_email_text()
         assert email_text.text == values.REGISTER_EMAIL_TITLE
 
         email_textfield = register_page.get_email_textfield()
-        assert email_textfield.get_attribute('visible') == values.TRUE_LOWERCASE
+        assert email_textfield.get_attribute("visible") == values.TRUE_LOWERCASE
 
         email_instructions_text = register_page.get_email_instructions_text()
         assert email_instructions_text.text == values.REGISTER_EMAIL_MESSAGE
@@ -89,7 +91,7 @@ class TestIosRegister:
         assert password_text.text == values.REGISTER_PASSWORD_TITLE
 
         password_text_field = register_page.get_password_textfield()
-        assert password_text_field.get_attribute('visible') == values.TRUE_LOWERCASE
+        assert password_text_field.get_attribute("visible") == values.TRUE_LOWERCASE
 
         password_instructions_text = register_page.get_password_instructions_text()
         assert password_instructions_text.text == values.REGISTER_PASSWORD_MESSAGE
@@ -120,7 +122,7 @@ class TestIosRegister:
         facebook_signin = ios_login.get_signin_social_auth_facebook_button()
         assert facebook_signin.text == values.REGISTER_FACEBOOK_SIGNUP
 
-        microsoft_signin =ios_login.get_signin_social_auth_microsoft_button()
+        microsoft_signin = ios_login.get_signin_social_auth_microsoft_button()
         assert microsoft_signin.text == values.REGISTER_MICROSOFT_SIGNUP
 
         apple_signin = ios_login.get_signin_social_auth_apple_button()
@@ -128,15 +130,15 @@ class TestIosRegister:
 
     def test_register_smoke(self, set_capabilities, setup_logging):
         """
-            Verify that tapping "Create your account" button after filling all required input(valid) types,
-                will validate all inputs and load "Whats new feature screen" with specific user logged in
-            Verify that tapping "Create your account" button after filling all required input(valid) types,
-                will validate all inputs and load "Whats new feature screen" with specific user logged in
-            Verify that following input types are optional,
-                "Gender" spinner
-                "Highest level of education completed" spinner
-            Verify that user should be able to log out and re-login with new created account credentials
-            Verify that for new user there must be "Looking for new challenge?" heading is available on the screen
+        Verify that tapping "Create your account" button after filling all required input(valid) types,
+            will validate all inputs and load "Whats new feature screen" with specific user logged in
+        Verify that tapping "Create your account" button after filling all required input(valid) types,
+            will validate all inputs and load "Whats new feature screen" with specific user logged in
+        Verify that following input types are optional,
+            "Gender" spinner
+            "Highest level of education completed" spinner
+        Verify that user should be able to log out and re-login with new created account credentials
+        Verify that for new user there must be "Looking for new challenge?" heading is available on the screen
         """
 
         register_page = IosRegister(set_capabilities, setup_logging)
@@ -144,11 +146,11 @@ class TestIosRegister:
         whats_new_page = IosWhatsNew(set_capabilities, setup_logging)
 
         user_name = global_contents.generate_random_credentials(5)
-        email = user_name + '@example.com'
+        email = user_name + "@example.com"
         first_name = global_contents.generate_random_credentials(4)
         last_name = global_contents.generate_random_credentials(4)
-        full_name = first_name + ' ' + last_name
-        password = 'qwERt12#$5' + global_contents.generate_random_credentials(8)
+        full_name = first_name + " " + last_name
+        password = "qwERt12#$5" + global_contents.generate_random_credentials(8)
 
         name_textfield = register_page.get_name_textfield()
         username_textfield = register_page.get_username_textfield()
@@ -185,9 +187,9 @@ class TestIosRegister:
         assert password_instructions_text.text == values.REGISTER_PASSWORD_MESSAGE
 
         if global_contents.whats_new_enable:
-            assert whats_new_page.navigate_features().text == 'Done'
+            assert whats_new_page.navigate_features().text == "Done"
             whats_new_page.get_next_btn().click()
-            setup_logging.info('Whats New screen is successfully loaded')
+            setup_logging.info("Whats New screen is successfully loaded")
 
         main_dashboard = IosMainDashboard(set_capabilities, setup_logging)
         discover_tab = main_dashboard.get_main_dashboard_discover_tab()
@@ -208,12 +210,20 @@ class TestIosRegister:
         profile_tab = main_dashboard.get_main_dashboard_profile_tab()
         assert profile_tab.text == values.MAIN_DASHBOARD_PROFILE_TAB
         profile_tab.click()
-        assert ios_profile.get_profile_settings_button().text == values.PROFILE_SETTINGS_TEXT
+        assert (
+            ios_profile.get_profile_settings_button().text
+            == values.PROFILE_SETTINGS_TEXT
+        )
         ios_profile.get_profile_settings_button().click()
-        assert ios_profile.get_profile_logout_button().text.lower() == values.PROFILE_LOGOUT_BUTTON
+        assert (
+            ios_profile.get_profile_logout_button().text.lower()
+            == values.PROFILE_LOGOUT_BUTTON
+        )
         ios_profile.get_profile_logout_button().click()
-        assert ios_profile.get_logout_close_button().text == 'Close'
+        assert ios_profile.get_logout_close_button().text == "Close"
         assert ios_profile.get_logout_dialog_title().text == values.LOGOUT_DIALOG_TITLE
-        assert ios_profile.get_logout_button().text.lower() == values.PROFILE_LOGOUT_BUTTON
+        assert (
+            ios_profile.get_logout_button().text.lower() == values.PROFILE_LOGOUT_BUTTON
+        )
         ios_profile.get_logout_button().click()
         assert ios_landing.get_welcome_message().text == values.LANDING_MESSAGE

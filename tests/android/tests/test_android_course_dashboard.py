@@ -2,7 +2,6 @@
     Course Dashboard Test Module
 """
 
-from enums.attributes import ElementAttribute
 from framework import expect
 from framework.element import Element
 from tests.android.pages.android_landing import AndroidLanding
@@ -11,6 +10,7 @@ from tests.android.pages.android_whats_new import AndroidWhatsNew
 from tests.android.pages.android_main_dashboard import AndroidMainDashboard
 from tests.android.pages.android_course_dashboard import AndroidCourseDashboard
 from tests.common import values
+from tests.common.enums.attributes import ElementAttribute
 from tests.common.globals import Globals
 
 
@@ -32,11 +32,13 @@ class TestAndroidCourseDashboard:
         main_dashboard_page = AndroidMainDashboard()
 
         if login and global_contents.whats_new_enable:
-            expect(whats_new_page.navigate_features()).to_have('Done')
+            expect(whats_new_page.navigate_features()).to_have("Done")
             assert whats_new_page.done_button.click()
 
         learn_tab = main_dashboard_page.learn_tab
-        expect(learn_tab).to_have(values.MAIN_DASHBOARD_LEARN_TAB, ElementAttribute.CONTENT_DESC)
+        expect(learn_tab).to_have(
+            values.MAIN_DASHBOARD_LEARN_TAB, ElementAttribute.CONTENT_DESC
+        )
         expect(learn_tab).to_be_selected()
 
     def test_validate_ui_elements(self, set_capabilities, setup_logging):
@@ -56,12 +58,16 @@ class TestAndroidCourseDashboard:
         Element.set_logger(setup_logging)
         course_dashboard_page = AndroidCourseDashboard()
 
-        second_course_name = course_dashboard_page.find_by_text_on_screen(values.MY_COURSES_SECOND_COURSE_NAME)
+        second_course_name = course_dashboard_page.find_by_text_on_screen(
+            values.MY_COURSES_SECOND_COURSE_NAME
+        )
         assert second_course_name.click()
         if course_dashboard_page.allow_notifications_button:
             assert course_dashboard_page.allow_notifications_button.click()
 
-        expect(course_dashboard_page.course_dashboard_home_tab).to_have(values.COURSE_DASHBOARD_HOME_TAB)
+        expect(course_dashboard_page.course_dashboard_home_tab).to_have(
+            values.COURSE_DASHBOARD_HOME_TAB
+        )
 
         videos_tab = course_dashboard_page.course_dashboard_videos_tab
         expect(videos_tab).to_have(values.COURSE_DASHBOARD_VIDEOS_TAB)
@@ -99,6 +105,8 @@ class TestAndroidCourseDashboard:
         assert profile_page.settings_button.click()
         profile_page.privacy_policy_text.scroll_vertically_from_element()
         assert profile_page.profile_txt_logout.click()
-        expect(profile_page.logout_prompt_logout_button_text).to_have(values.PROFILE_LOGOUT_BUTTON)
+        expect(profile_page.logout_prompt_logout_button_text).to_have(
+            values.PROFILE_LOGOUT_BUTTON
+        )
         profile_page.logout_prompt_logout_button_text.click()
         expect(android_landing.get_search_label).to_have(values.LANDING_SEARCH_TITLE)

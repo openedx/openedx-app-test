@@ -3,6 +3,7 @@
 """
 
 from appium.webdriver.common.appiumby import AppiumBy
+
 from tests.ios.pages import ios_elements
 from tests.ios.pages.ios_base_page import IosBasePage
 
@@ -21,8 +22,7 @@ class IosLogin(IosBasePage):
         """
 
         sign_in_title = self.global_contents.wait_and_get_element(
-            self.driver,
-            ios_elements.signin_text
+            self.driver, ios_elements.signin_text
         )
         return sign_in_title
 
@@ -35,7 +35,8 @@ class IosLogin(IosBasePage):
         """
 
         password_field = self.driver.find_element(
-            AppiumBy.CLASS_NAME, ios_elements.password_field)
+            AppiumBy.CLASS_NAME, ios_elements.password_field
+        )
         return password_field
 
     def get_signin_welcome_text(self):
@@ -47,8 +48,7 @@ class IosLogin(IosBasePage):
         """
 
         signin_welcome_text = self.global_contents.wait_and_get_element(
-            self.driver,
-            ios_elements.signin_welcome_text
+            self.driver, ios_elements.signin_welcome_text
         )
         return signin_welcome_text
 
@@ -61,8 +61,7 @@ class IosLogin(IosBasePage):
         """
 
         signin_username_text = self.global_contents.wait_and_get_element(
-            self.driver,
-            ios_elements.signin_username_text
+            self.driver, ios_elements.signin_username_text
         )
         return signin_username_text
 
@@ -75,8 +74,7 @@ class IosLogin(IosBasePage):
         """
 
         signin_username_textfield = self.global_contents.get_elements_by_name_ios(
-            self.driver,
-            ios_elements.signin_username_textfield
+            self.driver, ios_elements.signin_username_textfield
         )[1]
         return signin_username_textfield
 
@@ -89,8 +87,7 @@ class IosLogin(IosBasePage):
         """
 
         signin_password_text = self.global_contents.get_element_by_name_ios(
-            self.driver,
-            ios_elements.signin_password_text
+            self.driver, ios_elements.signin_password_text
         )
         return signin_password_text
 
@@ -103,8 +100,7 @@ class IosLogin(IosBasePage):
         """
 
         signin_password_textfield = self.global_contents.get_elements_by_name_ios(
-            self.driver,
-            ios_elements.signin_password_textfield
+            self.driver, ios_elements.signin_password_textfield
         )[1]
         return signin_password_textfield
 
@@ -117,8 +113,7 @@ class IosLogin(IosBasePage):
         """
 
         signin_forgot_password_button = self.global_contents.get_element_by_name_ios(
-            self.driver,
-            ios_elements.signin_forgot_password_button
+            self.driver, ios_elements.signin_forgot_password_button
         )
         return signin_forgot_password_button
 
@@ -131,8 +126,7 @@ class IosLogin(IosBasePage):
         """
 
         signin_button = self.global_contents.wait_and_get_element(
-            self.driver,
-            ios_elements.signin_button
+            self.driver, ios_elements.signin_button
         )
         return signin_button
 
@@ -145,8 +139,7 @@ class IosLogin(IosBasePage):
         """
 
         signin_social_auth_title_text = self.global_contents.wait_and_get_element(
-            self.driver,
-            ios_elements.signin_social_auth_title_text
+            self.driver, ios_elements.signin_social_auth_title_text
         )
         return signin_social_auth_title_text
 
@@ -159,8 +152,7 @@ class IosLogin(IosBasePage):
         """
 
         signin_social_auth_google_button = self.global_contents.wait_and_get_element(
-            self.driver,
-            ios_elements.signin_social_auth_google_button
+            self.driver, ios_elements.signin_social_auth_google_button
         )
         return signin_social_auth_google_button
 
@@ -173,8 +165,7 @@ class IosLogin(IosBasePage):
         """
 
         signin_social_auth_facebook_button = self.global_contents.wait_and_get_element(
-            self.driver,
-            ios_elements.signin_social_auth_facebook_button
+            self.driver, ios_elements.signin_social_auth_facebook_button
         )
         return signin_social_auth_facebook_button
 
@@ -187,8 +178,7 @@ class IosLogin(IosBasePage):
         """
 
         sigin_social_auth_microsoft_button = self.global_contents.wait_and_get_element(
-            self.driver,
-            ios_elements.sigin_social_auth_microsoft_button
+            self.driver, ios_elements.sigin_social_auth_microsoft_button
         )
         return sigin_social_auth_microsoft_button
 
@@ -201,8 +191,7 @@ class IosLogin(IosBasePage):
         """
 
         signin_social_auth_apple_button = self.global_contents.wait_and_get_element(
-            self.driver,
-            ios_elements.signin_social_auth_apple_button
+            self.driver, ios_elements.signin_social_auth_apple_button
         )
         return signin_social_auth_apple_button
 
@@ -215,8 +204,7 @@ class IosLogin(IosBasePage):
         """
 
         forgot_title_text = self.global_contents.wait_and_get_element(
-            self.driver,
-            ios_elements.forgot_title_text
+            self.driver, ios_elements.forgot_title_text
         )
         return forgot_title_text
 
@@ -229,8 +217,7 @@ class IosLogin(IosBasePage):
         """
 
         forgot_description_text = self.global_contents.wait_and_get_element(
-            self.driver,
-            ios_elements.forgot_description_text
+            self.driver, ios_elements.forgot_description_text
         )
         return forgot_description_text
 
@@ -243,8 +230,7 @@ class IosLogin(IosBasePage):
         """
 
         forgot_email_text = self.global_contents.wait_and_get_element(
-            self.driver,
-            ios_elements.forgot_email_text
+            self.driver, ios_elements.forgot_email_text
         )
         return forgot_email_text
 
@@ -257,8 +243,7 @@ class IosLogin(IosBasePage):
         """
 
         forgot_email_textfield = self.global_contents.get_elements_by_name_ios(
-            self.driver,
-            ios_elements.forogt_email_textfield
+            self.driver, ios_elements.forogt_email_textfield
         )[1]
         return forgot_email_textfield
 
@@ -271,8 +256,7 @@ class IosLogin(IosBasePage):
         """
 
         forgot_reset_password_button = self.global_contents.wait_and_get_element(
-            self.driver,
-            ios_elements.forgot_reset_password_button
+            self.driver, ios_elements.forgot_reset_password_button
         )
         return forgot_reset_password_button
 
@@ -285,8 +269,7 @@ class IosLogin(IosBasePage):
         """
 
         forgot_check_email_image = self.global_contents.wait_and_get_element(
-            self.driver,
-            ios_elements.forgot_check_email_image
+            self.driver, ios_elements.forgot_check_email_image
         )
         return forgot_check_email_image
 
@@ -299,8 +282,7 @@ class IosLogin(IosBasePage):
         """
 
         forgot_recover_title_text = self.global_contents.wait_and_get_element(
-            self.driver,
-            ios_elements.forgot_recover_title_text
+            self.driver, ios_elements.forgot_recover_title_text
         )
         return forgot_recover_title_text
 
@@ -313,7 +295,6 @@ class IosLogin(IosBasePage):
         """
 
         forgot_recover_description_text = self.global_contents.wait_and_get_element(
-            self.driver,
-            ios_elements.forgot_recover_description_text
+            self.driver, ios_elements.forgot_recover_description_text
         )
         return forgot_recover_description_text
