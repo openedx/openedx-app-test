@@ -50,9 +50,6 @@ forgot_reset_password_button = 'reset_password_button'
 forgot_check_email_image = 'check_email_image'
 forgot_recover_title_text = 'recover_title_text'
 forgot_recover_description_text = 'recover_description_text'
-forgot_check_email_image = 'check_email_image'
-forgot_recover_title_text = 'recover_title_text'
-forgot_recover_description_text = 'recover_description_text'
 
 # REGISTER SCREEN
 register_screen_heading = 'register_text'

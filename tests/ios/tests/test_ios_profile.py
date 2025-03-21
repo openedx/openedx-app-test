@@ -1,8 +1,8 @@
 """
     Profile Screen Test Module
 """
-
-from tests.ios.pages.ios_landing import IosLanding
+from framework import expect, Element
+from tests.common.enums import ElementAttribute
 from tests.ios.pages.ios_main_dashboard import IosMainDashboard
 from tests.ios.pages.ios_profile import IosProfile
 from tests.ios.pages.ios_whats_new import IosWhatsNew
@@ -20,20 +20,21 @@ class TestIosProfile:
         Scenarios:
             Verify Profile is loaded successfully
         """
-
+        Element.set_driver(set_capabilities)
+        Element.set_logger(setup_logging)
         setup_logging.info(f'Starting {TestIosProfile.__name__} Test Case')
         global_contents = Globals(setup_logging)
-        whats_new_page = IosWhatsNew(set_capabilities, setup_logging)
-        main_dashboard = IosMainDashboard(set_capabilities, setup_logging)
+        whats_new_page = IosWhatsNew()
+        main_dashboard = IosMainDashboard()
 
         if login and global_contents.whats_new_enable:
-            assert whats_new_page.navigate_features().text == 'Done'
-            whats_new_page.get_next_btn().click()
+            expect(whats_new_page.navigate_features()).to_have('Done')
+            assert whats_new_page.whats_new_next_button.click()
             setup_logging.info('Whats New screen is successfully loaded')
 
-        profile_tab = main_dashboard.get_main_dashboard_profile_tab()
-        assert profile_tab.text == values.MAIN_DASHBOARD_PROFILE_TAB
-        profile_tab.click()
+        profile_tab = main_dashboard.profile_tab
+        expect(profile_tab).to_have(values.MAIN_DASHBOARD_PROFILE_TAB)
+        assert profile_tab.click()
 
     def test_ui_elements_smoke(self, set_capabilities, setup_logging):
         """
@@ -43,18 +44,15 @@ class TestIosProfile:
                 "Profile" as Title
                 Edit Profile Button
                 Profile Image
-                User Name
+                Username
                 Video Settings
         """
-
-        ios_profile = IosProfile(set_capabilities, setup_logging)
-        global_contents = Globals(setup_logging)
-
-        assert global_contents.get_navigation_bar_title(set_capabilities)[0].get_attribute(
-            'name') == values.PROFILE_SCREEN_TITLE
-        assert ios_profile.get_profile_img_profile()
-        assert ios_profile.get_profile_user_name_text().text == values.PROFILE_NAME_TEXT
-        assert ios_profile.profile_user_username_text().text == values.PROFILE_USERNAME_TEXT
-        assert ios_profile.get_profile_settings_button().text == values.PROFILE_SETTINGS_TEXT
-        assert global_contents.get_element_by_name_ios(set_capabilities,
-                                                       values.EDIT_PROFILE_TITLE).text == values.EDIT_PROFILE_TITLE
+        Element.set_driver(set_capabilities)
+        Element.set_logger(setup_logging)
+        ios_profile = IosProfile()
+        expect(ios_profile.navigation_bar_title).to_have(values.PROFILE_SCREEN_TITLE, ElementAttribute.NAME)
+        assert ios_profile.profile_img_profile.exists()
+        expect(ios_profile.profile_user_name_text).to_have(values.PROFILE_NAME_TEXT)
+        expect(ios_profile.profile_user_username_text).to_have(values.PROFILE_USERNAME_TEXT)
+        expect(ios_profile.profile_settings_button).to_have(values.PROFILE_SETTINGS_TEXT)
+        assert ios_profile.edit_profile_title.exists()
