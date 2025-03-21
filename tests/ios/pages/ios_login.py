@@ -3,7 +3,6 @@
 """
 
 from appium.webdriver.common.appiumby import AppiumBy
-
 from framework import Element
 from tests.ios.pages.ios_base_page import IosBasePage
 

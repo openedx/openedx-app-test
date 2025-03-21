@@ -7,13 +7,13 @@ from tests.common.enums.general_enums import ScrollDirections
 from framework import expect
 from framework.element import Element
 from tests.android.pages.andriod_catalog_page import AndroidCatalogPage
-from tests.android.pages.android_course_dashboard import AndroidCourseDashboard
-from tests.android.pages.android_landing import AndroidLanding
-from tests.android.pages.android_main_dashboard import AndroidMainDashboard
-from tests.android.pages.android_whats_new import AndroidWhatsNew
 from tests.common import values
 from tests.common.enums.attributes import ElementAttribute
 from tests.common.globals import Globals
+from tests.android.pages.android_landing import AndroidLanding
+from tests.android.pages.android_whats_new import AndroidWhatsNew
+from tests.android.pages.android_main_dashboard import AndroidMainDashboard
+from tests.android.pages.android_course_dashboard import AndroidCourseDashboard
 
 
 class TestAndroidDiscovery:

@@ -5,7 +5,6 @@ from appium.webdriver.common.appiumby import AppiumBy
 
 from framework import Element
 from tests.common.enums.general_enums import IosClassViews
-from tests.common.globals import Globals
 
 
 def find_all_views_on_screen(view_name: IosClassViews) -> Element:

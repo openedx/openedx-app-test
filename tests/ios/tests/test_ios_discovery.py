@@ -280,7 +280,7 @@ class TestIosDiscovery:
         Element.set_driver(set_capabilities)
         Element.set_logger(setup_logging)
         global_contents = Globals(setup_logging)
-        course_dashboard_page = IosCourseDashboard(set_capabilities, setup_logging)
+        course_dashboard_page = IosCourseDashboard()
 
         sleep(5)
         global_contents.wait_for_element_visibility(set_capabilities, "logo for edX")
