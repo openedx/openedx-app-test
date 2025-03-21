@@ -137,13 +137,6 @@ class AndroidCatalogPage(AndroidBasePage):
         return self._third_popular_course
 
     @property
-    def catalog_screen_toolbar_title(self) -> Element:
-        """
-        catalog screen toolbar title
-        """
-        return self._catalog_screen_toolbar_title
-
-    @property
     def catalog_screen_heading_msg(self) -> Element:
         """catalog screen heading message
         Returns:

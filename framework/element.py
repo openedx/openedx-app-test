@@ -24,10 +24,6 @@ class Element:
         cls.__driver = driver
 
     @classmethod
-    def get_driver(cls) -> WebDriver:
-        return cls.__driver
-
-    @classmethod
     def set_logger(cls, logger: Logger):
         cls.__logger = logger
 

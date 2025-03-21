@@ -23,6 +23,11 @@ class AndroidProfile(AndroidBasePage):
         self._privacy_policy = Element(AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("Privacy Policy")')
         self._logout_text = Element(AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("Log Out")')
         self._logout_prompt_logout_button_text = Element(AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("txt_logout")')
+        self._profile_screen_title = Element(AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("txt_profile_title")')
+        self._profile_edit_button = Element(AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("txt_edit")')
+        self._profile_txt_settings = Element(AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("txt_settings")')
+        self._profile_txt_video_settings = Element(AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("txt_video_settings")')
+        self._profile_txt_support_info = Element(AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("Support")')
 
 
     def __init__(self):
