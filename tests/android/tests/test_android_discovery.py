@@ -3,6 +3,7 @@
 """
 
 from time import sleep
+from appium.webdriver.common.mobileby import AppiumBy
 from enums.general_enums import ScrollDirections
 from framework import expect
 from framework.element import Element

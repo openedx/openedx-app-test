@@ -1,7 +1,9 @@
 """
     My Courses List Page Module
 """
-from tests.ios.pages import ios_elements
+from appium.webdriver.common.appiumby import AppiumBy
+
+from framework import Element
 from tests.ios.pages.ios_base_page import IosBasePage
 
 
@@ -10,7 +12,22 @@ class IosMyCoursesList(IosBasePage):
     My Courses List screen
     """
 
-    def get_my_courses_header_text(self):
+    def __init__(self):
+        super().__init__()
+        self._all_courses_expired_label = Element(AppiumBy.ACCESSIBILITY_ID, 'Expired')
+        self._all_courses_in_progress_label = Element(AppiumBy.ACCESSIBILITY_ID, 'In Progress')
+        self._all_courses_completed_label = Element(AppiumBy.ACCESSIBILITY_ID, 'Completed')
+        self._all_courses_header_text = Element(AppiumBy.ACCESSIBILITY_ID, 'all_courses_header_text')
+        self._all_courses_label = Element(AppiumBy.ACCESSIBILITY_ID, 'All')
+        self._my_courses_welcomeback_text = Element(AppiumBy.ACCESSIBILITY_ID, 'courses_welcomeback_text')
+        self._my_course_name_text = Element(AppiumBy.NAME, 'Infinity test course')
+        self._my_course_org_text = Element(AppiumBy.NAME, 'Infinity test course')
+        self._my_course_image = Element(AppiumBy.ACCESSIBILITY_ID, 'course_image')
+        self._my_course_header_text = Element(AppiumBy.ACCESSIBILITY_ID, 'courses_header_text')
+        self._my_course_arrow_image = Element(AppiumBy.ACCESSIBILITY_ID, 'course_item')
+
+    @property
+    def my_courses_header_text(self) -> Element:
         """
         Get header text
 
@@ -18,17 +35,10 @@ class IosMyCoursesList(IosBasePage):
             webdriver element: header text element
         """
 
-        self.global_contents.wait_for_element_visibility(
-            self.driver,
-            ios_elements.my_courses_header_text
-        )
+        return self._my_course_header_text
 
-        return self.global_contents.wait_and_get_element(
-            self.driver,
-            ios_elements.my_courses_header_text
-        )
-
-    def get_my_courses_welcomeback_text(self):
+    @property
+    def my_courses_welcome_back_text(self) -> Element:
         """
         Get welcome back text
 
@@ -36,12 +46,10 @@ class IosMyCoursesList(IosBasePage):
             webdriver element: welcome back text element
         """
 
-        return self.global_contents.wait_and_get_element(
-            self.driver,
-            ios_elements.my_courses_welcomeback_text
-        )
+        return self._my_courses_welcomeback_text
 
-    def get_my_course_image(self):
+    @property
+    def get_my_course_image(self) -> Element:
         """
         Get course image
 
@@ -49,12 +57,10 @@ class IosMyCoursesList(IosBasePage):
             webdriver element: course image element
         """
 
-        return self.global_contents.wait_and_get_element(
-            self.driver,
-            ios_elements.my_course_image
-        )
+        return self._my_course_image
 
-    def get_my_course_org_text(self):
+    @property
+    def get_my_course_org_text(self) -> Element:
         """
         Get course org text
 
@@ -62,12 +68,10 @@ class IosMyCoursesList(IosBasePage):
             webdriver element: course org text element
         """
 
-        return self.global_contents.get_element_by_name_ios(
-            self.driver,
-            ios_elements.my_course_org_text
-        )
+        return self._my_course_org_text
 
-    def get_my_course_name_text(self):
+    @property
+    def get_my_course_name_text(self) -> Element:
         """
         Get course name text
 
@@ -75,69 +79,10 @@ class IosMyCoursesList(IosBasePage):
             webdriver element: course name text element
         """
 
-        return self.global_contents.get_element_by_name_ios(
-            self.driver,
-            ios_elements.my_course_name_text
-        )
+        return self._my_course_name_text
 
-    def get_my_course_end_text(self):
-        """
-        Get course end text
-
-        Returns:
-            webdriver element: course end text element
-        """
-
-        all_text = self.global_contents.get_all_views_on_ios_screen(
-            self.driver,
-            ios_elements.all_textviews
-        )
-
-        return self.global_contents.get_all_views_on_ios_screen(
-            self.driver,
-            ios_elements.all_textviews
-        )[5]
-
-    def get_my_course_arrow_image(self):
-        """
-        Get course arrow image
-
-        Returns:
-            webdriver element: course arrow image element
-        """
-
-        return self.global_contents.wait_and_get_element(
-            self.driver,
-            ios_elements.my_course_arrow_image
-        )
-
-    def get_my_course_item_list(self):
-        """
-        Get course item
-
-        Returns:
-            webdriver element: course item element
-        """
-
-        return self.global_contents.get_all_views_on_ios_screen(
-            self.driver,
-            ios_elements.my_course_item_list
-        )
-
-    def get_all_buttons(self):
-        """
-        Get all buttons
-
-        Returns:
-            webdriver element: all buttons element
-        """
-
-        return self.global_contents.get_all_views_on_ios_screen(
-            self.driver,
-            ios_elements.all_buttons
-        )
-
-    def get_all_courses_header_text(self):
+    @property
+    def get_all_courses_header_text(self) -> Element:
         """
         Get all courses header text
 
@@ -145,12 +90,10 @@ class IosMyCoursesList(IosBasePage):
             webdriver element: all courses header text element
         """
 
-        return self.global_contents.wait_and_get_element(
-            self.driver,
-            ios_elements.all_courses_header_text
-        )
+        return self._all_courses_header_text
 
-    def get_all_courses_label(self):
+    @property
+    def get_all_courses_label(self) -> Element:
         """
         Get all courses label
 
@@ -158,12 +101,11 @@ class IosMyCoursesList(IosBasePage):
             webdriver element: all courses label element
         """
 
-        return self.global_contents.wait_and_get_element(
-            self.driver,
-            ios_elements.all_courses_label
-        )
+        return self._all_courses_label
 
-    def get_all_courses_inprogress_label(self):
+
+    @property
+    def all_courses_in_progress_label(self) -> Element:
         """
         Get all courses in progress label element
 
@@ -171,12 +113,10 @@ class IosMyCoursesList(IosBasePage):
             webdriver element: all courses in progress label element
         """
 
-        return self.global_contents.wait_and_get_element(
-            self.driver,
-            ios_elements.all_courses_inprogress_label
-        )
+        return self._all_courses_in_progress_label
 
-    def get_all_courses_completed_label(self):
+    @property
+    def get_all_courses_completed_label(self) -> Element:
         """
         Get all courses completed label element
 
@@ -184,12 +124,10 @@ class IosMyCoursesList(IosBasePage):
             webdriver element: all courses completed label element
         """
 
-        return self.global_contents.wait_and_get_element(
-            self.driver,
-            ios_elements.all_courses_completed_label
-        )
+        return self._all_courses_completed_label
 
-    def get_all_courses_expired_label(self):
+    @property
+    def get_all_courses_expired_label(self) -> Element:
         """
         Get all courses expired label element
 
@@ -197,7 +135,4 @@ class IosMyCoursesList(IosBasePage):
             webdriver element: all courses expired label element
         """
 
-        return self.global_contents.wait_and_get_element(
-            self.driver,
-            ios_elements.all_courses_expired_label
-        )
+        return self._all_courses_expired_label

@@ -30,6 +30,7 @@ class AndroidCourseDashboard(AndroidBasePage):
         self._course_dashboard_home_tab = Element(AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("Home")')
         self._back_button = Element(AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().description("Back")')
         self._my_courses_course_item = Element(AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("btn_course_item")')
+        self._my_courses_course_description = Element(AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("txt_courses_description")')
 
     @property
     def back_button(self) -> Element:
@@ -144,7 +145,9 @@ class AndroidCourseDashboard(AndroidBasePage):
             Element: my courses list
         """
 
-        return self._my_courses_course_item
+        self._my_courses_course_description.exists()
+
+        return self._my_courses_course_item.find_all()
 
     @property
     def course_dashboard_home_tab(self) -> Element:

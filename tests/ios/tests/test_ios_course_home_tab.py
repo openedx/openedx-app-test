@@ -1,7 +1,8 @@
 """
     Course Home Tab Screen Test Module
 """
-
+from framework import expect, Element
+from tests.common.enums import ElementAttribute
 from tests.ios.pages.ios_course_dashboard import IosCourseDashboard
 from tests.ios.pages.ios_landing import IosLanding
 from tests.ios.pages.ios_main_dashboard import IosMainDashboard
@@ -23,20 +24,21 @@ class TestIosCourseHomeTab:
         Scenarios:
             Verify Profile is loaded successfully
         """
-
+        Element.set_driver(set_capabilities)
+        Element.set_logger(setup_logging)
         setup_logging.info(f'Starting {TestIosCourseHomeTab.__name__} Test Case')
         global_contents = Globals(setup_logging)
-        whats_new_page = IosWhatsNew(set_capabilities, setup_logging)
-        main_dashboard = IosMainDashboard(set_capabilities, setup_logging)
+        whats_new_page = IosWhatsNew()
+        main_dashboard = IosMainDashboard()
 
         if login and global_contents.whats_new_enable:
-            assert whats_new_page.navigate_features().text == 'Done'
-            whats_new_page.get_next_btn().click()
+            expect(whats_new_page.navigate_features()).to_have('Done')
+            assert whats_new_page.whats_new_next_button.click()
             setup_logging.info('Whats New screen is successfully loaded')
 
-        learn_tab = main_dashboard.get_main_dashboard_learn_tab()
-        learn_tab.click()
-        assert learn_tab.get_attribute('value') == values.IOS_SELECTED_TAB_VALUE
+        learn_tab = main_dashboard.get_main_dashboard_learn_tab
+        assert learn_tab.click()
+        expect(learn_tab).to_have(values.IOS_SELECTED_TAB_VALUE, ElementAttribute.VALUE)
 
     def test_validate_ui_elements(self, set_capabilities, setup_logging):
         """
@@ -62,20 +64,21 @@ class TestIosCourseHomeTab:
             Verify second component header
             Verify back button
         """
-
-        course_dashboard_page = IosCourseDashboard(set_capabilities, setup_logging)
+        Element.set_driver(set_capabilities)
+        Element.set_logger(setup_logging)
+        course_dashboard_page = IosCourseDashboard()
         global_contents = Globals(setup_logging)
-        ios_landing = IosLanding(set_capabilities, setup_logging)
+        ios_landing = IosLanding()
 
         second_course_name = global_contents.get_element_by_name_ios(
             set_capabilities, values.MY_COURSES_SECOND_COURSE_NAME)
 
         second_course_name.click()
-        if ios_landing.get_allow_notifications_button():
-            ios_landing.get_allow_notifications_button().click()
+        if ios_landing.allow_notifications_button.exists():
+            ios_landing.allow_notifications_button.click()
 
-        course_tab = course_dashboard_page.get_course_dashboard_course_tab()
-        assert course_tab.text == values.COURSE_DASHBOARD_HOME_TAB
+        course_tab = course_dashboard_page.course_dashboard_course_tab
+        expect(course_tab).to_have(values.COURSE_DASHBOARD_HOME_TAB)
 
         deadline_title = global_contents.get_element_by_label_ios(
             set_capabilities, values.COURSE_MISSED_DEADLINES_LABEL)
@@ -138,20 +141,21 @@ class TestIosCourseHomeTab:
                 loads the compoenents screen
             Verify clicking on back button will navigate the user to dashboard page
         """
-
+        Element.set_driver(set_capabilities)
+        Element.set_logger(setup_logging)
         global_contents = Globals(setup_logging)
-        course_home_page = IosCourseHomeTab(set_capabilities, setup_logging)
+        course_home_page = IosCourseHomeTab()
 
-        next_btn = course_home_page.get_next_btn()
-        assert next_btn.text == values.COURSE_COMPONENT_NEXT_BUTTON
-        next_btn.click()
+        next_btn = course_home_page.next_btn
+        expect(next_btn).to_have(values.COURSE_COMPONENT_NEXT_BUTTON)
+        assert next_btn.click()
 
-        prev_btn = course_home_page.get_prev_btn()
-        assert prev_btn.text == values.COURSE_COMPONENT_PREVIOUS_BUTTON
-        prev_btn.click()
+        prev_btn = course_home_page.prev_btn
+        expect(prev_btn).to_have(values.COURSE_COMPONENT_PREVIOUS_BUTTON)
+        assert prev_btn.click()
 
         finish_button = course_home_page.component_navigation()
-        assert finish_button.text == values.COURSE_COMPONENT_FINISH_BUTTON
+        expect(finish_button).to_have(values.COURSE_COMPONENT_FINISH_BUTTON)
         finish_button.click()
 
         back_to_outline = global_contents.get_element_by_label_ios(
@@ -170,20 +174,21 @@ class TestIosCourseHomeTab:
             Verify that tapping close button should leave logout dialog
             Verify that tapping logout button should logout from main dashboard screen
         """
+        Element.set_driver(set_capabilities)
+        Element.set_logger(setup_logging)
+        ios_profile = IosProfile()
+        ios_landing = IosLanding()
+        main_dashboard = IosMainDashboard()
 
-        ios_profile = IosProfile(set_capabilities, setup_logging)
-        ios_landing = IosLanding(set_capabilities, setup_logging)
-        main_dashboard = IosMainDashboard(set_capabilities, setup_logging)
-
-        profile_tab = main_dashboard.get_main_dashboard_profile_tab()
-        assert profile_tab.text == values.MAIN_DASHBOARD_PROFILE_TAB
-        profile_tab.click()
-        assert ios_profile.get_profile_settings_button().text == values.PROFILE_SETTINGS_TEXT
-        ios_profile.get_profile_settings_button().click()
-        assert ios_profile.get_profile_logout_button().text.lower() == values.PROFILE_LOGOUT_BUTTON
-        ios_profile.get_profile_logout_button().click()
-        assert ios_profile.get_logout_close_button().text == 'Close'
-        assert ios_profile.get_logout_dialog_title().text == values.LOGOUT_DIALOG_TITLE
-        assert ios_profile.get_logout_button().text.lower() == values.PROFILE_LOGOUT_BUTTON
-        ios_profile.get_logout_button().click()
+        profile_tab = main_dashboard.profile_tab
+        expect(profile_tab).to_have(values.MAIN_DASHBOARD_PROFILE_TAB)
+        assert profile_tab.click()
+        expect(ios_profile.profile_settings_button).to_have(values.PROFILE_SETTINGS_TEXT)
+        assert ios_profile.profile_settings_button.click()
+        expect(ios_profile.get_profile_logout_button).to_have(values.PROFILE_LOGOUT_BUTTON, case='lower')
+        assert ios_profile.get_profile_logout_button.click()
+        expect(ios_profile.get_logout_close_button).to_have('Close')
+        expect(ios_profile.get_logout_dialog_title).to_have(values.LOGOUT_DIALOG_TITLE)
+        expect(ios_profile.get_logout_button).to_have(values.PROFILE_LOGOUT_BUTTON, case='lower')
+        assert ios_profile.get_logout_button.click()
         assert ios_landing.get_welcome_message().text == values.LANDING_MESSAGE

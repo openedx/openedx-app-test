@@ -30,7 +30,7 @@ class TestAndroidSettings:
         whats_new_page = AndroidWhatsNew()
 
         if login and global_contents.whats_new_enable:
-            assert whats_new_page.navigate_features().text == 'Done'
+            expect(whats_new_page.navigate_features()).to_have('Done')
             assert whats_new_page.done_button.click()
 
     def test_validate_ui_elements(self, set_capabilities, setup_logging):
