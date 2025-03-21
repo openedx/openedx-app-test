@@ -5,7 +5,6 @@ from appium.webdriver.common.appiumby import AppiumBy
 
 from framework import Element
 from tests.common.enums.general_enums import IosClassViews
-from tests.ios.pages import ios_elements
 from tests.ios.pages.ios_base_page import IosBasePage
 
 

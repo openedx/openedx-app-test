@@ -1,10 +1,8 @@
 """
     Login Page Module
 """
-from appium.webdriver.common.appiumby import AppiumBy
 
 from appium.webdriver.common.appiumby import AppiumBy
-from tests.ios.pages import ios_elements
 from framework import Element
 from tests.ios.pages.ios_base_page import IosBasePage
 

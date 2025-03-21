@@ -1,5 +1,5 @@
 """
-    Whats New Test Module
+    What's New Test Module
 """
 from framework import expect, Element
 from tests.common.enums import ElementAttribute

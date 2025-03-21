@@ -3,7 +3,6 @@
 """
 from framework import expect, Element
 from tests.common.enums import ElementAttribute
-from tests.ios.pages.ios_landing import IosLanding
 from tests.ios.pages.ios_main_dashboard import IosMainDashboard
 from tests.ios.pages.ios_profile import IosProfile
 from tests.ios.pages.ios_whats_new import IosWhatsNew

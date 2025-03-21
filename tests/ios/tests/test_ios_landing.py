@@ -12,7 +12,7 @@ from tests.ios.pages.ios_landing import IosLanding
 from tests.ios.pages.ios_login import IosLogin
 
 
-class TestIosNewLanding():
+class TestIosNewLanding:
     """
     New Landing screen's Test Case
     """

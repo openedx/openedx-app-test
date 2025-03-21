@@ -85,7 +85,7 @@ class TestIosMyCoursesList:
         Element.set_logger(setup_logging)
         global_contents = Globals(setup_logging)
         my_courses_list = IosMyCoursesList()
-        course_dashboard_page = IosCourseDashboard(set_capabilities, setup_logging)
+        course_dashboard_page = IosCourseDashboard()
 
         expect(my_courses_list.get_all_courses_header_text).to_have(values.ALL_COURSES_HEADER_LABEL)
         expect(my_courses_list.get_all_courses_label).to_have(values.ALL_COURSES_LABEL)

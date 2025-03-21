@@ -3,19 +3,15 @@
 """
 
 from time import sleep
-from appium.webdriver.common.mobileby import AppiumBy
-from enums.general_enums import ScrollDirections
+from tests.common.enums.general_enums import ScrollDirections
 from framework import expect
 from framework.element import Element
 from tests.android.pages.andriod_catalog_page import AndroidCatalogPage
-from appium.webdriver.common.appiumby import AppiumBy
 from tests.common import values
 from tests.common.enums.attributes import ElementAttribute
 from tests.common.globals import Globals
-from tests.android.pages import android_elements
 from tests.android.pages.android_landing import AndroidLanding
 from tests.android.pages.android_whats_new import AndroidWhatsNew
-from tests.android.pages.android_sign_in import AndroidSignIn
 from tests.android.pages.android_main_dashboard import AndroidMainDashboard
 from tests.android.pages.android_course_dashboard import AndroidCourseDashboard
 
