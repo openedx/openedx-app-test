@@ -1,9 +1,9 @@
 """
     Main Dashboard Page Module
 """
-from appium.webdriver.common.appiumby import AppiumBy
 
-from tests.ios.pages import ios_elements
+from framework import Element
+from appium.webdriver.common.appiumby import AppiumBy
 from tests.ios.pages.ios_base_page import IosBasePage
 
 
@@ -11,22 +11,27 @@ class IosMainDashboard(IosBasePage):
     """
     Main Dashboard screen
     """
+    def __init__(self):
+        super().__init__()
+        self._profile_tab = Element(AppiumBy.ACCESSIBILITY_ID, 'Profile')
+        self._main_dashboard_tab = Element(AppiumBy.ACCESSIBILITY_ID, 'Dashboard')
+        self._programs_tab = Element(AppiumBy.ACCESSIBILITY_ID, 'Programs')
+        self._learn_tab = Element(AppiumBy.ACCESSIBILITY_ID, 'Learn')
+        self._discover_tab = Element(AppiumBy.ACCESSIBILITY_ID, 'Discover')
+        self._close_button = Element(AppiumBy.ACCESSIBILITY_ID, 'close_button')
 
-    def get_close_button(self):
+    @property
+    def get_close_button(self) -> Element:
         """
         Get close button
 
         Returns:
             webdriver element: close Element
         """
+        return self._close_button
 
-        self.global_contents.wait_for_element_visibility(
-            self.driver, ios_elements.whats_new_btn_next
-        )
-
-        return self.driver.find_element(AppiumBy.NAME, "close_button")
-
-    def get_main_dashboard_discover_tab(self):
+    @property
+    def main_dashboard_discover_tab(self) -> Element:
         """
         Get discover tab
 
@@ -34,16 +39,10 @@ class IosMainDashboard(IosBasePage):
             webdriver element: Discover tab element
         """
 
-        self.global_contents.wait_for_element_visibility(
-            self.driver, ios_elements.main_dashboard_discover_tab
-        )
+        return self._discover_tab
 
-        discover_tab = self.global_contents.wait_and_get_element(
-            self.driver, ios_elements.main_dashboard_discover_tab
-        )
-        return discover_tab
-
-    def get_main_dashboard_learn_tab(self):
+    @property
+    def get_main_dashboard_learn_tab(self) -> Element:
         """
         Get discover tab
 
@@ -51,16 +50,10 @@ class IosMainDashboard(IosBasePage):
             webdriver element: Discover tab element
         """
 
-        self.global_contents.wait_for_element_visibility(
-            self.driver, ios_elements.main_dashboard_learn_tab
-        )
+        return self._learn_tab
 
-        discover_tab = self.global_contents.wait_and_get_element(
-            self.driver, ios_elements.main_dashboard_learn_tab
-        )
-        return discover_tab
-
-    def get_main_dashboard_programs_tab(self):
+    @property
+    def get_main_dashboard_programs_tab(self) -> Element:
         """
         Get programs tab
 
@@ -68,25 +61,21 @@ class IosMainDashboard(IosBasePage):
             webdriver element: Programs tab element
         """
 
-        programs_tab = self.global_contents.wait_and_get_element(
-            self.driver, ios_elements.main_dashboard_programs_tab
-        )
-        return programs_tab
+        return self._programs_tab
 
-    def get_main_dashboard_tab(self):
+    @property
+    def main_dashboard_tab(self) -> Element:
         """
-        Get dashbaord tab
+        Get dashboard tab
 
         Returns:
             webdriver element: Dashboard tab element
         """
 
-        dashboard = self.global_contents.wait_and_get_element(
-            self.driver, ios_elements.main_dashboard_tab
-        )
-        return dashboard
+        return self._main_dashboard_tab
 
-    def get_main_dashboard_profile_tab(self):
+    @property
+    def profile_tab(self) -> Element:
         """
         Get profile tab
 
@@ -94,7 +83,4 @@ class IosMainDashboard(IosBasePage):
             webdriver element: profile tab element
         """
 
-        profile_tab = self.global_contents.get_element_by_name_ios(
-            self.driver, "Profile"
-        )
-        return profile_tab
+        return self._profile_tab

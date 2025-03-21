@@ -3,7 +3,8 @@
 """
 from appium.webdriver.common.appiumby import AppiumBy
 
-from tests.ios.pages import ios_elements
+from framework import Element
+from tests.common.enums.general_enums import IosClassViews
 from tests.ios.pages.ios_base_page import IosBasePage
 
 
@@ -11,8 +12,37 @@ class IosRegister(IosBasePage):
     """
     Register screen
     """
+    def __init__(self):
+        super().__init__()
+        self._signin_password_text_field = Element(AppiumBy.ACCESSIBILITY_ID, 'password_textfield')
+        self._password_field = Element(AppiumBy.CLASS_NAME, 'XCUIElementTypeSecureTextField')
+        self._signin_social_auth_title_text = Element(AppiumBy.ACCESSIBILITY_ID, 'social_auth_title_text')
+        self._register_name_text = Element(AppiumBy.ACCESSIBILITY_ID, 'name_text')
+        self._register_name_textfield = Element(AppiumBy.ACCESSIBILITY_ID, 'name_textfield')
+        self._register_name_instructions_text = Element(AppiumBy.ACCESSIBILITY_ID, 'name_instructions_text')
+        self._register_username_textfield = Element(AppiumBy.ACCESSIBILITY_ID, 'username_textfield')
+        self._register_email_textfield = Element(AppiumBy.ACCESSIBILITY_ID, 'email_textfield')
+        self._register_password_textfield = Element(AppiumBy.ACCESSIBILITY_ID, 'password_textfield')
+        self._register_password_text = Element(AppiumBy.ACCESSIBILITY_ID, 'password_text')
+        self._register_email_instructions_text = Element(AppiumBy.ACCESSIBILITY_ID, 'email_instructions_text')
+        self._register_country_text = Element(AppiumBy.ACCESSIBILITY_ID, 'country_text')
+        self._register_country_picker_button = Element(AppiumBy.ACCESSIBILITY_ID, 'country_picker_button')
+        self._register_signup_button = Element(AppiumBy.ACCESSIBILITY_ID, 'signup_button')
+        self._register_screen_heading = Element(AppiumBy.ACCESSIBILITY_ID, 'register_text')
+        self._register_signup_text = Element(AppiumBy.ACCESSIBILITY_ID, 'signup_text')
+        self._signup_subtitle_text = Element(AppiumBy.ACCESSIBILITY_ID, 'signup_subtitle_text')
+        self._register_username_text = Element(AppiumBy.ACCESSIBILITY_ID, 'username_text')
+        self._register_country_picker_title = Element(AppiumBy.ACCESSIBILITY_ID, 'picker_title_text')
+        self._register_picker_search_textfield = Element(AppiumBy.NAME, 'picker_search_textfield')
+        self._register_picker_accept_button = Element(AppiumBy.NAME, 'picker_accept_button')
+        self._register_password_instructions_text = Element(AppiumBy.NAME, 'password_instructions_text')
+        self._register_country_instructions_text = Element(AppiumBy.NAME, 'country_instructions_text')
+        self._register_show_optional_fields = Element(AppiumBy.NAME, 'optional_fields_text')
+        self._register_username_instructions_text = Element(AppiumBy.NAME, 'username_instructions_text')
+        self._register_email_text = Element(AppiumBy.NAME, 'email_text')
 
-    def get_register_button(self):
+    @staticmethod
+    def get_register_button() -> Element:
         """
         Get register button
 
@@ -20,12 +50,10 @@ class IosRegister(IosBasePage):
             webdriver element: Register Element
         """
 
-        register_button = self.global_contents.get_all_views_on_ios_screen(
-            self.driver, ios_elements.all_buttons
-        )[1]
-        return register_button
+        return IosBasePage.find_all_views_on_screen(IosClassViews.BUTTON)[1]
 
-    def get_register_screen_heading(self):
+    @property
+    def get_register_screen_heading(self) -> Element:
         """
         Get register screen heading
 
@@ -33,12 +61,10 @@ class IosRegister(IosBasePage):
             webdriver element: Register screen heading Element
         """
 
-        register_heading = self.global_contents.wait_and_get_element(
-            self.driver, ios_elements.register_screen_heading
-        )
-        return register_heading
+        return self._register_screen_heading
 
-    def get_password_field(self):
+    @property
+    def password_field(self) -> Element:
         """
         Get password fields element
 
@@ -46,12 +72,10 @@ class IosRegister(IosBasePage):
             webdriver element: editfield element
         """
 
-        password_field = self.driver.find_element(
-            AppiumBy.CLASS_NAME, ios_elements.password_field
-        )
-        return password_field
+        return self._password_field
 
-    def get_signup_text(self):
+    @property
+    def get_signup_text(self) -> Element:
         """
         Get signup text
 
@@ -59,12 +83,10 @@ class IosRegister(IosBasePage):
             webdriver element: signup text element
         """
 
-        signup_text = self.global_contents.wait_and_get_element(
-            self.driver, ios_elements.register_signup_text
-        )
-        return signup_text
+        return self._register_signup_text
 
-    def get_signup_subtitle_text(self):
+    @property
+    def get_signup_subtitle_text(self) -> Element:
         """
         Get signup subtitle text
 
@@ -72,12 +94,10 @@ class IosRegister(IosBasePage):
             webdriver element: signup subtitle text element
         """
 
-        signup_subtitle_text = self.global_contents.wait_and_get_element(
-            self.driver, ios_elements.register_signup_subtitle_text
-        )
-        return signup_subtitle_text
+        return self._signup_subtitle_text
 
-    def get_name_text(self):
+    @property
+    def get_name_text(self) -> Element:
         """
         Get name text
 
@@ -85,12 +105,10 @@ class IosRegister(IosBasePage):
             webdriver element: name text element
         """
 
-        name_text = self.global_contents.wait_and_get_element(
-            self.driver, ios_elements.register_name_text
-        )
-        return name_text
+        return self._register_name_text
 
-    def get_name_textfield(self):
+    @property
+    def get_name_textfield(self) -> Element:
         """
         Get name textfield
 
@@ -98,12 +116,10 @@ class IosRegister(IosBasePage):
             webdriver element: name textfield element
         """
 
-        name_textfield = self.global_contents.wait_and_get_element(
-            self.driver, ios_elements.register_name_textfield
-        )
-        return name_textfield
+        return self._register_name_textfield
 
-    def get_name_instructions_text(self):
+    @property
+    def get_name_instructions_text(self) -> Element:
         """
         Get name instructions text
 
@@ -111,12 +127,10 @@ class IosRegister(IosBasePage):
             webdriver element: name instructions text element
         """
 
-        name_instructions_text = self.global_contents.wait_and_get_element(
-            self.driver, ios_elements.register_name_instructions_text
-        )
-        return name_instructions_text
+        return self._register_name_instructions_text
 
-    def get_username_text(self):
+    @property
+    def get_username_text(self) -> Element:
         """
         Get username text
 
@@ -124,12 +138,10 @@ class IosRegister(IosBasePage):
             webdriver element: username text element
         """
 
-        username_text = self.global_contents.wait_and_get_element(
-            self.driver, ios_elements.register_username_text
-        )
-        return username_text
+        return self._register_username_text
 
-    def get_username_textfield(self):
+    @property
+    def get_username_textfield(self) -> Element:
         """
         Get username textfield
 
@@ -137,12 +149,10 @@ class IosRegister(IosBasePage):
             webdriver element: username textfield element
         """
 
-        username_textfield = self.global_contents.wait_and_get_element(
-            self.driver, ios_elements.register_username_textfield
-        )
-        return username_textfield
+        return self._register_username_textfield
 
-    def get_username_instructions_text(self):
+    @property
+    def get_username_instructions_text(self) -> Element:
         """
         Get username instructions text
 
@@ -150,12 +160,10 @@ class IosRegister(IosBasePage):
             webdriver element: username instructions text element
         """
 
-        username_instructions_text = self.global_contents.wait_and_get_element(
-            self.driver, ios_elements.register_username_instructions_text
-        )
-        return username_instructions_text
+        return self._register_username_instructions_text
 
-    def get_email_text(self):
+    @property
+    def get_email_text(self) -> Element:
         """
         Get email text
 
@@ -163,12 +171,10 @@ class IosRegister(IosBasePage):
             webdriver element: email text element
         """
 
-        email_text = self.global_contents.wait_and_get_element(
-            self.driver, ios_elements.register_email_text
-        )
-        return email_text
+        return self._register_email_text
 
-    def get_email_textfield(self):
+    @property
+    def get_email_textfield(self) -> Element:
         """
         Get email textfield
 
@@ -176,12 +182,10 @@ class IosRegister(IosBasePage):
             webdriver element: email textfield element
         """
 
-        email_textfield = self.global_contents.wait_and_get_element(
-            self.driver, ios_elements.register_email_textfield
-        )
-        return email_textfield
+        return self._register_email_textfield
 
-    def get_email_instructions_text(self):
+    @property
+    def get_email_instructions_text(self) -> Element:
         """
         Get email instructions text
 
@@ -189,12 +193,10 @@ class IosRegister(IosBasePage):
             webdriver element: email instructions text element
         """
 
-        email_instructions_text = self.global_contents.wait_and_get_element(
-            self.driver, ios_elements.register_email_instructions_text
-        )
-        return email_instructions_text
+        return self._register_email_instructions_text
 
-    def get_password_text(self):
+    @property
+    def get_password_text(self) -> Element:
         """
         Get password text
 
@@ -202,12 +204,10 @@ class IosRegister(IosBasePage):
             webdriver element: password text element
         """
 
-        password_text = self.global_contents.wait_and_get_element(
-            self.driver, ios_elements.register_password_text
-        )
-        return password_text
+        return  self._register_password_text
 
-    def get_password_textfield(self):
+    @property
+    def get_password_textfield(self) -> Element:
         """
         Get password textfield
 
@@ -215,12 +215,10 @@ class IosRegister(IosBasePage):
             webdriver element: password textfield element
         """
 
-        password_textfield = self.global_contents.wait_and_get_element(
-            self.driver, ios_elements.register_password_textfield
-        )
-        return password_textfield
+        return self._register_password_textfield
 
-    def get_password_instructions_text(self):
+    @property
+    def get_password_instructions_text(self) -> Element:
         """
         Get password instructions text
 
@@ -228,16 +226,10 @@ class IosRegister(IosBasePage):
             webdriver element: password instructions text element
         """
 
-        self.global_contents.wait_for_element_visibility(
-            self.driver, ios_elements.register_password_instructions_text
-        )
+        return self._register_password_instructions_text
 
-        password_instructions_text = self.global_contents.wait_and_get_element(
-            self.driver, ios_elements.register_password_instructions_text
-        )
-        return password_instructions_text
-
-    def get_country_text(self):
+    @property
+    def get_country_text(self) -> Element:
         """
         Get country text
 
@@ -245,11 +237,9 @@ class IosRegister(IosBasePage):
             webdriver element: country text element
         """
 
-        country_text = self.global_contents.wait_and_get_element(
-            self.driver, ios_elements.register_country_text
-        )
-        return country_text
+        return self._register_country_text
 
+    @property
     def get_country_textfield(self):
         """
         Get country textfield
@@ -258,16 +248,10 @@ class IosRegister(IosBasePage):
             webdriver element: country textfield element
         """
 
-        self.global_contents.wait_for_element_visibility(
-            self.driver, ios_elements.register_country_picker_button
-        )
+        return self._register_country_picker_button
 
-        country_textfield = self.global_contents.wait_and_get_element(
-            self.driver, ios_elements.register_country_picker_button
-        )
-        return country_textfield
-
-    def get_country_instructions_text(self):
+    @property
+    def get_country_instructions_text(self) -> Element:
         """
         Get country instructions text
 
@@ -275,11 +259,9 @@ class IosRegister(IosBasePage):
             webdriver element: country instructions text element
         """
 
-        country_instructions_text = self.global_contents.wait_and_get_element(
-            self.driver, ios_elements.register_country_instructions_text
-        )
-        return country_instructions_text
+        return self._register_country_instructions_text
 
+    @property
     def get_show_optional_fields(self):
         """
         Get show optional fields
@@ -288,12 +270,10 @@ class IosRegister(IosBasePage):
             webdriver element: show optional fields element
         """
 
-        show_optional_fields = self.global_contents.wait_and_get_element(
-            self.driver, ios_elements.register_show_optional_fields
-        )
-        return show_optional_fields
+        return self._register_show_optional_fields
 
-    def get_create_account_button(self):
+    @property
+    def get_create_account_button(self) -> Element:
         """
         Get create account button
 
@@ -301,12 +281,10 @@ class IosRegister(IosBasePage):
             webdriver element: create account button element
         """
 
-        create_account_button = self.global_contents.wait_and_get_element(
-            self.driver, ios_elements.register_signup_button
-        )
-        return create_account_button
+        return self._register_signup_button
 
-    def get_social_auth_title_text(self):
+    @property
+    def get_social_auth_title_text(self) -> Element:
         """
         Get social auth title text
 
@@ -314,12 +292,10 @@ class IosRegister(IosBasePage):
             webdriver element: social auth title text element
         """
 
-        social_auth_title_text = self.global_contents.wait_and_get_element(
-            self.driver, ios_elements.register_social_auth_title_text
-        )
-        return social_auth_title_text
+        return self._signin_social_auth_title_text
 
-    def select_country(self):
+    @property
+    def select_country(self) -> Element:
         """
         Get country spinner
 
@@ -327,11 +303,9 @@ class IosRegister(IosBasePage):
             webdriver elements: country search field
         """
 
-        country_field = self.global_contents.get_elements_by_name_ios(
-            self.driver, ios_elements.register_picker_search_textfield
-        )[1]
-        return country_field
+        return self._register_picker_search_textfield.find_all()[1]
 
+    @property
     def get_picker_accept_button(self):
         """
         Get picker accept button
@@ -340,12 +314,10 @@ class IosRegister(IosBasePage):
             webdriver elements: picker accept button
         """
 
-        picker_accept_button = self.global_contents.wait_and_get_element(
-            self.driver, ios_elements.register_picker_accept_button
-        )
-        return picker_accept_button
+        return self._register_picker_accept_button
 
-    def get_picker_title_text(self):
+    @property
+    def get_picker_title_text(self) -> Element:
         """
         Get picker title text
 
@@ -353,7 +325,4 @@ class IosRegister(IosBasePage):
             webdriver elements: picker title text
         """
 
-        picker_title_text = self.global_contents.wait_and_get_element(
-            self.driver, ios_elements.register_country_picker_title
-        )
-        return picker_title_text
+        return self._register_country_picker_title

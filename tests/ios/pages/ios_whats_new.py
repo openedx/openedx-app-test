@@ -3,7 +3,8 @@
 """
 from appium.webdriver.common.appiumby import AppiumBy
 
-from tests.ios.pages import ios_elements
+from framework import Element
+from tests.common.enums import ElementAttribute
 from tests.ios.pages.ios_base_page import IosBasePage
 
 
@@ -11,8 +12,21 @@ class IosWhatsNew(IosBasePage):
     """
     What's New screen
     """
+    def __init__(self):
+        super().__init__()
+        self._close_button = Element(AppiumBy.NAME, 'close_button')
+        self._whats_new_next_button = Element(AppiumBy.ACCESSIBILITY_ID, 'next_button')
+        self._whats_new_msg_title = Element(AppiumBy.ACCESSIBILITY_ID, 'title_text')
+        self._whats_new_description = Element(AppiumBy.ACCESSIBILITY_ID, 'description_text')
 
-    def get_close_button(self):
+
+    @property
+    def whats_new_next_button(self) -> Element:
+        """"""
+        return self._whats_new_next_button
+
+    @property
+    def get_close_button(self) -> Element:
         """
         Get close button
 
@@ -20,13 +34,12 @@ class IosWhatsNew(IosBasePage):
             webdriver element: close Element
         """
 
-        self.global_contents.wait_for_element_visibility(
-            self.driver, ios_elements.whats_new_btn_next
-        )
+        self.whats_new_next_button.exists()
 
-        return self.driver.find_element(AppiumBy.NAME, "close_button")
+        return self._close_button
 
-    def get_whats_new_msg_title(self):
+    @property
+    def get_whats_new_msg_title(self) -> Element:
         """
         Get Whats New message title
 
@@ -34,12 +47,10 @@ class IosWhatsNew(IosBasePage):
             webdriver element: Whats New message title element
         """
 
-        whats_new_msg_title = self.global_contents.wait_and_get_element(
-            self.driver, ios_elements.whats_new_msg_title
-        )
-        return whats_new_msg_title
+        return  self._whats_new_msg_title
 
-    def get_whats_new_description(self):
+    @property
+    def get_whats_new_description(self) -> Element:
         """
         Get Whats New description
 
@@ -47,27 +58,7 @@ class IosWhatsNew(IosBasePage):
             webdriver element: Whats New description element
         """
 
-        whats_new_description = self.global_contents.wait_and_get_element(
-            self.driver, ios_elements.whats_new_description
-        )
-        return whats_new_description
-
-    def get_next_btn(self):
-        """
-        Get Next button
-
-        Returns:
-            webdriver element: Next button element
-        """
-
-        self.global_contents.wait_for_element_visibility(
-            self.driver, ios_elements.whats_new_btn_next
-        )
-
-        next_btn = self.global_contents.wait_and_get_element(
-            self.driver, ios_elements.whats_new_btn_next
-        )
-        return next_btn
+        return self._whats_new_description
 
     def navigate_features(self):
         """
@@ -77,10 +68,10 @@ class IosWhatsNew(IosBasePage):
             webdriver element: Done Element
         """
 
-        self.get_next_btn().click()
+        self.whats_new_next_button.click()
 
-        if self.get_next_btn().text == "Done":
-            return self.get_next_btn()
+        if self.whats_new_next_button.get_attribute(ElementAttribute.TEXT) == 'Done':
+            return self.whats_new_next_button
         else:
             self.navigate_features()
-            return self.get_next_btn()
+            return self.whats_new_next_button

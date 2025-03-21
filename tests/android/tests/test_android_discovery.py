@@ -3,9 +3,7 @@ Discovery Test Module
 """
 
 from time import sleep
-
 from tests.common.enums.general_enums import ScrollDirections
-
 from framework import expect
 from framework.element import Element
 from tests.android.pages.andriod_catalog_page import AndroidCatalogPage

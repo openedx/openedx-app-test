@@ -1,8 +1,10 @@
 """
     What's New Test Module
 """
-
+from framework import expect, Element
 from tests.common import values
+from tests.common.enums import ElementAttribute
+from tests.common.enums.general_enums import IosClassViews
 from tests.common.globals import Globals
 from tests.ios.pages.ios_landing import IosLanding
 from tests.ios.pages.ios_login import IosLogin
@@ -19,36 +21,34 @@ class TestIosWhatsNew:
         Scenarios:
             Verify What's New screen is loaded successfully
         """
-
-        setup_logging.info(f"Starting {TestIosWhatsNew.__name__} Test Case")
-        ios_landing = IosLanding(set_capabilities, setup_logging)
-        ios_login = IosLogin(set_capabilities, setup_logging)
+        Element.set_driver(set_capabilities)
+        Element.set_logger(setup_logging)
+        setup_logging.info(f'Starting {TestIosWhatsNew.__name__} Test Case')
+        ios_landing = IosLanding()
+        ios_login = IosLogin()
         global_contents = Globals(setup_logging)
 
-        if ios_landing.get_allow_notifications_button():
-            ios_landing.get_allow_notifications_button().click()
+        if ios_landing.allow_notifications_button.exists():
+            ios_landing.allow_notifications_button.click()
 
         if global_contents.whats_new_enable:
-            sign_in_button = ios_landing.get_sign_in_button()
-            assert ios_landing.get_sign_in_button().text == values.LOGIN
-            sign_in_button.click()
-            sign_in_title = ios_login.get_sign_in_title()
-            assert sign_in_title.text == values.LOGIN
+            sign_in_button = ios_landing.sign_in_button
+            expect(sign_in_button).to_have(values.LOGIN)
+            assert sign_in_button.click()
+            expect(ios_login.sign_in_title).to_have(values.LOGIN)
+            expect(ios_login.signin_username_textfield).to_have(values.EMAIL_OR_USERNAME_IOS)
+            assert ios_login.signin_username_textfield.send_keys(global_contents.login_user_name)
 
-            email_field = ios_login.get_signin_username_textfield()
-            assert email_field.text == values.EMAIL_OR_USERNAME_IOS
-            email_field.send_keys(global_contents.login_user_name)
-
-            password_title = ios_login.get_signin_password_text()
-            assert password_title.text == values.PASSWORD
-            password_title.click()
-            password_field = ios_login.get_signin_password_textfield()
-            assert password_field.get_attribute("value") == values.PASSWORD
-            password_field.send_keys(global_contents.login_password)
-            password_title.click()
-            sign_in_button = ios_login.get_signin_button()
-            assert sign_in_button.text == values.LOGIN
-            sign_in_button.click()
+            password_title = ios_login.signin_password_text
+            expect(password_title).to_have(values.PASSWORD)
+            assert password_title.click()
+            password_field = ios_login.signin_password_textfield
+            expect(password_field).to_have(values.PASSWORD, ElementAttribute.VALUE)
+            assert password_field.send_keys(global_contents.login_password)
+            assert password_title.click()
+            sign_in_button = ios_login.signin_button
+            expect(ios_login.signin_button).to_have(values.LOGIN)
+            assert sign_in_button.click()
         else:
             setup_logging.info("Whats New feature is not enabled")
 
@@ -60,21 +60,21 @@ class TestIosWhatsNew:
                     "Feature Title", "Feature Details", "Done"
             Verify all screen contents have their default values
         """
-
-        whats_new_page = IosWhatsNew(set_capabilities, setup_logging)
+        Element.set_driver(set_capabilities)
+        Element.set_logger(setup_logging)
+        whats_new_page = IosWhatsNew()
         global_contents = Globals(setup_logging)
 
         if global_contents.whats_new_enable:
-            close_btn = whats_new_page.get_close_button()
-            assert close_btn.text == values.WHATS_NEW_CLOSE_BUTTON
-
-            screen_title = global_contents.get_ios_all_static_text(set_capabilities)[0]
-            assert screen_title.text == values.WHATS_NEW_TITLE
-            assert whats_new_page.get_whats_new_msg_title().text
-            assert whats_new_page.get_whats_new_description().text
-            next_button = whats_new_page.get_next_btn()
-            assert next_button.text == values.WHATS_NEW_NEXT_BUTTON
-            assert whats_new_page.navigate_features().text == "Done"
-            whats_new_page.get_next_btn().click()
+            close_btn = whats_new_page.get_close_button
+            expect(close_btn).to_have(values.WHATS_NEW_CLOSE_BUTTON)
+            screen_title = IosWhatsNew.find_all_views_on_screen(IosClassViews.STATIC_TEXT)[0]
+            expect(screen_title).to_have(values.WHATS_NEW_TITLE)
+            expect(whats_new_page.get_whats_new_msg_title).to_have(r'.+')
+            expect(whats_new_page.get_whats_new_description).to_have(r'.+')
+            next_button = whats_new_page.whats_new_next_button
+            expect(next_button).to_have(values.WHATS_NEW_NEXT_BUTTON)
+            expect(whats_new_page.navigate_features()).to_have('Done')
+            assert whats_new_page.whats_new_next_button.click()
         else:
             setup_logging.info("Whats New feature is not enabled")

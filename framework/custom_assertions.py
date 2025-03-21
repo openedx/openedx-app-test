@@ -142,6 +142,15 @@ class CustomAssertions:
         else:
             assert self._locator.is_enabled(), self._custom_message
 
+    def to_be_visible(self):
+        """
+        Asserts that the element is enabled
+        """
+        if self._is_not:
+            assert not self._locator.get_attribute(ElementAttribute.VISIBLE), self._custom_message
+        else:
+            assert self._locator.get_attribute(ElementAttribute.VISIBLE), self._custom_message
+
     def to_be_displayed(self):
         """
         Asserts that the element is displayed.

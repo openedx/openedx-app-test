@@ -1,10 +1,10 @@
 """
 Profile Screen Test Module
 """
-
+from framework import expect, Element
+from tests.common.enums import ElementAttribute
 from tests.common import values
 from tests.ios.pages.ios_profile import IosProfile
-from tests.common.globals import Globals
 
 
 class TestIosProfile:
@@ -24,14 +24,12 @@ class TestIosProfile:
                 Video Settings
         """
         driver = ios_login
-        ios_profile = IosProfile(driver, setup_logging)
-        global_contents = Globals(setup_logging)
-
-        assert global_contents.get_navigation_bar_title(driver)[0].get_attribute("name") == values.PROFILE_SCREEN_TITLE
-        assert ios_profile.get_profile_img_profile()
-        assert ios_profile.get_profile_user_name_text().text == values.PROFILE_NAME_TEXT
-        assert ios_profile.profile_user_username_text().text == values.PROFILE_USERNAME_TEXT
-        assert ios_profile.get_profile_settings_button().text == values.PROFILE_SETTINGS_TEXT
-        assert (
-            global_contents.get_element_by_name_ios(driver, values.EDIT_PROFILE_TITLE).text == values.EDIT_PROFILE_TITLE
-        )
+        Element.set_driver(driver)
+        Element.set_logger(setup_logging)
+        ios_profile = IosProfile()
+        expect(ios_profile.navigation_bar_title).to_have(values.PROFILE_SCREEN_TITLE, ElementAttribute.NAME)
+        assert ios_profile.profile_img_profile.exists()
+        expect(ios_profile.profile_user_name_text).to_have(values.PROFILE_NAME_TEXT)
+        expect(ios_profile.profile_user_username_text).to_have(values.PROFILE_USERNAME_TEXT)
+        expect(ios_profile.profile_settings_button).to_have(values.PROFILE_SETTINGS_TEXT)
+        assert ios_profile.edit_profile_title.exists()

@@ -2,8 +2,11 @@
 Discovery Screen Test Module
 """
 
-from time import sleep
 
+from framework import expect, Element
+from tests.common.enums import ElementAttribute
+
+from time import sleep
 from tests.common import values
 from tests.common.globals import Globals
 from tests.ios.pages import ios_elements
@@ -30,24 +33,19 @@ class TestIosDiscovery:
             Verify that the back button text is correct
             Verify that the discovery screen message is correct
         """
-
-        setup_logging.info(f"Starting {TestIosDiscovery.__name__} Test Case")
-        ios_landing = IosLanding(set_capabilities, setup_logging)
+        Element.set_driver(set_capabilities)
+        Element.set_logger(setup_logging)
+        setup_logging.info(f'Starting {TestIosDiscovery.__name__} Test Case')
+        ios_landing = IosLanding()
         global_contents = Globals(setup_logging)
 
-        logo_image = ios_landing.get_logo_image()
-        assert logo_image.text == values.LANDING_LOGO_IMAGE
+        logo_image = ios_landing.get_logo_image
+        expect(logo_image).to_have(values.LANDING_LOGO_IMAGE)
 
-        explore_courses_button = ios_landing.get_get_explore_courses_button()
-        assert explore_courses_button.text == values.LANDING_EXLPORE_COURSES
-        explore_courses_button.click()
-
-        back_button = global_contents.wait_and_get_element(set_capabilities, ios_elements.discovery_back_button)
-        assert back_button.text == values.BACK_BUTTON
-        assert (
-            global_contents.get_element_by_label_ios(set_capabilities, "Discover").text
-            == values.DISCOVER_SCREEN_HEADING
-        )
+        expect(ios_landing.get_get_explore_courses_button).to_have(values.LANDING_EXLPORE_COURSES)
+        ios_landing.get_get_explore_courses_button.click()
+        expect(ios_landing.landing_back_button).to_have(values.BACK_BUTTON)
+        assert global_contents.get_element_by_label_ios(set_capabilities, 'Discover').text == values.DISCOVER_SCREEN_HEADING
 
         sleep(20)
         global_contents.wait_for_element_visibility(set_capabilities, values.DISCOVERY_SCREEN_MESSAGE)
@@ -76,7 +74,8 @@ class TestIosDiscovery:
             Verify marketing course is displayed
             Verify marketing course text
         """
-
+        Element.set_driver(set_capabilities)
+        Element.set_logger(setup_logging)
         global_contents = Globals(setup_logging)
 
         search_field = global_contents.get_all_views_on_ios_screen(
@@ -131,7 +130,8 @@ class TestIosDiscovery:
             Verify pagination results text
             Verify pagination text is displayed
         """
-
+        Element.set_driver(set_capabilities)
+        Element.set_logger(setup_logging)
         global_contents = Globals(setup_logging)
 
         bread_crum = global_contents.wait_and_get_element(set_capabilities, values.DISCOVERY_SEARCH_BREADCRUMB_IOS)
@@ -188,35 +188,35 @@ class TestIosDiscovery:
             Verify that the user is able to login from discovery screen
             Verify that the user is able to navigate to the discover tab
         """
-
+        Element.set_driver(set_capabilities)
+        Element.set_logger(setup_logging)
         global_contents = Globals(setup_logging)
-        ios_login = IosLogin(set_capabilities, setup_logging)
-        ios_landing = IosLanding(set_capabilities, setup_logging)
-        whats_new_page = IosWhatsNew(set_capabilities, setup_logging)
+        ios_login = IosLogin()
+        ios_landing = IosLanding()
+        whats_new_page = IosWhatsNew()
 
-        signin_button = ios_landing.get_sign_in_button()
-        assert signin_button.text == values.LOGIN
-        signin_button.click()
+        signin_button = ios_landing.sign_in_button
+        expect(signin_button).to_have(values.LOGIN)
+        assert signin_button.click()
 
-        email_field = ios_login.get_signin_username_textfield()
-        assert email_field.text == values.EMAIL_OR_USERNAME_IOS
-        email_field.send_keys(global_contents.login_user_name)
+        expect(ios_login.signin_username_textfield).to_have(values.EMAIL_OR_USERNAME_IOS)
+        assert ios_login.signin_username_textfield.send_keys(global_contents.login_user_name)
 
-        password_title = ios_login.get_signin_password_text()
-        assert password_title.text == values.PASSWORD
-        password_title.click()
-        password_field = ios_login.get_signin_password_textfield()
-        assert password_field.get_attribute("value") == values.PASSWORD
-        password_field.send_keys(global_contents.login_password)
-        password_title.click()
-        sign_in_button = ios_login.get_signin_button()
-        assert sign_in_button.text == values.LOGIN
-        sign_in_button.click()
-        setup_logging.info(f"{global_contents.login_user_name} is successfully logged in")
+        password_title = ios_login.signin_password_text
+        expect(password_title).to_have(values.PASSWORD)
+        assert password_title.click()
+        password_field = ios_login.signin_password_textfield
+        expect(password_field).to_have(values.PASSWORD, ElementAttribute.VALUE)
+        assert password_field.send_keys(global_contents.login_password)
+        assert password_title.click()
+        sign_in_button = ios_login.signin_button
+        expect(ios_login.signin_button).to_have(values.LOGIN)
+        assert sign_in_button.click()
+        setup_logging.info(f'{global_contents.login_user_name} is successfully logged in')
 
         if global_contents.whats_new_enable:
-            assert whats_new_page.navigate_features().text == "Done"
-            whats_new_page.get_next_btn().click()
+            expect(whats_new_page.navigate_features()).to_have('Done')
+            assert whats_new_page.whats_new_next_button.click()
 
     def test_enroll_course_smoke(self, set_capabilities, setup_logging):
         """
@@ -232,13 +232,14 @@ class TestIosDiscovery:
             Verify that the search result text is correct
             Verify that the search result is clickable
         """
-
+        Element.set_driver(set_capabilities)
+        Element.set_logger(setup_logging)
         global_contents = Globals(setup_logging)
-        main_dashboard = IosMainDashboard(set_capabilities, setup_logging)
+        main_dashboard = IosMainDashboard()
 
-        discover_tab = main_dashboard.get_main_dashboard_discover_tab()
-        discover_tab.click()
-        assert discover_tab.get_attribute("value") == values.IOS_SELECTED_TAB_VALUE
+        discover_tab = main_dashboard.main_dashboard_discover_tab
+        assert discover_tab.click()
+        expect(discover_tab).to_have(values.IOS_SELECTED_TAB_VALUE, ElementAttribute.VALUE)
 
         sleep(20)
         assert (
@@ -276,7 +277,8 @@ class TestIosDiscovery:
             Verify that the home tab is displayed
             Verify that the home tab text is correct
         """
-
+        Element.set_driver(set_capabilities)
+        Element.set_logger(setup_logging)
         global_contents = Globals(setup_logging)
         course_dashboard_page = IosCourseDashboard(set_capabilities, setup_logging)
 
@@ -294,5 +296,5 @@ class TestIosDiscovery:
         assert enroll_button.get_attribute("name") == "Enroll"
         assert enroll_button.get_attribute("value") == "Enroll"
         enroll_button.click()
-        home_tab = course_dashboard_page.get_course_dashboard_course_tab()
-        assert home_tab.text == values.COURSE_DASHBOARD_HOME_TAB
+        home_tab = course_dashboard_page.course_dashboard_course_tab
+        expect(home_tab).to_have(values.COURSE_DASHBOARD_HOME_TAB)

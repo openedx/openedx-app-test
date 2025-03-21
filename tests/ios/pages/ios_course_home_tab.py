@@ -1,10 +1,9 @@
 """
     Course Home Page Module
 """
+from appium.webdriver.common.appiumby import AppiumBy
 
-from selenium.common.exceptions import NoSuchElementException
-
-from tests.common import values
+from framework import Element
 from tests.ios.pages.ios_base_page import IosBasePage
 
 
@@ -12,8 +11,15 @@ class IosCourseHomeTab(IosBasePage):
     """
     Course Home Tab screen
     """
+    def __init__(self):
+        super().__init__()
+        self._finish_button = Element(AppiumBy.IOS_PREDICATE, 'label == "Finish"')
+        self._next_button = Element(AppiumBy.IOS_PREDICATE, 'label == "Next"')
+        self._previous_button = Element(AppiumBy.IOS_PREDICATE, 'label == "Prev"')
 
-    def component_navigation(self, retries=5):
+
+
+    def component_navigation(self, retries=5) -> Element:
         """
         Navigate between components
 
@@ -26,14 +32,15 @@ class IosCourseHomeTab(IosBasePage):
         if retries == 0:
             raise Exception("Finish button not found after maximum retries")
 
-        self.get_next_btn().click()
+        self.next_btn.click()
 
-        if self.get_finish_button():
-            return self.get_finish_button()
+        if self.finish_button.exists():
+            return self.finish_button
         else:
             return self.component_navigation(retries=retries - 1)
 
-    def get_finish_button(self):
+    @property
+    def finish_button(self) -> Element:
         """
         Get finish button
 
@@ -41,14 +48,10 @@ class IosCourseHomeTab(IosBasePage):
             element: finish element
         """
 
-        try:
-            return self.global_contents.get_element_by_label_ios(
-                self.driver, values.COURSE_COMPONENT_FINISH_BUTTON
-            )
-        except NoSuchElementException:
-            return
+        return self._finish_button
 
-    def get_next_btn(self):
+    @property
+    def next_btn(self) -> Element:
         """
         Get next button
 
@@ -56,11 +59,10 @@ class IosCourseHomeTab(IosBasePage):
             element: next button element
         """
 
-        return self.global_contents.get_element_by_label_ios(
-            self.driver, values.COURSE_COMPONENT_NEXT_BUTTON
-        )
+        return self._next_button
 
-    def get_prev_btn(self):
+    @property
+    def prev_btn(self) -> Element:
         """
         Get prev button
 
@@ -68,6 +70,4 @@ class IosCourseHomeTab(IosBasePage):
             element: prev button element
         """
 
-        return self.global_contents.get_element_by_label_ios(
-            self.driver, values.COURSE_COMPONENT_PREVIOUS_BUTTON
-        )
+        return self._previous_button

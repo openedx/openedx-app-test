@@ -63,7 +63,7 @@ def report_screenshot():
 
 
 @pytest.fixture(scope="module")
-def set_capabilities(setup_logging, request):
+def set_capabilities(setup_logging, request) -> WebDriver:
     """
     set_capabilities will setup environment capabilities based on
     environment given, and return driver object accessible in all Tests
