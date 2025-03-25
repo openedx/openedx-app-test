@@ -13,6 +13,9 @@ from appium import webdriver
 from appium.webdriver.webdriver import WebDriver
 from selenium.common.exceptions import WebDriverException
 
+from tests.android.pages.android_main_dashboard import AndroidMainDashboard
+from tests.android.pages.android_profile import AndroidProfile
+from tests.android.pages.android_whats_new import AndroidWhatsNew
 from tests.common import values
 from tests.common.capabilities import caps_factory
 from tests.common.globals import Globals
@@ -22,8 +25,9 @@ from tests.common import utils
 from tests.common.utils import sanitize_name, get_formatted_datetime
 from tests.ios.pages.ios_landing import IosLanding
 from tests.ios.pages.ios_login import IosLogin
-
-
+from tests.ios.pages.ios_main_dashboard import IosMainDashboard
+from tests.ios.pages.ios_profile import IosProfile
+from tests.ios.pages.ios_whats_new import IosWhatsNew
 
 
 def is_test_failed(report: pytest.TestReport) -> bool:
@@ -174,7 +178,7 @@ def pytest_configure(config: pytest.Config):
 
 
 @pytest.fixture(scope="module")
-def login(set_capabilities, setup_logging):
+def android_login(set_capabilities, setup_logging):
     """
     Login user based on env given, it will be reusable in tests
 
@@ -190,56 +194,116 @@ def login(set_capabilities, setup_logging):
     global_contents = Globals(log)
     android_landing = AndroidLanding(set_capabilities, setup_logging)
     android_sign_in = AndroidSignIn(set_capabilities, setup_logging)
+    whats_new_page = AndroidWhatsNew(set_capabilities, setup_logging)
+    main_dashboard_page = AndroidMainDashboard(set_capabilities, setup_logging)
+    profile_page = AndroidProfile(set_capabilities, setup_logging)
+
+    assert android_landing.get_screen_title().text == values.LANDING_MESSAGE_IOS
+    assert android_landing.get_signin_button()
+    assert android_landing.load_signin_screen().text == values.LOGIN
+
+    assert android_sign_in.get_sign_in_email_label().text == values.EMAIL_OR_USERNAME
+    email_field = android_sign_in.get_sign_in_tf_email()
+    assert email_field.get_attribute('clickable') == values.TRUE_LOWERCASE
+    email_field.send_keys(global_contents.login_user_name)
+
+    assert android_sign_in.get_sign_in_password_label().text == values.PASSWORD
+    password_field = android_sign_in.get_sign_in_password_field()
+    assert password_field.get_attribute('clickable') == values.TRUE_LOWERCASE
+    password_field.send_keys(global_contents.login_password)
+    assert android_sign_in.get_signin_button().get_attribute('clickable') == values.TRUE_LOWERCASE
+    android_sign_in.get_signin_button().click()
+    setup_logging.info(f'{global_contents.login_user_name} is successfully logged in')
+    if global_contents.whats_new_enable:
+        whats_new_page.get_close_button().click()
+    learn_tab = main_dashboard_page.get_learn_tab()
+    assert learn_tab.get_attribute('content-desc') == values.MAIN_DASHBOARD_LEARN_TAB
+    assert learn_tab.get_attribute('selected') == values.TRUE_LOWERCASE
+
+    yield set_capabilities
+
+    profile_tab = main_dashboard_page.get_profile_tab()
+    profile_tab.click()
+    profile_page.get_settings_button().click()
+    global_contents.scroll_from_element(set_capabilities, profile_page.get_profile_txt_privacy_policy())
+
+    profile_page.get_profile_txt_logout().click()
+    assert profile_page.get_logout_button().text.lower() == values.PROFILE_LOGOUT_BUTTON
+    profile_page.get_logout_button().click()
+    assert android_landing.get_search_label().text == values.LANDING_SEARCH_TITLE
+
+@pytest.fixture(scope="module")
+def ios_login(set_capabilities, setup_logging):
+    """
+    Login user based on env given, it will be reusable in tests
+
+    Arguments:
+            set_capabilities(webdriver): webdriver object
+            setup_logging (logger): logger object
+
+    Returns:
+            True: if login is successful
+    """
+    log = setup_logging
+    global_contents = Globals(log)
     ios_landing = IosLanding(set_capabilities, setup_logging)
     ios_login = IosLogin(set_capabilities, setup_logging)
+    whats_new_page = IosWhatsNew(set_capabilities, setup_logging)
+    main_dashboard = IosMainDashboard(set_capabilities, setup_logging)
 
-    if global_contents.target_environment == values.ANDROID:
-        assert android_landing.get_screen_title().text == values.LANDING_MESSAGE_IOS
-        assert android_landing.get_signin_button()
-        assert android_landing.load_signin_screen().text == values.LOGIN
+    log.info('Login screen successfully loaded')
+    if ios_landing.get_allow_notifications_button():
+        ios_landing.get_allow_notifications_button().click()
 
-        assert android_sign_in.get_sign_in_email_label().text == values.EMAIL_OR_USERNAME
-        email_field = android_sign_in.get_sign_in_tf_email()
-        assert email_field.get_attribute('clickable') == values.TRUE_LOWERCASE
-        email_field.send_keys(global_contents.login_user_name)
+    sign_in_button = ios_landing.get_sign_in_button()
+    assert sign_in_button.text == values.LOGIN
+    sign_in_button.click()
+    sign_in_title = ios_login.get_sign_in_title()
+    assert sign_in_title.text == values.LOGIN
 
-        assert android_sign_in.get_sign_in_password_label().text == values.PASSWORD
-        password_field = android_sign_in.get_sign_in_password_field()
-        assert password_field.get_attribute('clickable') == values.TRUE_LOWERCASE
-        password_field.send_keys(global_contents.login_password)
-        assert android_sign_in.get_signin_button().get_attribute('clickable') == values.TRUE_LOWERCASE
-        android_sign_in.get_signin_button().click()
-        setup_logging.info(f'{global_contents.login_user_name} is successfully logged in')
+    email_field = ios_login.get_signin_username_textfield()
+    assert email_field.text == values.EMAIL_OR_USERNAME_IOS
+    email_field.send_keys(global_contents.login_user_name)
 
-    elif global_contents.target_environment == values.IOS:
-        log.info('Login screen successfully loaded')
+    password_title = ios_login.get_signin_password_text()
+    assert password_title.text == values.PASSWORD
+    password_title.click()
+    password_field = ios_login.get_signin_password_textfield()
+    assert password_field.get_attribute('value') == values.PASSWORD
+    password_field.send_keys(global_contents.login_password)
+    password_title.click()
+    sign_in_button = ios_login.get_signin_button()
+    assert sign_in_button.text == values.LOGIN
+    sign_in_button.click()
+    setup_logging.info(f'{global_contents.login_user_name} is successfully logged in')
 
-        if ios_landing.get_allow_notifications_button():
-            ios_landing.get_allow_notifications_button().click()
+    if global_contents.whats_new_enable:
+        whats_new_page.get_close_button().click()
+        setup_logging.info('Whats New screen is successfully loaded')
 
-        sign_in_button = ios_landing.get_sign_in_button()
-        assert ios_landing.get_sign_in_button().text == values.LOGIN
-        sign_in_button.click()
-        sign_in_title = ios_login.get_sign_in_title()
-        assert sign_in_title.text == values.LOGIN
+    profile_tab = main_dashboard.get_main_dashboard_profile_tab()
+    assert profile_tab.text == values.MAIN_DASHBOARD_PROFILE_TAB
+    profile_tab.click()
+    learn_tab = main_dashboard.get_main_dashboard_learn_tab()
+    learn_tab.click()
+    learn_tab = main_dashboard.get_main_dashboard_learn_tab()
+    assert learn_tab.get_attribute('value') == values.IOS_SELECTED_TAB_VALUE
 
-        email_field = ios_login.get_signin_username_textfield()
-        assert email_field.text == values.EMAIL_OR_USERNAME_IOS
-        email_field.send_keys(global_contents.login_user_name)
+    yield set_capabilities
 
-        password_title = ios_login.get_signin_password_text()
-        assert password_title.text == values.PASSWORD
-        password_title.click()
-        password_field = ios_login.get_signin_password_textfield()
-        assert password_field.get_attribute('value') == values.PASSWORD
-        password_field.send_keys(global_contents.login_password)
-        password_title.click()
-        sign_in_button = ios_login.get_signin_button()
-        assert sign_in_button.text == values.LOGIN
-        sign_in_button.click()
-        setup_logging.info(f'{global_contents.login_user_name} is successfully logged in')
+    ios_profile = IosProfile(set_capabilities, setup_logging)
+    ios_landing = IosLanding(set_capabilities, setup_logging)
+    main_dashboard = IosMainDashboard(set_capabilities, setup_logging)
 
-    return setup_logging
+    profile_tab = main_dashboard.get_main_dashboard_profile_tab()
+    profile_tab.click()
+    ios_profile.get_profile_settings_button().click()
+    ios_profile.get_profile_logout_button().click()
+    setup_logging.info("clicking log out")
+    ios_profile.get_logout_button().click()
+    setup_logging.info("log out successful")
+    assert ios_landing.get_welcome_message().text == values.LANDING_MESSAGE_IOS
+
 
 @pytest.hookimpl(hookwrapper=True)
 def pytest_runtest_makereport():
