@@ -1,10 +1,8 @@
 """
-    Discovery Screen Test Module
+Discovery Screen Test Module
 """
 
-from time import *
-
-from selenium.webdriver.common.keys import Keys
+from time import sleep
 
 from tests.common import values
 from tests.common.globals import Globals
@@ -44,9 +42,7 @@ class TestIosDiscovery:
         assert explore_courses_button.text == values.LANDING_EXLPORE_COURSES
         explore_courses_button.click()
 
-        back_button = global_contents.wait_and_get_element(
-            set_capabilities, ios_elements.discovery_back_button
-        )
+        back_button = global_contents.wait_and_get_element(set_capabilities, ios_elements.discovery_back_button)
         assert back_button.text == values.BACK_BUTTON
         assert (
             global_contents.get_element_by_label_ios(set_capabilities, "Discover").text
@@ -54,19 +50,11 @@ class TestIosDiscovery:
         )
 
         sleep(20)
-        global_contents.wait_for_element_visibility(
-            set_capabilities, values.DISCOVERY_SCREEN_MESSAGE
-        )
-        discovery_message = global_contents.wait_and_get_element(
-            set_capabilities, "Build skills. Earn a certificate."
-        )
-        assert (
-            discovery_message.get_attribute("label") in values.DISCOVERY_SCREEN_MESSAGE
-        )
+        global_contents.wait_for_element_visibility(set_capabilities, values.DISCOVERY_SCREEN_MESSAGE)
+        discovery_message = global_contents.wait_and_get_element(set_capabilities, "Build skills. Earn a certificate.")
+        assert discovery_message.get_attribute("label") in values.DISCOVERY_SCREEN_MESSAGE
 
-        chat_bot_close_btn = global_contents.wait_and_get_element(
-            set_capabilities, "Close proactive message"
-        )
+        chat_bot_close_btn = global_contents.wait_and_get_element(set_capabilities, "Close proactive message")
         assert chat_bot_close_btn.text == "Close proactive message"
         chat_bot_close_btn.click()
 
@@ -96,45 +84,27 @@ class TestIosDiscovery:
         )[0]
         assert search_field.get_attribute("value") == values.DISCOVERY_SEARCH_FIELD_HINT
 
-        search_button = global_contents.wait_and_get_element(
-            set_capabilities, ios_elements.discovery_search_button
-        )
+        search_button = global_contents.wait_and_get_element(set_capabilities, ios_elements.discovery_search_button)
         assert search_button.text == values.DISCOVERY_SEARCH_BUTTON
 
-        trending_label = global_contents.get_element_by_name_ios(
-            set_capabilities, values.DISCOVERY_TRENDING_LABEL_IOS
-        )
-        assert (
-            trending_label.get_attribute("name") == values.DISCOVERY_TRENDING_LABEL_IOS
-        )
+        trending_label = global_contents.get_element_by_name_ios(set_capabilities, values.DISCOVERY_TRENDING_LABEL_IOS)
+        assert trending_label.get_attribute("name") == values.DISCOVERY_TRENDING_LABEL_IOS
 
         python_label = global_contents.get_element_by_label_ios(
             set_capabilities, values.DISCOVERY_TRENDING_COURSE_PYTHON
         )
-        assert (
-            python_label.get_attribute("name")
-            == values.DISCOVERY_TRENDING_COURSE_PYTHON
-        )
+        assert python_label.get_attribute("name") == values.DISCOVERY_TRENDING_COURSE_PYTHON
 
-        excel_label = global_contents.get_element_by_label_ios(
-            set_capabilities, values.DISCOVERY_TRENDING_COURSE_EXCEL
-        )
-        assert (
-            excel_label.get_attribute("name") == values.DISCOVERY_TRENDING_COURSE_EXCEL
-        )
+        excel_label = global_contents.get_element_by_label_ios(set_capabilities, values.DISCOVERY_TRENDING_COURSE_EXCEL)
+        assert excel_label.get_attribute("name") == values.DISCOVERY_TRENDING_COURSE_EXCEL
 
-        data_label = global_contents.get_element_by_label_ios(
-            set_capabilities, values.DISCOVERY_TRENDING_COURSE_DATA
-        )
+        data_label = global_contents.get_element_by_label_ios(set_capabilities, values.DISCOVERY_TRENDING_COURSE_DATA)
         assert data_label.get_attribute("name") == values.DISCOVERY_TRENDING_COURSE_DATA
 
         marketing_label = global_contents.get_element_by_label_ios(
             set_capabilities, values.DISCOVERY_TRENDING_COURSE_MARKETING
         )
-        assert (
-            marketing_label.get_attribute("name")
-            == values.DISCOVERY_TRENDING_COURSE_MARKETING
-        )
+        assert marketing_label.get_attribute("name") == values.DISCOVERY_TRENDING_COURSE_MARKETING
 
     def test_discovery_popular_subjects(self, set_capabilities, setup_logging):
         """
@@ -164,18 +134,13 @@ class TestIosDiscovery:
 
         global_contents = Globals(setup_logging)
 
-        bread_crum = global_contents.wait_and_get_element(
-            set_capabilities, values.DISCOVERY_SEARCH_BREADCRUMB_IOS
-        )
+        bread_crum = global_contents.wait_and_get_element(set_capabilities, values.DISCOVERY_SEARCH_BREADCRUMB_IOS)
         assert bread_crum.text == values.DISCOVERY_SEARCH_BREADCRUMB_IOS
 
         popular_courses = global_contents.get_element_by_name_ios(
             set_capabilities, values.DISCOVERY_FILTER_BY_POPULAR_COURSES
         )
-        assert (
-            popular_courses.get_attribute("name")
-            == values.DISCOVERY_FILTER_BY_POPULAR_COURSES
-        )
+        assert popular_courses.get_attribute("name") == values.DISCOVERY_FILTER_BY_POPULAR_COURSES
 
         search_field = global_contents.get_all_views_on_ios_screen(
             set_capabilities, ios_elements.discovery_search_field
@@ -187,49 +152,31 @@ class TestIosDiscovery:
         first_popular_course = global_contents.get_element_by_name_ios(
             set_capabilities, values.DISCOVERY_FIRST_POPULAR_COURSE
         )
-        assert (
-            first_popular_course.get_attribute("name")
-            == values.DISCOVERY_FIRST_POPULAR_COURSE
-        )
+        assert first_popular_course.get_attribute("name") == values.DISCOVERY_FIRST_POPULAR_COURSE
 
         second_popular_course = global_contents.get_element_by_name_ios(
             set_capabilities, values.DISCOVERY_SECOND_POPULAR_COURSE
         )
-        assert (
-            second_popular_course.get_attribute("name")
-            == values.DISCOVERY_SECOND_POPULAR_COURSE
-        )
+        assert second_popular_course.get_attribute("name") == values.DISCOVERY_SECOND_POPULAR_COURSE
 
-        global_contents.scroll_screen(
-            set_capabilities, second_popular_course, first_popular_course
-        )
+        global_contents.scroll_screen(set_capabilities, second_popular_course, first_popular_course)
 
-        math_course = global_contents.get_element_by_name_ios(
-            set_capabilities, values.DISCOVERY_POPULAR_MATH_COURSE
-        )
+        math_course = global_contents.get_element_by_name_ios(set_capabilities, values.DISCOVERY_POPULAR_MATH_COURSE)
         assert math_course.get_attribute("name") == values.DISCOVERY_POPULAR_MATH_COURSE
         math_course.click()
         sleep(10)
-        results_number = global_contents.get_element_by_name_ios(
-            set_capabilities, values.DISCOVERY_MATH_RESULTS
-        )
+        results_number = global_contents.get_element_by_name_ios(set_capabilities, values.DISCOVERY_MATH_RESULTS)
         assert results_number.get_attribute("name") == values.DISCOVERY_MATH_RESULTS
         sleep(5)
         show_results_number = global_contents.get_element_by_name_ios(
             set_capabilities, values.DISCOVERY_MATH_RESULTS_BUTTON
         )
-        assert (
-            show_results_number.get_attribute("name")
-            == values.DISCOVERY_MATH_RESULTS_BUTTON
-        )
+        assert show_results_number.get_attribute("name") == values.DISCOVERY_MATH_RESULTS_BUTTON
         show_results_number.click()
         pagination_results = global_contents.get_element_by_name_ios(
             set_capabilities, values.DISCOVERY_MATH_PAGINATION_RESULTS
         )
-        assert (
-            pagination_results.get_attribute("name")
-            == values.DISCOVERY_MATH_PAGINATION_RESULTS
-        )
+        assert pagination_results.get_attribute("name") == values.DISCOVERY_MATH_PAGINATION_RESULTS
         pagination_text = global_contents.get_element_by_name_ios(
             set_capabilities, values.DISCOVERY_PAGINATION_TEXT_IOS
         )
@@ -265,9 +212,7 @@ class TestIosDiscovery:
         sign_in_button = ios_login.get_signin_button()
         assert sign_in_button.text == values.LOGIN
         sign_in_button.click()
-        setup_logging.info(
-            f"{global_contents.login_user_name} is successfully logged in"
-        )
+        setup_logging.info(f"{global_contents.login_user_name} is successfully logged in")
 
         if global_contents.whats_new_enable:
             assert whats_new_page.navigate_features().text == "Done"
@@ -301,12 +246,8 @@ class TestIosDiscovery:
             == values.DISCOVER_SCREEN_HEADING
         )
 
-        discovery_message = global_contents.wait_and_get_element(
-            set_capabilities, "Build skills. Earn a certificate."
-        )
-        assert (
-            discovery_message.get_attribute("label") in values.DISCOVERY_SCREEN_MESSAGE
-        )
+        discovery_message = global_contents.wait_and_get_element(set_capabilities, "Build skills. Earn a certificate.")
+        assert discovery_message.get_attribute("label") in values.DISCOVERY_SCREEN_MESSAGE
 
         search_field = global_contents.get_all_views_on_ios_screen(
             set_capabilities, ios_elements.discovery_search_field
@@ -316,9 +257,7 @@ class TestIosDiscovery:
         search_field.send_keys("Demo X")
 
         sleep(5)
-        search_button = global_contents.wait_and_get_element(
-            set_capabilities, ios_elements.discovery_search_button
-        )
+        search_button = global_contents.wait_and_get_element(set_capabilities, ios_elements.discovery_search_button)
         assert search_button.text == values.DISCOVERY_SEARCH_BUTTON
         search_button.click()
 
@@ -339,28 +278,19 @@ class TestIosDiscovery:
         """
 
         global_contents = Globals(setup_logging)
-        ios_landing = IosLanding(set_capabilities, setup_logging)
         course_dashboard_page = IosCourseDashboard(set_capabilities, setup_logging)
 
         sleep(5)
         global_contents.wait_for_element_visibility(set_capabilities, "logo for edX")
-        edx_course_logo = global_contents.wait_and_get_element(
-            set_capabilities, "logo for edX"
-        )
+        edx_course_logo = global_contents.wait_and_get_element(set_capabilities, "logo for edX")
         assert edx_course_logo.get_attribute("name") == "logo for edX"
         edx_course_logo.click()
 
         sleep(20)
-        session_available = global_contents.get_element_by_name_ios(
-            set_capabilities, "There is one session available:"
-        )
-        assert (
-            session_available.get_attribute("name") == "There is one session available:"
-        )
+        session_available = global_contents.get_element_by_name_ios(set_capabilities, "There is one session available:")
+        assert session_available.get_attribute("name") == "There is one session available:"
 
-        enroll_button = global_contents.get_elements_by_name_ios(
-            set_capabilities, "Enroll"
-        )[1]
+        enroll_button = global_contents.get_elements_by_name_ios(set_capabilities, "Enroll")[1]
         assert enroll_button.get_attribute("name") == "Enroll"
         assert enroll_button.get_attribute("value") == "Enroll"
         enroll_button.click()

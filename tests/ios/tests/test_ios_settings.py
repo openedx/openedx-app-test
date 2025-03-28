@@ -1,13 +1,10 @@
 """
-    Settings Screen Test Module
+Settings Screen Test Module
 """
 
-from tests.ios.pages.ios_landing import IosLanding
-from tests.ios.pages.ios_main_dashboard import IosMainDashboard
 from tests.ios.pages.ios_profile import IosProfile
 from tests.common import values
 from tests.common.globals import Globals
-from tests.ios.pages.ios_whats_new import IosWhatsNew
 
 
 class TestIosSettings:
@@ -30,59 +27,25 @@ class TestIosSettings:
         ios_profile = IosProfile(driver, setup_logging)
         global_contents = Globals(setup_logging)
 
-        assert global_contents.get_navigation_bar_title(driver)[0].get_attribute(
-            'name') == values.PROFILE_SCREEN_TITLE
+        assert global_contents.get_navigation_bar_title(driver)[0].get_attribute("name") == values.PROFILE_SCREEN_TITLE
         assert ios_profile.get_profile_img_profile()
         assert ios_profile.get_profile_user_name_text().text == values.PROFILE_NAME_TEXT
-        assert (
-            ios_profile.profile_user_username_text().text
-            == values.PROFILE_USERNAME_TEXT
-        )
+        assert ios_profile.profile_user_username_text().text == values.PROFILE_USERNAME_TEXT
 
-        assert (
-            ios_profile.get_profile_settings_button().text
-            == values.PROFILE_SETTINGS_TEXT
-        )
+        assert ios_profile.get_profile_settings_button().text == values.PROFILE_SETTINGS_TEXT
         ios_profile.get_profile_settings_button().click()
-        assert (
-            ios_profile.get_profile_settings_text().text
-            == values.PROFILE_SETTINGS_UPPER_TEXT
-        )
-        assert (
-            ios_profile.get_profile_manage_account_label().text
-            == values.PROFILE_MANAGE_ACCOUNT
-        )
-        assert (
-            ios_profile.get_profile_video_settings_button().text
-            == values.PROFILE_VIDEO_SETTINGS
-        )
-        assert (
-            ios_profile.get_profile_support_info_text().text
-            == values.PROFILE_SUPPORT_INFO
-        )
+        assert ios_profile.get_profile_settings_text().text == values.PROFILE_SETTINGS_UPPER_TEXT
+        assert ios_profile.get_profile_manage_account_label().text == values.PROFILE_MANAGE_ACCOUNT
+        assert ios_profile.get_profile_video_settings_button().text == values.PROFILE_VIDEO_SETTINGS
+        assert ios_profile.get_profile_support_info_text().text == values.PROFILE_SUPPORT_INFO
         assert ios_profile.get_profile_tos_text().text == values.PROFILE_TERMS_OF_USE
-        assert (
-            ios_profile.get_profile_privacy_policy().text.lower()
-            == values.PROFILE_PRIVACY_POLICY
-        )
-        assert (
-            ios_profile.get_profile_cookies_policy().text.lower()
-            == values.PROFILE_COOKIE_POLICY
-        )
-        assert (
-            ios_profile.get_profile_dont_sell_data().text
-            == values.PROFILE_PERSONAL_INFO
-        )
-        assert (
-            ios_profile.get_profile_contact_support().text.lower()
-            == values.PROFILE_CONTACT_SUPPORT
-        )
+        assert ios_profile.get_profile_privacy_policy().text.lower() == values.PROFILE_PRIVACY_POLICY
+        assert ios_profile.get_profile_cookies_policy().text.lower() == values.PROFILE_COOKIE_POLICY
+        assert ios_profile.get_profile_dont_sell_data().text == values.PROFILE_PERSONAL_INFO
+        assert ios_profile.get_profile_contact_support().text.lower() == values.PROFILE_CONTACT_SUPPORT
         assert ios_profile.get_profile_view_faq().text == values.PROFILE_FAQ
         assert ios_profile.get_profile_version_info().text == values.IOS_APP_VERSION
-        assert (
-            ios_profile.get_profile_logout_button().text.lower()
-            == values.PROFILE_LOGOUT_BUTTON
-        )
+        assert ios_profile.get_profile_logout_button().text.lower() == values.PROFILE_LOGOUT_BUTTON
 
     def test_load_manage_account(self, set_capabilities, setup_logging):
         """
@@ -100,10 +63,7 @@ class TestIosSettings:
         manage_account_title = ios_profile.get_manage_account_title()
         assert manage_account_title.text == values.PROFILE_MANAGE_ACCOUNT
         ios_profile.get_header_back_button().click()
-        assert (
-            ios_profile.get_profile_manage_account_label().text
-            == values.PROFILE_MANAGE_ACCOUNT
-        )
+        assert ios_profile.get_profile_manage_account_label().text == values.PROFILE_MANAGE_ACCOUNT
 
     def test_load_video_settings(self, set_capabilities, setup_logging):
         """
@@ -120,10 +80,7 @@ class TestIosSettings:
         video_settings_title = ios_profile.get_manage_account_title()
         assert video_settings_title.text == values.PROFILE_VIDEO_SETTINGS
         ios_profile.get_header_back_button().click()
-        assert (
-            ios_profile.get_profile_video_settings_button().text
-            == values.PROFILE_VIDEO_SETTINGS
-        )
+        assert ios_profile.get_profile_video_settings_button().text == values.PROFILE_VIDEO_SETTINGS
 
     def test_load_profile_elements(self, set_capabilities, setup_logging):
         """
@@ -149,29 +106,17 @@ class TestIosSettings:
         assert terms_of_use.text == values.PROFILE_TERMS_OF_USE
         global_contents.scroll_from_element(set_capabilities, terms_of_use)
         terms_of_use.click()
-        assert (
-            global_contents.get_screen_heading_title(set_capabilities).text
-            == values.PROFILE_TERMS_OF_USE
-        )
+        assert global_contents.get_screen_heading_title(set_capabilities).text == values.PROFILE_TERMS_OF_USE
         ios_profile.get_header_back_button().click()
 
         ios_profile.get_profile_privacy_policy().click()
-        assert (
-            global_contents.get_screen_heading_title(set_capabilities).text.lower()
-            == values.PROFILE_PRIVACY_POLICY
-        )
+        assert global_contents.get_screen_heading_title(set_capabilities).text.lower() == values.PROFILE_PRIVACY_POLICY
         ios_profile.get_header_back_button().click()
 
         ios_profile.get_profile_cookies_policy().click()
-        assert (
-            global_contents.get_screen_heading_title(set_capabilities).text.lower()
-            == values.PROFILE_COOKIE_POLICY
-        )
+        assert global_contents.get_screen_heading_title(set_capabilities).text.lower() == values.PROFILE_COOKIE_POLICY
         ios_profile.get_header_back_button().click()
 
         ios_profile.get_profile_dont_sell_data().click()
-        assert (
-            global_contents.get_screen_heading_title(set_capabilities).text
-            == values.PROFILE_PERSONAL_INFO
-        )
+        assert global_contents.get_screen_heading_title(set_capabilities).text == values.PROFILE_PERSONAL_INFO
         ios_profile.get_header_back_button().click()

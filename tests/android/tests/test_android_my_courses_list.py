@@ -1,18 +1,13 @@
 """
-    My Courses Test Module
+My Courses Test Module
 """
 
-from selenium.webdriver.common.by import By
-from tests.common.enums.attributes import ElementAttribute
 from framework import expect
 from framework.element import Element
 from tests.android.pages.android_course_dashboard import AndroidCourseDashboard
-from tests.android.pages.android_landing import AndroidLanding
 from tests.android.pages.android_main_dashboard import AndroidMainDashboard
 from tests.common import values
 from tests.common.enums.attributes import ElementAttribute
-from tests.common.globals import Globals
-from tests.conftest import android_login
 
 
 class TestAndroidMyCoursesList:
@@ -22,34 +17,32 @@ class TestAndroidMyCoursesList:
 
     def test_validate_ui_elements(self, android_login, setup_logging):
         """
-         Scenarios:
-            Verify that from Main Dashboard tapping Courses tab will load My Courses
-            list(of specific logged-in user) in its tab
-            Verify that Courses tab/screen will show following header contents,
-            Header Contents
-                Learn
-            Verify that My Courses(enrolled) List with followings in each course,
-                Progress bar
-                Organization
-                Name
-                Start/End date
-                Due date
-                Resume label
-                Second Course
-                Third Course
-            Verify that tapping any course should load specific Course Dashboard screen
-            Verity that from Course Dashboard tapping back should load My Courses List screen
+        Scenarios:
+           Verify that from Main Dashboard tapping Courses tab will load My Courses
+           list(of specific logged-in user) in its tab
+           Verify that Courses tab/screen will show following header contents,
+           Header Contents
+               Learn
+           Verify that My Courses(enrolled) List with followings in each course,
+               Progress bar
+               Organization
+               Name
+               Start/End date
+               Due date
+               Resume label
+               Second Course
+               Third Course
+           Verify that tapping any course should load specific Course Dashboard screen
+           Verity that from Course Dashboard tapping back should load My Courses List screen
         """
-
-        Element.set_driver(set_capabilities)
+        driver = android_login
+        Element.set_driver(driver)
         Element.set_logger(setup_logging)
         main_dashboard_page = AndroidMainDashboard()
         course_dashboard = AndroidCourseDashboard()
 
         learn_tab = main_dashboard_page.learn_tab
-        expect(learn_tab).to_have(
-            values.MAIN_DASHBOARD_LEARN_TAB, ElementAttribute.CONTENT_DESC
-        )
+        expect(learn_tab).to_have(values.MAIN_DASHBOARD_LEARN_TAB, ElementAttribute.CONTENT_DESC)
         expect(learn_tab).to_be_selected()
         course_view = course_dashboard.course_view
         expect(course_view).to_be_displayed()
@@ -77,7 +70,7 @@ class TestAndroidMyCoursesList:
             Verify that tapping back button should load Main Dashboard screen
         """
 
-        Element.set_driver(set_capabilities)
+        Element.set_driver(android_login)
         Element.set_logger(setup_logging)
         course_dashboard = AndroidCourseDashboard()
 

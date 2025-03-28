@@ -1,5 +1,5 @@
 """
-   Module ensure environment level initial settings before starting execution
+Module ensure environment level initial settings before starting execution
 """
 
 import datetime
@@ -22,6 +22,7 @@ from tests.android.pages.android_landing import AndroidLanding
 from tests.android.pages.android_sign_in import AndroidSignIn
 from tests.common import utils, values
 from tests.common.capabilities import caps_factory
+from tests.common.enums import ElementAttribute
 from tests.common.globals import Globals
 from tests.common.utils import get_formatted_datetime, sanitize_name
 from tests.ios.pages.ios_landing import IosLanding
@@ -49,8 +50,7 @@ def report_screenshot():
     """
     try:
         file_path = (
-            f"{SessionData.screenshots_directory}/{SessionData.test_case_name}_"
-            f"{get_formatted_datetime()}.png"
+            f"{SessionData.screenshots_directory}/{SessionData.test_case_name}_" f"{get_formatted_datetime()}.png"
         )
         SessionData.driver.save_screenshot(file_path)
         return (
@@ -81,9 +81,7 @@ def set_capabilities(setup_logging, request):
     capabilities = caps_factory(globals_contents.target_environment)
     desired_capabilities = {}
     SessionData.globals_contents = globals_contents
-    SessionData.test_case_name = os.path.basename(str(request.node.name)).replace(
-        ".py", ""
-    )
+    SessionData.test_case_name = os.path.basename(str(request.node.name)).replace(".py", "")
     logger.info(
         f"{globals_contents.target_environment} - "
         f"{globals_contents.login_user_name} - "
@@ -100,17 +98,11 @@ def set_capabilities(setup_logging, request):
         desired_capabilities["appium:deviceName"] = globals_contents.device_name
 
     capabilities.update(desired_capabilities)
-    setup_logging.info(
-        f"Requesting session with capabilities:{capabilities.get_as_options()}"
-    )
-    driver = webdriver.Remote(
-        globals_contents.server_url, options=capabilities.get_as_options()
-    )
+    setup_logging.info(f"Requesting session with capabilities:{capabilities.get_as_options()}")
+    driver = webdriver.Remote(globals_contents.server_url, options=capabilities.get_as_options())
 
     if driver is not None:
-        logger.info(
-            f"- Setting {globals_contents.target_environment} capabilities are done"
-        )
+        logger.info(f"- Setting {globals_contents.target_environment} capabilities are done")
         SessionData.driver = driver
         return driver
 
@@ -145,26 +137,20 @@ def setup_logging(request) -> logging.Logger:
 
     utils.create_directory(SessionData.iteration_directory)
 
-    SessionData.screenshots_directory = os.path.join(
-        current_directory, SessionData.iteration_directory
-    )
-    log_file = os.path.join(
-        current_directory, SessionData.iteration_directory, values.LOG_FILE_NAME
-    )
+    SessionData.screenshots_directory = os.path.join(current_directory, SessionData.iteration_directory)
+    log_file = os.path.join(current_directory, SessionData.iteration_directory, values.LOG_FILE_NAME)
 
     my_logger = logging.getLogger("edX Automation Logs")
     my_logger.setLevel(logging.INFO)
     log_handler = logging.FileHandler(log_file, encoding="utf-8")
-    formatter = logging.Formatter(
-        "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
-    )
+    formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
     log_handler.setFormatter(formatter)
     my_logger.addHandler(log_handler)
 
     def finalizer():
         """finalizer run when test case finishes"""
 
-        my_logger.info(f"================logging Stopped=====================")
+        my_logger.info("================logging Stopped=====================")
         log_handler.close()
 
     request.addfinalizer(finalizer)
@@ -194,9 +180,7 @@ def pytest_configure(config: pytest.Config):
         iteration_name: str = config.workerinput["iterationName"]
 
     SessionData.iteration_directory_base = str(
-        os.path.join(
-            os.path.dirname(__file__), values.RESULTS_DIRECTORY, iteration_name.lower()
-        )
+        os.path.join(os.path.dirname(__file__), values.RESULTS_DIRECTORY, iteration_name.lower())
     )
     SessionData.iteration_name = iteration_name
 
@@ -232,7 +216,7 @@ def android_login(set_capabilities, setup_logging):
     expect(android_landing.screen_title).to_have(values.LANDING_MESSAGE)
     assert android_landing.signin_button.exists()
     assert android_landing.load_signin_screen()
-    expect(android_sign_in.signin_title, 'Sign in screen not loaded successfully').to_have(values.LOGIN)
+    expect(android_sign_in.signin_title, "Sign in screen not loaded successfully").to_have(values.LOGIN)
 
     expect(android_sign_in.sign_in_email_label).to_have(values.EMAIL_OR_USERNAME)
     expect(android_sign_in.sign_in_tf_email).to_be_clickable()
@@ -243,9 +227,9 @@ def android_login(set_capabilities, setup_logging):
     assert android_sign_in.sign_in_password_field.send_keys(global_contents.login_password)
     expect(android_sign_in.signin_button).to_be_clickable()
     assert android_sign_in.signin_button.click()
-    setup_logging.info(f'{global_contents.login_user_name} is successfully logged in')
+    setup_logging.info(f"{global_contents.login_user_name} is successfully logged in")
     if global_contents.whats_new_enable:
-       assert whats_new_page.get_close_button.click()
+        assert whats_new_page.get_close_button.click()
     learn_tab = main_dashboard_page.learn_tab
     expect(learn_tab).to_have(values.MAIN_DASHBOARD_LEARN_TAB, ElementAttribute.CONTENT_DESC)
     expect(learn_tab).to_be_selected()
@@ -255,12 +239,13 @@ def android_login(set_capabilities, setup_logging):
     profile_tab = main_dashboard_page.profile_tab
     assert profile_tab.click()
     assert profile_page.settings_button.click()
-    global_contents.scroll_from_element(set_capabilities, profile_page.get_profile_txt_terms_of_use())
+    profile_page.get_profile_txt_terms_of_use.scroll_vertically_from_element()
 
     assert profile_page.profile_txt_logout.click()
-    assert profile_page.get_logout_button().text.lower() == values.PROFILE_LOGOUT_BUTTON
-    profile_page.get_logout_button().click()
-    assert android_landing.get_search_label().text == values.LANDING_SEARCH_TITLE
+    expect(profile_page.logout_prompt_logout_button_text).to_have(values.PROFILE_LOGOUT_BUTTON)
+    assert profile_page.logout_prompt_logout_button_text.click()
+    expect(android_landing.get_search_label).to_have(values.LANDING_SEARCH_TITLE)
+
 
 @pytest.fixture(scope="module")
 def ios_login(set_capabilities, setup_logging):
@@ -281,7 +266,7 @@ def ios_login(set_capabilities, setup_logging):
     whats_new_page = IosWhatsNew(set_capabilities, setup_logging)
     main_dashboard = IosMainDashboard(set_capabilities, setup_logging)
 
-    log.info('Login screen successfully loaded')
+    log.info("Login screen successfully loaded")
     if ios_landing.get_allow_notifications_button():
         ios_landing.get_allow_notifications_button().click()
 
@@ -299,17 +284,17 @@ def ios_login(set_capabilities, setup_logging):
     assert password_title.text == values.PASSWORD
     password_title.click()
     password_field = ios_login.get_signin_password_textfield()
-    assert password_field.get_attribute('value') == values.PASSWORD
+    assert password_field.get_attribute("value") == values.PASSWORD
     password_field.send_keys(global_contents.login_password)
     password_title.click()
     sign_in_button = ios_login.get_signin_button()
     assert sign_in_button.text == values.LOGIN
     sign_in_button.click()
-    setup_logging.info(f'{global_contents.login_user_name} is successfully logged in')
+    setup_logging.info(f"{global_contents.login_user_name} is successfully logged in")
 
     if global_contents.whats_new_enable:
         whats_new_page.get_close_button().click()
-        setup_logging.info('Whats New screen is successfully loaded')
+        setup_logging.info("Whats New screen is successfully loaded")
 
     profile_tab = main_dashboard.get_main_dashboard_profile_tab()
     assert profile_tab.text == values.MAIN_DASHBOARD_PROFILE_TAB
@@ -317,7 +302,7 @@ def ios_login(set_capabilities, setup_logging):
     learn_tab = main_dashboard.get_main_dashboard_learn_tab()
     learn_tab.click()
     learn_tab = main_dashboard.get_main_dashboard_learn_tab()
-    assert learn_tab.get_attribute('value') == values.IOS_SELECTED_TAB_VALUE
+    assert learn_tab.get_attribute("value") == values.IOS_SELECTED_TAB_VALUE
 
     yield set_capabilities
 
@@ -332,8 +317,7 @@ def ios_login(set_capabilities, setup_logging):
     setup_logging.info("clicking log out")
     ios_profile.get_logout_button().click()
     setup_logging.info("log out successful")
-    assert ios_landing.get_welcome_message().text == values.LANDING_MESSAGE_IOS
-
+    assert ios_landing.get_welcome_message().text == values.LANDING_MESSAGE
 
 
 @pytest.hookimpl(hookwrapper=True)
@@ -355,9 +339,7 @@ def pytest_runtest_makereport():
                 report.extras = extras
 
         except WebDriverException as wde:
-            SessionData.globals_contents.project_log.error(
-                f"Failed to Quit Session: {wde}"
-            )
+            SessionData.globals_contents.project_log.error(f"Failed to Quit Session: {wde}")
 
 
 class SessionData:

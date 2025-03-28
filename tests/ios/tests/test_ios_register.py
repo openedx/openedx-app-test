@@ -1,5 +1,5 @@
 """
-    Register Screen Test Module
+Register Screen Test Module
 """
 
 from tests.common import values
@@ -37,7 +37,7 @@ class TestIosRegister:
         """
         Scenarios:
             Verify following contents are visible on screen,
-                "Back icon", "Sign In" Title, "User name or e-mail address" label, User Name edit-field
+                "Back icon", "Sign In" Title, "Username or e-mail address" label, Username edit-field
                 Password edit-field, "Forgot your password?" option, "Sign In" button,
                 "Or sing in with" label, "Facebook" button, "Google" button
             Verify all screen contents have their default values
@@ -74,9 +74,7 @@ class TestIosRegister:
         assert username_textfield.get_attribute("visible") == values.TRUE_LOWERCASE
 
         username_instructions_text = register_page.get_username_instructions_text()
-        assert (
-            username_instructions_text.text == values.REGISTER_PUBLIC_USERNAME_MESSAGE
-        )
+        assert username_instructions_text.text == values.REGISTER_PUBLIC_USERNAME_MESSAGE
 
         email_text = register_page.get_email_text()
         assert email_text.text == values.REGISTER_EMAIL_TITLE
@@ -210,20 +208,12 @@ class TestIosRegister:
         profile_tab = main_dashboard.get_main_dashboard_profile_tab()
         assert profile_tab.text == values.MAIN_DASHBOARD_PROFILE_TAB
         profile_tab.click()
-        assert (
-            ios_profile.get_profile_settings_button().text
-            == values.PROFILE_SETTINGS_TEXT
-        )
+        assert ios_profile.get_profile_settings_button().text == values.PROFILE_SETTINGS_TEXT
         ios_profile.get_profile_settings_button().click()
-        assert (
-            ios_profile.get_profile_logout_button().text.lower()
-            == values.PROFILE_LOGOUT_BUTTON
-        )
+        assert ios_profile.get_profile_logout_button().text.lower() == values.PROFILE_LOGOUT_BUTTON
         ios_profile.get_profile_logout_button().click()
         assert ios_profile.get_logout_close_button().text == "Close"
         assert ios_profile.get_logout_dialog_title().text == values.LOGOUT_DIALOG_TITLE
-        assert (
-            ios_profile.get_logout_button().text.lower() == values.PROFILE_LOGOUT_BUTTON
-        )
+        assert ios_profile.get_logout_button().text.lower() == values.PROFILE_LOGOUT_BUTTON
         ios_profile.get_logout_button().click()
         assert ios_landing.get_welcome_message().text == values.LANDING_MESSAGE

@@ -1,5 +1,5 @@
 """
-    Login Test Module
+Login Test Module
 """
 
 from tests.common import values
@@ -72,7 +72,7 @@ class TestIosLogin:
         global_contents.scroll_from_element(set_capabilities, sign_in_button)
 
         social_auth_title = ios_login.get_signin_social_auth_title_text()
-        social_auth_title.text == values.SOCIAL_AUTH_TITLE
+        assert social_auth_title.text == values.SOCIAL_AUTH_TITLE
 
         google_signin = ios_login.get_signin_social_auth_google_button()
         assert google_signin.text == values.GOOGLE_SIGNIN

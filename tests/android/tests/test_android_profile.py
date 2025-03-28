@@ -1,16 +1,13 @@
 """
-    Profile Screen Test Module
+Profile Screen Test Module
 """
 
 from framework import expect
 from framework.element import Element
 from tests.android.pages.android_main_dashboard import AndroidMainDashboard
 from tests.android.pages.android_profile import AndroidProfile
-from tests.android.pages.android_whats_new import AndroidWhatsNew
 from tests.common import values
-from tests.conftest import android_login
 from tests.common.enums.attributes import ElementAttribute
-from tests.common.globals import Globals
 
 
 class TestAndroidProfile:
@@ -29,7 +26,8 @@ class TestAndroidProfile:
                 Username
                 Video Settings
         """
-        Element.set_driver(android_login)
+        driver = android_login
+        Element.set_driver(driver)
         Element.set_logger(setup_logging)
         main_dashboard_page = AndroidMainDashboard()
         profile_page = AndroidProfile()
