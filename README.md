@@ -1,5 +1,5 @@
 # openedx-app-test
-This repository serves as a collection of automated end-to-end test cases for the Open edX mobile applications designed for both Android and iOS platforms. 
+This repository serves as a collection of automated end-to-end test cases for the Open edX mobile applications designed for both Android and iOS platforms.
 It aims to ensure the reliability and functionality of the Open edX mobile apps by automating the testing process and providing a comprehensive suite of test cases.
 
 ## Installations
@@ -11,7 +11,7 @@ It aims to ensure the reliability and functionality of the Open edX mobile apps 
 - [PyYAML](https://pypi.org/project/PyYAML/)
 
 - Recommended to install requirements other than appium and node via pip
-  -     pip install -r requirements.txt 
+  -     pip install -r requirements.txt
 
 ###### iOS(Simulator)
  - Xcode with command line tools
@@ -23,8 +23,8 @@ It aims to ensure the reliability and functionality of the Open edX mobile apps 
 
 #### Setup
 - connect/start Android/iOS Device/Simulator
-- Browse tests/ directory 
-- Rename 'user_preferences_sample.yml' to 'user_preferences.yml' and set the following values, 
+- Browse tests/ directory
+- Rename 'user_preferences_sample.yml' to 'user_preferences.yml' and set the following values,
 
     - set `Android' to execute test cases on Android or 'iOS' to execute on iOS
 
@@ -34,22 +34,22 @@ It aims to ensure the reliability and functionality of the Open edX mobile apps 
 
           platform_version: iOS device/simulator version | Android device/emulator version
 
-    - device name is only useful for iOS simulator, in case of multiple connected real devices use udid 
-        
+    - device name is only useful for iOS simulator, in case of multiple connected real devices use udid
+
           device_name: 'iPhone 15'
         or leave empty string
 
     - add reset option true/false
       -     full_reset: true
-      
+
     - add path to apk/ipa file
       -     app_path: "path/to/file"
 
     - set valid credentials to login
 
-          login_user_name: username 
+          login_user_name: username
 
-          login_password: password 
+          login_password: password
 
 - install edx(iOS/Android) app on specific device/simulator
 
@@ -74,6 +74,10 @@ It aims to ensure the reliability and functionality of the Open edX mobile apps 
 ### Prerequisites
 - [Python3](https://www.python.org/downloads/)
 - [Pip3](https://stackoverflow.com/questions/6587507/how-to-install-pip-with-python-3)
+
+## Linting
+
+Follow the link to [improve the quality of code](./docs/linting.md)
 
 ### Integration Steps
 - Complete the following steps to integrate your Python test suite using BrowserStack SDK.
@@ -112,7 +116,7 @@ Execute the following commands to install BrowserStack Python SDK for plug-and-p
 - To run parallel execution on multiple devices, more platform details can be given with their device name and platform version
 ### Run
 
-- `PLATFORM_NAME=Android browserstack-sdk pytest -v tests/android/tests/` to run all android 
+- `PLATFORM_NAME=Android browserstack-sdk pytest -v tests/android/tests/` to run all android
 test screens
 
 - `PLATFORM_NAME=iOS browserstack-sdk pytest -v tests/ios/tests/` to run all ios

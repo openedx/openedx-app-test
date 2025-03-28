@@ -1,0 +1,60 @@
+repos:
+    - repo: https://github.com/PyCQA/isort
+      rev: 5.12.0
+      hooks:
+        - id: isort
+          entry: sh -c "isort **/*.py --diff"
+
+    - repo: https://github.com/pre-commit/pre-commit-hooks
+      rev: v4.1.0  # Use the ref you want to point at
+      hooks:
+        - id: trailing-whitespace
+        - id: requirements-txt-fixer
+        - id: end-of-file-fixer
+        - id: detect-private-key
+        - id: check-yaml
+        - id: check-added-large-files
+          args: # default is 500kb
+            [
+                "maxkb=1000"
+            ]
+    -   repo: https://github.com/hhatto/autopep8
+        rev: v2.3.2
+        hooks:
+        -   id: autopep8
+            language_version: python3.12.6
+            args:
+              [
+                '-i', '-v'
+              ]
+    - repo: https://github.com/psf/black
+      rev: 22.12.0
+      hooks:
+        - id: black
+          # requires python3.7+
+          language_version: python3.9
+          args:
+            [
+              "--verbose"
+            ]
+    - repo: https://github.com/PyCQA/flake8
+      rev: 4.0.1
+      hooks:
+        - id: flake8
+          args: [
+                "--max-line-length=120",
+                "--extend-ignore=E203",
+                "--exclude=strings_base.py"
+          ]
+
+    - repo: local
+      hooks:
+          - id: pylint
+            name: pylint
+            entry: pylint
+            language: system
+            always_run: true
+            args:
+              [
+                "--rcfile=pylintrc"
+              ]
