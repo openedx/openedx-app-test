@@ -296,6 +296,11 @@ class IosProfile(IosBasePage):
             webdriver element: Logout button element
         """
 
+        self.global_contents.wait_for_element_visibility(
+            self.driver,
+            ios_elements.logout_button
+        )
+
         return self.driver.find_element(AppiumBy.NAME, ios_elements.logout_button)
 
     def get_back_button(self):

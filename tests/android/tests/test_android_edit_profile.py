@@ -3,12 +3,10 @@
     Edit Profile Screen Test Module
 """
 
-from tests.android.pages.android_whats_new import AndroidWhatsNew
 from tests.android.pages.android_main_dashboard import AndroidMainDashboard
 from tests.android.pages.android_profile import AndroidProfile
 from tests.android.pages.android_edit_profile import  AndroidEditProfile
 from tests.common import values
-from tests.common.globals import Globals
 
 
 class TestAndroidEditProfile:
@@ -16,21 +14,7 @@ class TestAndroidEditProfile:
     Profile screen's Test Case
     """
 
-    def test_start_edit_profile_screen_smoke(self, login, set_capabilities, setup_logging):
-        """
-        Scenarios:
-            Verify Main Dashboard screen is loaded successfully
-        """
-
-        setup_logging.info(f'Starting {TestAndroidEditProfile.__name__} Test Case')
-        global_contents = Globals(setup_logging)
-        whats_new_page = AndroidWhatsNew(set_capabilities, setup_logging)
-
-        if login and global_contents.whats_new_enable:
-            assert whats_new_page.navigate_features().text == 'Done'
-            whats_new_page.get_done_button().click()
-
-    def test_validate_ui_elements(self, set_capabilities, setup_logging):
+    def test_validate_ui_elements(self, android_login, setup_logging):
         """
         Scenarios:
             Verify that on clicking edit profile button,
@@ -42,7 +26,7 @@ class TestAndroidEditProfile:
                 Profile type
                 Limited profile message
                 Profile Image
-                User Name
+                Username
                 Location label
                 Location
                 Spoken Language label
@@ -51,9 +35,10 @@ class TestAndroidEditProfile:
                 About Me placeholder
         """
 
-        main_dashboard_page = AndroidMainDashboard(set_capabilities, setup_logging)
-        profile_page = AndroidProfile(set_capabilities, setup_logging)
-        edit_profile_page = AndroidEditProfile(set_capabilities, setup_logging)
+        driver = android_login
+        main_dashboard_page = AndroidMainDashboard(driver, setup_logging)
+        profile_page = AndroidProfile(driver, setup_logging)
+        edit_profile_page = AndroidEditProfile(driver, setup_logging)
 
         profile_tab = main_dashboard_page.get_profile_tab()
         assert profile_tab.get_attribute('content-desc') == values.MAIN_DASHBOARD_PROFILE_TAB
@@ -65,7 +50,6 @@ class TestAndroidEditProfile:
         assert profile_page.get_profile_username().text == values.PROFILE_USERNAME_TEXT
         assert profile_page.get_edit_profile_button().text == values.EDIT_PROFILE_TITLE
         profile_page.get_edit_profile_button().click()
-
         assert edit_profile_page.get_edit_profile_title().text == values.EDIT_PROFILE_TITLE
         assert edit_profile_page.get_done_button().text == values.EDIT_PROFILE_DONE_BUTTON
         assert edit_profile_page.get_back_button().get_attribute('displayed') == values.TRUE_LOWERCASE

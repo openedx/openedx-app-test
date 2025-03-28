@@ -2,10 +2,7 @@
     Settings Screen Test Module
 """
 
-from tests.ios.pages.ios_landing import IosLanding
-from tests.ios.pages.ios_main_dashboard import IosMainDashboard
 from tests.ios.pages.ios_profile import IosProfile
-from tests.ios.pages.ios_whats_new import IosWhatsNew
 from tests.common import values
 from tests.common.globals import Globals
 
@@ -15,42 +12,22 @@ class TestIosSettings:
     Settings screen's Test Case
     """
 
-    def test_start_settings_screen_smoke(self, login, set_capabilities, setup_logging):
-        """
-        Scenarios:
-            Verify Settings is loaded successfully
-        """
-
-        setup_logging.info(f'Starting {TestIosSettings.__name__} Test Case')
-        global_contents = Globals(setup_logging)
-        whats_new_page = IosWhatsNew(set_capabilities, setup_logging)
-        main_dashboard = IosMainDashboard(set_capabilities, setup_logging)
-
-        if login and global_contents.whats_new_enable:
-            assert whats_new_page.navigate_features().text == 'Done'
-            whats_new_page.get_next_btn().click()
-            setup_logging.info('Whats New screen is successfully loaded')
-
-        profile_tab = main_dashboard.get_main_dashboard_profile_tab()
-        assert profile_tab.text == values.MAIN_DASHBOARD_PROFILE_TAB
-        profile_tab.click()
-
-    def test_ui_elements_smoke(self, set_capabilities, setup_logging):
+    def test_ui_elements_smoke(self, ios_login, setup_logging):
         """
         Scenarios:
             Verify that Profile screen will show following contents:
                 Back icon, "Profile" as Title, Edit
-                Profile Image, User Name, Video Settings
+                Profile Image, Username, Video Settings
                 Support Info, Contact Support, Terms of Use
                 Privacy Policy, Cookie Policy, Personal Info
                 View FAQ, App Version, Up to Date
                 Logout button
         """
-
-        ios_profile = IosProfile(set_capabilities, setup_logging)
+        driver = ios_login
+        ios_profile = IosProfile(driver, setup_logging)
         global_contents = Globals(setup_logging)
 
-        assert global_contents.get_navigation_bar_title(set_capabilities)[0].get_attribute(
+        assert global_contents.get_navigation_bar_title(driver)[0].get_attribute(
             'name') == values.PROFILE_SCREEN_TITLE
         assert ios_profile.get_profile_img_profile()
         assert ios_profile.get_profile_user_name_text().text == values.PROFILE_NAME_TEXT
@@ -81,7 +58,7 @@ class TestIosSettings:
 
         ios_profile = IosProfile(set_capabilities, setup_logging)
         manage_account = ios_profile.get_profile_manage_account_label()
-        manage_account.text == values.PROFILE_MANAGE_ACCOUNT
+        assert manage_account.text == values.PROFILE_MANAGE_ACCOUNT
         manage_account.click()
         assert ios_profile.get_profile_manage_account_label()
         manage_account_title = ios_profile.get_manage_account_title()
@@ -97,7 +74,6 @@ class TestIosSettings:
             Verify that tapping back button should leave manage account screen
         """
         ios_profile = IosProfile(set_capabilities, setup_logging)
-        global_contents = Globals(setup_logging)
 
         video_settings = ios_profile.get_profile_video_settings_button()
         assert video_settings.text == values.PROFILE_VIDEO_SETTINGS
@@ -145,22 +121,3 @@ class TestIosSettings:
         ios_profile.get_profile_dont_sell_data().click()
         assert global_contents.get_screen_heading_title(set_capabilities).text == values.PROFILE_PERSONAL_INFO
         ios_profile.get_header_back_button().click()
-
-    def test_sign_out_smoke(self, set_capabilities, setup_logging):
-        """
-        Scenarios:
-            Verify that clicking logout button should load logout dialog
-            Verify that tapping close button should leave logout dialog
-            Verify that tapping logout button should logout from main dashboard screen
-        """
-
-        ios_profile = IosProfile(set_capabilities, setup_logging)
-        ios_landing = IosLanding(set_capabilities, setup_logging)
-
-        assert ios_profile.get_profile_logout_button().text.lower() == values.PROFILE_LOGOUT_BUTTON
-        ios_profile.get_profile_logout_button().click()
-        assert ios_profile.get_logout_close_button().text == 'Close'
-        assert ios_profile.get_logout_dialog_title().text == values.LOGOUT_DIALOG_TITLE
-        assert ios_profile.get_logout_button().text.lower() == values.PROFILE_LOGOUT_BUTTON
-        ios_profile.get_logout_button().click()
-        assert ios_landing.get_welcome_message().text == values.LANDING_MESSAGE_IOS
