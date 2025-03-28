@@ -1,11 +1,12 @@
 """
-    Course Dashboard Home Tab Test Module
+Course Dashboard Home Tab Test Module
 """
 
+from framework import expect
+from framework.element import Element
 from tests.android.pages.android_course_dashboard import AndroidCourseDashboard
 from tests.android.pages.android_course_home_tab import AndroidCourseHomeTab
 from tests.common import values
-from tests.common.globals import Globals
 
 
 class TestAndroidCourseHomeTab:
@@ -37,64 +38,54 @@ class TestAndroidCourseHomeTab:
             Verify second component header
             Verify back button
         """
-        driver = android_login
-        course_dashboard_page = AndroidCourseDashboard(driver, setup_logging)
-        global_contents = Globals(setup_logging)
 
-        second_course_name = global_contents.get_element_by_text(driver, values.MY_COURSES_SECOND_COURSE_NAME)
-        assert second_course_name.text == values.MY_COURSES_SECOND_COURSE_NAME
-        second_course_name.click()
-        if course_dashboard_page.get_allow_notifications_button():
-            course_dashboard_page.get_allow_notifications_button().click()
+        Element.set_driver(android_login)
+        Element.set_logger(setup_logging)
+        course_dashboard_page = AndroidCourseDashboard()
 
-        home_tab = course_dashboard_page.get_course_dashboard_home_tab()
-        assert home_tab.text == values.COURSE_DASHBOARD_HOME_TAB
+        second_course_name = course_dashboard_page.find_by_text_on_screen(values.MY_COURSES_SECOND_COURSE_NAME)
+        expect(second_course_name).to_have(values.MY_COURSES_SECOND_COURSE_NAME)
+        assert second_course_name.click()
 
-        deadline_title = global_contents.get_element_by_text(driver, values.COURSE_MISSED_DEADLINES_LABEL)
-        assert deadline_title.text == values.COURSE_MISSED_DEADLINES_LABEL
+        if course_dashboard_page.allow_notifications_button:
+            assert course_dashboard_page.allow_notifications_button.click()
 
-        deadline_description = global_contents.get_element_by_text(driver, values.COURSE_DEADLINE_DESCRIPTION_LABEL)
-        assert deadline_description.text == values.COURSE_DEADLINE_DESCRIPTION_LABEL
+        expect(course_dashboard_page.course_dashboard_home_tab).to_have(values.COURSE_DASHBOARD_HOME_TAB)
 
-        shift_due_dates_button = global_contents.get_element_by_text(driver, values.COURSE_SHIFT_DUE_DATES)
-        assert shift_due_dates_button.text == values.COURSE_SHIFT_DUE_DATES
+        assert course_dashboard_page.find_by_text_on_screen(values.COURSE_MISSED_DEADLINES_LABEL).exists()
 
-        continue_with_lable = global_contents.get_element_by_text(driver, values.COURSE_CONTINUE_WITH_LABEL)
-        assert continue_with_lable.text == values.COURSE_CONTINUE_WITH_LABEL
+        assert course_dashboard_page.find_by_text_on_screen(values.COURSE_DEADLINE_DESCRIPTION_LABEL).exists()
 
-        resume_button = global_contents.get_element_by_text(driver, values.COURSE_RESUME_BUTTON)
-        assert resume_button.text == values.COURSE_RESUME_BUTTON
+        assert course_dashboard_page.find_by_text_on_screen == values.COURSE_SHIFT_DUE_DATES
 
-        global_contents.scroll_from_element(driver, resume_button)
-        introduction_section = global_contents.get_android_element_by_text(driver, values.COURSE_SECTION_LABEL)
-        assert introduction_section.text == values.COURSE_SECTION_LABEL
-        introduction_section.click()
+        assert course_dashboard_page.find_by_text_on_screen(values.COURSE_CONTINUE_WITH_LABEL).exists()
 
-        subsection_elem = global_contents.get_android_element_by_text(driver, values.COURSE_SUBSECTION_LABEL)
-        assert subsection_elem.text == values.COURSE_SUBSECTION_LABEL
-        subsection_elem.click()
+        resume_button = course_dashboard_page.find_by_text_on_screen(values.COURSE_RESUME_BUTTON)
+        assert resume_button.exists()
+        resume_button.scroll_vertically_from_element()
+        introduction_section = course_dashboard_page.find_by_text_on_screen(values.COURSE_SECTION_LABEL)
+        assert introduction_section.exists()
+        assert introduction_section.click()
 
-        component_header_title = global_contents.get_android_element_by_text(driver, values.COURSE_SUBSECTION_LABEL)
-        assert component_header_title.text == values.COURSE_SUBSECTION_LABEL
+        subsection_elem = course_dashboard_page.find_by_text_on_screen(values.COURSE_SUBSECTION_LABEL)
+        assert subsection_elem.exists()
+        assert subsection_elem.click()
 
-        back_btn = global_contents.get_element_by_description_android(driver, values.LANDING_BACK_BUTTON)
-        assert back_btn.get_attribute('content-desc') == values.LANDING_BACK_BUTTON
-        back_btn.click()
-        global_contents.scroll_from_element(driver, component_header_title)
+        back_btn = course_dashboard_page.back_button
+        assert back_btn.exists()
+        assert back_btn.click()
+        component_header_title = course_dashboard_page.find_by_text_on_screen(values.COURSE_SUBSECTION_LABEL)
+        component_header_title.scroll_vertically_from_element()
 
-        section1_elem = global_contents.get_android_element_by_text(driver, values.COURSE_SECTION_1_LABEL)
-        assert section1_elem.text == values.COURSE_SECTION_1_LABEL
-        section1_elem.click()
+        section1_elem = course_dashboard_page.find_by_text_on_screen(values.COURSE_SECTION_1_LABEL)
+        assert section1_elem.click()
 
-        subsection1_elem = global_contents.get_android_element_by_text(driver, values.COURSE_SUBSECTION_1_LABEL)
-        assert subsection1_elem.text == values.COURSE_SUBSECTION_1_LABEL
+        assert course_dashboard_page.find_by_text_on_screen(values.COURSE_SUBSECTION_1_LABEL).exists()
 
-        homework_elem = global_contents.get_android_element_by_text(driver, values.COURSE_COMPONENT_LABEL)
-        assert homework_elem.text == values.COURSE_COMPONENT_LABEL
-        homework_elem.click()
+        homework_elem = course_dashboard_page.find_by_text_on_screen(values.COURSE_COMPONENT_LABEL)
+        assert homework_elem.click()
 
-        component_header = global_contents.get_android_element_by_text(driver, values.COURSE_COMPONENT_LABEL)
-        assert component_header.text == values.COURSE_COMPONENT_LABEL
+        assert course_dashboard_page.find_by_text_on_screen(values.COURSE_COMPONENT_LABEL).exists()
 
     def test_component_navigation_smoke(self, android_login, setup_logging):
         """
@@ -107,27 +98,25 @@ class TestAndroidCourseHomeTab:
                 loads the components screen
             Verify clicking on back button will navigate the user to dashboard page
         """
-        driver = android_login
-        global_contents = Globals(setup_logging)
-        course_home_page = AndroidCourseHomeTab(driver, setup_logging)
 
-        next_btn = course_home_page.get_next_btn()
-        assert next_btn.text == values.COURSE_COMPONENT_NEXT_BUTTON
-        next_btn.click()
+        Element.set_driver(android_login)
+        Element.set_logger(setup_logging)
+        course_home_page = AndroidCourseHomeTab()
 
-        prev_btn = course_home_page.get_prev_btn()
-        assert prev_btn.text == values.COURSE_COMPONENT_PREVIOUS_BUTTON
-        prev_btn.click()
+        next_btn = course_home_page.next_btn
+        expect(next_btn).to_have(values.COURSE_COMPONENT_NEXT_BUTTON)
+        assert next_btn.click()
+
+        prev_btn = course_home_page.prev_btn
+        expect(prev_btn).to_have(values.COURSE_COMPONENT_PREVIOUS_BUTTON)
+        assert prev_btn.click()
 
         finish_button = course_home_page.component_navigation()
-        assert finish_button.text == values.COURSE_COMPONENT_FINISH_BUTTON
-        finish_button.click()
-
-        back_to_outline = global_contents.get_android_element_by_text(
-            driver, values.COURSE_COMPLETION_BACK_BUTTON)
-        assert back_to_outline.text == values.COURSE_COMPLETION_BACK_BUTTON
-        back_to_outline.click()
-
-        back_btn = global_contents.get_element_by_description_android(driver, values.LANDING_BACK_BUTTON)
-        assert back_btn.get_attribute('content-desc') == values.LANDING_BACK_BUTTON
-        back_btn.click()
+        expect(finish_button).to_have(values.COURSE_COMPONENT_FINISH_BUTTON)
+        assert finish_button.click()
+        back_to_outline = course_home_page.find_by_text_on_screen(values.COURSE_COMPLETION_BACK_BUTTON)
+        assert back_to_outline.exists()
+        assert back_to_outline.click()
+        back_btn = course_home_page.back_button
+        assert back_btn.exists()
+        assert back_btn.click()

@@ -1,10 +1,11 @@
 """
-    Course Dashboard Test Module
+Course Dashboard Test Module
 """
 
+from framework import expect
+from framework.element import Element
 from tests.android.pages.android_course_dashboard import AndroidCourseDashboard
 from tests.common import values
-from tests.common.globals import Globals
 
 
 class TestAndroidCourseDashboard:
@@ -25,32 +26,31 @@ class TestAndroidCourseDashboard:
             Verify on tapping "Dates" tab will load Dates screen
             Verify on tapping "Home" tab will load Home screen
         """
-        driver = android_login
-        course_dashboard_page = AndroidCourseDashboard(driver, setup_logging)
-        global_contents = Globals(setup_logging)
-        second_course_name = global_contents.get_element_by_text(driver, values.MY_COURSES_SECOND_COURSE_NAME)
-        assert second_course_name.text == values.MY_COURSES_SECOND_COURSE_NAME
-        second_course_name.click()
-        if course_dashboard_page.get_allow_notifications_button():
-            course_dashboard_page.get_allow_notifications_button().click()
+        Element.set_driver(android_login)
+        Element.set_logger(setup_logging)
+        course_dashboard_page = AndroidCourseDashboard()
 
-        home_tab = course_dashboard_page.get_course_dashboard_home_tab()
-        assert home_tab.text == values.COURSE_DASHBOARD_HOME_TAB
+        second_course_name = course_dashboard_page.find_by_text_on_screen(values.MY_COURSES_SECOND_COURSE_NAME)
+        assert second_course_name.click()
+        if course_dashboard_page.allow_notifications_button:
+            assert course_dashboard_page.allow_notifications_button.click()
 
-        videos_tab = course_dashboard_page.get_course_dashboard_videos_tab()
-        assert videos_tab.text == values.COURSE_DASHBOARD_VIDEOS_TAB
-        videos_tab.click()
+        expect(course_dashboard_page.course_dashboard_home_tab).to_have(values.COURSE_DASHBOARD_HOME_TAB)
 
-        discussions_tab = course_dashboard_page.get_course_dashboard_discussions_tab()
-        assert discussions_tab.text == values.COURSE_DASHBOARD_DISCUSSIONS_TAB
-        discussions_tab.click()
+        videos_tab = course_dashboard_page.course_dashboard_videos_tab
+        expect(videos_tab).to_have(values.COURSE_DASHBOARD_VIDEOS_TAB)
+        assert videos_tab.click()
 
-        dates_tab = course_dashboard_page.get_course_dashboard_dates_tab()
-        assert dates_tab.text == values.COURSE_DASHBOARD_DATES_TAB
-        dates_tab.click()
+        discussions_tab = course_dashboard_page.course_dashboard_discussions_tab
+        expect(discussions_tab).to_have(values.COURSE_DASHBOARD_DISCUSSIONS_TAB)
+        assert discussions_tab.click()
 
-        more_tab = course_dashboard_page.get_course_dashboard_more_tab()
-        assert more_tab.text == values.COURSE_DASHBOARD_MORE_TAB
-        more_tab.click()
+        dates_tab = course_dashboard_page.course_dashboard_dates_tab
+        expect(dates_tab).to_have(values.COURSE_DASHBOARD_DATES_TAB)
+        assert dates_tab.click()
 
-        driver.back()
+        more_tab = course_dashboard_page.course_dashboard_more_tab
+        expect(more_tab).to_have(values.COURSE_DASHBOARD_MORE_TAB)
+        assert more_tab.click()
+
+        assert course_dashboard_page.back_navigation_button.click()

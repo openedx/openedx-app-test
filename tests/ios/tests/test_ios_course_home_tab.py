@@ -132,10 +132,13 @@ class TestIosCourseHomeTab:
         finish_button.click()
 
         back_to_outline = global_contents.get_element_by_label_ios(
-            set_capabilities, values.COURSE_COMPLETION_BACK_BUTTON)
+            set_capabilities, values.COURSE_COMPLETION_BACK_BUTTON
+        )
         assert back_to_outline.text == values.COURSE_COMPLETION_BACK_BUTTON
         back_to_outline.click()
 
-        back_btn = global_contents.wait_and_get_element(set_capabilities, ios_elements.course_dashboard_back_button)
+        back_btn = global_contents.wait_and_get_element(
+            set_capabilities, ios_elements.course_dashboard_back_button
+        )
         assert back_btn.text == values.LANDING_BACK_BUTTON
         back_btn.click()

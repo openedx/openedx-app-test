@@ -1,11 +1,11 @@
 """
-    Login Test Module
+Login Test Module
 """
 
 from tests.common import values
 from tests.common.globals import Globals
-from tests.ios.pages.ios_login import IosLogin
 from tests.ios.pages.ios_landing import IosLanding
+from tests.ios.pages.ios_login import IosLogin
 
 
 class TestIosLogin:
@@ -19,7 +19,7 @@ class TestIosLogin:
             Verify Login screen is loaded successfully
         """
 
-        setup_logging.info('Starting Test Case')
+        setup_logging.info("Starting Test Case")
         ios_landing = IosLanding(set_capabilities, setup_logging)
         ios_login = IosLogin(set_capabilities, setup_logging)
 
@@ -35,7 +35,7 @@ class TestIosLogin:
     def test_ui_elements_smoke(self, set_capabilities, setup_logging):
         """
         Scenarios:
-            Verify following contents are visible on screen, 
+            Verify following contents are visible on screen,
                 "Back icon", "Sign In" Title, "User name or e-mail address" label, User Name edit-field
                 Password edit-field, "Forgot your password?" option, "Sign In" button,
                 "Or sing in with" label, "Facebook" button, "Google" button
@@ -62,7 +62,7 @@ class TestIosLogin:
         assert password_title.text == values.PASSWORD
         password_title.click()
         password_field = ios_login.get_signin_password_textfield()
-        assert password_field.get_attribute('value') == values.PASSWORD
+        assert password_field.get_attribute("value") == values.PASSWORD
         password_field.send_keys(global_contents.login_password)
         password_title.click()
 
@@ -72,7 +72,7 @@ class TestIosLogin:
         global_contents.scroll_from_element(set_capabilities, sign_in_button)
 
         social_auth_title = ios_login.get_signin_social_auth_title_text()
-        social_auth_title.text == values.SOCIAL_AUTH_TITLE
+        assert social_auth_title.text == values.SOCIAL_AUTH_TITLE
 
         google_signin = ios_login.get_signin_social_auth_google_button()
         assert google_signin.text == values.GOOGLE_SIGNIN
@@ -80,7 +80,7 @@ class TestIosLogin:
         facebook_signin = ios_login.get_signin_social_auth_facebook_button()
         assert facebook_signin.text == values.FACEBOOK_SIGNIN
 
-        microsoft_signin =ios_login.get_signin_social_auth_microsoft_button()
+        microsoft_signin = ios_login.get_signin_social_auth_microsoft_button()
         assert microsoft_signin.text == values.MICROSOFT_SIGNIN
 
         apple_signin = ios_login.get_signin_social_auth_apple_button()
@@ -90,7 +90,7 @@ class TestIosLogin:
         """
         Scenarios:
             Verify tapping 'Forgot password?' will  load 'Reset Password' screen
-            Verify following contents are visible on 'Reset Password' alert, 
+            Verify following contents are visible on 'Reset Password' alert,
             Alert Title, Alert Message, Email edit field, 'Reset Password' button
             Verify that check your email screen is shown after entering email
             Verify signin button is shown in check email screen
@@ -120,7 +120,7 @@ class TestIosLogin:
         assert email_textfield.text == values.FORGOT_EMAIL_TITLE
         email_textfield.click()
         random_email = global_contents.generate_random_credentials(8)
-        email_textfield.send_keys(random_email + '@yop.com')
+        email_textfield.send_keys(random_email + "@yop.com")
 
         reset_password_button = ios_login.get_forgot_reset_password_button()
         assert reset_password_button.text == values.RESET_PASSWORD_BUTTON
@@ -141,4 +141,4 @@ class TestIosLogin:
 
         logo_image = ios_landing.get_logo_image()
         assert logo_image.text == values.LANDING_LOGO_IMAGE
-        setup_logging.info('Ending Test Case')
+        setup_logging.info("Ending Test Case")
