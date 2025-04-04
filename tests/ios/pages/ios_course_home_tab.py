@@ -2,9 +2,10 @@
     Course Home Page Module
 """
 
-from tests.ios.pages.ios_base_page import IosBasePage
-from tests.common import values
 from selenium.common.exceptions import NoSuchElementException
+
+from tests.common import values
+from tests.ios.pages.ios_base_page import IosBasePage
 
 
 class IosCourseHomeTab(IosBasePage):
@@ -42,7 +43,8 @@ class IosCourseHomeTab(IosBasePage):
 
         try:
             return self.global_contents.get_element_by_label_ios(
-                self.driver, values.COURSE_COMPONENT_FINISH_BUTTON)
+                self.driver, values.COURSE_COMPONENT_FINISH_BUTTON
+            )
         except NoSuchElementException:
             return
 
@@ -55,7 +57,8 @@ class IosCourseHomeTab(IosBasePage):
         """
 
         return self.global_contents.get_element_by_label_ios(
-            self.driver, values.COURSE_COMPONENT_NEXT_BUTTON)
+            self.driver, values.COURSE_COMPONENT_NEXT_BUTTON
+        )
 
     def get_prev_btn(self):
         """
@@ -66,4 +69,5 @@ class IosCourseHomeTab(IosBasePage):
         """
 
         return self.global_contents.get_element_by_label_ios(
-            self.driver, values.COURSE_COMPONENT_PREVIOUS_BUTTON)
+            self.driver, values.COURSE_COMPONENT_PREVIOUS_BUTTON
+        )

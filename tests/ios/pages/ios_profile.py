@@ -2,6 +2,7 @@
     Profile Page Module
 """
 from appium.webdriver.common.appiumby import AppiumBy
+
 from tests.ios.pages import ios_elements
 from tests.ios.pages.ios_base_page import IosBasePage
 
@@ -20,11 +21,10 @@ class IosProfile(IosBasePage):
         """
 
         self.global_contents.wait_for_element_visibility(
-            self.driver,
-            ios_elements.profile_screen_title
+            self.driver, ios_elements.profile_screen_title
         )
 
-        return self.driver.find_element(AppiumBy.NAME, 'Profile')
+        return self.driver.find_element(AppiumBy.NAME, "Profile")
 
     def get_profile_edit_button(self):
         """
@@ -35,8 +35,7 @@ class IosProfile(IosBasePage):
         """
 
         return self.global_contents.wait_and_get_element(
-            self.driver,
-            ios_elements.profile_edit_button
+            self.driver, ios_elements.profile_edit_button
         )
 
     def get_profile_settings_button(self):
@@ -48,8 +47,7 @@ class IosProfile(IosBasePage):
         """
 
         return self.global_contents.get_element_by_label_ios(
-            self.driver,
-            ios_elements.profile_settings_button
+            self.driver, ios_elements.profile_settings_button
         )
 
     def get_profile_img_profile(self):
@@ -61,8 +59,7 @@ class IosProfile(IosBasePage):
         """
 
         return self.global_contents.wait_and_get_element(
-            self.driver,
-            ios_elements.profile_user_avatar_image
+            self.driver, ios_elements.profile_user_avatar_image
         )
 
     def get_profile_user_name_text(self):
@@ -74,8 +71,7 @@ class IosProfile(IosBasePage):
         """
 
         return self.global_contents.wait_and_get_element(
-            self.driver,
-            ios_elements.profile_user_name_text
+            self.driver, ios_elements.profile_user_name_text
         )
 
     def profile_user_username_text(self):
@@ -87,8 +83,7 @@ class IosProfile(IosBasePage):
         """
 
         return self.global_contents.wait_and_get_element(
-            self.driver,
-            ios_elements.profile_user_username_text
+            self.driver, ios_elements.profile_user_username_text
         )
 
     def get_profile_settings_text(self):
@@ -100,8 +95,7 @@ class IosProfile(IosBasePage):
         """
 
         return self.global_contents.wait_and_get_element(
-            self.driver,
-            ios_elements.profile_settings_text
+            self.driver, ios_elements.profile_settings_text
         )
 
     def get_profile_video_settings_button(self):
@@ -113,8 +107,7 @@ class IosProfile(IosBasePage):
         """
 
         return self.global_contents.get_elements_by_name_ios(
-            self.driver,
-            ios_elements.profile_video_settings_button
+            self.driver, ios_elements.profile_video_settings_button
         )[1]
 
     def get_profile_manage_account_label(self):
@@ -126,8 +119,7 @@ class IosProfile(IosBasePage):
         """
 
         return self.global_contents.get_element_by_label_ios(
-            self.driver,
-            ios_elements.profile_manage_account_label
+            self.driver, ios_elements.profile_manage_account_label
         )
 
     def get_profile_dates_calendar_label(self):
@@ -139,8 +131,7 @@ class IosProfile(IosBasePage):
         """
 
         return self.global_contents.get_element_by_label_ios(
-            self.driver,
-            ios_elements.profile_dates_calendar_label
+            self.driver, ios_elements.profile_dates_calendar_label
         )
 
     def get_profile_support_info_text(self):
@@ -152,8 +143,7 @@ class IosProfile(IosBasePage):
         """
 
         return self.global_contents.wait_and_get_element(
-            self.driver,
-            ios_elements.profile_support_info_text
+            self.driver, ios_elements.profile_support_info_text
         )
 
     def get_profile_tos_text(self):
@@ -164,10 +154,7 @@ class IosProfile(IosBasePage):
             webdriver element: Tos text element
         """
 
-        return self.global_contents.get_element_by_name_ios(
-            self.driver,
-            'tos'
-        )
+        return self.global_contents.get_element_by_name_ios(self.driver, "tos")
 
     def get_profile_privacy_policy(self):
         """
@@ -178,8 +165,7 @@ class IosProfile(IosBasePage):
         """
 
         return self.global_contents.get_element_by_name_ios(
-            self.driver,
-            ios_elements.profile_privacy_policy
+            self.driver, ios_elements.profile_privacy_policy
         )
 
     def get_profile_cookies_policy(self):
@@ -191,8 +177,7 @@ class IosProfile(IosBasePage):
         """
 
         return self.global_contents.wait_and_get_element(
-            self.driver,
-            ios_elements.profile_cookies_policy
+            self.driver, ios_elements.profile_cookies_policy
         )
 
     def get_profile_dont_sell_data(self):
@@ -204,8 +189,7 @@ class IosProfile(IosBasePage):
         """
 
         return self.global_contents.wait_and_get_element(
-            self.driver,
-            ios_elements.profile_dont_sell_data
+            self.driver, ios_elements.profile_dont_sell_data
         )
 
     def get_profile_contact_support(self):
@@ -217,8 +201,7 @@ class IosProfile(IosBasePage):
         """
 
         return self.global_contents.get_element_by_label_ios(
-            self.driver,
-            ios_elements.profile_contact_support
+            self.driver, ios_elements.profile_contact_support
         )
 
     def get_profile_view_faq(self):
@@ -230,8 +213,7 @@ class IosProfile(IosBasePage):
         """
 
         return self.global_contents.wait_and_get_element(
-            self.driver,
-            ios_elements.profile_view_faq
+            self.driver, ios_elements.profile_view_faq
         )
 
     def get_profile_version_info(self):
@@ -243,8 +225,7 @@ class IosProfile(IosBasePage):
         """
 
         return self.global_contents.wait_and_get_element(
-            self.driver,
-            ios_elements.profile_version_info
+            self.driver, ios_elements.profile_version_info
         )
 
     def get_profile_logout_button(self):
@@ -256,8 +237,7 @@ class IosProfile(IosBasePage):
         """
 
         return self.global_contents.wait_and_get_element(
-            self.driver,
-            ios_elements.profile_logout_button
+            self.driver, ios_elements.profile_logout_button
         )
 
     def get_logout_close_button(self):
@@ -269,13 +249,11 @@ class IosProfile(IosBasePage):
         """
 
         self.global_contents.wait_for_element_visibility(
-            self.driver,
-            ios_elements.logout_close_button
+            self.driver, ios_elements.logout_close_button
         )
 
         return self.global_contents.wait_and_get_element(
-            self.driver,
-            ios_elements.logout_close_button
+            self.driver, ios_elements.logout_close_button
         )
 
     def get_logout_dialog_title(self):
@@ -311,7 +289,7 @@ class IosProfile(IosBasePage):
             webdriver element: discovery title element
         """
 
-        return self.driver.find_element(AppiumBy.NAME, 'arrowLeft')
+        return self.driver.find_element(AppiumBy.NAME, "arrowLeft")
 
     def get_videos_back_button(self):
         """
@@ -322,13 +300,11 @@ class IosProfile(IosBasePage):
         """
 
         self.global_contents.wait_for_element_visibility(
-            self.driver,
-            ios_elements.main_dashboard_profile_tab
+            self.driver, ios_elements.main_dashboard_profile_tab
         )
 
         return self.global_contents.wait_and_get_element(
-            self.driver,
-            ios_elements.main_dashboard_profile_tab
+            self.driver, ios_elements.main_dashboard_profile_tab
         )
 
     def get_header_back_button(self):
@@ -338,13 +314,11 @@ class IosProfile(IosBasePage):
         """
 
         self.global_contents.wait_for_element_visibility(
-            self.driver,
-            ios_elements.back_button_navigation
+            self.driver, ios_elements.back_button_navigation
         )
 
         return self.global_contents.wait_and_get_element(
-            self.driver,
-            ios_elements.back_button_navigation
+            self.driver, ios_elements.back_button_navigation
         )
 
     def get_manage_account_title(self):
@@ -354,11 +328,9 @@ class IosProfile(IosBasePage):
         """
 
         self.global_contents.wait_for_element_visibility(
-            self.driver,
-            ios_elements.manage_account_title
+            self.driver, ios_elements.manage_account_title
         )
 
         return self.global_contents.wait_and_get_element(
-            self.driver,
-            ios_elements.manage_account_title
+            self.driver, ios_elements.manage_account_title
         )
