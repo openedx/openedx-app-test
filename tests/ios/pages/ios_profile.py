@@ -14,39 +14,41 @@ class IosProfile(IosBasePage):
 
     def __init__(self):
         super().__init__()
-        self._profile_screen_title = Element(AppiumBy.NAME, 'Profile')
-        self._profile_edit_button = Element(AppiumBy.ACCESSIBILITY_ID, 'edit_profile_button')
-        self._profile_settings_button = Element(AppiumBy.ACCESSIBILITY_ID, 'settings')
-        self._profile_user_avatar_image = Element(AppiumBy.ACCESSIBILITY_ID, 'user_avatar_image')
-        self._profile_user_name_text = Element(AppiumBy.ACCESSIBILITY_ID, 'user_name_text')
-        self._profile_user_username_text = Element(AppiumBy.ACCESSIBILITY_ID, 'user_username_text')
-        self._profile_settings_text = Element(AppiumBy.ACCESSIBILITY_ID, 'settings_text')
-        self._profile_logout_button = Element(AppiumBy.ACCESSIBILITY_ID, 'logout_button')
-        self._profile_logout_dialogue_title = Element(AppiumBy.NAME, 'Are you sure you want to log out?')
-        self._profile_logout_close_button = Element(AppiumBy.NAME, 'xmark')
-        self._profile_logout_confirmation = Element(AppiumBy.ACCESSIBILITY_ID, 'logout_confirmation')
-        self._profile_logout_confirmation_button = Element(AppiumBy.ACCESSIBILITY_ID, 'logout_confirmation_button')
-        self._profile_video_settings_button = Element(AppiumBy.ACCESSIBILITY_ID, 'video_settings_button')
-        self._profile_manage_account_label = Element(AppiumBy.ACCESSIBILITY_ID, 'Manage Account')
-        self._profile_dates_calendar_label = Element(AppiumBy.ACCESSIBILITY_ID, 'Dates & Calendar')
-        self._profile_support_info_text = Element(AppiumBy.ACCESSIBILITY_ID, 'support_info_text')
-        self._profile_tos_text = Element(AppiumBy.NAME, 'tos')
-        self._manage_account_text = Element(AppiumBy.ACCESSIBILITY_ID, 'manage_account_text')
-        self._main_dashboard_profile_tab = Element(AppiumBy.ACCESSIBILITY_ID, 'Profile')
-        self._arrow_left_back_button = Element(AppiumBy.ACCESSIBILITY_ID, 'arrowLeft')
-        self._version_info = Element(AppiumBy.ACCESSIBILITY_ID, 'version_info')
-        self._profile_view_faq = Element(AppiumBy.ACCESSIBILITY_ID, 'view_faq')
-        self._profile_contact_support = Element(AppiumBy.ACCESSIBILITY_ID, 'Contact support')
-        self._profile_dont_sell_data = Element(AppiumBy.ACCESSIBILITY_ID, 'dont_sell_data')
-        self._profile_cookies_policy = Element(AppiumBy.ACCESSIBILITY_ID, 'cookies_policy')
-        self._profile_privacy_policy = Element(AppiumBy.ACCESSIBILITY_ID, 'privacy_policy')
+        self._profile_screen_title = Element(AppiumBy.NAME, "Profile")
+        self._profile_edit_button = Element(AppiumBy.ACCESSIBILITY_ID, "edit_profile_button")
+        self._profile_settings_button = Element(AppiumBy.ACCESSIBILITY_ID, "settings")
+        self._profile_user_avatar_image = Element(AppiumBy.ACCESSIBILITY_ID, "user_avatar_image")
+        self._profile_user_name_text = Element(AppiumBy.ACCESSIBILITY_ID, "user_name_text")
+        self._profile_user_username_text = Element(AppiumBy.ACCESSIBILITY_ID, "user_username_text")
+        self._profile_settings_text = Element(AppiumBy.ACCESSIBILITY_ID, "settings_text")
+        self._profile_logout_button = Element(AppiumBy.ACCESSIBILITY_ID, "logout_button")
+        self._profile_prompt_logout_button = Element(AppiumBy.ACCESSIBILITY_ID, "Log out")
+        self._profile_logout_dialogue_title = Element(AppiumBy.NAME, "Are you sure you want to log out?")
+        self._profile_logout_close_button = Element(AppiumBy.NAME, "xmark")
+        self._profile_logout_confirmation = Element(AppiumBy.ACCESSIBILITY_ID, "logout_confirmation")
+        self._profile_logout_confirmation_button = Element(AppiumBy.ACCESSIBILITY_ID, "logout_confirmation_button")
+        self._profile_video_settings_button = Element(AppiumBy.ACCESSIBILITY_ID, "video_settings_button")
+        self._profile_manage_account_label = Element(AppiumBy.ACCESSIBILITY_ID, "Manage Account")
+        self._profile_dates_calendar_label = Element(AppiumBy.ACCESSIBILITY_ID, "Dates & Calendar")
+        self._profile_support_info_text = Element(AppiumBy.ACCESSIBILITY_ID, "support_info_text")
+        self._profile_tos_text = Element(AppiumBy.NAME, "tos")
+        self._manage_account_text = Element(AppiumBy.ACCESSIBILITY_ID, "manage_account_text")
+        self._main_dashboard_profile_tab = Element(AppiumBy.ACCESSIBILITY_ID, "Profile")
+        self._arrow_left_back_button = Element(AppiumBy.ACCESSIBILITY_ID, "arrowLeft")
+        self._version_info = Element(AppiumBy.ACCESSIBILITY_ID, "version_info")
+        self._profile_view_faq = Element(AppiumBy.ACCESSIBILITY_ID, "view_faq")
+        self._profile_contact_support = Element(AppiumBy.ACCESSIBILITY_ID, "Contact support")
+        self._profile_dont_sell_data = Element(AppiumBy.ACCESSIBILITY_ID, "dont_sell_data")
+        self._profile_cookies_policy = Element(AppiumBy.ACCESSIBILITY_ID, "cookies_policy")
+        self._profile_privacy_policy = Element(AppiumBy.ACCESSIBILITY_ID, "privacy_policy")
         self._edit_profile_title = Element(AppiumBy.IOS_PREDICATE, 'name CONTAINS "Edit profile"')
-
 
     @property
     def edit_profile_title(self) -> Element:
-        """"""
-
+        """
+        Returns:
+            Element: The element representing the edit profile title.
+        """
         return self._edit_profile_title
 
     @property
@@ -281,7 +283,7 @@ class IosProfile(IosBasePage):
         return self._profile_logout_dialogue_title
 
     @property
-    def get_logout_button(self) -> Element:
+    def get_logout_button_from_prompt(self) -> Element:
         """
         Get logout button
 
@@ -289,7 +291,7 @@ class IosProfile(IosBasePage):
             webdriver element: Logout button element
         """
 
-        return self._profile_logout_button
+        return self._profile_prompt_logout_button
 
     @property
     def get_back_button(self) -> Element:

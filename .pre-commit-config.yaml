@@ -42,9 +42,9 @@ repos:
       hooks:
         - id: flake8
           args: [
-                "--max-line-length=120",
-                "--extend-ignore=E203",
-                "--exclude=strings_base.py"
+            "--max-line-length=120",
+            "--extend-ignore=E203",
+            "--exclude=strings_base.py"
           ]
 
     - repo: local

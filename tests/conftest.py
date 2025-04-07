@@ -63,7 +63,7 @@ def report_screenshot():
 
 
 @pytest.fixture(scope="module")
-def set_capabilities(setup_logging, request) -> WebDriver:
+def set_capabilities(setup_logging, request):
     """
     set_capabilities will setup environment capabilities based on
     environment given, and return driver object accessible in all Tests
@@ -259,65 +259,63 @@ def ios_login(set_capabilities, setup_logging):
     Returns:
             True: if login is successful
     """
+    Element.set_logger(setup_logging)
+    Element.set_driver(set_capabilities)
     log = setup_logging
     global_contents = Globals(log)
-    ios_landing = IosLanding(set_capabilities, setup_logging)
-    ios_login = IosLogin(set_capabilities, setup_logging)
-    whats_new_page = IosWhatsNew(set_capabilities, setup_logging)
-    main_dashboard = IosMainDashboard(set_capabilities, setup_logging)
+    ios_landing = IosLanding()
+    ios_login = IosLogin()
+    whats_new_page = IosWhatsNew()
+    main_dashboard = IosMainDashboard()
 
     log.info("Login screen successfully loaded")
-    if ios_landing.get_allow_notifications_button():
-        ios_landing.get_allow_notifications_button().click()
+    if ios_landing.allow_notifications_button:
+        ios_landing.allow_notifications_button.click()
 
-    sign_in_button = ios_landing.get_sign_in_button()
-    assert sign_in_button.text == values.LOGIN
-    sign_in_button.click()
-    sign_in_title = ios_login.get_sign_in_title()
-    assert sign_in_title.text == values.LOGIN
+    sign_in_button = ios_landing.sign_in_button
+    expect(sign_in_button).to_have(values.LOGIN)
+    assert sign_in_button.click()
+    expect(ios_login.sign_in_title).to_have(values.LOGIN)
 
-    email_field = ios_login.get_signin_username_textfield()
-    assert email_field.text == values.EMAIL_OR_USERNAME_IOS
-    email_field.send_keys(global_contents.login_user_name)
+    expect(ios_login.signin_username_textfield).to_have(values.EMAIL_OR_USERNAME_IOS)
+    assert ios_login.signin_username_textfield.send_keys(global_contents.login_user_name)
 
-    password_title = ios_login.get_signin_password_text()
-    assert password_title.text == values.PASSWORD
-    password_title.click()
-    password_field = ios_login.get_signin_password_textfield()
-    assert password_field.get_attribute("value") == values.PASSWORD
-    password_field.send_keys(global_contents.login_password)
-    password_title.click()
-    sign_in_button = ios_login.get_signin_button()
-    assert sign_in_button.text == values.LOGIN
-    sign_in_button.click()
+    password_title = ios_login.signin_password_text
+    expect(password_title).to_have(values.PASSWORD)
+    assert password_title.click()
+    password_field = ios_login.signin_password_textfield
+    expect(password_field).to_have(values.PASSWORD, ElementAttribute.VALUE)
+    assert password_field.send_keys(global_contents.login_password)
+    assert password_title.click()
+    sign_in_button = ios_login.signin_button
+    expect(ios_login.signin_button).to_have(values.LOGIN)
+    assert sign_in_button.click()
     setup_logging.info(f"{global_contents.login_user_name} is successfully logged in")
 
     if global_contents.whats_new_enable:
-        whats_new_page.get_close_button().click()
+        whats_new_page.get_close_button.click()
         setup_logging.info("Whats New screen is successfully loaded")
 
-    profile_tab = main_dashboard.get_main_dashboard_profile_tab()
-    assert profile_tab.text == values.MAIN_DASHBOARD_PROFILE_TAB
-    profile_tab.click()
-    learn_tab = main_dashboard.get_main_dashboard_learn_tab()
-    learn_tab.click()
-    learn_tab = main_dashboard.get_main_dashboard_learn_tab()
-    assert learn_tab.get_attribute("value") == values.IOS_SELECTED_TAB_VALUE
+    profile_tab = main_dashboard.profile_tab
+    expect(profile_tab).to_have(values.MAIN_DASHBOARD_PROFILE_TAB)
+    assert profile_tab.click()
+    assert main_dashboard.get_main_dashboard_learn_tab.click()
+    expect(main_dashboard.get_main_dashboard_learn_tab).to_be_selected()
 
     yield set_capabilities
 
-    ios_profile = IosProfile(set_capabilities, setup_logging)
-    ios_landing = IosLanding(set_capabilities, setup_logging)
-    main_dashboard = IosMainDashboard(set_capabilities, setup_logging)
+    ios_profile = IosProfile()
+    ios_landing = IosLanding()
+    main_dashboard = IosMainDashboard()
 
-    profile_tab = main_dashboard.get_main_dashboard_profile_tab()
-    profile_tab.click()
-    ios_profile.get_profile_settings_button().click()
-    ios_profile.get_profile_logout_button().click()
+    profile_tab = main_dashboard.profile_tab
+    assert profile_tab.click()
+    assert ios_profile.profile_settings_button.click()
+    assert ios_profile.get_profile_logout_button.click()
     setup_logging.info("clicking log out")
-    ios_profile.get_logout_button().click()
+    assert ios_profile.get_logout_button_from_prompt.click()
     setup_logging.info("log out successful")
-    assert ios_landing.get_welcome_message().text == values.LANDING_MESSAGE
+    expect(ios_landing.get_welcome_message).to_have(values.LANDING_MESSAGE)
 
 
 @pytest.hookimpl(hookwrapper=True)

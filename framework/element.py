@@ -1,3 +1,6 @@
+"""
+    Module containing Element class representing web driver element
+"""
 from logging import Logger
 
 from appium.webdriver.common.appiumby import AppiumBy
@@ -11,9 +14,22 @@ from tests.common.exceptions import NotFoundError
 from tests.common.utils import normalize_string
 
 
+
 class Element:
+    """
+    A class representing an element in the application.
+
+    It provides methods to perform actions on the element and to verify its state.
+    """
 
     def __init__(self, strategy: AppiumBy, locator: str):
+        """
+        Initializes an Element instance.
+
+        Args:
+            strategy (AppiumBy): The strategy to use to find the element.
+            locator (str): The locator to use to find the element.
+        """
         self.locator = (strategy, locator)
         self.element: MobileWebElement = None
         self.elements: list[MobileWebElement] = None

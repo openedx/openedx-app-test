@@ -25,7 +25,7 @@ class TestIosRegister:
         """
         Element.set_driver(set_capabilities)
         Element.set_logger(setup_logging)
-        setup_logging.info('Starting Test Case')
+        setup_logging.info("Starting Test Case")
         register_page = IosRegister()
         ios_landing = IosLanding()
         if ios_landing.allow_notifications_button.exists():
@@ -136,9 +136,9 @@ class TestIosRegister:
         register_button.click()
         expect(register_page.get_password_instructions_text).to_have(values.REGISTER_PASSWORD_MESSAGE)
         if global_contents.whats_new_enable:
-            expect(whats_new_page.navigate_features()).to_have('Done')
+            expect(whats_new_page.navigate_features()).to_have("Done")
             assert whats_new_page.whats_new_next_button.click()
-            setup_logging.info('Whats New screen is successfully loaded')
+            setup_logging.info("Whats New screen is successfully loaded")
 
         main_dashboard = IosMainDashboard()
         discover_tab = main_dashboard.main_dashboard_discover_tab
@@ -163,10 +163,10 @@ class TestIosRegister:
         assert profile_tab.click()
         expect(ios_profile.profile_settings_button).to_have(values.PROFILE_SETTINGS_TEXT)
         assert ios_profile.profile_settings_button.click()
-        expect(ios_profile.get_profile_logout_button).to_have(values.PROFILE_LOGOUT_BUTTON, case='lower')
+        expect(ios_profile.get_profile_logout_button).to_have(values.PROFILE_LOGOUT_BUTTON, case="lower")
         assert ios_profile.get_profile_logout_button.click()
-        expect(ios_profile.get_logout_close_button).to_have('Close')
+        expect(ios_profile.get_logout_close_button).to_have("Close")
         expect(ios_profile.get_logout_dialog_title).to_have(values.LOGOUT_DIALOG_TITLE)
-        expect(ios_profile.get_logout_button).to_have(values.PROFILE_LOGOUT_BUTTON, case='lower')
-        assert ios_profile.get_logout_button.click()
+        expect(ios_profile.get_logout_button_from_prompt).to_have(values.PROFILE_LOGOUT_BUTTON, case="lower")
+        assert ios_profile.get_logout_button_from_prompt.click()
         expect(ios_landing.get_welcome_message).to_have(values.LANDING_MESSAGE)
