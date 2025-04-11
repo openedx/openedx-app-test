@@ -1,6 +1,5 @@
 import re
 from typing import Optional, Union
-
 from framework.element import Element
 from tests.common.enums.attributes import ElementAttribute
 
@@ -116,6 +115,7 @@ class CustomAssertions:
             AssertionError: If the element is not selected and the assertion
                 is not negated (i.e., `to_not` is not used).
         """
+
         if self._is_not:
             assert not self._locator.is_selected(), self._custom_message
         else:
@@ -141,6 +141,15 @@ class CustomAssertions:
             assert not self._locator.is_enabled(), self._custom_message
         else:
             assert self._locator.is_enabled(), self._custom_message
+
+    def to_be_visible(self):
+        """
+        Asserts that the element is enabled
+        """
+        if self._is_not:
+            assert not self._locator.get_attribute(ElementAttribute.VISIBLE), self._custom_message
+        else:
+            assert self._locator.get_attribute(ElementAttribute.VISIBLE), self._custom_message
 
     def to_be_displayed(self):
         """

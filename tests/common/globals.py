@@ -534,7 +534,7 @@ class Globals:
         self.wait_for_element_visibility(
             driver, android_elements.back_button_navigation
         )
-
+        
         return self.wait_and_get_element(
             driver, android_elements.back_button_navigation
         )

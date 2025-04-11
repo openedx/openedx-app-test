@@ -1,7 +1,7 @@
 """
     Course Home Tab Screen Test Module
 """
-
+from framework import expect, Element
 from tests.ios.pages.ios_course_dashboard import IosCourseDashboard
 from tests.ios.pages.ios_landing import IosLanding
 from tests.ios.pages import ios_elements
@@ -40,19 +40,21 @@ class TestIosCourseHomeTab:
             Verify back button
         """
         driver = ios_login
-        course_dashboard_page = IosCourseDashboard(driver, setup_logging)
+        Element.set_driver(driver)
+        Element.set_logger(setup_logging)
+        course_dashboard_page = IosCourseDashboard()
         global_contents = Globals(setup_logging)
-        ios_landing = IosLanding(driver, setup_logging)
+        ios_landing = IosLanding()
 
         second_course_name = global_contents.get_element_by_name_ios(
             driver, values.MY_COURSES_SECOND_COURSE_NAME)
 
         second_course_name.click()
-        if ios_landing.get_allow_notifications_button():
-            ios_landing.get_allow_notifications_button().click()
+        if ios_landing.allow_notifications_button.exists():
+            ios_landing.allow_notifications_button.click()
 
-        course_tab = course_dashboard_page.get_course_dashboard_course_tab()
-        assert course_tab.text == values.COURSE_DASHBOARD_HOME_TAB
+        course_tab = course_dashboard_page.course_dashboard_course_tab
+        expect(course_tab).to_have(values.COURSE_DASHBOARD_HOME_TAB)
 
         deadline_title = global_contents.get_element_by_label_ios(
             driver, values.COURSE_MISSED_DEADLINES_LABEL)
@@ -115,20 +117,21 @@ class TestIosCourseHomeTab:
                 loads the components screen
             Verify clicking on back button will navigate the user to dashboard page
         """
-
+        Element.set_driver(set_capabilities)
+        Element.set_logger(setup_logging)
         global_contents = Globals(setup_logging)
-        course_home_page = IosCourseHomeTab(set_capabilities, setup_logging)
+        course_home_page = IosCourseHomeTab()
 
-        next_btn = course_home_page.get_next_btn()
-        assert next_btn.text == values.COURSE_COMPONENT_NEXT_BUTTON
-        next_btn.click()
+        next_btn = course_home_page.next_btn
+        expect(next_btn).to_have(values.COURSE_COMPONENT_NEXT_BUTTON)
+        assert next_btn.click()
 
-        prev_btn = course_home_page.get_prev_btn()
-        assert prev_btn.text == values.COURSE_COMPONENT_PREVIOUS_BUTTON
-        prev_btn.click()
+        prev_btn = course_home_page.prev_btn
+        expect(prev_btn).to_have(values.COURSE_COMPONENT_PREVIOUS_BUTTON)
+        assert prev_btn.click()
 
         finish_button = course_home_page.component_navigation()
-        assert finish_button.text == values.COURSE_COMPONENT_FINISH_BUTTON
+        expect(finish_button).to_have(values.COURSE_COMPONENT_FINISH_BUTTON)
         finish_button.click()
 
         back_to_outline = global_contents.get_element_by_label_ios(

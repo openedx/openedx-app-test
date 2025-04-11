@@ -92,6 +92,8 @@ class TestAndroidSettings:
         """
 
         driver = android_login
+        Element.set_driver(driver)
+        Element.set_logger(setup_logging)
         profile_page = AndroidProfile()
 
         profile_page.get_profile_txt_contact_support.scroll_vertically_from_element()

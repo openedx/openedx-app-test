@@ -1,8 +1,9 @@
 """
 Register Screen Test Module
 """
-
+from framework import expect, Element
 from tests.common import values
+from tests.common.enums import ElementAttribute
 from tests.common.globals import Globals
 from tests.ios.pages.ios_landing import IosLanding
 from tests.ios.pages.ios_login import IosLogin
@@ -22,16 +23,16 @@ class TestIosRegister:
         Scenario:
             Verify Register screen is loaded successfully
         """
-
+        Element.set_driver(set_capabilities)
+        Element.set_logger(setup_logging)
         setup_logging.info("Starting Test Case")
-        register_page = IosRegister(set_capabilities, setup_logging)
-        ios_landing = IosLanding(set_capabilities, setup_logging)
-
-        if ios_landing.get_allow_notifications_button():
-            ios_landing.get_allow_notifications_button().click()
-        register_button = register_page.get_register_button()
-        assert register_page.get_register_button().text == values.REGISTER
-        register_button.click()
+        register_page = IosRegister()
+        ios_landing = IosLanding()
+        if ios_landing.allow_notifications_button.exists():
+            ios_landing.allow_notifications_button.click()
+        register_button = IosRegister.get_register_button()
+        expect(register_page.get_register_button).to_have(values.REGISTER)
+        assert register_button.click()
 
     def test_ui_elements_smoke(self, set_capabilities, setup_logging):
         """
@@ -43,88 +44,47 @@ class TestIosRegister:
             Verify all screen contents have their default values
             Verify all fields are editable
         """
+        Element.set_logger(setup_logging)
+        Element.set_driver(set_capabilities)
+        register_page = IosRegister()
+        ios_landing = IosLanding()
+        ios_login = IosLogin()
 
-        register_page = IosRegister(set_capabilities, setup_logging)
-        global_contents = Globals(setup_logging)
-        ios_landing = IosLanding(set_capabilities, setup_logging)
-        ios_login = IosLogin(set_capabilities, setup_logging)
+        expect(register_page.get_register_screen_heading).to_have(values.REGISTER)
+        back_button = ios_landing.back_navigation_button
+        expect(back_button).to_have(values.LANDING_BACK_BUTTON)
+        sign_up_heading = register_page.get_signup_text
+        expect(sign_up_heading).to_have(values.REGISTER)
+        expect(register_page.get_signup_subtitle_text).to_have(values.REGISTER_CREATE_ACCOUNT_MESSAGE)
+        expect(register_page.get_name_text).to_have(values.REGISTER_FULL_NAME_TITLE)
+        expect(register_page.get_name_textfield).to_be_visible()
+        expect(register_page.get_name_instructions_text).to_have(values.REGISTER_FULL_NAME_MESSAGE)
 
-        assert register_page.get_register_screen_heading().text == values.REGISTER
-        back_button = ios_landing.get_header_back_button()
-        assert back_button.text == values.LANDING_BACK_BUTTON
-        sign_up_heading = register_page.get_signup_text()
-        assert sign_up_heading.text == values.REGISTER
-
-        create_account_message = register_page.get_signup_subtitle_text()
-        assert create_account_message.text == values.REGISTER_CREATE_ACCOUNT_MESSAGE
-
-        full_name_title = register_page.get_name_text()
-        assert full_name_title.text == values.REGISTER_FULL_NAME_TITLE
-
-        name_textfield = register_page.get_name_textfield()
-        assert name_textfield.get_attribute("visible") == values.TRUE_LOWERCASE
-
-        name_instructions_text = register_page.get_name_instructions_text()
-        assert name_instructions_text.text == values.REGISTER_FULL_NAME_MESSAGE
-
-        user_name_content = register_page.get_username_text()
-        assert user_name_content.text == values.REGISTER_PUBLIC_USERNAME_TITLE
-
-        username_textfield = register_page.get_username_textfield()
-        assert username_textfield.get_attribute("visible") == values.TRUE_LOWERCASE
-
-        username_instructions_text = register_page.get_username_instructions_text()
-        assert username_instructions_text.text == values.REGISTER_PUBLIC_USERNAME_MESSAGE
-
-        email_text = register_page.get_email_text()
-        assert email_text.text == values.REGISTER_EMAIL_TITLE
-
-        email_textfield = register_page.get_email_textfield()
-        assert email_textfield.get_attribute("visible") == values.TRUE_LOWERCASE
-
-        email_instructions_text = register_page.get_email_instructions_text()
-        assert email_instructions_text.text == values.REGISTER_EMAIL_MESSAGE
-
-        password_text = register_page.get_password_text()
-        assert password_text.text == values.REGISTER_PASSWORD_TITLE
-
-        password_text_field = register_page.get_password_textfield()
-        assert password_text_field.get_attribute("visible") == values.TRUE_LOWERCASE
-
-        password_instructions_text = register_page.get_password_instructions_text()
-        assert password_instructions_text.text == values.REGISTER_PASSWORD_MESSAGE
-
-        country_text = register_page.get_country_text()
-        assert country_text.text == values.REGISTER_COUNTRY_TITLE
-
-        country_textfield = register_page.get_country_textfield()
-        assert country_textfield
-
-        country_instructions_text = register_page.get_country_instructions_text()
-        assert country_instructions_text.text == values.REGISTER_COUNTRY_MESSAGE
-
-        show_optional_fields = register_page.get_show_optional_fields()
-        assert show_optional_fields.text == values.REGISTER_SHOW_OPTIONAL_FIELDS
-
-        register_button = register_page.get_create_account_button()
-        assert register_button.text == values.REGISTER_CREATE_ACCOUNT_BUTTON
-
-        social_auth_title_text = register_page.get_social_auth_title_text()
-        assert social_auth_title_text.text == values.REGISTER_OPTIONS_TITLE
-
-        global_contents.scroll_from_element(set_capabilities, password_text_field)
-
-        google_signin = ios_login.get_signin_social_auth_google_button()
-        assert google_signin.text == values.REGISTER_GOOGLE_SIGNUP
-
-        facebook_signin = ios_login.get_signin_social_auth_facebook_button()
-        assert facebook_signin.text == values.REGISTER_FACEBOOK_SIGNUP
-
-        microsoft_signin = ios_login.get_signin_social_auth_microsoft_button()
-        assert microsoft_signin.text == values.REGISTER_MICROSOFT_SIGNUP
-
-        apple_signin = ios_login.get_signin_social_auth_apple_button()
-        assert apple_signin.text == values.REGISTER_APPLE_SIGNUP
+        expect(register_page.get_username_text).to_have(values.REGISTER_PUBLIC_USERNAME_TITLE)
+        expect(register_page.get_username_textfield).to_be_visible()
+        expect(register_page.get_username_instructions_text).to_have(values.REGISTER_PUBLIC_USERNAME_MESSAGE)
+        expect(register_page.get_email_text).to_have(values.REGISTER_EMAIL_TITLE)
+        expect(register_page.get_email_textfield).to_be_visible()
+        expect(register_page.get_email_instructions_text).to_have(values.REGISTER_EMAIL_MESSAGE)
+        expect(register_page.get_password_text).to_have(values.REGISTER_PASSWORD_TITLE)
+        expect(register_page.get_password_textfield).to_be_visible()
+        password_instructions_text = register_page.get_password_instructions_text
+        expect(password_instructions_text).to_have(values.REGISTER_PASSWORD_MESSAGE)
+        expect(register_page.get_country_text).to_have(values.REGISTER_COUNTRY_TITLE)
+        assert register_page.get_country_textfield.exists()
+        country_instructions_text = register_page.get_country_instructions_text
+        expect(country_instructions_text).to_have(values.REGISTER_COUNTRY_MESSAGE)
+        expect(register_page.get_show_optional_fields).to_have(values.REGISTER_SHOW_OPTIONAL_FIELDS)
+        register_button = register_page.get_create_account_button
+        expect(register_button).to_have(values.REGISTER_CREATE_ACCOUNT_BUTTON)
+        social_auth_title_text = register_page.get_social_auth_title_text
+        expect(social_auth_title_text).to_have(values.REGISTER_OPTIONS_TITLE)
+        register_page.get_password_textfield.scroll_vertically_from_element()
+        expect(ios_login.signin_social_auth_title_text).to_have(values.REGISTER_OPTIONS_TITLE)
+        expect(ios_login.signin_social_auth_google_button).to_have(values.GOOGLE_SIGNIN)
+        expect(ios_login.signin_social_auth_facebook_button).to_have(values.FACEBOOK_SIGNIN)
+        expect(ios_login.signin_social_auth_microsoft_button).to_have(values.MICROSOFT_SIGNIN)
+        expect(ios_login.signin_social_auth_apple_button).to_have(values.APPLE_SIGNIN)
 
     def test_register_smoke(self, set_capabilities, setup_logging):
         """
@@ -139,9 +99,11 @@ class TestIosRegister:
         Verify that for new user there must be "Looking for new challenge?" heading is available on the screen
         """
 
-        register_page = IosRegister(set_capabilities, setup_logging)
+        Element.set_logger(setup_logging)
+        Element.set_driver(set_capabilities)
+        register_page = IosRegister()
         global_contents = Globals(setup_logging)
-        whats_new_page = IosWhatsNew(set_capabilities, setup_logging)
+        whats_new_page = IosWhatsNew()
 
         user_name = global_contents.generate_random_credentials(5)
         email = user_name + "@example.com"
@@ -150,70 +112,61 @@ class TestIosRegister:
         full_name = first_name + " " + last_name
         password = "qwERt12#$5" + global_contents.generate_random_credentials(8)
 
-        name_textfield = register_page.get_name_textfield()
-        username_textfield = register_page.get_username_textfield()
-        email_textfield = register_page.get_email_textfield()
-        register_button = register_page.get_create_account_button()
-
-        name_textfield.send_keys(full_name)
-        username_textfield.send_keys(user_name)
-        email_textfield.click()
-        email_textfield.send_keys(email)
-
-        password_field = register_page.get_password_textfield()
-        password_field.send_keys(password)
-
-        global_contents.scroll_screen(set_capabilities, register_button, name_textfield)
-        country_textfield = register_page.get_country_textfield()
-        country_textfield.click()
-        picker_title_text = register_page.get_picker_title_text()
-        assert picker_title_text.text == values.REGISTER_COUNTRY_PICKER_TITLE
-
-        country_field = register_page.select_country()
-        assert country_field
-        country_field.click()
-        country_field.send_keys(values.REGISTER_COUNTRY_SELECT)
-
-        accept_button = register_page.get_picker_accept_button()
-        assert accept_button.text == values.REGISTER_COUNTRY_ACCEPT_BUTTON
-        accept_button.click()
-        country_textfield = register_page.get_country_textfield()
-        assert country_textfield.text == values.REGISTER_COUNTRY_SELECT
-
+        name_textfield = register_page.get_name_textfield
+        username_textfield = register_page.get_username_textfield
+        email_textfield = register_page.get_email_textfield
+        register_button = register_page.get_create_account_button
+        assert name_textfield.send_keys(full_name)
+        assert username_textfield.send_keys(user_name)
+        assert email_textfield.click()
+        assert email_textfield.send_keys(email)
+        assert register_page.get_password_textfield.send_keys(password)
+        register_button.scroll_vertically_from_element()
+        assert register_page.get_country_textfield.click()
+        picker_title_text = register_page.get_picker_title_text
+        expect(picker_title_text).to_have(values.REGISTER_COUNTRY_PICKER_TITLE)
+        country_field = register_page.select_country
+        assert country_field.exists()
+        assert country_field.click()
+        assert country_field.send_keys(values.REGISTER_COUNTRY_SELECT)
+        accept_button = register_page.get_picker_accept_button
+        expect(accept_button).to_have(values.REGISTER_COUNTRY_ACCEPT_BUTTON)
+        assert accept_button.click()
+        expect(register_page.get_country_textfield).to_have(values.REGISTER_COUNTRY_SELECT)
         register_button.click()
-        password_instructions_text = register_page.get_password_instructions_text()
-        assert password_instructions_text.text == values.REGISTER_PASSWORD_MESSAGE
-
+        expect(register_page.get_password_instructions_text).to_have(values.REGISTER_PASSWORD_MESSAGE)
         if global_contents.whats_new_enable:
-            assert whats_new_page.navigate_features().text == "Done"
-            whats_new_page.get_next_btn().click()
+            expect(whats_new_page.navigate_features()).to_have("Done")
+            assert whats_new_page.whats_new_next_button.click()
             setup_logging.info("Whats New screen is successfully loaded")
 
-        main_dashboard = IosMainDashboard(set_capabilities, setup_logging)
-        discover_tab = main_dashboard.get_main_dashboard_discover_tab()
-        assert discover_tab.text == values.DISCOVER_SCREEN_HEADING
+        main_dashboard = IosMainDashboard()
+        discover_tab = main_dashboard.main_dashboard_discover_tab
+        expect(discover_tab).to_have(values.IOS_SELECTED_TAB_VALUE, ElementAttribute.VALUE)
 
     def test_sign_out_smoke(self, set_capabilities, setup_logging):
         """
         Scenarios:
             Verify that clicking logout button should load logout dialog
             Verify that tapping close button should leave logout dialog
-            Verify that tapping logout button should logout from main dashboard screen
+            Verify that tapping logout button should log out from main dashboard screen
         """
 
-        ios_profile = IosProfile(set_capabilities, setup_logging)
-        ios_landing = IosLanding(set_capabilities, setup_logging)
-        main_dashboard = IosMainDashboard(set_capabilities, setup_logging)
+        Element.set_logger(setup_logging)
+        Element.set_driver(set_capabilities)
+        ios_profile = IosProfile()
+        ios_landing = IosLanding()
+        main_dashboard = IosMainDashboard()
 
-        profile_tab = main_dashboard.get_main_dashboard_profile_tab()
-        assert profile_tab.text == values.MAIN_DASHBOARD_PROFILE_TAB
-        profile_tab.click()
-        assert ios_profile.get_profile_settings_button().text == values.PROFILE_SETTINGS_TEXT
-        ios_profile.get_profile_settings_button().click()
-        assert ios_profile.get_profile_logout_button().text.lower() == values.PROFILE_LOGOUT_BUTTON
-        ios_profile.get_profile_logout_button().click()
-        assert ios_profile.get_logout_close_button().text == "Close"
-        assert ios_profile.get_logout_dialog_title().text == values.LOGOUT_DIALOG_TITLE
-        assert ios_profile.get_logout_button().text.lower() == values.PROFILE_LOGOUT_BUTTON
-        ios_profile.get_logout_button().click()
-        assert ios_landing.get_welcome_message().text == values.LANDING_MESSAGE
+        profile_tab = main_dashboard.profile_tab
+        expect(profile_tab).to_have(values.MAIN_DASHBOARD_PROFILE_TAB)
+        assert profile_tab.click()
+        expect(ios_profile.profile_settings_button).to_have(values.PROFILE_SETTINGS_TEXT)
+        assert ios_profile.profile_settings_button.click()
+        expect(ios_profile.get_profile_logout_button).to_have(values.PROFILE_LOGOUT_BUTTON, case="lower")
+        assert ios_profile.get_profile_logout_button.click()
+        expect(ios_profile.get_logout_close_button).to_have("Close")
+        expect(ios_profile.get_logout_dialog_title).to_have(values.LOGOUT_DIALOG_TITLE)
+        expect(ios_profile.get_logout_button_from_prompt).to_have(values.PROFILE_LOGOUT_BUTTON, case="lower")
+        assert ios_profile.get_logout_button_from_prompt.click()
+        expect(ios_landing.get_welcome_message).to_have(values.LANDING_MESSAGE)

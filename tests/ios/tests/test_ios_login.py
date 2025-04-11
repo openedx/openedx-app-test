@@ -1,8 +1,9 @@
 """
 Login Test Module
 """
-
+from framework import expect, Element
 from tests.common import values
+from tests.common.enums import ElementAttribute
 from tests.common.globals import Globals
 from tests.ios.pages.ios_landing import IosLanding
 from tests.ios.pages.ios_login import IosLogin
@@ -18,19 +19,19 @@ class TestIosLogin:
         Scenario:
             Verify Login screen is loaded successfully
         """
+        Element.set_driver(set_capabilities)
+        Element.set_logger(setup_logging)
+        setup_logging.info('Starting Test Case')
+        ios_landing = IosLanding()
+        ios_login = IosLogin()
 
-        setup_logging.info("Starting Test Case")
-        ios_landing = IosLanding(set_capabilities, setup_logging)
-        ios_login = IosLogin(set_capabilities, setup_logging)
+        if ios_landing.allow_notifications_button.exists():
+            ios_landing.allow_notifications_button.click()
 
-        if ios_landing.get_allow_notifications_button():
-            ios_landing.get_allow_notifications_button().click()
-
-        sign_in_button = ios_landing.get_sign_in_button()
-        assert ios_landing.get_sign_in_button().text == values.LOGIN
-        sign_in_button.click()
-        sign_in_title = ios_login.get_sign_in_title()
-        assert sign_in_title.text == values.LOGIN
+        sign_in_button = ios_landing.sign_in_button
+        expect(sign_in_button).to_have(values.LOGIN)
+        assert sign_in_button.click()
+        expect(ios_login.sign_in_title).to_have(values.LOGIN)
 
     def test_ui_elements_smoke(self, set_capabilities, setup_logging):
         """
@@ -41,50 +42,33 @@ class TestIosLogin:
                 "Or sing in with" label, "Facebook" button, "Google" button
             Verify all screen contents have their default values
         """
-
-        ios_login = IosLogin(set_capabilities, setup_logging)
+        Element.set_driver(set_capabilities)
+        Element.set_logger(setup_logging)
+        ios_login = IosLogin()
         global_contents = Globals(setup_logging)
 
-        sign_in_title = ios_login.get_sign_in_title()
-        assert sign_in_title.text == values.LOGIN
+        expect(ios_login.sign_in_title).to_have(values.LOGIN)
+        expect(ios_login.signin_welcome_text).to_have(values.SIGN_IN_MESSAGE)
+        expect(ios_login.signin_username_text).to_have(values.EMAIL_OR_USERNAME_IOS)
+        expect(ios_login.signin_username_textfield).to_have(values.EMAIL_OR_USERNAME_IOS)
+        assert ios_login.signin_username_textfield.send_keys(global_contents.login_user_name)
 
-        sign_in_message = ios_login.get_signin_welcome_text()
-        assert sign_in_message.text == values.SIGN_IN_MESSAGE
+        password_title = ios_login.signin_password_text
+        expect(password_title).to_have(values.PASSWORD)
+        assert password_title.click()
+        password_field = ios_login.signin_password_textfield
+        expect(password_field).to_have(values.PASSWORD, ElementAttribute.VALUE)
+        assert password_field.send_keys(global_contents.login_password)
+        assert password_title.click()
 
-        email_or_username_title = ios_login.get_signin_username_text()
-        assert email_or_username_title.text == values.EMAIL_OR_USERNAME_IOS
-
-        email_field = ios_login.get_signin_username_textfield()
-        assert email_field.text == values.EMAIL_OR_USERNAME_IOS
-        email_field.send_keys(global_contents.login_user_name)
-
-        password_title = ios_login.get_signin_password_text()
-        assert password_title.text == values.PASSWORD
-        password_title.click()
-        password_field = ios_login.get_signin_password_textfield()
-        assert password_field.get_attribute("value") == values.PASSWORD
-        password_field.send_keys(global_contents.login_password)
-        password_title.click()
-
-        sign_in_button = ios_login.get_signin_button()
-        assert sign_in_button.text == values.LOGIN
-
-        global_contents.scroll_from_element(set_capabilities, sign_in_button)
-
-        social_auth_title = ios_login.get_signin_social_auth_title_text()
-        assert social_auth_title.text == values.SOCIAL_AUTH_TITLE
-
-        google_signin = ios_login.get_signin_social_auth_google_button()
-        assert google_signin.text == values.GOOGLE_SIGNIN
-
-        facebook_signin = ios_login.get_signin_social_auth_facebook_button()
-        assert facebook_signin.text == values.FACEBOOK_SIGNIN
-
-        microsoft_signin = ios_login.get_signin_social_auth_microsoft_button()
-        assert microsoft_signin.text == values.MICROSOFT_SIGNIN
-
-        apple_signin = ios_login.get_signin_social_auth_apple_button()
-        assert apple_signin.text == values.APPLE_SIGNIN
+        sign_in_button = ios_login.signin_button
+        expect(ios_login.signin_button).to_have(values.LOGIN)
+        sign_in_button.scroll_vertically_from_element()
+        expect(ios_login.signin_social_auth_title_text).to_have(values.SOCIAL_AUTH_TITLE)
+        expect(ios_login.signin_social_auth_google_button).to_have(values.GOOGLE_SIGNIN)
+        expect(ios_login.signin_social_auth_facebook_button).to_have(values.FACEBOOK_SIGNIN)
+        expect(ios_login.signin_social_auth_microsoft_button).to_have(values.MICROSOFT_SIGNIN)
+        expect(ios_login.signin_social_auth_apple_button).to_have(values.APPLE_SIGNIN)
 
     def test_forgot_password_alert_smoke(self, set_capabilities, setup_logging):
         """
@@ -96,49 +80,34 @@ class TestIosLogin:
             Verify signin button is shown in check email screen
             Verify signin button will load 'Sign In' screen
         """
-
-        ios_login = IosLogin(set_capabilities, setup_logging)
+        Element.set_driver(set_capabilities)
+        Element.set_logger(setup_logging)
+        ios_login = IosLogin()
         global_contents = Globals(setup_logging)
-        ios_landing = IosLanding(set_capabilities, setup_logging)
-        forgot_password_button = ios_login.get_signin_forgot_password_button()
-        assert forgot_password_button.text == values.FORGOT_PASSWORD
+        ios_landing = IosLanding()
 
-        forgot_password_button.click()
-        heading_title = global_contents.get_screen_heading_title(set_capabilities)
-        assert heading_title.text == values.FORGOT_PASSWORD_TITLE
-
-        title_text = ios_login.get_forgot_title_text()
-        assert title_text.text == values.FORGOT_PASSWORD_TITLE
-
-        description_text = ios_login.get_forgot_description_text()
-        assert description_text.text == values.FORGOT_DESCRIPTION_TEXT
-
-        email_text = ios_login.get_forgot_email_text()
-        assert email_text.text == values.FORGOT_EMAIL_TITLE
-
-        email_textfield = ios_login.get_forgot_email_textfield()
-        assert email_textfield.text == values.FORGOT_EMAIL_TITLE
-        email_textfield.click()
+        expect(ios_login.get_signin_forgot_password_button).to_have(values.FORGOT_PASSWORD)
+        assert ios_login.get_signin_forgot_password_button.click()
+        expect(ios_login.screen_heading_title).to_have(values.FORGOT_PASSWORD_TITLE)
+        expect(ios_login.forgot_title_text).to_have(values.FORGOT_PASSWORD_TITLE)
+        description_text = ios_login.forgot_description_text
+        expect(description_text).to_have(values.FORGOT_DESCRIPTION_TEXT)
+        email_text = ios_login.forgot_email_text
+        expect(email_text).to_have(values.FORGOT_EMAIL_TITLE)
+        email_textfield = ios_login.forgot_email_textfield
+        expect(email_textfield).to_have(values.FORGOT_EMAIL_TITLE)
+        assert email_textfield.click()
         random_email = global_contents.generate_random_credentials(8)
-        email_textfield.send_keys(random_email + "@yop.com")
-
-        reset_password_button = ios_login.get_forgot_reset_password_button()
-        assert reset_password_button.text == values.RESET_PASSWORD_BUTTON
-        reset_password_button.click()
-
-        check_email_image = ios_login.get_forgot_check_email_image()
-        assert check_email_image.text == values.FORGOT_CHECK_EMAIL_IMAGE
-
-        recover_title_text = ios_login.get_forgot_recover_title_text()
-        assert recover_title_text.text == values.FORGOT_RECOVER_TITLE_TEXT
-
-        recover_description_text = ios_login.get_forgot_recover_description_text()
-        assert values.FOROGT_RECOVER_DESCRIPTION in recover_description_text.text
-
-        sign_in_button = ios_login.get_signin_button()
-        assert sign_in_button.text == values.LOGIN
-        sign_in_button.click()
-
-        logo_image = ios_landing.get_logo_image()
-        assert logo_image.text == values.LANDING_LOGO_IMAGE
-        setup_logging.info("Ending Test Case")
+        email_textfield.send_keys(random_email + '@yop.com')
+        reset_password_button = ios_login.forgot_reset_password_button
+        expect(reset_password_button).to_have(values.RESET_PASSWORD_BUTTON)
+        assert reset_password_button.click()
+        expect(ios_login.forgot_check_email_image).to_have(values.FORGOT_CHECK_EMAIL_IMAGE)
+        expect(ios_login.forgot_recover_title_text).to_have(values.FORGOT_RECOVER_TITLE_TEXT)
+        expect(ios_login.forgot_recover_description_text).to_contain(values.FOROGT_RECOVER_DESCRIPTION)
+        sign_in_button = ios_login.signin_button
+        expect(ios_login.signin_button).to_have(values.LOGIN)
+        assert sign_in_button.click()
+        logo_image = ios_landing.get_logo_image
+        expect(logo_image).to_have(values.LANDING_LOGO_IMAGE)
+        setup_logging.info('Ending Test Case')

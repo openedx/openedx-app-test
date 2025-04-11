@@ -3,11 +3,11 @@
 """
 
 from framework import expect
-from framework.element import Element
 from tests.android.pages.android_landing import AndroidLanding
 from tests.android.pages.android_sign_in import AndroidSignIn
 from tests.common import utils, values
 from tests.common.globals import Globals
+from framework.element import Element
 
 
 class TestAndroidSignIn:

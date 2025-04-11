@@ -3,12 +3,9 @@
 """
 
 from appium.webdriver.common.appiumby import AppiumBy
-from appium.webdriver.webelement import WebElement as MobileWebElement
 
 from framework.element import Element
-from tests.android.pages import android_elements
 from tests.android.pages.android_base_page import AndroidBasePage
-from tests.common.enums.attributes import ElementAttribute
 
 
 class AndroidLanding(AndroidBasePage):

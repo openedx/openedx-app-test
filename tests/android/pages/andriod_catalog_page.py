@@ -1,9 +1,10 @@
 """Discover/Catalog Page Module."""
-from appium.webdriver.common.appiumby import AppiumBy
 
 from framework.element import Element
 from tests.android.pages.android_base_page import AndroidBasePage
 from tests.common import values
+from appium.webdriver.common.appiumby import AppiumBy
+
 
 
 class AndroidCatalogPage(AndroidBasePage):
@@ -11,6 +12,8 @@ class AndroidCatalogPage(AndroidBasePage):
 
     def __init__(self):
         super().__init__()
+        self._catalog_screen_toolbar_title = Element(AppiumBy.ANDROID_UIAUTOMATOR,
+                                                     'new UiSelector().resourceId("txt_toolbar_title")')
         self._catalog_screen_heading_msg = Element(
             AppiumBy.ANDROID_UIAUTOMATOR,
             'new UiSelector().text("Build skills. Earn a certificate. Advance your career.")',
@@ -135,11 +138,19 @@ class AndroidCatalogPage(AndroidBasePage):
         return self._third_popular_course
 
     @property
+    def catalog_screen_toolbar_title(self) -> Element:
+        """
+        catalog screen toolbar title
+        """
+        return self._catalog_screen_toolbar_title
+
+    @property
     def catalog_screen_heading_msg(self) -> Element:
         """catalog screen heading message
         Returns:
             Element: catalog screen heading message
         """
+
         return self._catalog_screen_heading_msg
 
     def trending_tag(self, tag: str) -> Element:
@@ -147,6 +158,7 @@ class AndroidCatalogPage(AndroidBasePage):
         Returns:
             Element: catalog screen trending marketing tag
         """
+
         return self._trending_tags.get(tag)
 
     @property
