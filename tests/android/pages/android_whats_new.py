@@ -1,5 +1,5 @@
 """
-    What's New Page Module
+What's New Page Module
 """
 
 from appium.webdriver.common.appiumby import AppiumBy
@@ -23,15 +23,9 @@ class AndroidWhatsNew(AndroidBasePage):
             AppiumBy.ANDROID_UIAUTOMATOR,
             'new UiSelector().resourceId("txt_whats_new_description")',
         )
-        self._whats_new_btn_next = Element(
-            AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("btn_next")'
-        )
-        self._whats_new_done_button = Element(
-            AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("txt_done")'
-        )
-        self._whats_new_close_button = Element(
-            AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("txt_done")'
-        )
+        self._whats_new_btn_next = Element(AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("btn_next")')
+        self._whats_new_done_button = Element(AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("txt_done")')
+        self._whats_new_close_button = Element(AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("ib_close")')
 
     @property
     def get_close_button(self) -> Element:
@@ -91,12 +85,13 @@ class AndroidWhatsNew(AndroidBasePage):
         """Navigate between features
 
         Returns:
-            webdriver Element: Done Element
+            Element: Done Element
         """
 
         self.next_btn.click()
-
-        if self.done_button.exists():
+        print("~~~~~~~~NEXT~~~~~~~~")
+        if self.done_button.exists(raise_exception=False):
+            print("~~~~~~~~FOUND~~~~~~~~")
             return self.done_button
         else:
             self.navigate_features()

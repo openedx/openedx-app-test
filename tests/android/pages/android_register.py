@@ -6,7 +6,6 @@ from appium.webdriver.common.appiumby import AppiumBy
 
 from framework.element import Element
 from tests.android.pages.android_base_page import AndroidBasePage
-from tests.common import values
 
 
 class AndroidRegister(AndroidBasePage):
@@ -83,11 +82,11 @@ class AndroidRegister(AndroidBasePage):
         )
         self._register_education_level = Element(
             AppiumBy.ANDROID_UIAUTOMATOR,
-            'new UiSelector().resourceId("register_education_level")',
+            'new UiSelector().resourceId("txt_level_of_education_label")',
         )
         self._register_education_level_placeholder = Element(
             AppiumBy.ANDROID_UIAUTOMATOR,
-            'new UiSelector().resourceId("register_education_level_placeholder")',
+            'new UiSelector().resourceId("txt_level_of_education_placeholder")',
         )
         self._register_gender_label = Element(
             AppiumBy.ANDROID_UIAUTOMATOR,
@@ -121,7 +120,9 @@ class AndroidRegister(AndroidBasePage):
         )
         self._honor_policy_text = Element(
             AppiumBy.ANDROID_UIAUTOMATOR,
-            f"new UiSelector().text({values.REGISTER_HONOR_POLICY_TEXT})",
+            'new UiSelector().text("By creating an account, you agree to the edX End User Licence Agreement and'
+            " edX Terms of Service and Honor Code and you acknowledge that edX and each Member process your personal "
+            'data in accordance with the edX Privacy Policy.")',
         )
 
         self._register_marketing_messages_agreement = Element(

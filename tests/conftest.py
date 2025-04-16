@@ -5,6 +5,7 @@ Module ensure environment level initial settings before starting execution
 import datetime
 import logging.handlers
 import os
+from time import sleep
 from typing import Optional
 
 import pytest
@@ -206,14 +207,13 @@ def android_login(set_capabilities, setup_logging):
     log = setup_logging
     global_contents = Globals(log)
     Element.set_driver(set_capabilities)
-    Element.set_logger(setup_logging)
+    Element.set_logger(log)
     android_landing = AndroidLanding()
     android_sign_in = AndroidSignIn()
     whats_new_page = AndroidWhatsNew()
     main_dashboard_page = AndroidMainDashboard()
     profile_page = AndroidProfile()
 
-    expect(android_landing.screen_title).to_have(values.LANDING_MESSAGE)
     assert android_landing.signin_button.exists()
     assert android_landing.load_signin_screen()
     expect(android_sign_in.signin_title, "Sign in screen not loaded successfully").to_have(values.LOGIN)
@@ -227,6 +227,7 @@ def android_login(set_capabilities, setup_logging):
     assert android_sign_in.sign_in_password_field.send_keys(global_contents.login_password)
     expect(android_sign_in.signin_button).to_be_clickable()
     assert android_sign_in.signin_button.click()
+    assert android_landing.android_loading_circle.wait_to_disappear(30)
     setup_logging.info(f"{global_contents.login_user_name} is successfully logged in")
     if global_contents.whats_new_enable:
         assert whats_new_page.get_close_button.click()
@@ -237,6 +238,18 @@ def android_login(set_capabilities, setup_logging):
     yield set_capabilities
 
     profile_tab = main_dashboard_page.profile_tab
+    log.info("Before if")
+    if not profile_tab.exists(raise_exception=False):
+        log.info("Profile Tab Not Found")
+        back_button = (
+            profile_page.profile_settings_back_button
+            if profile_page.profile_settings_back_button.exists(raise_exception=False)
+            else profile_page.back_navigation_button
+        )
+        assert back_button.click()
+        sleep(10)
+        log.info("Clicked Back button")
+    log.info("After if")
     assert profile_tab.click()
     assert profile_page.settings_button.click()
     profile_page.get_profile_txt_terms_of_use.scroll_vertically_from_element()

@@ -38,9 +38,6 @@ class TestAndroidCourseHomeTab:
             Verify second component header
             Verify back button
         """
-
-        Element.set_driver(android_login)
-        Element.set_logger(setup_logging)
         course_dashboard_page = AndroidCourseDashboard()
 
         second_course_name = course_dashboard_page.find_by_text_on_screen(values.MY_COURSES_SECOND_COURSE_NAME)
@@ -56,7 +53,7 @@ class TestAndroidCourseHomeTab:
 
         assert course_dashboard_page.find_by_text_on_screen(values.COURSE_DEADLINE_DESCRIPTION_LABEL).exists()
 
-        assert course_dashboard_page.find_by_text_on_screen == values.COURSE_SHIFT_DUE_DATES
+        assert course_dashboard_page.find_by_text_on_screen(values.COURSE_SHIFT_DUE_DATES)
 
         assert course_dashboard_page.find_by_text_on_screen(values.COURSE_CONTINUE_WITH_LABEL).exists()
 
@@ -103,6 +100,7 @@ class TestAndroidCourseHomeTab:
         Element.set_logger(setup_logging)
         course_home_page = AndroidCourseHomeTab()
 
+        assert course_home_page.android_loading_circle.wait_to_disappear(90)
         next_btn = course_home_page.next_btn
         expect(next_btn).to_have(values.COURSE_COMPONENT_NEXT_BUTTON)
         assert next_btn.click()

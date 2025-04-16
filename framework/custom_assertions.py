@@ -1,4 +1,17 @@
-"""Custom Assertions for the Framework"""
+"""Custom Assertions Module
+
+This module provides a class `CustomAssertions` that provides custom assertions
+for the `Element` class.
+
+The `CustomAssertions` class provides a way to write custom assertions for the
+`Element` class. It allows you to write assertions that are not already provided
+by the `Element` class.
+
+The `CustomAssertions` class provides the following methods:
+
+- `to_have`: Asserts that the element has a certain text or attribute.
+- `to_match`: Asserts that the element's attribute matches a certain regex pattern.
+"""
 
 import re
 from typing import Optional, Union
@@ -7,7 +20,9 @@ from tests.common.enums.attributes import ElementAttribute
 
 
 class CustomAssertions:
-    """Custom Assertions for the Framework"""
+    """
+    A class that provides custom assertions for the Element class.
+    """
 
     def __init__(
         self,
@@ -16,8 +31,22 @@ class CustomAssertions:
         is_not: bool = False,
         message: Optional[str] = None,
     ):
+        """
+        Initializes a CustomAssertions instance.
+
+        Args:
+            locator (Element): The element to be asserted.
+            timeout (int, optional): The maximum time to wait for the assertion. Defaults to None.
+            is_not (bool, optional): Negates the assertion if True. Defaults to False.
+            message (Optional[str], optional): Custom message for the assertion. Defaults to None.
+        """
+        # Store the element to be asserted
         self._locator = locator
+
+        # Set the timeout for the assertion
         self._timeout = timeout
+
+        # Flag to indicate if the assertion is negated
         self._is_not = is_not
         self._custom_message = message
 
@@ -57,7 +86,7 @@ class CustomAssertions:
 
     def to_have(
         self,
-        expected_value: Union[str, re.Pattern],
+        expected_value: str,
         attribute: Union[str, ElementAttribute] = ElementAttribute.TEXT,
         case: Optional[str] = None,
     ):
@@ -66,17 +95,43 @@ class CustomAssertions:
         Args:
             expected_value (Union[str, re.Pattern]): The text or regex pattern to compare with the element's attribute.
             attribute (Union[str, ElementAttribute], optional): The attribute to retrieve from the element.
-             Defaults to TEXT.
+                Defaults to TEXT.
             case (Optional[str], optional): The case to compare the values. Can be 'lower' or 'upper'. Defaults to None.
         """
         actual_value = self._locator.get_attribute(attribute)
+
         if case:
             actual_value = actual_value.lower() if case == "lower" else actual_value.upper()
 
-        match_func = re.search if isinstance(expected_value, re.Pattern) else re.fullmatch
+        custom_msg = self._custom_message or f'Expected "{expected_value}" but found "{actual_value}"'
+
+        assert (expected_value != actual_value) if self._is_not else (expected_value == actual_value), custom_msg
+
+    def to_match(
+        self,
+        pattern: re.Pattern,
+        attribute: ElementAttribute = ElementAttribute.TEXT,
+        partial: bool = False,
+    ):
+        """Asserts that the element's attribute matches the specified regex pattern.
+
+        Args:
+            pattern (re.Pattern): The regex pattern to match against the element's attribute.
+            attribute (ElementAttribute, optional): The attribute to retrieve from the element. Defaults to TEXT.
+            partial (bool, optional): If True, performs a partial match (using re.search).
+                                    If False, performs a full match (using re.fullmatch). Defaults to False.
+        """
+        actual_value = self._locator.get_attribute(attribute)
+        # TODO: modify for negative scenario
+        custom_msg = (
+            self._custom_message
+            or f'Expected pattern "{pattern}" to {"partially" if partial else "fully"} match "{actual_value}"'
+        )
+        match_func = re.search if partial else re.fullmatch
+
         assert (
-            (not match_func(expected_value, actual_value)) if self._is_not else match_func(expected_value, actual_value)
-        ), self._custom_message
+            (not match_func(pattern, actual_value)) if self._is_not else match_func(pattern, actual_value)
+        ), custom_msg
 
     def to_contain(
         self,
@@ -94,10 +149,10 @@ class CustomAssertions:
         actual_value = self._locator.get_attribute(attribute)
         if case:
             actual_value = actual_value.lower() if case == "lower" else actual_value.upper()
+        # TODO: modify for negative scenario
+        custom_msg = self._custom_message or f'Expected "{actual_value}" to contain "{expected_value}"'
 
-        assert (
-            (expected_value not in actual_value) if self._is_not else (expected_value in actual_value)
-        ), self._custom_message
+        assert (expected_value not in actual_value) if self._is_not else (expected_value in actual_value), custom_msg
 
     def to_be_selected(self):
         """Asserts that the element is selected

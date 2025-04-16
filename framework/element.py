@@ -3,6 +3,7 @@ Module containing Element class representing web driver element
 """
 
 from logging import Logger
+from typing import Union
 
 from appium.webdriver.common.appiumby import AppiumBy
 from appium.webdriver.webdriver import WebDriver
@@ -33,7 +34,6 @@ class Element:
         self.locator = (strategy, locator)
         self.element: MobileWebElement = None
         self.elements: list[MobileWebElement] = None
-        self.use_existing = False
 
     @classmethod
     def set_driver(cls, driver: WebDriver):
@@ -47,13 +47,13 @@ class Element:
     def set_logger(cls, logger: Logger):
         cls.__logger = logger
 
-    def find(self, timeout=10, raise_exception=True) -> "Element":
+    def find(self, timeout=10, raise_exception=True) -> Union["Element", None]:
         """Finds the required element.
         Arguments:
             timeout (int) : time to wait for element
             raise_exception (bool): True or False
         Returns:
-            Element: Returns self
+            Element: Returns self | None if not found and raise_exception is false
         """
         try:
             if not self.element:
@@ -203,7 +203,9 @@ class Element:
             NotFoundError: If the user sets raise_exception arg to True and click fails
         """
         try:
-            self.find(timeout).element.send_keys(*keys)
+            if not self.element:
+                self.find(timeout)
+            self.element.send_keys(*keys)
             return True
         except Exception as exception:
             if raise_exception:
@@ -227,15 +229,15 @@ class Element:
         """
         try:
             # Attempt to find the element within the specified timeout
-            self.find(timeout)
-            return True
+            if self.find(timeout, raise_exception):
+                Element.__logger.info(f"Element with {self.locator} found successfully")
+                return True
         except Exception as exception:
             if raise_exception:
                 # Raise a NotFoundError if the element is not found and raise_exception is True
                 raise NotFoundError(f"Element with locator: {self.locator} not found with exception {exception}")
             # Log the exception if the element does not exist
             Element.__logger.info(f"Element {self.locator} does not exist with exception {exception}")
-            return False
 
     def is_selected(self, timeout=10) -> bool:
         """
@@ -363,6 +365,66 @@ class Element:
             start_x, end_x = end_x, start_x
 
         Element.__driver.swipe(start_x, anchor_y, end_x, anchor_y, 300)
+
+    def wait_to_disappear(self, timeout=10, raise_exception=True) -> bool:
+        """
+        Waits until the element is not visible on the page
+
+        Args:
+            timeout (int): The time to wait for the element to disappear
+            raise_exception (bool): Whether to raise a NotFoundError if the element is still present after the timeout
+        Returns:
+            bool: True if the element has disappeared, False if not
+        """
+        try:
+            # Wait until the element is not visible on the page
+            if WebDriverWait(Element.__driver, timeout).until_not(
+                expected_conditions.visibility_of_element_located(self.locator)
+            ):
+                Element.__logger.info(f"Element with {self.locator} disappeared")
+                return True
+        except Exception as exception:
+            # If the element is still present after the timeout, raise a NotFoundError if raise_exception is True
+            if raise_exception:
+                raise NotFoundError(
+                    f"Element with locator: {self.locator} still present after "
+                    f"{timeout} seconds. Exception: {exception}"
+                )
+            # Otherwise, just log the exception
+            Element.__logger.info(
+                f"Element with locator: {self.locator} still present after {timeout} seconds. Exception: {exception}"
+            )
+
+    @staticmethod
+    def swipe_vertical_full_page(
+        direction=ScrollDirections.UP,
+        start_y_pc=88,
+        end_y_pc=12,
+        horizontal_anchor=0.5,
+    ):
+        """
+            Swipe on page via given points
+        Arguments:
+            direction (Enum) : enums.ScrollDirections
+            start_y_pc (int) : start screen percentage
+            end_y_pc (int) : end screen percentage
+            horizontal_anchor (float): ratio of screen with to be used as anchor point
+        Returns:
+            None
+        """
+        screen_coordinates = Element.__driver.get_window_size()
+        screen_width = screen_coordinates.get("width")
+        screen_height = screen_coordinates.get("height")
+        x_anchor = int(screen_width * horizontal_anchor)
+
+        if direction == ScrollDirections.UP:
+            start_y = int((screen_height * (start_y_pc / 100)))
+            end_y = int((screen_height * (end_y_pc / 100)))
+        else:
+            start_y = int((screen_height * (end_y_pc / 100)))
+            end_y = int((screen_height * (start_y_pc / 100)))
+
+        Element.__driver.swipe(x_anchor, start_y, x_anchor, end_y, 2500)
 
     @staticmethod
     def press_keycode(code):
