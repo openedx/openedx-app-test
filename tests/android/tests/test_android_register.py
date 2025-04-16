@@ -1,11 +1,12 @@
 """
-    Register Test Module
+Register Test Module
 """
 
 from framework import expect
 from framework.element import Element
 from tests.android.pages.android_landing import AndroidLanding
 from tests.android.pages.android_main_dashboard import AndroidMainDashboard
+from tests.android.pages.android_profile import AndroidProfile
 from tests.android.pages.android_register import AndroidRegister
 from tests.common import values
 from tests.common.enums.attributes import ElementAttribute
@@ -64,56 +65,31 @@ class TestAndroidRegister:
 
         expect(android_register.get_register_title).to_have(values.REGISTER)
         expect(android_register.get_register_title).to_have(values.REGISTER)
-        expect(android_register.get_register_description).to_have(
-            values.REGISTER_CREATE_ACCOUNT_MESSAGE
-        )
-        expect(android_register.get_txt_google_auth).to_have(
-            values.GOOGLE_AUTH_TEXT, ElementAttribute.CONTENT_DESC
-        )
-        expect(android_register.get_txt_facebook_auth).to_have(
-            values.FACEBOOK_AUTH_TEXT, ElementAttribute.CONTENT_DESC
-        )
+        expect(android_register.get_register_description).to_have(values.REGISTER_CREATE_ACCOUNT_MESSAGE)
+        expect(android_register.get_txt_google_auth).to_have(values.GOOGLE_AUTH_TEXT, ElementAttribute.CONTENT_DESC)
+        expect(android_register.get_txt_facebook_auth).to_have(values.FACEBOOK_AUTH_TEXT, ElementAttribute.CONTENT_DESC)
         expect(android_register.get_txt_microsoft_auth).to_have(
             values.MICROSOFT_AUTH_TEXT, ElementAttribute.CONTENT_DESC
         )
-        expect(android_register.get_register_txt_name_label).to_have(
-            values.REGISTER_FULL_NAME_TITLE
-        )
+        expect(android_register.get_register_txt_name_label).to_have(values.REGISTER_FULL_NAME_TITLE)
         expect(android_register.get_register_tf_name).to_be_clickable()
-        expect(android_register.get_register_txt_name_description).to_have(
-            values.REGISTER_FULL_NAME_MESSAGE
-        )
-        expect(android_register.get_register_txt_username_label).to_have(
-            values.REGISTER_PUBLIC_USERNAME_TITLE
-        )
+        expect(android_register.get_register_txt_name_description).to_have(values.REGISTER_FULL_NAME_MESSAGE)
+        expect(android_register.get_register_txt_username_label).to_have(values.REGISTER_PUBLIC_USERNAME_TITLE)
         expect(android_register.get_register_tf_username).to_be_clickable()
-        expect(android_register.get_register_txt_username_description).to_have(
-            values.REGISTER_PUBLIC_USERNAME_MESSAGE
-        )
-        expect(android_register.get_register_txt_email_label).to_have(
-            values.REGISTER_EMAIL_TITLE
-        )
+        expect(android_register.get_register_txt_username_description).to_have(values.REGISTER_PUBLIC_USERNAME_MESSAGE)
+        expect(android_register.get_register_txt_email_label).to_have(values.REGISTER_EMAIL_TITLE)
         expect(android_register.get_register_tf_email).to_be_clickable()
-        expect(android_register.get_register_txt_email_description).to_have(
-            values.REGISTER_EMAIL_MESSAGE
-        )
-        expect(android_register.get_register_txt_password_label).to_have(
-            values.REGISTER_PASSWORD_TITLE
-        )
+        expect(android_register.get_register_txt_email_description).to_have(values.REGISTER_EMAIL_MESSAGE)
+        expect(android_register.get_register_txt_password_label).to_have(values.REGISTER_PASSWORD_TITLE)
         expect(android_register.get_register_tf_password).to_be_clickable()
         android_register.get_register_txt_password_label.scroll_vertically_from_element()
-        expect(android_register.get_register_txt_password_description).to_have(
-            values.REGISTER_PASSWORD_MESSAGE
-        )
-        expect(android_register.get_register_txt_country_label).to_have(
-            values.REGISTER_COUNTRY_TITLE
-        )
+        expect(android_register.get_register_txt_password_description).to_have(values.REGISTER_PASSWORD_MESSAGE)
+        expect(android_register.get_register_txt_country_label).to_have(values.REGISTER_COUNTRY_TITLE)
 
         android_register.get_register_tf_password.scroll_vertically_from_element()
         expect(android_register.get_register_tf_country).to_be_clickable()
-        expect(android_register.get_register_txt_country_description).to_have(
-            values.REGISTER_COUNTRY_MESSAGE
-        )
+        expect(android_register.get_register_txt_country_description).to_have(values.REGISTER_COUNTRY_MESSAGE)
+        Element.swipe_vertical_full_page()
         expect(
             android_register.honor_policy_text,
             "privacy honor text not found on registration screen",
@@ -133,22 +109,12 @@ class TestAndroidRegister:
         android_register = AndroidRegister()
 
         assert android_register.get_register_btn_create_account.click()
-        expect(android_register.get_register_txt_name_description).to_have(
-            values.REGISTER_ERROR_FULL_NAME
-        )
-        expect(android_register.get_register_txt_username_description).to_have(
-            values.REGISTER_ERROR_USER_NAME
-        )
-        expect(android_register.get_register_txt_email_description).to_have(
-            values.REGISTER_ERROR_EMAIL
-        )
+        expect(android_register.get_register_txt_name_description).to_have(values.REGISTER_ERROR_FULL_NAME)
+        expect(android_register.get_register_txt_username_description).to_have(values.REGISTER_ERROR_USER_NAME)
+        expect(android_register.get_register_txt_email_description).to_have(values.REGISTER_ERROR_EMAIL)
         android_register.get_register_txt_email_description.scroll_vertically_from_element()
-        expect(android_register.get_register_txt_password_description).to_have(
-            values.REGISTER_ERROR_PASSWORD
-        )
-        expect(android_register.get_register_txt_country_description).to_have(
-            values.REGISTER_ERROR_SELECT_COUNTRY
-        )
+        expect(android_register.get_register_txt_password_description).to_have(values.REGISTER_ERROR_PASSWORD)
+        expect(android_register.get_register_txt_country_description).to_have(values.REGISTER_ERROR_SELECT_COUNTRY)
 
     def test_show_optional_fields_smoke(self, set_capabilities, setup_logging):
         """
@@ -162,18 +128,12 @@ class TestAndroidRegister:
         android_register = AndroidRegister()
 
         assert android_register.get_register_txt_optional_field.click()
-        expect(android_register.get_register_education_level).to_have(
-            values.REGISTER_EDUCATION_LEVEL
-        )
+        expect(android_register.get_register_education_level).to_have(values.REGISTER_EDUCATION_LEVEL)
         expect(android_register.get_register_education_level_placeholder).to_have(
             values.REGISTER_EDUCATION_LEVEL_PLACEHOLDER
         )
-        expect(android_register.get_register_gender_label).to_have(
-            values.REGISTER_GENDER_LABEL
-        )
-        expect(android_register.get_gender_label_placeholder).to_have(
-            values.REGISTER_GENDER_LABEL
-        )
+        expect(android_register.get_register_gender_label).to_have(values.REGISTER_GENDER_LABEL)
+        expect(android_register.get_gender_label_placeholder).to_have(values.REGISTER_GENDER_LABEL)
 
     def test_account_register_smoke(self, set_capabilities, setup_logging):
         """
@@ -190,6 +150,7 @@ class TestAndroidRegister:
         android_register = AndroidRegister()
         global_contents = Globals(setup_logging)
         main_dashboard_page = AndroidMainDashboard()
+        profile_page = AndroidProfile()
 
         user_name = generate_random_credentials(5)
         email = user_name + "@example.com"
@@ -211,14 +172,17 @@ class TestAndroidRegister:
 
         android_register.get_register_tf_password.scroll_vertically_from_element()
         assert android_register.get_register_tf_country.click()
-        expect(android_register.get_register_country_selection_dialogue).to_have(
-            values.REGISTER_COUNTRY_PICKER_TITLE
-        )
-        assert android_register.get_register_country_search.send_keys(
-            "United States of America"
-        )
+        expect(android_register.get_register_country_selection_dialogue).to_have(values.REGISTER_COUNTRY_PICKER_TITLE)
+        assert android_register.get_register_country_search.send_keys("United States of America")
         assert android_register.get_txt_us_title.click()
         assert android_register.get_register_btn_create_account.click()
-        expect(main_dashboard_page.learn_tab).to_have(
-            values.MAIN_DASHBOARD_LEARN_TAB, ElementAttribute.CONTENT_DESC
-        )
+        expect(main_dashboard_page.learn_tab).to_have(values.MAIN_DASHBOARD_LEARN_TAB, ElementAttribute.CONTENT_DESC)
+
+        # delete newly registered account
+        assert main_dashboard_page.profile_tab.click()
+        assert profile_page.settings_button.click()
+        assert profile_page.profile_settings_manage_account.click()
+        assert profile_page.profile_settings_delete_account.click()
+        assert profile_page.profile_settings_password_input.send_keys(password)
+        assert profile_page.profile_settings_delete_account_confirm.click()
+        assert android_landing.get_register_button.exists()

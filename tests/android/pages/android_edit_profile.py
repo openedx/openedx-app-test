@@ -1,7 +1,6 @@
 """
-    Edit Profile Page Module
+Edit Profile Page Module
 """
-
 
 from framework.element import Element
 from tests.android.pages.android_base_page import AndroidBasePage
@@ -19,9 +18,7 @@ class AndroidEditProfile(AndroidBasePage):
             AppiumBy.ANDROID_UIAUTOMATOR,
             'new UiSelector().resourceId("txt_edit_profile_title")',
         )
-        self._done_button = Element(
-            AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("txt_done")'
-        )
+        self._done_button = Element(AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("txt_done")')
         self._edit_profile_type_label = Element(
             AppiumBy.ANDROID_UIAUTOMATOR,
             'new UiSelector().resourceId("txt_edit_profile_type_label")',
@@ -36,7 +33,7 @@ class AndroidEditProfile(AndroidBasePage):
         )
         self._edit_profile_txt_label_location = Element(
             AppiumBy.ANDROID_UIAUTOMATOR,
-            'new UiSelector().resourceId("txt_edit_profile_limited_profile_message")',
+            'new UiSelector().resourceId("txt_label_location")',
         )
         self._edit_profile_tf_select_location = Element(
             AppiumBy.ANDROID_UIAUTOMATOR,
@@ -46,9 +43,9 @@ class AndroidEditProfile(AndroidBasePage):
             AppiumBy.ANDROID_UIAUTOMATOR,
             'new UiSelector().resourceId("txt_label_spoken_language")',
         )
-        self._edit_profile_select_spoken_language = Element(
+        self._edit_profile_placeholder_select_spoken_language = Element(
             AppiumBy.ANDROID_UIAUTOMATOR,
-            'new UiSelector().resourceId("tf_select_spoken_language")',
+            'new UiSelector().resourceId("txt_placeholder_spoken_language")',
         )
         self._edit_profile_txt_label_about_me = Element(
             AppiumBy.ANDROID_UIAUTOMATOR,
@@ -58,9 +55,7 @@ class AndroidEditProfile(AndroidBasePage):
             AppiumBy.ANDROID_UIAUTOMATOR,
             'new UiSelector().resourceId("txt_placeholder_about_me")',
         )
-        self._profile_img_profile = Element(
-            AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("img_profile")'
-        )
+        self._profile_img_profile = Element(AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("img_profile")')
         self._profile_txt_name = Element(
             AppiumBy.ANDROID_UIAUTOMATOR,
             'new UiSelector().resourceId("txt_profile_name")',
@@ -161,13 +156,13 @@ class AndroidEditProfile(AndroidBasePage):
         return self._edit_profile_tf_select_location
 
     @property
-    def edit_profile_select_spoken_language(self) -> Element:
+    def edit_profile_placeholder_select_spoken_language(self) -> Element:
         """
         Returns:
             Element: edit profile select spoken language element
         """
 
-        return self._edit_profile_select_spoken_language
+        return self._edit_profile_placeholder_select_spoken_language
 
     @property
     def edit_profile_txt_label_spoken_language(self) -> Element:

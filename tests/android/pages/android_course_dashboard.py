@@ -1,5 +1,5 @@
 """
-    Course Dashboard Page Module
+Course Dashboard Page Module
 """
 
 from appium.webdriver.common.appiumby import AppiumBy
@@ -15,62 +15,36 @@ class AndroidCourseDashboard(AndroidBasePage):
 
     def __init__(self):
         super().__init__()
-        self._course_progress_bar_view = Element(
-            AppiumBy.CLASS_NAME, "android.widget.ProgressBar"
-        )
+        self._course_progress_bar_view = Element(AppiumBy.CLASS_NAME, "android.widget.ProgressBar")
         self._course_view = Element(
             AppiumBy.ANDROID_UIAUTOMATOR,
             'new UiSelector().resourceId("org.edx.mobile:id/view_pager")',
         )
-        self._course_dashboard_videos_tab = Element(
-            AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("Videos")'
-        )
+        self._course_dashboard_videos_tab = Element(AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("Videos")')
         self._course_dashboard_discussions_tab = Element(
-            AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("Discussions")'
+            AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("Discussions")'
         )
-        self._course_dashboard_more_tab = Element(
-            AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("More")'
-        )
-        self._course_dashboard_dates_tab = Element(
-            AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("Dates")'
-        )
+        self._course_dashboard_more_tab = Element(AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("More")')
+        self._course_dashboard_dates_tab = Element(AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("Dates")')
         self._empty_state_title = Element(
             AppiumBy.ANDROID_UIAUTOMATOR,
             'new UiSelector().resourceId("txt_empty_state_title")',
         )
-        self._all_courses_label = Element(
-            AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("All Courses")'
-        )
-        self._all_label = Element(
-            AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("All")'
-        )
-        self._in_progress_text = Element(
-            AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("In Progress")'
-        )
-        self._completed_course = Element(
-            AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("Completed")'
-        )
-        self._expired_courses = Element(
-            AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("Expired")'
-        )
-        self._learn_online_text = Element(
-            AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("How to Learn Online")'
-        )
-        self._course_dashboard_home_tab = Element(
-            AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("Home")'
-        )
-        self._back_button = Element(
-            AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().description("Back")'
-        )
+        self._all_courses_label = Element(AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("All Courses")')
+        self._all_label = Element(AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("All")')
+        self._in_progress_text = Element(AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("In Progress")')
+        self._completed_course = Element(AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("Completed")')
+        self._expired_courses = Element(AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("Expired")')
+        self._learn_online_text = Element(AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("How to Learn Online")')
+        self._course_dashboard_home_tab = Element(AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("Home")')
+        self._back_button = Element(AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().description("Back")')
         self._my_courses_course_item = Element(
             AppiumBy.ANDROID_UIAUTOMATOR,
             'new UiSelector().resourceId("btn_course_item")',
         )
         self._my_courses_course_description = Element(
-            AppiumBy.ANDROID_UIAUTOMATOR,
-            'new UiSelector().resourceId("txt_courses_description")'
+            AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("txt_courses_description")'
         )
-
 
     @property
     def back_button(self) -> Element:

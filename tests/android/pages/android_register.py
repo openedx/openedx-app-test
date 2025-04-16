@@ -1,12 +1,11 @@
 """
-    Register Page Module
+Register Page Module
 """
 
 from appium.webdriver.common.appiumby import AppiumBy
 
 from framework.element import Element
 from tests.android.pages.android_base_page import AndroidBasePage
-from tests.common import values
 
 
 class AndroidRegister(AndroidBasePage):
@@ -28,9 +27,7 @@ class AndroidRegister(AndroidBasePage):
             AppiumBy.ANDROID_UIAUTOMATOR,
             'new UiSelector().resourceId("txt_name_label")',
         )
-        self._name_text_field = Element(
-            AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("tf_name")'
-        )
+        self._name_text_field = Element(AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("tf_name")')
         self._name_text_field_description = Element(
             AppiumBy.ANDROID_UIAUTOMATOR,
             'new UiSelector().resourceId("txt_name_description")',
@@ -39,9 +36,7 @@ class AndroidRegister(AndroidBasePage):
             AppiumBy.ANDROID_UIAUTOMATOR,
             'new UiSelector().resourceId("txt_username_label")',
         )
-        self._username_text_field = Element(
-            AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("tf_username")'
-        )
+        self._username_text_field = Element(AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("tf_username")')
         self._username_text_field_description = Element(
             AppiumBy.ANDROID_UIAUTOMATOR,
             'new UiSelector().resourceId("txt_username_description")',
@@ -50,9 +45,7 @@ class AndroidRegister(AndroidBasePage):
             AppiumBy.ANDROID_UIAUTOMATOR,
             'new UiSelector().resourceId("txt_email_label")',
         )
-        self._register_tf_email = Element(
-            AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("tf_email")'
-        )
+        self._register_tf_email = Element(AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("tf_email")')
         self._register_txt_email_description = Element(
             AppiumBy.ANDROID_UIAUTOMATOR,
             'new UiSelector().resourceId("txt_email_description")',
@@ -61,9 +54,7 @@ class AndroidRegister(AndroidBasePage):
             AppiumBy.ANDROID_UIAUTOMATOR,
             'new UiSelector().resourceId("txt_password_label")',
         )
-        self._register_tf_password = Element(
-            AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("tf_password")'
-        )
+        self._register_tf_password = Element(AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("tf_password")')
         self._register_txt_password_description = Element(
             AppiumBy.ANDROID_UIAUTOMATOR,
             'new UiSelector().resourceId("txt_password_description")',
@@ -72,9 +63,7 @@ class AndroidRegister(AndroidBasePage):
             AppiumBy.ANDROID_UIAUTOMATOR,
             'new UiSelector().resourceId("txt_country_label")',
         )
-        self._register_tf_country = Element(
-            AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("tf_country")'
-        )
+        self._register_tf_country = Element(AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("tf_country")')
         self._register_txt_country_description = Element(
             AppiumBy.ANDROID_UIAUTOMATOR,
             'new UiSelector().resourceId("txt_country_description")',
@@ -93,11 +82,11 @@ class AndroidRegister(AndroidBasePage):
         )
         self._register_education_level = Element(
             AppiumBy.ANDROID_UIAUTOMATOR,
-            'new UiSelector().resourceId("register_education_level")',
+            'new UiSelector().resourceId("txt_level_of_education_label")',
         )
         self._register_education_level_placeholder = Element(
             AppiumBy.ANDROID_UIAUTOMATOR,
-            'new UiSelector().resourceId("register_education_level_placeholder")',
+            'new UiSelector().resourceId("txt_level_of_education_placeholder")',
         )
         self._register_gender_label = Element(
             AppiumBy.ANDROID_UIAUTOMATOR,
@@ -131,7 +120,9 @@ class AndroidRegister(AndroidBasePage):
         )
         self._honor_policy_text = Element(
             AppiumBy.ANDROID_UIAUTOMATOR,
-            f"new UiSelector().text({values.REGISTER_HONOR_POLICY_TEXT})",
+            'new UiSelector().text("By creating an account, you agree to the edX End User Licence Agreement and'
+            " edX Terms of Service and Honor Code and you acknowledge that edX and each Member process your personal "
+            'data in accordance with the edX Privacy Policy.")',
         )
 
     @property
@@ -192,7 +183,7 @@ class AndroidRegister(AndroidBasePage):
     def get_register_tf_email(self) -> Element:
         """Get register email text field"""
 
-        return self._register_txt_email_label
+        return self._register_tf_email
 
     @property
     def get_register_txt_email_description(self) -> Element:

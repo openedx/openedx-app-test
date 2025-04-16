@@ -6,36 +6,26 @@ from tests.common import values
 from appium.webdriver.common.appiumby import AppiumBy
 
 
-
 class AndroidCatalogPage(AndroidBasePage):
     """A Class for handling Catalog Screen UI interactions."""
 
     def __init__(self):
         super().__init__()
-        self._catalog_screen_toolbar_title = Element(AppiumBy.ANDROID_UIAUTOMATOR,
-                                                     'new UiSelector().resourceId("txt_toolbar_title")')
+        self._catalog_screen_toolbar_title = Element(
+            AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("txt_toolbar_title")'
+        )
         self._catalog_screen_heading_msg = Element(
             AppiumBy.ANDROID_UIAUTOMATOR,
             'new UiSelector().text("Build skills. Earn a certificate. Advance your career.")',
         )
-        self._trending_marketing_tag = Element(
-            AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("Marketing")'
-        )
-        self._trending_python_tag = Element(
-            AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("Python")'
-        )
-        self._trending_label = Element(
-            AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("Trending")'
-        )
-        self._trending_excel_tag = Element(
-            AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("Excel")'
-        )
-        self._trending_data_science = Element(
-            AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("Data Sciences")'
-        )
+        self._trending_marketing_tag = Element(AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("Marketing")')
+        self._trending_python_tag = Element(AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("Python")')
+        self._trending_label = Element(AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("Trending:")')
+        self._trending_excel_tag = Element(AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("Excel")')
+        self._trending_data_science = Element(AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("Data Sciences")')
         self._search_field = Element(
             AppiumBy.ANDROID_UIAUTOMATOR,
-            'new UiSelector().resourceId("pgn-searchfield-input-7")',
+            'new UiSelector().resourceId("pgn-searchfield-input-6")',
         )
         self._search_button = Element(
             AppiumBy.ANDROID_UIAUTOMATOR,
@@ -49,12 +39,8 @@ class AndroidCatalogPage(AndroidBasePage):
             AppiumBy.XPATH,
             '//android.view.View[@resource-id="enroll"]/android.view.View[1]/android.view.View',
         )
-        self._enroll_button = Element(
-            AppiumBy.XPATH, 'new UiSelector().description("Enroll")'
-        )
-        self._main_content = Element(
-            AppiumBy.XPATH, 'new UiSelector().resourceId("main-content")'
-        )
+        self._enroll_button = Element(AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().description("Enroll")')
+        self._main_content = Element(AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("main-content")')
         self._discovery_search_breakcrumbs = Element(
             AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("breadcrumb")'
         )
@@ -75,6 +61,11 @@ class AndroidCatalogPage(AndroidBasePage):
             '//android.view.View[@resource-id="main-content"]/android.view.View[4]',
         )
 
+        self._edx_demox_course_logo = Element(
+            AppiumBy.ANDROID_UIAUTOMATOR,
+            'new UiSelector().description("header image for edX logo for edX DemoX edX Course")',
+        )
+
         self._trending_tags = {
             values.DISCOVERY_TRENDING_COURSE_PYTHON: self._trending_python_tag,
             values.DISCOVERY_TRENDING_COURSE_MARKETING: self._trending_marketing_tag,
@@ -91,6 +82,15 @@ class AndroidCatalogPage(AndroidBasePage):
 
         """
         return self._course_carousel
+
+    @property
+    def demox_course_logo_desc(self) -> Element:
+        """course carousel
+        Returns:
+            Element: course carousel
+
+        """
+        return self._edx_demox_course_logo
 
     @property
     def main_content(self) -> Element:

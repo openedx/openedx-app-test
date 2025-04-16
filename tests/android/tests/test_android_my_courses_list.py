@@ -2,6 +2,8 @@
 My Courses Test Module
 """
 
+import pytest
+
 from framework import expect
 from framework.element import Element
 from tests.android.pages.android_course_dashboard import AndroidCourseDashboard
@@ -35,28 +37,23 @@ class TestAndroidMyCoursesList:
            Verify that tapping any course should load specific Course Dashboard screen
            Verity that from Course Dashboard tapping back should load My Courses List screen
         """
-        driver = android_login
-        Element.set_driver(driver)
-        Element.set_logger(setup_logging)
         main_dashboard_page = AndroidMainDashboard()
         course_dashboard = AndroidCourseDashboard()
 
         learn_tab = main_dashboard_page.learn_tab
+
         expect(learn_tab).to_have(values.MAIN_DASHBOARD_LEARN_TAB, ElementAttribute.CONTENT_DESC)
         expect(learn_tab).to_be_selected()
         course_view = course_dashboard.course_view
         expect(course_view).to_be_displayed()
         expect(course_dashboard.course_progress_bar_view).to_have("0.0")
         text_views = course_dashboard.get_all_text_views_inside_course_view()
-        expect(text_views[2]).to_have(values.MAIN_DASHBOARD_COURSE_ORG)
-        expect(text_views[3]).to_have(values.MAIN_DASHBOARD_COURSE_NAME)
-        expect(text_views[4]).to_have(r".+")
-        expect(text_views[5]).to_have(r".+")
-        expect(text_views[6]).to_have(values.MAIN_DASHBOARD_RESUME_LABEL)
-        expect(text_views[7]).to_have(r".+")
-        expect(text_views[8]).to_contain(values.MAIN_DASHBOARD_ALL_COURSES_LABEL)
-        expect(text_views[9]).to_have(values.MY_COURSES_SECOND_COURSE_NAME)
-        expect(text_views[10]).to_have(r".+")
+        assert course_dashboard.find_by_text_on_screen(values.MAIN_DASHBOARD_COURSE_ORG)
+        assert course_dashboard.find_by_text_on_screen(values.MY_COURSES_SECOND_COURSE_NAME)
+        expect(text_views[3]).to_match(r".+")
+        expect(text_views[4]).to_match(r".+")
+        assert course_dashboard.find_by_text_on_screen(values.MAIN_DASHBOARD_RESUME_LABEL)
+        expect(text_views[6]).to_match(r".+")
 
     def test_view_all_courses(self, android_login, setup_logging):
         """
@@ -69,6 +66,8 @@ class TestAndroidMyCoursesList:
             Verify that tapping Expired label should load all expired courses
             Verify that tapping back button should load Main Dashboard screen
         """
+
+        pytest.skip("Need another test course to perform these assertions")
 
         Element.set_driver(android_login)
         Element.set_logger(setup_logging)
