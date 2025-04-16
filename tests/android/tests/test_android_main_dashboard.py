@@ -4,7 +4,6 @@ Main Dashboard Test Module
 
 from framework import expect
 from framework.element import Element
-from tests.android.pages.android_sign_in import AndroidSignIn
 from tests.android.pages.android_main_dashboard import AndroidMainDashboard
 from tests.common import values
 from tests.common.enums.attributes import ElementAttribute
@@ -59,17 +58,14 @@ class TestAndroidMainDashboard:
 
         Element.set_driver(android_login)
         Element.set_logger(setup_logging)
-        android_sign_in = AndroidSignIn()
         main_dashboard = AndroidMainDashboard()
 
         assert main_dashboard.switcher_label_courses.exists()
         assert main_dashboard.switcher_label_courses.click()
-        text_views = android_sign_in.text_view.find_all()
-        expect(text_views[0]).to_have("Courses")
-        expect(text_views[1]).to_have("Programs")
-        assert text_views[0].click()
+        assert main_dashboard.find_by_text_on_screen("Courses")
+        assert main_dashboard.find_by_text_on_screen("Programs")
+        assert main_dashboard.find_by_text_on_screen("Courses").click()
         assert main_dashboard.switcher_label_courses.exists()
         assert main_dashboard.switcher_label_courses.click()
-        text_views = android_sign_in.text_view.find_all()
-        assert text_views[1].click()
+        assert main_dashboard.find_by_text_on_screen("Programs").click()
         assert main_dashboard.switcher_label_programs.exists()

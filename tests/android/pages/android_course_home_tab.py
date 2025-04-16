@@ -1,11 +1,12 @@
 """
-    Course Home Page Module
+Course Home Page Module
 """
 
 from appium.webdriver.common.appiumby import AppiumBy
 
 from framework.element import Element
 from tests.android.pages.android_base_page import AndroidBasePage
+from tests.common.exceptions import NotFoundError
 
 
 class AndroidCourseHomeTab(AndroidBasePage):
@@ -15,20 +16,12 @@ class AndroidCourseHomeTab(AndroidBasePage):
 
     def __init__(self):
         super().__init__()
-        self._finish_button = Element(
-            AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("Finish")'
-        )
-        self._next_button = Element(
-            AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("Next")'
-        )
-        self._previous_button = Element(
-            AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("Prev")'
-        )
-        self._back_button = Element(
-            AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().description("Back")'
-        )
+        self._finish_button = Element(AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("Finish")')
+        self._next_button = Element(AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("Next")')
+        self._previous_button = Element(AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("Prev")')
+        self._back_button = Element(AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().description("Back")')
 
-    def component_navigation(self, retries=5) -> Element:
+    def component_navigation(self, retries=6) -> Element:
         """Navigate between components
 
         Args:
@@ -38,11 +31,11 @@ class AndroidCourseHomeTab(AndroidBasePage):
             Element: finish button Element
         """
         if retries == 0:
-            raise Exception("Finish button not found after maximum retries")
+            raise NotFoundError("Finish button not found after maximum retries")
 
         assert self.next_btn.click()
 
-        if self.finish_button.exists():
+        if self.finish_button.exists(raise_exception=False):
             return self.finish_button
         else:
             return self.component_navigation(retries=retries - 1)

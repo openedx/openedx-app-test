@@ -53,4 +53,4 @@ class TestAndroidCourseDashboard:
         expect(more_tab).to_have(values.COURSE_DASHBOARD_MORE_TAB)
         assert more_tab.click()
 
-        assert course_dashboard_page.back_navigation_button.click()
+        assert course_dashboard_page.back_button.click()

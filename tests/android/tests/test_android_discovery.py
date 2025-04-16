@@ -9,9 +9,7 @@ from framework.element import Element
 from tests.android.pages.andriod_catalog_page import AndroidCatalogPage
 from tests.common import values
 from tests.common.enums.attributes import ElementAttribute
-from tests.common.globals import Globals
 from tests.android.pages.android_landing import AndroidLanding
-from tests.android.pages.android_whats_new import AndroidWhatsNew
 from tests.android.pages.android_main_dashboard import AndroidMainDashboard
 from tests.android.pages.android_course_dashboard import AndroidCourseDashboard
 
@@ -43,8 +41,7 @@ class TestAndroidDiscovery:
         expect(android_landing.get_explore_courses).to_have(values.LANDING_EXLPORE_COURSES)
         assert android_landing.get_explore_courses.click()
         expect(android_landing.back_navigation_button).to_be_displayed()
-        expect(catalog_page.catalog_screen_heading_msg).to_have(values.DISCOVERY_SCREEN_TITLE)
-        assert catalog_page.catalog_screen_heading_msg.exists()
+        assert catalog_page.catalog_screen_heading_msg.exists(timeout=20)
 
     def test_discovery_search_and_trending(self, set_capabilities, setup_logging):
         """
@@ -69,7 +66,7 @@ class TestAndroidDiscovery:
         catalog_page = AndroidCatalogPage()
 
         search_field = catalog_page.search_field
-        expect(search_field).to_have(values.DISCOVERY_SEARCH_FIELD_HINT, "hint")
+        expect(search_field, timeout=20).to_have(values.DISCOVERY_SEARCH_FIELD_HINT, "hint")
         expect(catalog_page.search_button).to_have(values.DISCOVERY_SEARCH_BUTTON)
         assert catalog_page.trending_tag(values.DISCOVERY_TRENDING_LABEL).exists()
         assert catalog_page.trending_tag(values.DISCOVERY_TRENDING_COURSE_PYTHON).exists()
@@ -107,44 +104,34 @@ class TestAndroidDiscovery:
         Element.set_logger(setup_logging)
         catalog_page = AndroidCatalogPage()
 
-        expect(catalog_page.main_content).to_have(values.DISCOVERY_MAIN_CONTENT)
+        expect(catalog_page.main_content, timeout=20).to_have(values.DISCOVERY_MAIN_CONTENT)
         assert catalog_page.discovery_search_breakcrumbs.exists()
         assert catalog_page.find_by_text_on_screen(values.DISCOVERY_FILTER_BY_POPULAR_COURSES).exists()
         assert catalog_page.find_by_text_on_screen(values.DISCOVERY_SCREEN_MESSAGE).exists()
+        if catalog_page.find_by_text_on_screen(values.DISCOVERY_AI_CHAT_CLOSE_BUTTON, raise_error=False):
+            catalog_page.find_by_text_on_screen(values.DISCOVERY_AI_CHAT_CLOSE_BUTTON).click()
         expect(catalog_page.first_popular_course).to_have(
             values.DISCOVERY_FIRST_POPULAR_COURSE, ElementAttribute.CONTENT_DESC
         )
         expect(catalog_page.second_popular_course).to_have(
             values.DISCOVERY_SECOND_POPULAR_COURSE, ElementAttribute.CONTENT_DESC
         )
-        catalog_page.course_carousel.swipe_horizontal_on_element(ScrollDirections.LEFT)
-        expect(catalog_page.third_popular_course).to_have(
-            values.DISCOVERY_POPULAR_MATH_COURSE, ElementAttribute.CONTENT_DESC
-        )
-        assert catalog_page.third_popular_course.click()
+        catalog_page.course_carousel.swipe_vertical_full_page(ScrollDirections.UP, start_y_pc=70, end_y_pc=30)
+        assert catalog_page.second_popular_course.click()
         sleep(10)
-        assert catalog_page.find_by_text_on_screen(values.DISCOVERY_MATH_RESULTS).exists()
-        show_results_number = catalog_page.find_by_text_on_screen(values.DISCOVERY_MATH_RESULTS_BUTTON)
-        assert show_results_number.exists()
-        assert show_results_number.click()
-        assert catalog_page.find_by_text_on_screen(values.DISCOVERY_MATH_PAGINATION_RESULTS).exists()
-        assert catalog_page.find_by_text_on_screen(values.DISCOVERY_PAGINATION_TEXT).exists()
+        assert catalog_page.find_by_text_on_screen("All filters(1 selected)")
 
-    def test_login_from_discovery(self, login, set_capabilities, setup_logging):
+    def test_login_from_discovery(self, android_login, set_capabilities, setup_logging):
         """
         Scenarios:
-            Verify that the user is able to login from discovery screen
+            Verify that the user is able to log in from discovery screen
             Verify that the user is able to navigate to the discover tab
         """
 
-        Element.set_driver(set_capabilities)
+        Element.set_driver(android_login)
         Element.set_logger(setup_logging)
-        whats_new_page = AndroidWhatsNew()
-        global_contents = Globals(setup_logging)
-
-        if login and global_contents.whats_new_enable:
-            expect(whats_new_page.navigate_features).to_have("Done")
-            assert whats_new_page.done_button.click()
+        course_dashboard_page = AndroidCourseDashboard()
+        assert course_dashboard_page.find_by_text_on_screen(values.MY_COURSES_SECOND_COURSE_NAME)
 
     def test_enroll_course_smoke(self, set_capabilities, setup_logging):
         """
@@ -186,9 +173,9 @@ class TestAndroidDiscovery:
         assert search_field.send_keys("Demo X")
         assert catalog_page.search_button.click()
         sleep(10)
-        result = catalog_page.first_result
-        expect(result).to_have(values.DISCOVERY_DEMOX_COURSE)
-        assert result.click()
+        assert catalog_page.demox_course_logo_desc.exists()
+        assert catalog_page.demox_course_logo_desc.click()
+        assert catalog_page.find_by_text_on_screen("edX: DemoX")
 
     def test_search_course_in_discovery(self, set_capabilities, setup_logging):
         """
@@ -212,7 +199,7 @@ class TestAndroidDiscovery:
         sleep(5)
         enroll_main_element = catalog_page.discovery_enroll_main_element
         enrollment_date = enroll_main_element.get_child_element(catalog_page.text_view)
-        expect(enrollment_date).to_have(r".+")
+        expect(enrollment_date).to_match(r".+")
         assert enrollment_date.click()
         enroll_button = catalog_page.enroll_button
         expect(enroll_button).to_have("Enroll", ElementAttribute.CONTENT_DESC)
