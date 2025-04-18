@@ -68,7 +68,7 @@
 # ------------------------------
 [MASTER]
 ignore = ,input,C0415
-ignore-patterns=.*\.yaml,pylintrc,.*\.plist,.*\.sh,pytest.ini,.*\.strings,.*\.yml,.*\.md,requirements.txt,.*\.toml
+ignore-patterns=.*\.yaml,pylintrc,.*\.plist,.*\.sh,pytest.ini,.*\.strings,.*\.yml,.*\.md,requirements.txt,.*\.toml,.gitignore
 persistent = yes
 init-hook='import sys; sys.path.append(".")'
 

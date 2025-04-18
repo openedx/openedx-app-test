@@ -1,3 +1,7 @@
+"""
+This module contains general enums used across the framework.
+"""
+
 from enum import Enum
 
 
@@ -9,6 +13,7 @@ class ScrollDirections(Enum):
     LEFT = "left"
     RIGHT = "right"
 
+
 class IosClassViews(Enum):
     """Ios class view"""
 
@@ -19,3 +24,10 @@ class IosClassViews(Enum):
     SWITCH = "Switch"
     TABLE = "Table"
     TABLE_CELL = "Cell"
+
+
+class TargetPlatform(Enum):
+    """TargetPlatform"""
+
+    IOS = "iOS"
+    ANDROID = "Android"

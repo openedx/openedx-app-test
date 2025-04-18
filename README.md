@@ -9,6 +9,7 @@ It aims to ensure the reliability and functionality of the Open edX mobile apps 
 - [pytest-html](https://pypi.python.org/pypi/pytest-html/)
 - [Appium-Python-Client](https://pypi.org/project/Appium-Python-Client/)
 - [PyYAML](https://pypi.org/project/PyYAML/)
+- [allure-pytest](https://pypi.org/project/allure-pytest/)
 
 - Recommended to install requirements other than appium and node via pip
   -     pip install -r requirements.txt
@@ -60,13 +61,13 @@ It aims to ensure the reliability and functionality of the Open edX mobile apps 
 
 - `pytest` - to run all test cases
 
-- `pytest -v tests/android/tests/ --html=report.html --self-contained-html` - to run all android test screens
+- `pytest tests/android/tests/ ` - to run all android test screens
 
-- `pytest -v tests/ios/tests/ --html=report.html --self-contained-html` - to run all ios test screens
+- `pytest tests/ios/tests/` - to run all ios test screens
 
-- `pytest -v <test case name> --self-contained-html` to run specific test case
+- `pytest <test case name>` to run specific test case
 
-- `pytest -v <test case name> --html=report.html --self-contained-html` to run specific test case and create html report at end of execution
+- `pytest <test case name>` to run specific test case and create html report at end of execution
 
 
 ### To run test cases on BrowserStack
