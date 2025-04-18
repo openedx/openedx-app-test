@@ -186,7 +186,7 @@ class AndroidRegister(AndroidBasePage):
     def get_register_tf_email(self) -> Element:
         """Get register email text field"""
 
-        return self._register_txt_email_label
+        return self._register_tf_email
 
     @property
     def get_register_txt_email_description(self) -> Element:

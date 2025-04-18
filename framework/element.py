@@ -373,3 +373,34 @@ class Element:
         """
         Element.__driver.press_keycode(code)
         Element.__logger.info(f"pressed key code {code}")
+
+    @staticmethod
+    def swipe_vertical_full_page(
+        direction=ScrollDirections.UP,
+        start_y_pc=88,
+        end_y_pc=12,
+        horizontal_anchor=0.5,
+    ):
+        """
+            Swipe on page via given points
+        Arguments:
+            direction (Enum) : enums.ScrollDirections
+            start_y_pc (int) : start screen percentage
+            end_y_pc (int) : end screen percentage
+            horizontal_anchor (float): ratio of screen with to be used as anchor point
+        Returns:
+            None
+        """
+        screen_coordinates = Element.__driver.get_window_size()
+        screen_width = screen_coordinates.get("width")
+        screen_height = screen_coordinates.get("height")
+        x_anchor = int(screen_width * horizontal_anchor)
+
+        if direction == ScrollDirections.UP:
+            start_y = int((screen_height * (start_y_pc / 100)))
+            end_y = int((screen_height * (end_y_pc / 100)))
+        else:
+            start_y = int((screen_height * (end_y_pc / 100)))
+            end_y = int((screen_height * (start_y_pc / 100)))
+
+        Element.__driver.swipe(x_anchor, start_y, x_anchor, end_y, 2500)
