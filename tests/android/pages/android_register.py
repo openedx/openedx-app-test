@@ -1,5 +1,5 @@
 """
-    Register Page Module
+Register Page Module
 """
 
 from appium.webdriver.common.appiumby import AppiumBy
@@ -28,9 +28,7 @@ class AndroidRegister(AndroidBasePage):
             AppiumBy.ANDROID_UIAUTOMATOR,
             'new UiSelector().resourceId("txt_name_label")',
         )
-        self._name_text_field = Element(
-            AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("tf_name")'
-        )
+        self._name_text_field = Element(AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("tf_name")')
         self._name_text_field_description = Element(
             AppiumBy.ANDROID_UIAUTOMATOR,
             'new UiSelector().resourceId("txt_name_description")',
@@ -39,9 +37,7 @@ class AndroidRegister(AndroidBasePage):
             AppiumBy.ANDROID_UIAUTOMATOR,
             'new UiSelector().resourceId("txt_username_label")',
         )
-        self._username_text_field = Element(
-            AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("tf_username")'
-        )
+        self._username_text_field = Element(AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("tf_username")')
         self._username_text_field_description = Element(
             AppiumBy.ANDROID_UIAUTOMATOR,
             'new UiSelector().resourceId("txt_username_description")',
@@ -50,9 +46,7 @@ class AndroidRegister(AndroidBasePage):
             AppiumBy.ANDROID_UIAUTOMATOR,
             'new UiSelector().resourceId("txt_email_label")',
         )
-        self._register_tf_email = Element(
-            AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("tf_email")'
-        )
+        self._register_tf_email = Element(AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("tf_email")')
         self._register_txt_email_description = Element(
             AppiumBy.ANDROID_UIAUTOMATOR,
             'new UiSelector().resourceId("txt_email_description")',
@@ -61,9 +55,7 @@ class AndroidRegister(AndroidBasePage):
             AppiumBy.ANDROID_UIAUTOMATOR,
             'new UiSelector().resourceId("txt_password_label")',
         )
-        self._register_tf_password = Element(
-            AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("tf_password")'
-        )
+        self._register_tf_password = Element(AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("tf_password")')
         self._register_txt_password_description = Element(
             AppiumBy.ANDROID_UIAUTOMATOR,
             'new UiSelector().resourceId("txt_password_description")',
@@ -72,9 +64,7 @@ class AndroidRegister(AndroidBasePage):
             AppiumBy.ANDROID_UIAUTOMATOR,
             'new UiSelector().resourceId("txt_country_label")',
         )
-        self._register_tf_country = Element(
-            AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("tf_country")'
-        )
+        self._register_tf_country = Element(AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("tf_country")')
         self._register_txt_country_description = Element(
             AppiumBy.ANDROID_UIAUTOMATOR,
             'new UiSelector().resourceId("txt_country_description")',
@@ -132,6 +122,10 @@ class AndroidRegister(AndroidBasePage):
         self._honor_policy_text = Element(
             AppiumBy.ANDROID_UIAUTOMATOR,
             f"new UiSelector().text({values.REGISTER_HONOR_POLICY_TEXT})",
+        )
+
+        self._register_marketing_messages_agreement = Element(
+            AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("android.widget.CheckBox")'
         )
 
     @property
@@ -236,6 +230,12 @@ class AndroidRegister(AndroidBasePage):
 
         return self._register_txt_country_description
 
+    @property
+    def marketing_messages_agreement_check_box(self) -> Element:
+        """Get register marketing messages agreement check box"""
+
+        return self._register_marketing_messages_agreement
+
     # TODO: seems like not related to the registration page and is using iOS selectors
     # def get_register_txt_honor_code(self) ->  Element:
     #     """
@@ -290,7 +290,7 @@ class AndroidRegister(AndroidBasePage):
         return self._register_country_selection_dialogue
 
     @property
-    def get_register_country_search(self) -> Element:
+    def country_search(self) -> Element:
         """Get register country search"""
 
         return self._register_country_sb_search

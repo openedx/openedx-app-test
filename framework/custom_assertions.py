@@ -1,3 +1,5 @@
+"""Custom Assertions for the Framework"""
+
 import re
 from typing import Optional, Union
 from framework.element import Element
@@ -5,6 +7,8 @@ from tests.common.enums.attributes import ElementAttribute
 
 
 class CustomAssertions:
+    """Custom Assertions for the Framework"""
+
     def __init__(
         self,
         locator: Element,
@@ -61,22 +65,17 @@ class CustomAssertions:
 
         Args:
             expected_value (Union[str, re.Pattern]): The text or regex pattern to compare with the element's attribute.
-            attribute (Union[str, ElementAttribute], optional): The attribute to retrieve from the element. Defaults to TEXT.
+            attribute (Union[str, ElementAttribute], optional): The attribute to retrieve from the element.
+             Defaults to TEXT.
             case (Optional[str], optional): The case to compare the values. Can be 'lower' or 'upper'. Defaults to None.
         """
         actual_value = self._locator.get_attribute(attribute)
         if case:
-            actual_value = (
-                actual_value.lower() if case == "lower" else actual_value.upper()
-            )
+            actual_value = actual_value.lower() if case == "lower" else actual_value.upper()
 
-        match_func = (
-            re.search if isinstance(expected_value, re.Pattern) else re.fullmatch
-        )
+        match_func = re.search if isinstance(expected_value, re.Pattern) else re.fullmatch
         assert (
-            (not match_func(expected_value, actual_value))
-            if self._is_not
-            else match_func(expected_value, actual_value)
+            (not match_func(expected_value, actual_value)) if self._is_not else match_func(expected_value, actual_value)
         ), self._custom_message
 
     def to_contain(
@@ -94,14 +93,10 @@ class CustomAssertions:
         """
         actual_value = self._locator.get_attribute(attribute)
         if case:
-            actual_value = (
-                actual_value.lower() if case == "lower" else actual_value.upper()
-            )
+            actual_value = actual_value.lower() if case == "lower" else actual_value.upper()
 
         assert (
-            (expected_value not in actual_value)
-            if self._is_not
-            else (expected_value in actual_value)
+            (expected_value not in actual_value) if self._is_not else (expected_value in actual_value)
         ), self._custom_message
 
     def to_be_selected(self):
@@ -162,3 +157,20 @@ class CustomAssertions:
             assert not self._locator.is_displayed(), self._custom_message
         else:
             assert self._locator.is_displayed(), self._custom_message
+
+    def to_be_checked(self):
+        """Asserts that the element is selected
+
+        This assertion is useful for verifying checkboxes, radio buttons,
+        and options in a select element. The assertion works by checking
+        the selected property of the element.
+
+        Raises:
+            AssertionError: If the element is not selected and the assertion
+                is not negated (i.e., `to_not` is not used).
+        """
+
+        if self._is_not:
+            assert not self._locator.is_checked(), self._custom_message
+        else:
+            assert self._locator.is_checked(), self._custom_message
