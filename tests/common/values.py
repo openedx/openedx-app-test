@@ -66,6 +66,7 @@ REGISTER_HONOR_POLICY_TEXT = (
     " and you acknowledge "
     "that edX and each Member process your personal data in accordance with the edX Privacy Policy."
 )
+REGISTER_COUNTRY = "United States of America"
 REGISTER_COUNTRY_TITLE = "Country or Region of Residence"
 REGISTER_COUNTRY_MESSAGE = "The country or region where you live."
 REGISTER_SHOW_OPTIONAL_FIELDS = "optional_fields_text"
@@ -76,7 +77,6 @@ REGISTER_FACEBOOK_SIGNUP = "Continue with: Facebook"
 REGISTER_MICROSOFT_SIGNUP = "Continue with: Microsoft"
 REGISTER_APPLE_SIGNUP = "Continue with: Apple"
 REGISTER_COUNTRY_PICKER_TITLE = "Country or Region of Residence"
-REGISTER_COUNTRY = "United States of America"
 REGISTER_COUNTRY_SEARCH_FIELD = "Search"
 REGISTER_COUNTRY_ACCEPT_BUTTON = "Accept"
 REGISTER_PASSWORD_ERROR = (
@@ -98,6 +98,10 @@ REGISTER_GENDER_LABEL = "Gender"
 GOOGLE_AUTH_TEXT = "Continue with Google"
 FACEBOOK_AUTH_TEXT = "Continue with Facebook"
 MICROSOFT_AUTH_TEXT = "Continue with Microsoft"
+REGISTER_ERROR_EMAIL_INVALID = "Enter a valid email address"
+REGISTER_ERROR_USER_NAME_BLANK_SPACE = (
+    "Usernames can only contain letters (A-Z, a-z), numerals (0-9), underscores (_), and hyphens (-)."
+)
 
 # FORGOT PASSWORD SCREEN
 FORGOT_PASSWORD = "Forgot password?"

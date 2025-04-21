@@ -208,11 +208,9 @@ class CustomAssertions:
 
     def to_be_checked(self):
         """Asserts that the element is selected
-
         This assertion is useful for verifying checkboxes, radio buttons,
         and options in a select element. The assertion works by checking
         the selected property of the element.
-
         Raises:
             AssertionError: If the element is not selected and the assertion
                 is not negated (i.e., `to_not` is not used).

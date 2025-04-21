@@ -1,6 +1,7 @@
 """
 Register Screen Test Module
 """
+
 from framework import expect, Element
 from tests.common import values
 from tests.common.enums import ElementAttribute
@@ -128,11 +129,11 @@ class TestIosRegister:
         country_field = register_page.select_country
         assert country_field.exists()
         assert country_field.click()
-        assert country_field.send_keys(values.REGISTER_COUNTRY_SELECT)
+        assert country_field.send_keys(values.REGISTER_COUNTRY)
         accept_button = register_page.get_picker_accept_button
         expect(accept_button).to_have(values.REGISTER_COUNTRY_ACCEPT_BUTTON)
         assert accept_button.click()
-        expect(register_page.get_country_textfield).to_have(values.REGISTER_COUNTRY_SELECT)
+        expect(register_page.get_country_textfield).to_have(values.REGISTER_COUNTRY)
         register_button.click()
         expect(register_page.get_password_instructions_text).to_have(values.REGISTER_PASSWORD_MESSAGE)
         if global_contents.whats_new_enable:

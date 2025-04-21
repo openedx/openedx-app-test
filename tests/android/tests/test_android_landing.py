@@ -37,7 +37,7 @@ class TestAndroidLanding:
         assert android_catalog_page.back_navigation_button.click()
 
         expect(android_landing.get_explore_courses).to_have(values.LANDING_EXLPORE_COURSES)
-        assert android_landing.get_register_button.exists()
+        assert android_landing.register_button.exists()
         assert android_landing.load_register_screen()
         expect(android_sign_in.screen_title).to_have(values.REGISTER)
         assert android_landing.back_navigation_button.click()
