@@ -1,7 +1,3 @@
-"""
-This module defines the CustomAssertions class which provides custom assertions for the Element class.
-"""
-
 import re
 from typing import Optional, Union
 from framework.element import Element
@@ -9,16 +5,6 @@ from tests.common.enums.attributes import ElementAttribute
 
 
 class CustomAssertions:
-    """
-    A class containing custom assertions for the Element class.
-    The methods in this class provide a convenient way to perform assertions
-    on an Element instance. The assertions are provided as methods to allow
-    for more readable tests.
-    Example:
-        element = Element("accessibility_id", "Element")
-        expect(element).to_be_visible()
-    """
-
     def __init__(
         self,
         locator: Element,
@@ -81,7 +67,7 @@ class CustomAssertions:
 
     def to_have(
         self,
-        expected_value: str,
+        expected_value: Union[str, re.Pattern],
         attribute: Union[str, ElementAttribute] = ElementAttribute.TEXT,
         case: Optional[str] = None,
     ):
@@ -89,12 +75,10 @@ class CustomAssertions:
 
         Args:
             expected_value (Union[str, re.Pattern]): The text or regex pattern to compare with the element's attribute.
-            attribute (Union[str, ElementAttribute], optional): The attribute to retrieve from the element.
-                Defaults to TEXT.
+            attribute (Union[str, ElementAttribute], optional): The attribute to retrieve from the element. Defaults to TEXT.
             case (Optional[str], optional): The case to compare the values. Can be 'lower' or 'upper'. Defaults to None.
         """
         actual_value = self._locator.get_attribute(attribute)
-
         if case:
             actual_value = actual_value.lower() if case == "lower" else actual_value.upper()
 

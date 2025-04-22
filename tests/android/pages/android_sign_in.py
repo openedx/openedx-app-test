@@ -1,5 +1,5 @@
 """
-Sign In Page Module
+    Sign In Page Module
 """
 
 from appium.webdriver.common.appiumby import AppiumBy
@@ -32,11 +32,12 @@ class AndroidSignIn(AndroidBasePage):
             AppiumBy.ANDROID_UIAUTOMATOR,
             'new UiSelector().resourceId("txt_password_label")',
         )
-        self._show_password_eye_icon = Element(
-            AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().description("Show password")'
+        self._sign_in_tf_email = Element(
+            AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("tf_email")'
         )
-        self._sign_in_tf_email = Element(AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("tf_email")')
-        self._sign_in_tf_password = Element(AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("tf_password")')
+        self._sign_in_tf_password = Element(
+            AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("tf_password")'
+        )
         self._landing_signin_button = Element(
             AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("btn_sign_in")'
         )
@@ -64,13 +65,9 @@ class AndroidSignIn(AndroidBasePage):
             AppiumBy.ANDROID_UIAUTOMATOR,
             'new UiSelector().resourceId("txt_reset_password")',
         )
-        self._email_field_error = Element(
+        self._forgot_password_email_error = Element(
             AppiumBy.ANDROID_UIAUTOMATOR,
             'new UiSelector().resourceId("txt_email_error")',
-        )
-        self._password_field_error = Element(
-            AppiumBy.ANDROID_UIAUTOMATOR,
-            'new UiSelector().resourceId("txt_password_error")',
         )
         self._check_email_title_text = Element(
             AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("Check your email")'
@@ -88,16 +85,6 @@ class AndroidSignIn(AndroidBasePage):
         """
 
         return self._txt_sign_in_title
-
-    @property
-    def show_password_eye_icon(self) -> "Element":
-        """Get the show password eye icon title element.
-
-        Returns
-            Element: The Element object representing the sign-in title
-        """
-
-        return self._show_password_eye_icon
 
     @property
     def sign_in_description(self) -> Element:
@@ -220,24 +207,14 @@ class AndroidSignIn(AndroidBasePage):
         return self._forgot_password_reset_button
 
     @property
-    def email_field_error(self) -> Element:
+    def forgot_password_email_error(self) -> Element:
         """Get forgot password email error
 
         Returns:
             Element: forgot password email error element
         """
 
-        return self._email_field_error
-
-    @property
-    def password_field_error(self) -> Element:
-        """Get forgot password email error
-
-        Returns:
-            Element: forgot password email error element
-        """
-
-        return self._password_field_error
+        return self._forgot_password_email_error
 
     @property
     def password_recovery_sign_in_btn(self) -> Element:

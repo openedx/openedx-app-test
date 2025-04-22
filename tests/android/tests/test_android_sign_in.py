@@ -1,5 +1,5 @@
 """
-New Landing Test Module
+    New Landing Test Module
 """
 
 from framework import expect
@@ -30,7 +30,9 @@ class TestAndroidSignIn:
         expect(android_landing.screen_title).to_have(values.LANDING_MESSAGE)
         assert android_landing.signin_button.exists()
         assert android_landing.load_signin_screen()
-        expect(android_sign_in.signin_title, "Sign in screen not loaded successfully").to_have(values.LOGIN)
+        expect(
+            android_sign_in.signin_title, "Sign in screen not loaded successfully"
+        ).to_have(values.LOGIN)
 
     def test_ui_elements(self, set_capabilities, setup_logging):
         """
@@ -53,13 +55,19 @@ class TestAndroidSignIn:
         expect(android_landing.screen_title).to_have(values.LANDING_MESSAGE)
         assert android_landing.signin_button.exists()
         assert android_landing.load_signin_screen()
-        expect(android_sign_in.signin_title, "Sign in screen not loaded successfully").to_have(values.LOGIN)
+        expect(
+            android_sign_in.signin_title, "Sign in screen not loaded successfully"
+        ).to_have(values.LOGIN)
         expect(android_sign_in.sign_in_email_label).to_have(values.EMAIL_OR_USERNAME)
         expect(android_sign_in.sign_in_tf_email).to_be_clickable()
-        assert android_sign_in.sign_in_tf_email.send_keys(global_contents.login_user_name)
+        assert android_sign_in.sign_in_tf_email.send_keys(
+            global_contents.login_user_name
+        )
         expect(android_sign_in.sign_in_password_label).to_have(values.PASSWORD)
         expect(android_sign_in.sign_in_password_field).to_be_clickable()
-        assert android_sign_in.sign_in_password_field.send_keys(global_contents.login_password)
+        assert android_sign_in.sign_in_password_field.send_keys(
+            global_contents.login_password
+        )
         expect(android_sign_in.signin_button).to_be_clickable()
         expect(android_sign_in.google_auth_button).to_be_enabled()
         expect(android_sign_in.get_facebook_auth_button).to_be_enabled()
@@ -83,14 +91,20 @@ class TestAndroidSignIn:
         assert android_sign_in.forgot_password_button.click()
         assert android_sign_in.back_navigation_button.exists()
         expect(android_landing.screen_title).to_have(values.FORGOT_PASSWORD_TITLE)
-        expect(android_sign_in.forgot_password_title).to_have(values.FORGOT_PASSWORD_TITLE)
+        expect(android_sign_in.forgot_password_title).to_have(
+            values.FORGOT_PASSWORD_TITLE
+        )
         expect(android_sign_in.sign_in_email_label).to_have(values.FORGOT_EMAIL_TITLE)
         expect(android_sign_in.sign_in_tf_email).to_be_clickable()
         assert android_sign_in.forgot_password_reset_button.click()
-        expect(android_sign_in._email_field_error).to_have(values.FORGOT_EMAIL_ERROR)
+        expect(android_sign_in._forgot_password_email_error).to_have(
+            values.FORGOT_EMAIL_ERROR
+        )
         random_email = utils.generate_random_credentials(8)
         assert android_sign_in.sign_in_tf_email.send_keys(random_email + "@yop.com")
-        expect(android_sign_in.forgot_password_reset_button).to_have(values.RESET_PASSWORD_BUTTON)
+        expect(android_sign_in.forgot_password_reset_button).to_have(
+            values.RESET_PASSWORD_BUTTON
+        )
         assert android_sign_in.forgot_password_reset_button.click()
         android_sign_in.verify_password_recovery_prompts(random_email + "@yop.com")
         expect(android_sign_in.password_recovery_sign_in_btn).to_have(values.LOGIN)
