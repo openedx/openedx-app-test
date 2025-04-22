@@ -109,8 +109,8 @@ FORGOT_EMAIL_TITLE = "Email"
 RESET_PASSWORD_BUTTON = "Reset password"
 FORGOT_CHECK_EMAIL_IMAGE = "checkEmail"
 FORGOT_RECOVER_TITLE_TEXT = "Check your email"
-FOROGT_RECOVER_DESCRIPTION = "We have sent a password recover instructions to your email"
-FORGOT_EMAIL_ERROR = "Please enter your e-mail address and try again."
+FORGOT_RECOVER_DESCRIPTION = "We have sent a password recover instructions to your email"
+FORGOT_PASSWORD_EMAIL_ERROR = "Please enter your e-mail address and try again."
 
 # WHATS NEW SCREEN
 WHATS_NEW_TITLE = "What's New"

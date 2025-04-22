@@ -81,7 +81,7 @@ class CustomAssertions:
 
     def to_have(
         self,
-        expected_value: Union[str, re.Pattern],
+        expected_value: str,
         attribute: Union[str, ElementAttribute] = ElementAttribute.TEXT,
         case: Optional[str] = None,
     ):
@@ -89,10 +89,12 @@ class CustomAssertions:
 
         Args:
             expected_value (Union[str, re.Pattern]): The text or regex pattern to compare with the element's attribute.
-            attribute (Union[str, ElementAttribute], optional): The attribute to retrieve from the element. Defaults to TEXT.
+            attribute (Union[str, ElementAttribute], optional): The attribute to retrieve from the element.
+                Defaults to TEXT.
             case (Optional[str], optional): The case to compare the values. Can be 'lower' or 'upper'. Defaults to None.
         """
         actual_value = self._locator.get_attribute(attribute)
+
         if case:
             actual_value = actual_value.lower() if case == "lower" else actual_value.upper()
 

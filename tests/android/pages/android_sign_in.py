@@ -4,7 +4,6 @@ Sign In Page Module
 
 from appium.webdriver.common.appiumby import AppiumBy
 
-from framework import expect
 from framework.element import Element
 from tests.android.pages.android_base_page import AndroidBasePage
 
@@ -33,10 +32,17 @@ class AndroidSignIn(AndroidBasePage):
             'new UiSelector().resourceId("txt_password_label")',
         )
         self._show_password_eye_icon = Element(
-            AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().description("Show password")'
+            AppiumBy.ANDROID_UIAUTOMATOR,
+            'new UiSelector().description("Show password")'
         )
-        self._sign_in_tf_email = Element(AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("tf_email")')
-        self._sign_in_tf_password = Element(AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("tf_password")')
+        self._sign_in_tf_email = Element(
+            AppiumBy.ANDROID_UIAUTOMATOR,
+            'new UiSelector().resourceId("tf_email")'
+        )
+        self._sign_in_tf_password = Element(
+            AppiumBy.ANDROID_UIAUTOMATOR,
+            'new UiSelector().resourceId("tf_password")'
+        )
         self._landing_signin_button = Element(
             AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("btn_sign_in")'
         )
@@ -60,13 +66,17 @@ class AndroidSignIn(AndroidBasePage):
             AppiumBy.ANDROID_UIAUTOMATOR,
             'new UiSelector().resourceId("txt_forgot_password_title")',
         )
-        self._forgot_password_reset_button = Element(
+        self._forgot_password_reset_button_text = Element(
             AppiumBy.ANDROID_UIAUTOMATOR,
             'new UiSelector().resourceId("txt_reset_password")',
         )
         self._email_field_error = Element(
             AppiumBy.ANDROID_UIAUTOMATOR,
             'new UiSelector().resourceId("txt_email_error")',
+        )
+        self._forgot_password_reset_button = Element(
+            AppiumBy.ANDROID_UIAUTOMATOR,
+            'new UiSelector().resourceId("btn_reset_password")',
         )
         self._password_field_error = Element(
             AppiumBy.ANDROID_UIAUTOMATOR,
@@ -77,6 +87,10 @@ class AndroidSignIn(AndroidBasePage):
         )
         self._password_recovery_sign_in_btn = Element(
             AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("txt_sign_in")'
+        )
+        self._forgot_password_email_placeholder = Element(
+            AppiumBy.ANDROID_UIAUTOMATOR,
+            'new UiSelector().resourceId("txt_email_placeholder")',
         )
 
     @property
@@ -111,6 +125,16 @@ class AndroidSignIn(AndroidBasePage):
 
     @property
     def sign_in_email_label(self) -> Element:
+        """Get sign in email label
+
+        Returns:
+            Element: sign in email label element
+        """
+
+        return self._sign_in_email_label
+
+    @property
+    def forgot_password_email_label(self) -> Element:
         """Get sign in email label
 
         Returns:
@@ -220,6 +244,16 @@ class AndroidSignIn(AndroidBasePage):
         return self._forgot_password_reset_button
 
     @property
+    def forgot_password_reset_button_label(self) -> Element:
+        """Get forgot password reset button
+
+        Returns:
+            Element: forgot password reset button element
+        """
+
+        return self._forgot_password_reset_button_text
+
+    @property
     def email_field_error(self) -> Element:
         """Get forgot password email error
 
@@ -249,17 +283,12 @@ class AndroidSignIn(AndroidBasePage):
 
         return self._password_recovery_sign_in_btn
 
-    def verify_password_recovery_prompts(self, email: str):
-        """Verify password recovery prompts
+    @property
+    def forgot_password_email_placeholder(self) -> Element:
+        """Get forgot password email placeholder
 
         Returns:
-            Element: check email title text element
+            Element: forgot password email placeholder element
         """
 
-        expect(self._check_email_title_text).to_be_displayed()
-        expect(
-            Element(
-                AppiumBy.ANDROID_UIAUTOMATOR,
-                f'new UiSelector().text("We have sent a password recover instructions to your email {email}")',
-            )
-        ).to_be_displayed()
+        return self._forgot_password_email_placeholder
