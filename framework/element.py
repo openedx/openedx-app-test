@@ -56,10 +56,9 @@ class Element:
             Element: Returns self | None if not found and raise_exception is false
         """
         try:
-            if not self.element:
-                self.element = WebDriverWait(Element.__driver, timeout).until(
-                    expected_conditions.visibility_of_element_located(self.locator)
-                )
+            self.element = WebDriverWait(Element.__driver, timeout).until(
+                expected_conditions.visibility_of_element_located(self.locator)
+            )
             return self
         except Exception as exception:
             if raise_exception:
@@ -243,6 +242,26 @@ class Element:
             Element.__logger.info(
                 f"failed to send keys to element {self.locator} with exception {exception}"
             )
+            return False
+
+    def clear(self, timeout=10, raise_exception=True) -> bool:
+        """
+        Clears the text field element.
+        Arguments:
+            timeout (int): The time to wait for the element.
+            raise_exception (bool): Whether to raise an exception if the element is not found.
+        Returns:
+            bool: True if the text field is cleared; False otherwise.
+        Raises:
+            NotFoundError: If raise_exception is True and the element is not found.
+        """
+        try:
+            self.find(timeout).element.clear()
+            return True
+        except Exception as exception:
+            if raise_exception:
+                raise NotFoundError(f"failed to clear text field for element {self.locator} with exception {exception}")
+            Element.__logger.info(f"failed to clear text field for element {self.locator} with exception {exception}")
             return False
 
     def exists(self, timeout=10, raise_exception=True) -> bool:

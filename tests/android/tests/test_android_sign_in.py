@@ -97,14 +97,10 @@ class TestAndroidSignIn:
         expect(android_sign_in.sign_in_email_label).to_have(values.FORGOT_EMAIL_TITLE)
         expect(android_sign_in.sign_in_tf_email).to_be_clickable()
         assert android_sign_in.forgot_password_reset_button.click()
-        expect(android_sign_in._forgot_password_email_error).to_have(
-            values.FORGOT_EMAIL_ERROR
-        )
+        expect(android_sign_in._email_field_error).to_have(values.FORGOT_EMAIL_ERROR)
         random_email = utils.generate_random_credentials(8)
         assert android_sign_in.sign_in_tf_email.send_keys(random_email + "@yop.com")
-        expect(android_sign_in.forgot_password_reset_button).to_have(
-            values.RESET_PASSWORD_BUTTON
-        )
+        expect(android_sign_in.forgot_password_reset_button).to_have(values.RESET_PASSWORD_BUTTON)
         assert android_sign_in.forgot_password_reset_button.click()
         android_sign_in.verify_password_recovery_prompts(random_email + "@yop.com")
         expect(android_sign_in.password_recovery_sign_in_btn).to_have(values.LOGIN)

@@ -1,3 +1,7 @@
+"""
+This module defines the CustomAssertions class which provides custom assertions for the Element class.
+"""
+
 import re
 from typing import Optional, Union
 from framework.element import Element
@@ -5,6 +9,16 @@ from tests.common.enums.attributes import ElementAttribute
 
 
 class CustomAssertions:
+    """
+    A class containing custom assertions for the Element class.
+    The methods in this class provide a convenient way to perform assertions
+    on an Element instance. The assertions are provided as methods to allow
+    for more readable tests.
+    Example:
+        element = Element("accessibility_id", "Element")
+        expect(element).to_be_visible()
+    """
+
     def __init__(
         self,
         locator: Element,
