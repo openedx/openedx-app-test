@@ -1,16 +1,5 @@
-"""Custom Assertions Module
-
-This module provides a class `CustomAssertions` that provides custom assertions
-for the `Element` class.
-
-The `CustomAssertions` class provides a way to write custom assertions for the
-`Element` class. It allows you to write assertions that are not already provided
-by the `Element` class.
-
-The `CustomAssertions` class provides the following methods:
-
-- `to_have`: Asserts that the element has a certain text or attribute.
-- `to_match`: Asserts that the element's attribute matches a certain regex pattern.
+"""
+This module defines the CustomAssertions class which provides custom assertions for the Element class.
 """
 
 import re
@@ -21,7 +10,13 @@ from tests.common.enums.attributes import ElementAttribute
 
 class CustomAssertions:
     """
-    A class that provides custom assertions for the Element class.
+    A class containing custom assertions for the Element class.
+    The methods in this class provide a convenient way to perform assertions
+    on an Element instance. The assertions are provided as methods to allow
+    for more readable tests.
+    Example:
+        element = Element("accessibility_id", "Element")
+        expect(element).to_be_visible()
     """
 
     def __init__(
