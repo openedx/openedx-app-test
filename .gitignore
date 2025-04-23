@@ -10,3 +10,4 @@ report.html
 builds
 .vscode/
 edx-env/
+allure-results
