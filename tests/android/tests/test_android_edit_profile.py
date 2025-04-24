@@ -55,7 +55,6 @@ class TestAndroidEditProfile:
         expect(profile_page.edit_profile_button).to_have(values.EDIT_PROFILE_TITLE)
         assert profile_page.edit_profile_button.click()
         expect(edit_profile_page.edit_profile_title).to_have(values.EDIT_PROFILE_TITLE)
-        # expect(edit_profile_page.done_button).to_have(values.EDIT_PROFILE_DONE_BUTTON)
         expect(edit_profile_page.back_navigation_button).to_be_displayed()
         expect(edit_profile_page.edit_profile_type_label).to_have(values.EDIT_PROFILE_TYPE_LABEL)
         expect(edit_profile_page.edit_profile_user_name).to_have(values.EDIT_PROFILE_USER_NAME)

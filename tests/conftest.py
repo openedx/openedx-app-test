@@ -238,7 +238,6 @@ def android_login(set_capabilities, setup_logging):
     yield set_capabilities
 
     profile_tab = main_dashboard_page.profile_tab
-    log.info("Before if")
     if not profile_tab.exists(raise_exception=False):
         log.info("Profile Tab Not Found")
         back_button = (
@@ -249,7 +248,6 @@ def android_login(set_capabilities, setup_logging):
         assert back_button.click()
         sleep(10)
         log.info("Clicked Back button")
-    log.info("After if")
     assert profile_tab.click()
     assert profile_page.settings_button.click()
     profile_page.get_profile_txt_terms_of_use.scroll_vertically_from_element()

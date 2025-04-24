@@ -36,12 +36,10 @@ class Expect:
     """
 
     def __init__(self):
-        self._timeout = 10000
+        pass
 
-    def __call__(
-        self, locator: Element, message: Optional[str] = None, timeout: Optional[int] = None
-    ) -> CustomAssertions:
-        return CustomAssertions(locator, timeout if timeout else self._timeout, message=message)
+    def __call__(self, locator: Element, message: Optional[str] = None, timeout: int = 10000) -> CustomAssertions:
+        return CustomAssertions(locator, timeout, message=message)
 
 
 expect = Expect()

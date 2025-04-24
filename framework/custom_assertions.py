@@ -90,7 +90,7 @@ class CustomAssertions:
         attribute: Union[str, ElementAttribute] = ElementAttribute.TEXT,
         case: Optional[str] = None,
     ):
-        """Asserts that the element matches the specified text or matches the regex pattern
+        """Asserts that the element matches the specified text
 
         Args:
             expected_value (Union[str, re.Pattern]): The text or regex pattern to compare with the element's attribute.
@@ -103,9 +103,10 @@ class CustomAssertions:
         if case:
             actual_value = actual_value.lower() if case == "lower" else actual_value.upper()
 
-        custom_msg = self._custom_message or f'Expected "{expected_value}" but found "{actual_value}"'
-
-        assert (expected_value != actual_value) if self._is_not else (expected_value == actual_value), custom_msg
+        default_msg = f'Expected "{expected_value}" but found "{actual_value}"'
+        custom_msg = self._custom_message or default_msg
+        match_result = expected_value == actual_value
+        assert match_result != self._is_not, custom_msg
 
     def to_match(
         self,
@@ -123,15 +124,11 @@ class CustomAssertions:
         """
         actual_value = self._locator.get_attribute(attribute)
         # TODO: modify for negative scenario
-        custom_msg = (
-            self._custom_message
-            or f'Expected pattern "{pattern}" to {"partially" if partial else "fully"} match "{actual_value}"'
-        )
+        default_msg = f'Expected pattern "{pattern}" to {"partially" if partial else "fully"} match "{actual_value}"'
+        custom_msg = self._custom_message or default_msg
         match_func = re.search if partial else re.fullmatch
-
-        assert (
-            (not match_func(pattern, actual_value)) if self._is_not else match_func(pattern, actual_value)
-        ), custom_msg
+        match_result = match_func(pattern, actual_value)
+        assert match_result != self._is_not, custom_msg
 
     def to_contain(
         self,
@@ -150,9 +147,10 @@ class CustomAssertions:
         if case:
             actual_value = actual_value.lower() if case == "lower" else actual_value.upper()
         # TODO: modify for negative scenario
-        custom_msg = self._custom_message or f'Expected "{actual_value}" to contain "{expected_value}"'
-
-        assert (expected_value not in actual_value) if self._is_not else (expected_value in actual_value), custom_msg
+        default_msg = f'Expected "{actual_value}" to contain "{expected_value}"'
+        custom_msg = self._custom_message or default_msg
+        match_result = expected_value in actual_value
+        assert match_result != self._is_not, custom_msg
 
     def to_be_selected(self):
         """Asserts that the element is selected

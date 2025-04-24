@@ -108,7 +108,6 @@ class AndroidBasePage:
             Element: element with required text
         """
         if text:
-            return Element(AppiumBy.ANDROID_UIAUTOMATOR, f'new UiSelector().text("{text}")').find(
-                raise_exception=raise_error
-            )
+            selector = f'new UiSelector().text("{text}")'
+            return Element(AppiumBy.ANDROID_UIAUTOMATOR, selector).find(raise_exception=raise_error)
         raise ValueError("text cannot be empty")

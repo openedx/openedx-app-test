@@ -89,9 +89,7 @@ class AndroidWhatsNew(AndroidBasePage):
         """
 
         self.next_btn.click()
-        print("~~~~~~~~NEXT~~~~~~~~")
         if self.done_button.exists(raise_exception=False):
-            print("~~~~~~~~FOUND~~~~~~~~")
             return self.done_button
         else:
             self.navigate_features()
