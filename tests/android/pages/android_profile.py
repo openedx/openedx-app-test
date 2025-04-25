@@ -47,7 +47,10 @@ class AndroidProfile(AndroidBasePage):
             AppiumBy.ANDROID_UIAUTOMATOR,
             'new UiSelector().resourceId("txt_video_settings")',
         )
-        self._profile_txt_support_info = Element(AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("Support")')
+        self._profile_txt_support_info = Element(
+            AppiumBy.ANDROID_UIAUTOMATOR,
+            'new UiSelector().text("Contact Support")'
+        )
 
         self._profile_settings_manage_account = Element(
             AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("Manage Account")'
@@ -64,6 +67,72 @@ class AndroidProfile(AndroidBasePage):
         self._profile_settings_delete_account_confirm = Element(
             AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("btn_yes,_delete_account")'
         )
+
+        self._profile_settings_delete_account = Element(
+            AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("btn_delete_account")'
+        )
+
+        self._profile_settings_password_input = Element(
+            AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("tf_password_input")'
+        )
+
+        self._profile_settings_delete_account_confirm = Element(
+            AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("btn_yes,_delete_account")'
+        )
+
+        self._profile_settings_back_button = Element(
+            AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().description("Back")'
+        )
+
+    @property
+    def profile_settings_back_button(self):
+        """
+        Getter for the back button element on the profile settings page.
+
+        Returns:
+            Element: The back button element.
+        """
+        return self._profile_settings_back_button
+
+    @property
+    def profile_settings_delete_account_confirm(self):
+        """
+        Getter for the confirm delete account button element on the profile settings page.
+
+        Returns:
+            Element: The confirm delete account button element.
+        """
+        return self._profile_settings_delete_account_confirm
+
+    @property
+    def profile_settings_password_input(self):
+        """
+        Getter for the password input element on the profile settings page.
+
+        Returns:
+            Element: The password input element.
+        """
+        return self._profile_settings_password_input
+
+    @property
+    def profile_settings_delete_account(self):
+        """
+        Getter for the 'Delete Account' element on the profile settings page.
+
+        Returns:
+            Element: The 'Delete Account' element.
+        """
+        return self._profile_settings_delete_account
+
+    @property
+    def profile_settings_manage_account(self):
+        """
+        Getter for the 'Manage Account' element on the profile settings page.
+
+        Returns:
+            Element: The 'Manage Account' element.
+        """
+        return self._profile_settings_manage_account
 
     def get_profile_screen_title(self) -> Element:
         """
@@ -197,6 +266,7 @@ class AndroidProfile(AndroidBasePage):
 
         return self.find_by_text_on_screen(android_elements.profile_app_version_code)
 
+    @property
     def get_profile_txt_up_to_date(self):
         """
         Returns:

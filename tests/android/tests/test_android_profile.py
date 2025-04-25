@@ -39,7 +39,7 @@ class TestAndroidProfile:
         assert main_dashboard_page.profile_tab.click()
         assert profile_page.settings_button.exists()
         expect(profile_page.profile_img_profile).to_contain(
-            values.PROFILE_IMAGE_TEXT, type=ElementAttribute.CONTENT_DESC
+            values.PROFILE_IMAGE_TEXT, attribute=ElementAttribute.CONTENT_DESC
         )
         expect(profile_page.profile_txt_name).to_have(values.PROFILE_NAME_TEXT)
         expect(profile_page.profile_username).to_have(values.PROFILE_USERNAME_TEXT)

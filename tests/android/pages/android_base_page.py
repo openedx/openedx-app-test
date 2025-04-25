@@ -1,5 +1,5 @@
 """
-   Module covers Android base page
+Module covers Android base page
 """
 
 from appium.webdriver.common.appiumby import AppiumBy
@@ -24,9 +24,7 @@ class AndroidBasePage:
             AppiumBy.ANDROID_UIAUTOMATOR,
             'new UiSelector().resourceId("txt_screen_title")',
         )
-        self._back_navigation_button = Element(
-            AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().description("ib_back")'
-        )
+        self._back_navigation_button = Element(AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("ib_back")')
         self._text_view = Element(AppiumBy.CLASS_NAME, "android.widget.TextView")
         self._android_native_permission_allow_button = Element(
             AppiumBy.ANDROID_UIAUTOMATOR,
@@ -36,6 +34,19 @@ class AndroidBasePage:
             AppiumBy.ANDROID_UIAUTOMATOR,
             'new UiSelector().resourceId("com.android.permissioncontroller:id/permission_deny_button")',
         )
+
+        self._android_loading_circle = Element(
+            AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("android.widget.ProgressBar")'
+        )
+
+    @property
+    def android_loading_circle(self) -> Element:
+        """Get loading circle
+
+        Returns:
+            Element: loading circle element
+        """
+        return self._android_loading_circle
 
     @property
     def text_toolbar_title(self) -> Element:
@@ -91,13 +102,12 @@ class AndroidBasePage:
 
         return self._android_native_permission_allow_button
 
-    def find_by_text_on_screen(self, text: str) -> Element:
+    def find_by_text_on_screen(self, text: str, raise_error: bool = True) -> Element:
         """Find element by text.
         Returns:
             Element: element with required text
         """
         if text:
-            return Element(
-                AppiumBy.ANDROID_UIAUTOMATOR, f'new UiSelector().text("{text}")'
-            ).find()
+            selector = f'new UiSelector().text("{text}")'
+            return Element(AppiumBy.ANDROID_UIAUTOMATOR, selector).find(raise_exception=raise_error)
         raise ValueError("text cannot be empty")

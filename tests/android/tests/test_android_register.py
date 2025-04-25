@@ -8,6 +8,7 @@ from framework import expect
 from framework.element import Element
 from tests.android.pages.android_landing import AndroidLanding
 from tests.android.pages.android_main_dashboard import AndroidMainDashboard
+from tests.android.pages.android_profile import AndroidProfile
 from tests.android.pages.android_register import AndroidRegister
 from tests.common import values
 from tests.common.enums.attributes import ElementAttribute
@@ -91,6 +92,7 @@ class TestAndroidRegister:
         android_register.get_register_tf_password.scroll_vertically_from_element()
         expect(android_register.get_register_tf_country).to_be_clickable()
         expect(android_register.get_register_txt_country_description).to_have(values.REGISTER_COUNTRY_MESSAGE)
+        Element.swipe_vertical_full_page()
         expect(
             android_register.honor_policy_text,
             "privacy honor text not found on registration screen",
@@ -151,6 +153,7 @@ class TestAndroidRegister:
         android_register = AndroidRegister()
         global_contents = Globals(setup_logging)
         main_dashboard_page = AndroidMainDashboard()
+        profile_page = AndroidProfile()
 
         user_name = generate_random_credentials(5)
         email = user_name + "@example.com"
@@ -177,3 +180,12 @@ class TestAndroidRegister:
         assert android_register.get_txt_us_title.click()
         assert android_register.get_register_btn_create_account.click()
         expect(main_dashboard_page.learn_tab).to_have(values.MAIN_DASHBOARD_LEARN_TAB, ElementAttribute.CONTENT_DESC)
+
+        # delete newly registered account
+        assert main_dashboard_page.profile_tab.click()
+        assert profile_page.settings_button.click()
+        assert profile_page.profile_settings_manage_account.click()
+        assert profile_page.profile_settings_delete_account.click()
+        assert profile_page.profile_settings_password_input.send_keys(password)
+        assert profile_page.profile_settings_delete_account_confirm.click()
+        assert android_landing.get_register_button.exists()
