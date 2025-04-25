@@ -1,18 +1,3 @@
-"""Custom Assertions Module
-
-This module provides a class `CustomAssertions` that provides custom assertions
-for the `Element` class.
-
-The `CustomAssertions` class provides a way to write custom assertions for the
-`Element` class. It allows you to write assertions that are not already provided
-by the `Element` class.
-
-The `CustomAssertions` class provides the following methods:
-
-- `to_have`: Asserts that the element has a certain text or attribute.
-- `to_match`: Asserts that the element's attribute matches a certain regex pattern.
-"""
-
 import re
 from typing import Optional, Union
 from framework.element import Element
@@ -20,10 +5,6 @@ from tests.common.enums.attributes import ElementAttribute
 
 
 class CustomAssertions:
-    """
-    A class that provides custom assertions for the Element class.
-    """
-
     def __init__(
         self,
         locator: Element,
@@ -86,7 +67,7 @@ class CustomAssertions:
 
     def to_have(
         self,
-        expected_value: str,
+        expected_value: Union[str, re.Pattern],
         attribute: Union[str, ElementAttribute] = ElementAttribute.TEXT,
         case: Optional[str] = None,
     ):
@@ -94,12 +75,10 @@ class CustomAssertions:
 
         Args:
             expected_value (Union[str, re.Pattern]): The text or regex pattern to compare with the element's attribute.
-            attribute (Union[str, ElementAttribute], optional): The attribute to retrieve from the element.
-                Defaults to TEXT.
+            attribute (Union[str, ElementAttribute], optional): The attribute to retrieve from the element. Defaults to TEXT.
             case (Optional[str], optional): The case to compare the values. Can be 'lower' or 'upper'. Defaults to None.
         """
         actual_value = self._locator.get_attribute(attribute)
-
         if case:
             actual_value = actual_value.lower() if case == "lower" else actual_value.upper()
 

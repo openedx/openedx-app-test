@@ -255,7 +255,7 @@ def android_login(set_capabilities, setup_logging):
     assert profile_page.profile_txt_logout.click()
     expect(profile_page.logout_prompt_logout_button_text).to_have(values.PROFILE_LOGOUT_BUTTON)
     assert profile_page.logout_prompt_logout_button_text.click()
-    expect(android_landing.get_search_label).to_have(values.LANDING_SEARCH_TITLE)
+    assert android_landing.signin_button.exists()
 
 
 @pytest.fixture(scope="module")
