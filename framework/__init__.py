@@ -35,9 +35,6 @@ class Expect:
     maintainable test code.
     """
 
-    def __init__(self):
-        pass
-
     def __call__(self, locator: Element, message: Optional[str] = None, timeout: int = 10000) -> CustomAssertions:
         return CustomAssertions(locator, timeout, message=message)
 
