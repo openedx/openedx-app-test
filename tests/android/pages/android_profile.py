@@ -45,14 +45,22 @@ class AndroidProfile(AndroidBasePage):
             AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("txt_profile_username")'
         )
         self._edit_profile_btn = Element(
-            AppiumBy.ANDROID_UIAUTOMATOR,
-            'new UiSelector().resourceId("txt_edit_profile")',
+            AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("txt_edit_profile")'
         )
         self._privacy_policy = Element(
             AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("Privacy Policy")'
         )
         self._logout_text = Element(
-            AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("Log Out")'
+            AppiumBy.ANDROID_UIAUTOMATOR,
+            'new UiSelector().text("Log Out")'
+        )
+        self._logout_prompt_msg = Element(
+            AppiumBy.ANDROID_UIAUTOMATOR,
+            'new UiSelector().resourceId("txt_logout_dialog_title")'
+        )
+        self._prompt_logout_button = Element(
+            AppiumBy.ANDROID_UIAUTOMATOR,
+            'new UiSelector().resourceId("btn_logout")'
         )
         self._logout_prompt_logout_button_text = Element(
             AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("txt_logout")'
@@ -67,7 +75,7 @@ class AndroidProfile(AndroidBasePage):
             AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("txt_edit")'
         )
         self._profile_txt_settings = Element(
-            AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("txt_settings")'
+            AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("Settings").instance(0)'
         )
         self._profile_txt_video_settings = Element(
             AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("txt_video_settings")'
@@ -78,7 +86,8 @@ class AndroidProfile(AndroidBasePage):
         )
 
         self._profile_settings_manage_account = Element(
-            AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("Manage Account")'
+            AppiumBy.ANDROID_UIAUTOMATOR,
+            'new UiSelector().text("Manage Account")'
         )
 
         self._profile_settings_delete_account = Element(
@@ -99,10 +108,6 @@ class AndroidProfile(AndroidBasePage):
 
         self._profile_settings_password_input = Element(
             AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("tf_password_input")'
-        )
-
-        self._profile_settings_delete_account_confirm = Element(
-            AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("btn_yes,_delete_account")'
         )
 
         self._profile_settings_back_button = Element(
@@ -311,6 +316,15 @@ class AndroidProfile(AndroidBasePage):
         return self._logout_text
 
     @property
+    def logout_prompt_msg(self) -> Element:
+        """
+        Returns:
+            Element: profile logout element
+        """
+
+        return self._logout_prompt_msg
+
+    @property
     def logout_prompt_logout_button_text(self) -> Element:
         """
         Returns:
@@ -318,6 +332,15 @@ class AndroidProfile(AndroidBasePage):
         """
 
         return self._logout_prompt_logout_button_text
+
+    @property
+    def logout_prompt_logout_button(self) -> Element:
+        """
+        Returns:
+            Element: logout button element
+        """
+
+        return self._prompt_logout_button
 
     @property
     def settings_button(self) -> Element:

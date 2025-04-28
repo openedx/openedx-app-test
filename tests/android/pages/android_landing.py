@@ -30,8 +30,9 @@ class AndroidLanding(AndroidBasePage):
             AppiumBy.ANDROID_UIAUTOMATOR,
             'new UiSelector().resourceId("txt_explore_all_courses")',
         )
-        self._landing_register_button = Element(
-            AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("btn_register")'
+        self._register_button = Element(AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("btn_register")')
+        self._register_button_text = Element(
+            AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("txt_register")'
         )
         self._landing_register_button_text = Element(
             AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("txt_register")'
@@ -82,14 +83,24 @@ class AndroidLanding(AndroidBasePage):
         return self._landing_explore_courses_button
 
     @property
-    def get_register_button(self) -> Element:
+    def register_button(self) -> Element:
         """Get register button
 
         Returns:
             Element: the Element object
         """
 
-        return self._landing_register_button
+        return self._register_button
+
+    @property
+    def register_button_text(self) -> Element:
+        """register button text element
+
+        Returns:
+            Element: the Element object
+        """
+
+        return self._register_button_text
 
     @property
     def register_button_text(self) -> Element:
@@ -108,7 +119,7 @@ class AndroidLanding(AndroidBasePage):
             Element: Register button element
         """
 
-        return self._landing_register_button.click()
+        return self._register_button.click()
 
     def load_signin_screen(self):
         """Get sign in button

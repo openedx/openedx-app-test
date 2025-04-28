@@ -4,7 +4,6 @@
 from logging import Logger
 from typing import Union
 
-from appium.webdriver.common.appiumby import AppiumBy
 from appium.webdriver.webdriver import WebDriver
 from appium.webdriver.webelement import WebElement as MobileWebElement
 from selenium.webdriver.support import expected_conditions
@@ -23,12 +22,12 @@ class Element:
     It provides methods to perform actions on the element and to verify its state.
     """
 
-    def __init__(self, strategy: AppiumBy, locator: str):
+    def __init__(self, strategy: str, locator: str):
         """
         Initializes an Element instance.
 
         Args:
-            strategy (AppiumBy): The strategy to use to find the element.
+            strategy (str): The strategy to use to find the element.
             locator (str): The locator to use to find the element.
         """
         self.locator = (strategy, locator)
@@ -102,7 +101,6 @@ class Element:
         """Get child elements from parent element
         Arguments:
             child_locator: Element instance initialized with child locator
-            raise_exception (bool): True or False
         Returns:
             Element: Returns instance of Element class for child elements
         """
@@ -292,6 +290,29 @@ class Element:
             # Log the exception if the element does not exist
             Element.__logger.info(f"Element {self.locator} does not exist with exception {exception}")
 
+    def clear(self, timeout=10, raise_exception=True) -> bool:
+        """
+        Clears the text field element.
+
+        Arguments:
+            timeout (int): The time to wait for the element.
+            raise_exception (bool): Whether to raise an exception if the element is not found.
+
+        Returns:
+            bool: True if the text field is cleared; False otherwise.
+
+        Raises:
+            NotFoundError: If raise_exception is True and the element is not found.
+        """
+        try:
+            self.find(timeout).element.clear()
+            return True
+        except Exception as exception:
+            if raise_exception:
+                raise NotFoundError(f"failed to clear text field for element {self.locator} with exception {exception}")
+            Element.__logger.info(f"failed to clear text field for element {self.locator} with exception {exception}")
+            return False
+
     def is_selected(self, timeout=10) -> bool:
         """
             Checks if element is selected
@@ -359,6 +380,54 @@ class Element:
                 f"element {self.locator} is not checked with exception {exception}"
             )
             return False
+
+    def wait_for_clickable(self, timeout=30, polling_time=0.5, raise_exception=True) -> "Element":
+        """Finds the required element and waits for a given timeout until that element is clickable
+        Arguments:
+            timeout (int) : time to wait for element
+            raise_exception (bool): True or False
+        Returns:
+            Element: Returns self
+        """
+        import time
+
+        end_time = time.time() + timeout
+        while time.time() < end_time:
+            if self.is_clickable(timeout=5):
+                return self
+            time.sleep(polling_time)
+        if raise_exception:
+            raise NotFoundError(f"element {self.locator} is not clickable with in {timeout} seconds")
+
+    def scroll_into_view(self, timeout=10, raise_exception=True) -> "Element":
+        """Finds the required element and scrolls it into view
+            only for android uiautomator style locators
+        Arguments:
+            timeout (int) : time to wait for element
+            raise_exception (bool): True or False
+        Returns:
+            Element: Returns self
+        """
+        try:
+
+            self.element = WebDriverWait(Element.__driver, timeout).until(
+                expected_conditions.visibility_of_element_located(
+                    (
+                        self.locator[0],
+                        f"new UiScrollable(new UiSelector().scrollable(true)).scrollIntoView({self.locator[1]})",
+                    )
+                )
+            )
+            return self
+        except Exception as exception:
+            if raise_exception:
+                raise NotFoundError(
+                    f"failed to find element"
+                    f"({self.locator[0]},"
+                    f" 'new UiScrollable(new UiSelector().scrollable(true)).scrollIntoView({self.locator[1]})')"
+                    f" with exception {exception}"
+                )
+            Element.__logger.info(f"failed to find element {self.locator} with exception {exception}")
 
     def scroll_vertically_from_element(self):
         """Scroll from element"""
@@ -457,6 +526,37 @@ class Element:
             Element.__logger.info(
                 f"Element with locator: {self.locator} still present after {timeout} seconds. Exception: {exception}"
             )
+
+    @staticmethod
+    def swipe_vertical_full_page(
+        direction=ScrollDirections.UP,
+        start_y_pc=88,
+        end_y_pc=12,
+        horizontal_anchor=0.5,
+    ):
+        """
+            Swipe on page via given points
+        Arguments:
+            direction (Enum) : enums.ScrollDirections
+            start_y_pc (int) : start screen percentage
+            end_y_pc (int) : end screen percentage
+            horizontal_anchor (float): ratio of screen with to be used as anchor point
+        Returns:
+            None
+        """
+        screen_coordinates = Element.__driver.get_window_size()
+        screen_width = screen_coordinates.get("width")
+        screen_height = screen_coordinates.get("height")
+        x_anchor = int(screen_width * horizontal_anchor)
+
+        if direction == ScrollDirections.UP:
+            start_y = int((screen_height * (start_y_pc / 100)))
+            end_y = int((screen_height * (end_y_pc / 100)))
+        else:
+            start_y = int((screen_height * (end_y_pc / 100)))
+            end_y = int((screen_height * (start_y_pc / 100)))
+
+        Element.__driver.swipe(x_anchor, start_y, x_anchor, end_y, 2500)
 
     @staticmethod
     def swipe_vertical_full_page(
