@@ -88,7 +88,7 @@ class CustomAssertions:
         """Asserts that the element matches the specified text
 
         Args:
-            expected_value (Union[str, re.Pattern]): The text or regex pattern to compare with the element's attribute.
+            expected_value (str): The text or to compare with the element's attribute.
             attribute (Union[str, ElementAttribute], optional): The attribute to retrieve from the element.
                 Defaults to TEXT.
             case (Optional[str], optional): The case to compare the values. Can be 'lower' or 'upper'. Defaults to None.
