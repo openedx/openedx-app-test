@@ -1,6 +1,7 @@
 """
 Login Test Module
 """
+
 from framework import expect, Element
 from tests.common import values
 from tests.common.enums import ElementAttribute
@@ -21,7 +22,7 @@ class TestIosLogin:
         """
         Element.set_driver(set_capabilities)
         Element.set_logger(setup_logging)
-        setup_logging.info('Starting Test Case')
+        setup_logging.info("Starting Test Case")
         ios_landing = IosLanding()
         ios_login = IosLogin()
 
@@ -98,16 +99,16 @@ class TestIosLogin:
         expect(email_textfield).to_have(values.FORGOT_EMAIL_TITLE)
         assert email_textfield.click()
         random_email = global_contents.generate_random_credentials(8)
-        email_textfield.send_keys(random_email + '@yop.com')
+        email_textfield.send_keys(random_email + "@yop.com")
         reset_password_button = ios_login.forgot_reset_password_button
         expect(reset_password_button).to_have(values.RESET_PASSWORD_BUTTON)
         assert reset_password_button.click()
         expect(ios_login.forgot_check_email_image).to_have(values.FORGOT_CHECK_EMAIL_IMAGE)
         expect(ios_login.forgot_recover_title_text).to_have(values.FORGOT_RECOVER_TITLE_TEXT)
-        expect(ios_login.forgot_recover_description_text).to_contain(values.FOROGT_RECOVER_DESCRIPTION)
+        expect(ios_login.forgot_recover_description_text).to_contain(values.FORGOT_RECOVER_DESCRIPTION)
         sign_in_button = ios_login.signin_button
         expect(ios_login.signin_button).to_have(values.LOGIN)
         assert sign_in_button.click()
         logo_image = ios_landing.get_logo_image
         expect(logo_image).to_have(values.LANDING_LOGO_IMAGE)
-        setup_logging.info('Ending Test Case')
+        setup_logging.info("Ending Test Case")
