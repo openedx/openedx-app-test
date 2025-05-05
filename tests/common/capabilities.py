@@ -23,8 +23,7 @@ class Capabilities(ABC):
         self._caps[key] = value
 
     @abstractmethod
-    def get_as_options(self) -> AppiumOptions:
-        ...
+    def get_as_options(self) -> AppiumOptions: ...
 
 
 class AndroidCapabilities(Capabilities):
@@ -65,6 +64,7 @@ class IOSCapabilities(Capabilities):
                 "locationServicesAuthorized": True,
                 "connectHardwareKeyboard": False,
                 "newCommandTimeout": 180,
+                "usePrebuiltWDA": True,
                 "wdaStartupRetries": 3,
                 "showXcodeLog": True,
                 "platformName": "ios",

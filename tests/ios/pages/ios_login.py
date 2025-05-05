@@ -1,5 +1,5 @@
 """
-    Login Page Module
+Login Page Module
 """
 
 from appium.webdriver.common.appiumby import AppiumBy
@@ -11,33 +11,33 @@ class IosLogin(IosBasePage):
     """
     Login screen
     """
+
     def __init__(self):
         super().__init__()
-        self._back_button_navigation = Element(AppiumBy.ACCESSIBILITY_ID, 'back_button')
-        self._notification_allow_button = Element(AppiumBy.ACCESSIBILITY_ID, 'Allow')
-        self._password_field = Element(AppiumBy.CLASS_NAME, 'XCUIElementTypeSecureTextField')
-        self._sign_in_title = Element(AppiumBy.CLASS_NAME, 'signin_text')
-        self._signin_welcome_text = Element(AppiumBy.ACCESSIBILITY_ID, 'welcome_back_text')
-        self._signin_username_text = Element(AppiumBy.ACCESSIBILITY_ID, 'username_text')
-        self._signin_username_text_field = Element(AppiumBy.ACCESSIBILITY_ID, 'username_textfield')
-        self._signin_password_text = Element(AppiumBy.ACCESSIBILITY_ID, 'password_text')
-        self._signin_password_text_field = Element(AppiumBy.ACCESSIBILITY_ID, 'password_textfield')
-        self._signin_forgot_password_button = Element(AppiumBy.ACCESSIBILITY_ID, 'forgot_password_button')
-        self._signin_button = Element(AppiumBy.ACCESSIBILITY_ID, 'signin_button')
-        self._signin_social_auth_title_text = Element(AppiumBy.ACCESSIBILITY_ID, 'social_auth_title_text')
-        self._signin_social_auth_google_button = Element(AppiumBy.ACCESSIBILITY_ID, 'social_auth_google_button')
-        self._signin_social_auth_facebook_button = Element(AppiumBy.ACCESSIBILITY_ID, 'social_auth_facebook_button')
-        self._signin_social_auth_microsoft_button = Element(AppiumBy.ACCESSIBILITY_ID, 'social_auth_microsoft_button')
-        self._signin_social_auth_apple_button = Element(AppiumBy.ACCESSIBILITY_ID, 'social_auth_apple_button')
-        self._forgot_title_text = Element(AppiumBy.ACCESSIBILITY_ID, 'forgot_title_text')
-        self._forgot_description_text = Element(AppiumBy.ACCESSIBILITY_ID, 'forgot_description_text')
-        self._forgot_email_text = Element(AppiumBy.ACCESSIBILITY_ID, 'email_text')
-        self._forgot_email_text_field = Element(AppiumBy.ACCESSIBILITY_ID, 'email_textfield')
-        self._reset_password_button = Element(AppiumBy.ACCESSIBILITY_ID, 'reset_password_button')
-        self._check_email_image = Element(AppiumBy.ACCESSIBILITY_ID, 'check_email_image')
-        self._recover_title_text = Element(AppiumBy.ACCESSIBILITY_ID, 'recover_title_text')
-        self._recover_description_text = Element(AppiumBy.ACCESSIBILITY_ID, 'recover_description_text')
-
+        self._back_button_navigation = Element(AppiumBy.ACCESSIBILITY_ID, "back_button")
+        self._notification_allow_button = Element(AppiumBy.ACCESSIBILITY_ID, "Allow")
+        self._password_field = Element(AppiumBy.CLASS_NAME, "XCUIElementTypeSecureTextField")
+        self._sign_in_title = Element(AppiumBy.ACCESSIBILITY_ID, "signin_text")
+        self._signin_welcome_text = Element(AppiumBy.ACCESSIBILITY_ID, "welcome_back_text")
+        self._signin_username_text = Element(AppiumBy.ACCESSIBILITY_ID, "username_text")
+        self._signin_username_text_field = Element(AppiumBy.ACCESSIBILITY_ID, "username_textfield")
+        self._signin_password_text = Element(AppiumBy.ACCESSIBILITY_ID, "password_text")
+        self._signin_password_text_field = Element(AppiumBy.ACCESSIBILITY_ID, "password_textfield")
+        self._signin_forgot_password_button = Element(AppiumBy.ACCESSIBILITY_ID, "forgot_password_button")
+        self._signin_button = Element(AppiumBy.ACCESSIBILITY_ID, "signin_button")
+        self._signin_social_auth_title_text = Element(AppiumBy.ACCESSIBILITY_ID, "social_auth_title_text")
+        self._signin_social_auth_google_button = Element(AppiumBy.ACCESSIBILITY_ID, "social_auth_google_button")
+        self._signin_social_auth_facebook_button = Element(AppiumBy.ACCESSIBILITY_ID, "social_auth_facebook_button")
+        self._signin_social_auth_microsoft_button = Element(AppiumBy.ACCESSIBILITY_ID, "social_auth_microsoft_button")
+        self._signin_social_auth_apple_button = Element(AppiumBy.ACCESSIBILITY_ID, "social_auth_apple_button")
+        self._forgot_title_text = Element(AppiumBy.ACCESSIBILITY_ID, "forgot_title_text")
+        self._forgot_description_text = Element(AppiumBy.ACCESSIBILITY_ID, "forgot_description_text")
+        self._forgot_email_text = Element(AppiumBy.ACCESSIBILITY_ID, "email_text")
+        self._forgot_email_text_field = Element(AppiumBy.ACCESSIBILITY_ID, "email_textfield")
+        self._reset_password_button = Element(AppiumBy.ACCESSIBILITY_ID, "reset_password_button")
+        self._check_email_image = Element(AppiumBy.ACCESSIBILITY_ID, "check_email_image")
+        self._recover_title_text = Element(AppiumBy.ACCESSIBILITY_ID, "recover_title_text")
+        self._recover_description_text = Element(AppiumBy.ACCESSIBILITY_ID, "recover_description_text")
 
     @property
     def sign_in_title(self) -> Element:
@@ -136,7 +136,7 @@ class IosLogin(IosBasePage):
             webdriver element: signin button element
         """
 
-        return  self._signin_button
+        return self._signin_button
 
     @property
     def signin_social_auth_title_text(self) -> Element:
@@ -215,7 +215,7 @@ class IosLogin(IosBasePage):
         return self._forgot_description_text
 
     @property
-    def forgot_email_text(self)-> Element:
+    def forgot_email_text(self) -> Element:
         """
         Get forgot email text
 
