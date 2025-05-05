@@ -1,6 +1,7 @@
 """
-    Profile Page Module
+Profile Page Module
 """
+
 from appium.webdriver.common.appiumby import AppiumBy
 
 from framework import Element
@@ -16,7 +17,9 @@ class IosProfile(IosBasePage):
         super().__init__()
         self._profile_screen_title = Element(AppiumBy.NAME, "Profile")
         self._profile_edit_button = Element(AppiumBy.ACCESSIBILITY_ID, "edit_profile_button")
-        self._profile_settings_button = Element(AppiumBy.ACCESSIBILITY_ID, "settings")
+        self._profile_settings_button = Element(
+            AppiumBy.IOS_CLASS_CHAIN, "**/XCUIElementTypeButton[`name == 'edit_profile_button'`]"
+        )
         self._profile_user_avatar_image = Element(AppiumBy.ACCESSIBILITY_ID, "user_avatar_image")
         self._profile_user_name_text = Element(AppiumBy.ACCESSIBILITY_ID, "user_name_text")
         self._profile_user_username_text = Element(AppiumBy.ACCESSIBILITY_ID, "user_username_text")

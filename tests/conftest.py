@@ -303,7 +303,7 @@ def ios_login(set_capabilities, setup_logging):
     assert sign_in_button.click()
     setup_logging.info(f"{global_contents.login_user_name} is successfully logged in")
 
-    if global_contents.whats_new_enable:
+    if whats_new_page.whats_new_next_button.exists(raise_exception=False):
         whats_new_page.get_close_button.click()
         setup_logging.info("Whats New screen is successfully loaded")
 
@@ -322,6 +322,7 @@ def ios_login(set_capabilities, setup_logging):
     profile_tab = main_dashboard.profile_tab
     assert profile_tab.click()
     assert ios_profile.profile_settings_button.click()
+    Element.swipe_vertical_full_page()
     assert ios_profile.get_profile_logout_button.click()
     setup_logging.info("clicking log out")
     assert ios_profile.get_logout_button_from_prompt.click()
