@@ -43,4 +43,4 @@ class TestAndroidProfile:
         )
         expect(profile_page.profile_txt_name).to_have(values.PROFILE_NAME_TEXT)
         expect(profile_page.profile_username).to_have(values.PROFILE_USERNAME_TEXT)
-        expect(profile_page.edit_profile_button).to_have(values.EDIT_PROFILE_TITLE)
+        expect(profile_page.edit_profile_button_text).to_have(values.EDIT_PROFILE_TITLE)

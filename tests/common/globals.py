@@ -1,5 +1,5 @@
 """
-   Module covers Android & iOS screens' global contents
+Module covers Android & iOS screens' global contents
 """
 
 import random
@@ -13,8 +13,10 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.wait import WebDriverWait
 
+from framework import Element
 from tests.android.pages import android_elements
 from tests.common import values
+from tests.common.enums.general_enums import CountryAbbreviation, LanguageAbbreviation
 from tests.ios.pages import ios_elements
 
 
@@ -64,6 +66,7 @@ class Globals:
             user = user_preferences.get("User", {})
             self.login_user_name = user.get("login_user_name")
             self.login_password = user.get("login_password")
+            self.rtester_user_password = user.get("rtester_user_password")
 
         except FileNotFoundError:
             self.project_log.info(f"Configuration file not found: {self.config_path}")
@@ -95,15 +98,11 @@ class Globals:
                 )
             elif self.target_environment == values.IOS:
                 element = WebDriverWait(driver, time_out).until(
-                    expected_conditions.presence_of_element_located(
-                        (AppiumBy.ACCESSIBILITY_ID, element_locator)
-                    )
+                    expected_conditions.presence_of_element_located((AppiumBy.ACCESSIBILITY_ID, element_locator))
                 )
 
             self.project_log.info(
-                "Found - {} - {} - {} - {}".format(
-                    element_locator, element.tag_name, element.text, element
-                )
+                "Found - {} - {} - {} - {}".format(element_locator, element.tag_name, element.text, element)
             )
             return element
 
@@ -144,37 +143,23 @@ class Globals:
         try:
             if self.target_environment == values.ANDROID:
                 all_views = WebDriverWait(driver, self.medium_timeout).until(
-                    expected_conditions.presence_of_all_elements_located(
-                        (By.CLASS_NAME, target_elements)
-                    )
+                    expected_conditions.presence_of_all_elements_located((By.CLASS_NAME, target_elements))
                 )
             elif self.target_environment == values.IOS:
                 all_views = WebDriverWait(driver, self.maximum_timeout).until(
-                    expected_conditions.presence_of_all_elements_located(
-                        (AppiumBy.CLASS_NAME, target_elements)
-                    )
+                    expected_conditions.presence_of_all_elements_located((AppiumBy.CLASS_NAME, target_elements))
                 )
             self.index = 0
             if all_views:
                 no_of_all_views = len(all_views)
                 if no_of_all_views > 0:
-                    self.project_log.info(
-                        "Total {} - {} found on screen".format(
-                            len(all_views), target_elements
-                        )
-                    )
+                    self.project_log.info("Total {} - {} found on screen".format(len(all_views), target_elements))
                     for view in all_views:
-                        self.project_log.info(
-                            "{}. {}, with value - {}".format(
-                                self.index, view, view.text
-                            )
-                        )
+                        self.project_log.info("{}. {}, with value - {}".format(self.index, view, view.text))
                         self.index += 1
                     return all_views
                 else:
-                    self.project_log.info(
-                        "0 {} found on screen".format(target_elements)
-                    )
+                    self.project_log.info("0 {} found on screen".format(target_elements))
 
             return None
 
@@ -212,32 +197,20 @@ class Globals:
 
         try:
             all_views = WebDriverWait(driver, self.maximum_timeout).until(
-                expected_conditions.presence_of_all_elements_located(
-                    (By.CLASS_NAME, target_elements)
-                )
+                expected_conditions.presence_of_all_elements_located((By.CLASS_NAME, target_elements))
             )
             self.index = 0
             if all_views:
                 no_of_all_views = len(all_views)
                 if no_of_all_views > 0:
-                    self.project_log.info(
-                        "Total {} - {} found on screen".format(
-                            len(all_views), target_elements
-                        )
-                    )
+                    self.project_log.info("Total {} - {} found on screen".format(len(all_views), target_elements))
                     for view in all_views:
-                        self.project_log.info(
-                            "{}. {}, with value - {}".format(
-                                self.index, view, view.text
-                            )
-                        )
+                        self.project_log.info("{}. {}, with value - {}".format(self.index, view, view.text))
                         self.index += 1
 
                     return all_views
                 else:
-                    self.project_log.info(
-                        "0 {} found on screen".format(target_elements)
-                    )
+                    self.project_log.info("0 {} found on screen".format(target_elements))
 
             return None
 
@@ -274,25 +247,18 @@ class Globals:
         """
 
         try:
+            all_views = None
             if self.target_environment == values.ANDROID:
                 all_views = driver.find_elements(
                     AppiumBy.ANDROID_UIAUTOMATOR,
                     f'new UiSelector().resourceId("{target_elements}")',
                 )
             elif self.target_environment == values.IOS:
-                all_views = driver.find_elements(
-                    AppiumBy.ACCESSIBILITY_ID, target_elements
-                )
+                all_views = driver.find_elements(AppiumBy.ACCESSIBILITY_ID, target_elements)
             if all_views:
-                self.project_log.info(
-                    "Total {} - {} found on screen".format(
-                        len(all_views), target_elements
-                    )
-                )
+                self.project_log.info("Total {} - {} found on screen".format(len(all_views), target_elements))
                 for view in all_views:
-                    self.project_log.info(
-                        "{}. {}, with value - {}".format(self.index, view, view.text)
-                    )
+                    self.project_log.info("{}. {}, with value - {}".format(self.index, view, view.text))
                     self.index += 1
                 return all_views
             else:
@@ -335,15 +301,11 @@ class Globals:
         try:
             if self.target_environment == values.ANDROID:
                 element = WebDriverWait(driver, self.minimum_timeout).until(
-                    expected_conditions.visibility_of_element_located(
-                        (By.ID, target_elements)
-                    )
+                    expected_conditions.visibility_of_element_located((By.ID, target_elements))
                 )
             elif self.target_environment == values.IOS:
                 element = WebDriverWait(driver, self.medium_timeout).until(
-                    expected_conditions.visibility_of_element_located(
-                        (AppiumBy.ACCESSIBILITY_ID, target_elements)
-                    )
+                    expected_conditions.visibility_of_element_located((AppiumBy.ACCESSIBILITY_ID, target_elements))
                 )
 
             return element
@@ -399,9 +361,7 @@ class Globals:
 
         self.project_log.info(
             "screen width {} - screen height {} - element_x {} - "
-            "element_y {} ".format(
-                screen_width, screen_height, element_x_position, element_y_position
-            )
+            "element_y {} ".format(screen_width, screen_height, element_x_position, element_y_position)
         )
 
         horizontal_start_point = int(element_x_position)
@@ -451,9 +411,7 @@ class Globals:
 
         self.wait_for_element_visibility(driver, ios_elements.all_textviews)
 
-        all_static_text_elements = self.get_all_views_on_ios_screen(
-            driver, ios_elements.all_textviews
-        )
+        all_static_text_elements = self.get_all_views_on_ios_screen(driver, ios_elements.all_textviews)
         return all_static_text_elements
 
     def get_ios_all_editfields(self, driver):
@@ -464,9 +422,7 @@ class Globals:
             List of webdriver elements: editfields elements
         """
 
-        all_editfields_elements = self.get_all_views_on_ios_screen(
-            driver, ios_elements.all_editfields
-        )
+        all_editfields_elements = self.get_all_views_on_ios_screen(driver, ios_elements.all_editfields)
         return all_editfields_elements
 
     def get_ios_all_buttons(self, driver):
@@ -477,9 +433,7 @@ class Globals:
             List of webdriver elements: button elements
         """
 
-        all_button_elements = self.get_all_views_on_ios_screen(
-            driver, ios_elements.all_buttons
-        )
+        all_button_elements = self.get_all_views_on_ios_screen(driver, ios_elements.all_buttons)
         return all_button_elements
 
     def get_screen_heading_title(self, driver):
@@ -490,9 +444,7 @@ class Globals:
             Webdriver element: screen heading title element
         """
 
-        heading_title = self.wait_and_get_element(
-            driver, ios_elements.screen_heading_title
-        )
+        heading_title = self.wait_and_get_element(driver, ios_elements.screen_heading_title)
         return heading_title
 
     def get_txt_toolbar_title(self, driver):
@@ -505,9 +457,7 @@ class Globals:
 
         self.wait_for_element_visibility(driver, android_elements.txt_toolbar_title)
 
-        toolbar_title = self.wait_and_get_element(
-            driver, android_elements.txt_toolbar_title
-        )
+        toolbar_title = self.wait_and_get_element(driver, android_elements.txt_toolbar_title)
         return toolbar_title
 
     def get_navigation_bar_title(self, driver):
@@ -520,9 +470,7 @@ class Globals:
 
         self.wait_for_element_visibility(driver, ios_elements.navigation_bar_title)
 
-        navigation_title = self.get_all_views_on_ios_screen(
-            driver, ios_elements.navigation_bar_title
-        )
+        navigation_title = self.get_all_views_on_ios_screen(driver, ios_elements.navigation_bar_title)
         return navigation_title
 
     def get_back_button(self, driver):
@@ -531,13 +479,9 @@ class Globals:
             element: back button element
         """
 
-        self.wait_for_element_visibility(
-            driver, android_elements.back_button_navigation
-        )
-        
-        return self.wait_and_get_element(
-            driver, android_elements.back_button_navigation
-        )
+        self.wait_for_element_visibility(driver, android_elements.back_button_navigation)
+
+        return self.wait_and_get_element(driver, android_elements.back_button_navigation)
 
     def get_child_element(self, parent_element, child_element_locator):
         """
@@ -557,9 +501,7 @@ class Globals:
         """
 
         self.wait_for_element_visibility(driver, element_text)
-        return driver.find_element(
-            AppiumBy.IOS_PREDICATE, f'label CONTAINS "{element_text}"'
-        )
+        return driver.find_element(AppiumBy.IOS_PREDICATE, f'label CONTAINS "{element_text}"')
 
     def get_elements_by_name_ios(self, driver, element_name):
         """
@@ -568,9 +510,7 @@ class Globals:
         """
 
         self.wait_for_element_visibility(driver, element_name)
-        return driver.find_elements(
-            AppiumBy.IOS_PREDICATE, f'name CONTAINS "{element_name}"'
-        )
+        return driver.find_elements(AppiumBy.IOS_PREDICATE, f'name CONTAINS "{element_name}"')
 
     def get_element_by_name_ios(self, driver, element_name):
         """
@@ -579,9 +519,7 @@ class Globals:
         """
 
         self.wait_for_element_visibility(driver, element_name)
-        return driver.find_element(
-            AppiumBy.IOS_PREDICATE, f'name CONTAINS "{element_name}"'
-        )
+        return driver.find_element(AppiumBy.IOS_PREDICATE, f'name CONTAINS "{element_name}"')
 
     def get_element_by_text(self, driver, element_text):
         """
@@ -626,9 +564,7 @@ class Globals:
         """
 
         self.wait_for_element_visibility(driver, element_text)
-        return driver.find_element(
-            AppiumBy.ANDROID_UIAUTOMATOR, f'new UiSelector().text("{element_text}")'
-        )
+        return driver.find_element(AppiumBy.ANDROID_UIAUTOMATOR, f'new UiSelector().text("{element_text}")')
 
     def get_element_by_description_android(self, driver, element_desctiption):
         """
@@ -640,4 +576,32 @@ class Globals:
         return driver.find_element(
             AppiumBy.ANDROID_UIAUTOMATOR,
             f'new UiSelector().description("{element_desctiption}")',
+        )
+
+    @staticmethod
+    def get_country_by_resource_id(country_abbreviation: CountryAbbreviation) -> Element:
+        """Get country by resource id
+
+        Args:
+            country_abbreviation (CountryAbbreviation): country abbreviation
+
+        Returns:
+            Element: country element
+        """
+        return Element(
+            AppiumBy.ANDROID_UIAUTOMATOR, f'new UiSelector().resourceId("txt_{country_abbreviation.value}_title")'
+        )
+
+    @staticmethod
+    def get_language_by_abbreviation(language_abbreviation: LanguageAbbreviation) -> Element:
+        """Get country by resource id
+
+        Args:
+            language_abbreviation (LanguageAbbreviation): language abbreviation
+
+        Returns:
+            Element: country element
+        """
+        return Element(
+            AppiumBy.ANDROID_UIAUTOMATOR, f'new UiSelector().resourceId("txt_{language_abbreviation.value}_title")'
         )
