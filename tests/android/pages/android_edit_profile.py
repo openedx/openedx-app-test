@@ -60,7 +60,9 @@ class AndroidEditProfile(AndroidBasePage):
             AppiumBy.ANDROID_UIAUTOMATOR,
             'new UiSelector().resourceId("txt_placeholder_about_me")',
         )
-        self._about_me_input = Element(AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("tf_input_about_me")')
+        self._about_me_text_field = Element(
+            AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("tf_input_about_me")'
+        )
         self._profile_img_profile = Element(AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("img_profile")')
         self._profile_txt_name = Element(
             AppiumBy.ANDROID_UIAUTOMATOR,
@@ -94,7 +96,6 @@ class AndroidEditProfile(AndroidBasePage):
             AppiumBy.ANDROID_UIAUTOMATOR,
             'new UiSelector().resourceId("txt_select_from_gallery")',
         )
-
         self._remove_photo_button = Element(
             AppiumBy.ANDROID_UIAUTOMATOR,
             'new UiSelector().resourceId("btn_remove_photo")',
@@ -133,7 +134,7 @@ class AndroidEditProfile(AndroidBasePage):
     def change_profile_image_cancel_button_text(self) -> Element:
         """
         Returns:
-            Element: change profile image cancel element
+            Element: change profile image cancel text element
         """
 
         return self._change_profile_image_cancel_button_text
@@ -142,7 +143,7 @@ class AndroidEditProfile(AndroidBasePage):
     def change_profile_image_cancel_button(self) -> Element:
         """
         Returns:
-            Element: change profile image cancel element
+            Element: change profile image cancel button element
         """
 
         return self._change_profile_image_cancel_button
@@ -160,7 +161,7 @@ class AndroidEditProfile(AndroidBasePage):
     def text_remove_photo(self) -> Element:
         """
         Returns:
-            Element: ic remove photo element
+            Element: remove photo text element
         """
 
         return self._text_remove_photo
@@ -186,7 +187,7 @@ class AndroidEditProfile(AndroidBasePage):
     def text_select_from_gallery(self) -> Element:
         """
         Returns:
-            Element: ic select from gallery element
+            Element: select from gallery text element
         """
 
         return self._text_select_from_gallery
@@ -239,7 +240,7 @@ class AndroidEditProfile(AndroidBasePage):
     def done_button_tick_mark(self) -> Element:
         """
         Returns:
-            Element: Done button element
+            Element: Done button tick mark element
         """
 
         return self._done_button_tick_mark
@@ -266,7 +267,7 @@ class AndroidEditProfile(AndroidBasePage):
     def change_profile_image_title_label(self) -> Element:
         """
         Returns:
-            Element: edit profile user image element
+            Element: edit profile user image title label element
         """
 
         return self._change_image_title
@@ -368,7 +369,7 @@ class AndroidEditProfile(AndroidBasePage):
             Element: about me input element
         """
 
-        return self._about_me_input
+        return self._about_me_text_field
 
     @property
     def drop_down_title(self):
