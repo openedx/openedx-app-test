@@ -31,3 +31,17 @@ class TargetPlatform(Enum):
 
     IOS = "iOS"
     ANDROID = "Android"
+
+
+class CountryAbbreviation(Enum):
+    """CountryAbbreviation"""
+
+    US = "us"
+    CA = "ca"
+
+
+class LanguageAbbreviation(Enum):
+    """CountryAbbreviation"""
+
+    EN = "en"
+    FR = "fr"

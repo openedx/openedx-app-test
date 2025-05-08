@@ -1,6 +1,7 @@
 """
-    Module containing Element class representing web driver element
+Module containing Element class representing web driver element
 """
+
 from logging import Logger
 from typing import Union
 
@@ -12,7 +13,6 @@ from selenium.webdriver.support.wait import WebDriverWait
 from tests.common.enums import ElementAttribute, ScrollDirections
 from tests.common.exceptions import NotFoundError
 from tests.common.utils import normalize_string
-
 
 
 class Element:
@@ -61,12 +61,8 @@ class Element:
             return self
         except Exception as exception:
             if raise_exception:
-                raise NotFoundError(
-                    f"failed to find element {self.locator} with exception {exception}"
-                )
-            Element.__logger.info(
-                f"failed to find element {self.locator} with exception {exception}"
-            )
+                raise NotFoundError(f"failed to find element {self.locator} with exception {exception}")
+            Element.__logger.info(f"failed to find element {self.locator} with exception {exception}")
 
     def find_all(self, timeout=10, raise_exception=True) -> "Element":
         """Finds all the required elements matching locator.
@@ -81,21 +77,15 @@ class Element:
                 elements = WebDriverWait(Element.__driver, timeout).until(
                     expected_conditions.presence_of_all_elements_located(self.locator)
                 )
-                Element.__logger.info(
-                    f"found {len(elements)} elements matching {self.locator}"
-                )
+                Element.__logger.info(f"found {len(elements)} elements matching {self.locator}")
 
                 self.elements = elements if elements else None
             return self
 
         except Exception as exception:
             if raise_exception:
-                raise NotFoundError(
-                    f"failed to find elements with locator: {self.locator} with exception {exception}"
-                )
-            Element.__logger.info(
-                f"failed to find elements with locator: {self.locator} with exception {exception}"
-            )
+                raise NotFoundError(f"failed to find elements with locator: {self.locator} with exception {exception}")
+            Element.__logger.info(f"failed to find elements with locator: {self.locator} with exception {exception}")
 
     def get_child_element(self, child_locator: "Element") -> "Element":
         """Get child elements from parent element
@@ -105,19 +95,13 @@ class Element:
             Element: Returns instance of Element class for child elements
         """
         try:
-            child_locator.element = self.find().element.find_element(
-                *child_locator.locator
-            )
+            child_locator.element = self.find().element.find_element(*child_locator.locator)
             Element.__logger.info(f"found elements matching {child_locator.locator}")
             return child_locator
 
         except Exception as exception:
-            Element.__logger.info(
-                f"failed to find elements with locator: {self.locator} with exception {exception}"
-            )
-            raise NotFoundError(
-                f"failed to find elements with locator: {self.locator} with exception {exception}"
-            )
+            Element.__logger.info(f"failed to find elements with locator: {self.locator} with exception {exception}")
+            raise NotFoundError(f"failed to find elements with locator: {self.locator} with exception {exception}")
 
     def get_child_elements(self, child_locator: "Element") -> "Element":
         """Get child elements from parent element
@@ -130,20 +114,14 @@ class Element:
             child_elements = self.find().element.find_elements(*child_locator.locator)
             if len(child_elements) > 0:
                 child_locator.elements = child_elements
-                Element.__logger.info(
-                    f"found {len(child_elements)} elements matching {child_locator.locator}"
-                )
+                Element.__logger.info(f"found {len(child_elements)} elements matching {child_locator.locator}")
                 return child_locator
 
             raise NotFoundError(f"failed to find elements with locator: {self.locator}")
 
         except Exception as exception:
-            Element.__logger.info(
-                f"failed to find elements with locator: {self.locator} with exception {exception}"
-            )
-            raise NotFoundError(
-                f"failed to find elements with locator: {self.locator} with exception {exception}"
-            )
+            Element.__logger.info(f"failed to find elements with locator: {self.locator} with exception {exception}")
+            raise NotFoundError(f"failed to find elements with locator: {self.locator} with exception {exception}")
 
     def __getitem__(self, index: int):
         """retrieve element at the given index
@@ -169,9 +147,7 @@ class Element:
         """
         return len(self.elements) if self.elements else 0
 
-    def get_attribute(
-        self, attribute=ElementAttribute.LABEL, timeout=10, raise_exception=True
-    ) -> str:
+    def get_attribute(self, attribute=ElementAttribute.LABEL, timeout=10, raise_exception=True) -> str:
         """Finds the required attribute from element
         Arguments:
             attribute (ElementAttribute) : attribute to get, defaults to Label
@@ -207,12 +183,8 @@ class Element:
             return True
         except Exception as exception:
             if raise_exception:
-                raise NotFoundError(
-                    f"failed to click element {self.locator} with exception {exception}"
-                )
-            Element.__logger.info(
-                f"failed to click element {self.locator} with exception {exception}"
-            )
+                raise NotFoundError(f"failed to click element {self.locator} with exception {exception}")
+            Element.__logger.info(f"failed to click element {self.locator} with exception {exception}")
             return False
 
     def send_keys(self, *keys, timeout=10, raise_exception=True) -> bool:
@@ -234,12 +206,8 @@ class Element:
             return True
         except Exception as exception:
             if raise_exception:
-                raise NotFoundError(
-                    f"failed to send keys to element {self.locator} with exception {exception}"
-                )
-            Element.__logger.info(
-                f"failed to send keys to element {self.locator} with exception {exception}"
-            )
+                raise NotFoundError(f"failed to send keys to element {self.locator} with exception {exception}")
+            Element.__logger.info(f"failed to send keys to element {self.locator} with exception {exception}")
             return False
 
     def clear(self, timeout=10, raise_exception=True) -> bool:
@@ -281,36 +249,13 @@ class Element:
             if self.find(timeout, raise_exception):
                 Element.__logger.info(f"Element with {self.locator} found successfully")
                 return True
+            return False
         except Exception as exception:
             if raise_exception:
                 # Raise a NotFoundError if the element is not found and raise_exception is True
-                raise NotFoundError(
-                    f"Element with locator: {self.locator} not found with exception {exception}"
-                )
+                raise NotFoundError(f"Element with locator: {self.locator} not found with exception {exception}")
             # Log the exception if the element does not exist
             Element.__logger.info(f"Element {self.locator} does not exist with exception {exception}")
-
-    def clear(self, timeout=10, raise_exception=True) -> bool:
-        """
-        Clears the text field element.
-
-        Arguments:
-            timeout (int): The time to wait for the element.
-            raise_exception (bool): Whether to raise an exception if the element is not found.
-
-        Returns:
-            bool: True if the text field is cleared; False otherwise.
-
-        Raises:
-            NotFoundError: If raise_exception is True and the element is not found.
-        """
-        try:
-            self.find(timeout).element.clear()
-            return True
-        except Exception as exception:
-            if raise_exception:
-                raise NotFoundError(f"failed to clear text field for element {self.locator} with exception {exception}")
-            Element.__logger.info(f"failed to clear text field for element {self.locator} with exception {exception}")
             return False
 
     def is_selected(self, timeout=10) -> bool:
@@ -322,9 +267,7 @@ class Element:
         try:
             return self.find(timeout).element.is_selected()
         except Exception as exception:
-            Element.__logger.info(
-                f"element {self.locator} is not selected with exception {exception}"
-            )
+            Element.__logger.info(f"element {self.locator} is not selected with exception {exception}")
             return False
 
     def is_clickable(self, timeout=10) -> bool:
@@ -336,9 +279,7 @@ class Element:
         try:
             return self.get_attribute(ElementAttribute.CLICKABLE, timeout) == "true"
         except Exception as exception:
-            Element.__logger.info(
-                f"element {self.locator} is not clickable with exception {exception}"
-            )
+            Element.__logger.info(f"element {self.locator} is not clickable with exception {exception}")
             return False
 
     def is_enabled(self, timeout=10) -> bool:
@@ -350,9 +291,7 @@ class Element:
         try:
             return self.find(timeout).element.is_enabled()
         except Exception as exception:
-            Element.__logger.info(
-                f"element {self.locator} is not enabled with exception {exception}"
-            )
+            Element.__logger.info(f"element {self.locator} is not enabled with exception {exception}")
             return False
 
     def is_displayed(self, timeout=10) -> bool:
@@ -376,9 +315,7 @@ class Element:
         try:
             return self.get_attribute(ElementAttribute.CHECKED, timeout) == "true"
         except Exception as exception:
-            Element.__logger.info(
-                f"element {self.locator} is not checked with exception {exception}"
-            )
+            Element.__logger.info(f"element {self.locator} is not checked with exception {exception}")
             return False
 
     def wait_for_clickable(self, timeout=30, polling_time=0.5, raise_exception=True) -> "Element":
@@ -446,9 +383,7 @@ class Element:
 
         Element.__logger.info(
             "screen width {} - screen height {} - element_x {} - "
-            "element_y {} ".format(
-                screen_width, screen_height, element_x_position, element_y_position
-            )
+            "element_y {} ".format(screen_width, screen_height, element_x_position, element_y_position)
         )
 
         horizontal_start_point = int(element_x_position)
@@ -515,6 +450,7 @@ class Element:
             ):
                 Element.__logger.info(f"Element with {self.locator} disappeared")
                 return True
+            return False
         except Exception as exception:
             # If the element is still present after the timeout, raise a NotFoundError if raise_exception is True
             if raise_exception:
@@ -526,68 +462,7 @@ class Element:
             Element.__logger.info(
                 f"Element with locator: {self.locator} still present after {timeout} seconds. Exception: {exception}"
             )
-
-    @staticmethod
-    def swipe_vertical_full_page(
-        direction=ScrollDirections.UP,
-        start_y_pc=88,
-        end_y_pc=12,
-        horizontal_anchor=0.5,
-    ):
-        """
-            Swipe on page via given points
-        Arguments:
-            direction (Enum) : enums.ScrollDirections
-            start_y_pc (int) : start screen percentage
-            end_y_pc (int) : end screen percentage
-            horizontal_anchor (float): ratio of screen with to be used as anchor point
-        Returns:
-            None
-        """
-        screen_coordinates = Element.__driver.get_window_size()
-        screen_width = screen_coordinates.get("width")
-        screen_height = screen_coordinates.get("height")
-        x_anchor = int(screen_width * horizontal_anchor)
-
-        if direction == ScrollDirections.UP:
-            start_y = int((screen_height * (start_y_pc / 100)))
-            end_y = int((screen_height * (end_y_pc / 100)))
-        else:
-            start_y = int((screen_height * (end_y_pc / 100)))
-            end_y = int((screen_height * (start_y_pc / 100)))
-
-        Element.__driver.swipe(x_anchor, start_y, x_anchor, end_y, 2500)
-
-    @staticmethod
-    def swipe_vertical_full_page(
-        direction=ScrollDirections.UP,
-        start_y_pc=88,
-        end_y_pc=12,
-        horizontal_anchor=0.5,
-    ):
-        """
-            Swipe on page via given points
-        Arguments:
-            direction (Enum) : enums.ScrollDirections
-            start_y_pc (int) : start screen percentage
-            end_y_pc (int) : end screen percentage
-            horizontal_anchor (float): ratio of screen with to be used as anchor point
-        Returns:
-            None
-        """
-        screen_coordinates = Element.__driver.get_window_size()
-        screen_width = screen_coordinates.get("width")
-        screen_height = screen_coordinates.get("height")
-        x_anchor = int(screen_width * horizontal_anchor)
-
-        if direction == ScrollDirections.UP:
-            start_y = int((screen_height * (start_y_pc / 100)))
-            end_y = int((screen_height * (end_y_pc / 100)))
-        else:
-            start_y = int((screen_height * (end_y_pc / 100)))
-            end_y = int((screen_height * (start_y_pc / 100)))
-
-        Element.__driver.swipe(x_anchor, start_y, x_anchor, end_y, 2500)
+            return False
 
     @staticmethod
     def press_keycode(code):

@@ -1,4 +1,4 @@
-"""Android - SMOKE - Registration with Email and Password"""
+"""Android - Regression - Registration with Email and Password"""
 
 from time import sleep
 

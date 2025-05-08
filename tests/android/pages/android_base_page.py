@@ -38,6 +38,16 @@ class AndroidBasePage:
         self._android_loading_circle = Element(
             AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("android.widget.ProgressBar")'
         )
+        self._sb_search_field = Element(AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("sb_search")')
+
+    @property
+    def sb_search_field(self) -> Element:
+        """Get search field
+
+        Returns:
+            Element: search field element
+        """
+        return self._sb_search_field
 
     @property
     def android_loading_circle(self) -> Element:

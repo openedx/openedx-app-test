@@ -17,6 +17,7 @@ from tests.android.pages.android_whats_new import AndroidWhatsNew
 from tests.common import values
 from tests.common.enums import ScrollDirections
 from tests.common.enums.attributes import ElementAttribute
+from tests.common.enums.general_enums import CountryAbbreviation
 from tests.common.globals import Globals
 
 
@@ -159,7 +160,7 @@ class TestAndroidRegister:
             expect(register_page.get_register_country_selection_dialogue).to_have(values.REGISTER_COUNTRY_PICKER_TITLE)
         with allure.step("Search for a country and select it"):
             register_page.search_field.send_keys(values.REGISTER_COUNTRY)
-            assert register_page.get_txt_us_title.click()
+            assert Globals.get_country_by_resource_id(CountryAbbreviation.US).click()
             expect(register_page.country_text_field).to_have(values.REGISTER_COUNTRY)
 
         with allure.step("Verify marketing messages agreement checkbox and toggle it"):
