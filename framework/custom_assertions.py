@@ -220,3 +220,17 @@ class CustomAssertions:
             assert not self._locator.is_checked(), self._custom_message
         else:
             assert self._locator.is_checked(), self._custom_message
+
+    def to_exist(self):
+        """
+        Asserts that the element exists on the page.
+        This assertion works by checking if the element is present in the DOM.
+        If the element is not present in the DOM, the assertion will fail.
+        Raises:
+            AssertionError: If the element is not present and the assertion
+                is not negated (i.e., `to_not` is not used).
+        """
+        if self._is_not:
+            assert not self._locator.exists(raise_exception=False), self._custom_message
+        else:
+            assert self._locator.exists(), self._custom_message

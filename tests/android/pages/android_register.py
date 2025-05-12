@@ -109,9 +109,7 @@ class AndroidRegister(AndroidBasePage):
             'new UiSelector().resourceId("txt_selection_title")',
         )
         self._sb_search_field = Element(AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("sb_search")')
-        self._register_txt_US_title = Element(
-            AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("txt_us_title")'
-        )
+
         self._google_auth_button = Element(
             AppiumBy.ANDROID_UIAUTOMATOR,
             'new UiSelector().description("Continue with Google")',
@@ -337,12 +335,6 @@ class AndroidRegister(AndroidBasePage):
         """Get register country search"""
 
         return self._sb_search_field
-
-    @property
-    def get_txt_us_title(self) -> Element:
-        """Get register country search"""
-
-        return self._register_txt_US_title
 
     @property
     def get_txt_google_auth(self) -> Element:
