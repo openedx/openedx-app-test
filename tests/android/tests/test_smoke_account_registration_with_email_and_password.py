@@ -8,6 +8,7 @@ from tests.android.pages.android_landing import AndroidLanding
 from tests.android.pages.android_profile import AndroidProfile
 from tests.android.pages.android_register import AndroidRegister
 from tests.android.pages.android_main_dashboard import AndroidMainDashboard
+from tests.android.pages.android_settings_page import AndroidSettingsPage
 from tests.common import values
 from tests.common.enums import ElementAttribute, ScrollDirections
 from tests.common.enums.general_enums import CountryAbbreviation
@@ -32,6 +33,7 @@ class TestAccountRegistrationWithEmailAndPassword:
         android_register = AndroidRegister()
         main_dashboard = AndroidMainDashboard()
         profile_page = AndroidProfile()
+        settings_page = AndroidSettingsPage()
         global_contents = Globals(setup_logging)
 
         with allure.step("verify 'Register' button exists on landing page"):
@@ -90,7 +92,7 @@ class TestAccountRegistrationWithEmailAndPassword:
         with allure.step("Delete account - Clean up"):
             assert main_dashboard.profile_tab.click()
             assert profile_page.settings_button.click()
-            assert profile_page.profile_settings_manage_account.click()
+            assert settings_page.settings_manage_account_text.click()
             assert profile_page.profile_settings_delete_account.click()
             assert profile_page.profile_settings_password_input.send_keys(password)
             assert profile_page.profile_settings_delete_account_confirm.click()

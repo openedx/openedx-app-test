@@ -53,30 +53,15 @@ class AndroidProfile(AndroidBasePage):
             AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("Contact Support")'
         )
 
-        self._profile_settings_manage_account = Element(
-            AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("Manage Account")'
-        )
-
-        self._profile_settings_delete_account = Element(
-            AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("btn_delete_account")'
-        )
-
         self._profile_settings_password_input = Element(
             AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("tf_password_input")'
         )
-
         self._profile_settings_delete_account_confirm = Element(
             AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("btn_yes,_delete_account")'
         )
-
         self._profile_settings_delete_account = Element(
             AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("btn_delete_account")'
         )
-
-        self._profile_settings_password_input = Element(
-            AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("tf_password_input")'
-        )
-
         self._profile_settings_back_button = Element(
             AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().description("Back")'
         )
@@ -147,16 +132,6 @@ class AndroidProfile(AndroidBasePage):
             Element: The 'Delete Account' element.
         """
         return self._profile_settings_delete_account
-
-    @property
-    def profile_settings_manage_account(self):
-        """
-        Getter for the 'Manage Account' element on the profile settings page.
-
-        Returns:
-            Element: The 'Manage Account' element.
-        """
-        return self._profile_settings_manage_account
 
     @property
     def logout_dialogue_title(self) -> Element:

@@ -58,6 +58,7 @@ class Element:
             self.element = WebDriverWait(Element.__driver, timeout).until(
                 expected_conditions.visibility_of_element_located(self.locator)
             )
+            Element.__logger.info(f"found element matching {self.locator}")
             return self
         except Exception as exception:
             if raise_exception:
@@ -100,8 +101,12 @@ class Element:
             return child_locator
 
         except Exception as exception:
-            Element.__logger.info(f"failed to find elements with locator: {self.locator} with exception {exception}")
-            raise NotFoundError(f"failed to find elements with locator: {self.locator} with exception {exception}")
+            Element.__logger.info(
+                f"failed to find elements with locator: {child_locator.locator} with exception {exception}"
+            )
+            raise NotFoundError(
+                f"failed to find elements with locator: {child_locator.locator} with exception {exception}"
+            )
 
     def get_child_elements(self, child_locator: "Element") -> "Element":
         """Get child elements from parent element
@@ -504,3 +509,8 @@ class Element:
             end_y = int((screen_height * (start_y_pc / 100)))
 
         Element.__driver.swipe(x_anchor, start_y, x_anchor, end_y, 2500)
+
+    @staticmethod
+    def switch_back_to_app():
+        """Switch back to app"""
+        Element.__driver.activate_app("org.edx.mobile")

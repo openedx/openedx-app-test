@@ -34,11 +34,20 @@ class AndroidBasePage:
             AppiumBy.ANDROID_UIAUTOMATOR,
             'new UiSelector().resourceId("com.android.permissioncontroller:id/permission_deny_button")',
         )
-
         self._android_loading_circle = Element(
             AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("android.widget.ProgressBar")'
         )
         self._sb_search_field = Element(AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("sb_search")')
+        self._chrome_sign_in_dismiss_button = Element(
+            AppiumBy.ANDROID_UIAUTOMATOR,
+            'new UiSelector().resourceId("com.android.chrome:id/signin_fre_dismiss_button")',
+        )
+        self._chrome_notifications_dismiss_button = Element(
+            AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("com.android.chrome:id/negative_button")'
+        )
+        self._edx_feedback_google_form_title = Element(
+            AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("edX Mobile Apps Feedback")'
+        )
 
     @property
     def sb_search_field(self) -> Element:
@@ -111,6 +120,36 @@ class AndroidBasePage:
         """
 
         return self._android_native_permission_allow_button
+
+    @property
+    def chrome_sign_in_dismiss_button(self) -> Element:
+        """Get dismiss button
+
+        Returns:
+            Element: dismiss button
+        """
+
+        return self._chrome_sign_in_dismiss_button
+
+    @property
+    def chrome_notifications_dismiss_button(self) -> Element:
+        """Get dismiss button
+
+        Returns:
+            Element: dismiss button
+        """
+
+        return self._chrome_notifications_dismiss_button
+
+    @property
+    def edx_feedback_google_form_title(self) -> Element:
+        """Get dismiss button
+
+        Returns:
+            Element: dismiss button
+        """
+
+        return self._edx_feedback_google_form_title
 
     def find_by_text_on_screen(self, text: str, raise_error: bool = True) -> Element:
         """Find element by text.
