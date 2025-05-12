@@ -56,8 +56,8 @@ class TestProfileEditFunctionality:
             main_dashboard_page.profile_tab.click()
 
         with allure.step("verify username and Full name"):
-            expect(profile_page.profile_username).to_have("@rtester99")
-            expect(profile_page.profile_txt_name).to_have("rtester99")
+            expect(profile_page.profile_username).to_have(values.RTESTER_USERNAME_TEXT)
+            expect(profile_page.profile_txt_name).to_have(values.RTESTER_NAME_TEXT)
             profile_page.profile_settings_about_me.exists()
             expect(profile_page.profile_settings_about_me_body).to_have(values.PROFILE_ABOUT_ME_TEXT)
             profile_page.edit_profile_button.exists()
@@ -68,7 +68,7 @@ class TestProfileEditFunctionality:
             expect(edit_profile_page.edit_profile_title).to_have(values.EDIT_PROFILE_TITLE)
             expect(edit_profile_page.done_button).not_.to_exist()
             expect(edit_profile_page.edit_profile_type_label).to_have(values.EDIT_PROFILE_TYPE_LABEL_FULL_PROFILE)
-            expect(edit_profile_page.edit_profile_user_name).to_have("rtester99")
+            expect(edit_profile_page.edit_profile_user_name).to_have(values.RTESTER_NAME_TEXT)
             expect(edit_profile_page.switch_profile_type_button).to_have(values.EDIT_PROFILE_SWITCH_TO_LIMITED_PROFILE)
             expect(edit_profile_page.edit_profile_limited_profile_message).to_have(
                 values.LIMITED_PROFILE_DISCLAIMER_MESSAGE

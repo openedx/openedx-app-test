@@ -116,6 +116,7 @@ class AndroidEditProfile(AndroidBasePage):
             AppiumBy.ANDROID_UIAUTOMATOR,
             'new UiSelector().resourceId("txt_cancel")',
         )
+        # TODO: need to find a better locator or strategy to test profile img upload
         self._image_to_upload = Element(
             AppiumBy.ANDROID_UIAUTOMATOR,
             'new UiSelector().description("Photo taken on Feb 26, 2025 5:53 PM")',
