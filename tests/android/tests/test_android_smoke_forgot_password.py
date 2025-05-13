@@ -13,6 +13,7 @@ from tests.common import utils, values
 
 @allure.epic("Accounts")
 @allure.story("Forgot password")
+@pytest.mark.ANDROID
 @pytest.mark.ANDROID_SMOKE
 class TestAndroidForgotPassword:
     """

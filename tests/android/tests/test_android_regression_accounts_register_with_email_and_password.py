@@ -25,6 +25,7 @@ from tests.common.globals import Globals
 @allure.epic("Accounts")
 @allure.feature("Registration")
 @allure.story("Register with email and password")
+@pytest.mark.ANDROID
 @pytest.mark.ANDROID_REGRESSION
 class TestAndroidRegister:
     """
@@ -248,7 +249,7 @@ class TestAndroidRegister:
             assert sign_in_page.sign_in_tf_email.send_keys(username)
             assert sign_in_page.sign_in_password_field.send_keys(password)
             assert sign_in_page.signin_button.click()
-            if global_contents.whats_new_enable:
+            if whats_new_page.get_close_button.exists(raise_exception=False):
                 assert whats_new_page.get_close_button.click()
 
         with allure.step("Verify Learn Tab is loaded after completion"):

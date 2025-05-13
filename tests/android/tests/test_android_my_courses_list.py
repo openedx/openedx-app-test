@@ -12,6 +12,7 @@ from tests.common import values
 from tests.common.enums.attributes import ElementAttribute
 
 
+@pytest.mark.ANDROID
 class TestAndroidMyCoursesList:
     """
     My Courses screen's Test Case

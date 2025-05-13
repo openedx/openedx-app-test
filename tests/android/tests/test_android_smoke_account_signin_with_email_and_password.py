@@ -16,6 +16,7 @@ from tests.common.globals import Globals
 @allure.epic("Accounts")
 @allure.feature("Sign In")
 @allure.story("Sign In with email and password")
+@pytest.mark.ANDROID
 @pytest.mark.ANDROID_SMOKE
 class TestAccountSignInWithEmailAndPassword:
     """Test Account Sign In with Email and Password"""
@@ -50,7 +51,7 @@ class TestAccountSignInWithEmailAndPassword:
         with allure.step("Click on Sign in button"):
             assert android_sign_in.signin_button.click()
             setup_logging.info(f"{global_contents.login_user_name} is successfully logged in")
-            if global_contents.whats_new_enable:
+            if whats_new_page.get_close_button.exists(raise_exception=False):
                 assert whats_new_page.get_close_button.click()
 
         with allure.step("Goto Profile Tab"):

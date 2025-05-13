@@ -18,6 +18,7 @@ from tests.common.globals import Globals
 @allure.epic("Accounts")
 @allure.feature("Sign In")
 @allure.story("Sign In with email and password")
+@pytest.mark.ANDROID
 @pytest.mark.ANDROID_REGRESSION
 class TestAccountSignInWithEmailAndPassword:
     """Test Account Sign In with Email and Password"""

@@ -2,6 +2,8 @@
 Edit Profile Screen Test Module
 """
 
+import pytest
+
 from framework import expect
 from tests.android.pages.android_edit_profile import AndroidEditProfile
 from tests.android.pages.android_main_dashboard import AndroidMainDashboard
@@ -10,6 +12,7 @@ from tests.common import values
 from tests.common.enums.attributes import ElementAttribute
 
 
+@pytest.mark.ANDROID
 class TestAndroidEditProfile:
     """
     Profile screen's Test Case
