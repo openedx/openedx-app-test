@@ -61,6 +61,8 @@ class Globals:
             self.aut_current_path = settings.get("aut_current_path")
             self.app_path = settings.get("app_path")
             self.aut_latest_path = settings.get("aut_latest_path")
+            self.app_package = settings.get("app_package")
+            self.app_version = settings.get("app_version")
 
             # User section
             user = user_preferences.get("User", {})

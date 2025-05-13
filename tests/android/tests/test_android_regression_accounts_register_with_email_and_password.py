@@ -12,6 +12,7 @@ from tests.android.pages.android_landing import AndroidLanding
 from tests.android.pages.android_main_dashboard import AndroidMainDashboard
 from tests.android.pages.android_register import AndroidRegister
 from tests.android.pages.android_profile import AndroidProfile
+from tests.android.pages.android_settings_page import AndroidSettingsPage
 from tests.android.pages.android_sign_in import AndroidSignIn
 from tests.android.pages.android_whats_new import AndroidWhatsNew
 from tests.common import values
@@ -41,6 +42,7 @@ class TestAndroidRegister:
         profile_page = AndroidProfile()
         sign_in_page = AndroidSignIn()
         main_dashboard = AndroidMainDashboard()
+        settings_page = AndroidSettingsPage()
         global_contents = Globals(setup_logging)
         whats_new_page = AndroidWhatsNew()
 
@@ -260,7 +262,8 @@ class TestAndroidRegister:
 
         with allure.step("Delete account - Clean up"):
             assert profile_page.settings_button.click()
-            assert profile_page.profile_settings_manage_account.click()
+            assert settings_page.settings_manage_account_text.click()
+            settings_page.settings_manage_account_text.click()
             assert profile_page.profile_settings_delete_account.click()
             assert profile_page.profile_settings_password_input.send_keys(password)
             assert profile_page.profile_settings_delete_account_confirm.click()

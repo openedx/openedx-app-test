@@ -73,6 +73,7 @@ class TestProfileEditFunctionality:
             expect(edit_profile_page.edit_profile_limited_profile_message).to_have(
                 values.LIMITED_PROFILE_DISCLAIMER_MESSAGE
             )
+
             expect(edit_profile_page.edit_profile_txt_label_location).to_have(values.EDIT_PROFILE_LOCATION_LABEL)
             expect(edit_profile_page.profile_tf_select_location).to_have(values.PROFILE_LOCATION_US)
             expect(edit_profile_page.edit_profile_txt_label_spoken_language).to_have(values.EDIT_PROFILE_LANGUAGE_LABEL)

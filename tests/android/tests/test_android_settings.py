@@ -6,6 +6,7 @@ from framework import expect
 from framework.element import Element
 from tests.android.pages.android_main_dashboard import AndroidMainDashboard
 from tests.android.pages.android_profile import AndroidProfile
+from tests.android.pages.android_settings_page import AndroidSettingsPage
 from tests.common import values
 from tests.common.enums import ElementAttribute, ScrollDirections
 
@@ -29,6 +30,7 @@ class TestAndroidSettings:
 
         main_dashboard_page = AndroidMainDashboard()
         profile_page = AndroidProfile()
+        settings_page = AndroidSettingsPage()
 
         profile_tab = main_dashboard_page.profile_tab
         expect(profile_tab).to_have(values.MAIN_DASHBOARD_PROFILE_TAB, ElementAttribute.CONTENT_DESC)
@@ -36,7 +38,7 @@ class TestAndroidSettings:
         assert profile_tab.click()
         assert profile_page.settings_button.click()
         expect(profile_page.get_settings_screen_title).to_have(values.PROFILE_SETTINGS_UPPER_TEXT)
-        assert profile_page.profile_settings_manage_account.exists()
+        assert settings_page.settings_manage_account_text.exists()
 
         video_label = profile_page.get_video_label
         expect(video_label).to_have(values.PROFILE_VIDEO_LABEL)
@@ -72,10 +74,11 @@ class TestAndroidSettings:
         """
 
         profile_page = AndroidProfile()
+        settings_page = AndroidSettingsPage()
 
         Element.swipe_vertical_full_page(ScrollDirections.DOWN)
-        assert profile_page.profile_settings_manage_account.exists()
-        assert profile_page.profile_settings_manage_account.click()
+        assert settings_page.settings_manage_account_text.exists()
+        assert settings_page.settings_manage_account_text.click()
         back_button = profile_page.back_navigation_button
         expect(back_button).to_be_displayed()
         assert back_button.click()
