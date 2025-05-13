@@ -1,6 +1,7 @@
 """
-    New Landing Page Module
+New Landing Page Module
 """
+
 from appium.webdriver.common.appiumby import AppiumBy
 
 from framework import Element
@@ -14,18 +15,18 @@ class IosLanding(IosBasePage):
 
     def __init__(self):
         super().__init__()
-        self._landing_logo_image = Element(AppiumBy.ACCESSIBILITY_ID, 'logo_image')
-        self._landing_explore_search_textfield = Element(AppiumBy.ACCESSIBILITY_ID, 'explore_search_textfield')
-        self._landing_heading_text = Element(AppiumBy.ACCESSIBILITY_ID, 'heading_text')
-        self._landing_search_title = Element(AppiumBy.ACCESSIBILITY_ID, 'search_title')
-        self._landing_explore_all_courses = Element(AppiumBy.ACCESSIBILITY_ID, 'explore_all_courses')
-        self._landing_register = Element(AppiumBy.ACCESSIBILITY_ID, 'register')
-        self._landing_signin = Element(AppiumBy.ACCESSIBILITY_ID, 'signin')
-        self._landing_explore_courses_button = Element(AppiumBy.ACCESSIBILITY_ID, 'explore_courses_button')
-        self._logistration_signin_button = Element(AppiumBy.ACCESSIBILITY_ID, 'logistration_signin_button')
-        self._logistration_register_button = Element(AppiumBy.ACCESSIBILITY_ID, 'logistration_register_button')
-        self._register_screen_title = Element(AppiumBy.ACCESSIBILITY_ID, 'register_text')
-        self._landing_back_button = Element(AppiumBy.ACCESSIBILITY_ID, 'Start')
+        self._landing_logo_image = Element(AppiumBy.ACCESSIBILITY_ID, "logo_image")
+        self._landing_explore_search_textfield = Element(AppiumBy.ACCESSIBILITY_ID, "explore_search_textfield")
+        self._landing_heading_text = Element(AppiumBy.ACCESSIBILITY_ID, "heading_text")
+        self._landing_search_title = Element(AppiumBy.ACCESSIBILITY_ID, "search_title")
+        self._landing_explore_all_courses = Element(AppiumBy.ACCESSIBILITY_ID, "explore_all_courses")
+        self._landing_register = Element(AppiumBy.ACCESSIBILITY_ID, "register")
+        self._landing_signin = Element(AppiumBy.ACCESSIBILITY_ID, "signin")
+        self._landing_explore_courses_button = Element(AppiumBy.ACCESSIBILITY_ID, "explore_courses_button")
+        self._signin_button = Element(AppiumBy.ACCESSIBILITY_ID, "logistration_signin_button")
+        self._logistration_register_button = Element(AppiumBy.ACCESSIBILITY_ID, "logistration_register_button")
+        self._register_screen_title = Element(AppiumBy.ACCESSIBILITY_ID, "register_text")
+        self._landing_back_button = Element(AppiumBy.ACCESSIBILITY_ID, "Start")
 
     @property
     def get_logo_image(self) -> Element:
@@ -58,7 +59,7 @@ class IosLanding(IosBasePage):
             webdriver element: welcome message element
         """
 
-        return  self._landing_heading_text
+        return self._landing_heading_text
 
     @property
     def get_search_title(self):
@@ -121,10 +122,10 @@ class IosLanding(IosBasePage):
         Get Sing In
 
         Returns:
-            webdriver element: Sing In Element
+            Element: Sign In Element
         """
 
-        return self._logistration_signin_button
+        return self._signin_button
 
     @property
     def get_get_explore_courses_button(self) -> Element:
@@ -135,4 +136,4 @@ class IosLanding(IosBasePage):
             webdriver element: Explore Courses Element
         """
 
-        return  self._landing_explore_courses_button
+        return self._landing_explore_courses_button
