@@ -16,7 +16,14 @@ Settings:
 
   app_path: ''
 
+  # only for android
+  app_package: 'org.edx.mobile'
+
+  app_version: '6.1.0'
+
 # set valid credentials to login
 User:
   login_user_name: username
   login_password: password
+  # password for rtester account that has a full profile
+  rtester_user_password: password

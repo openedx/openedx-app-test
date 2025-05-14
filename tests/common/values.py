@@ -105,11 +105,13 @@ REGISTER_ERROR_USER_NAME_BLANK_SPACE = (
 
 # FORGOT PASSWORD SCREEN
 FORGOT_PASSWORD = "Forgot password?"
+FORGOT_PASSWORD_SCREEN_TITLE = "Forgot password"
 FORGOT_PASSWORD_TITLE = "Forgot password"
 FORGOT_DESCRIPTION_TEXT = (
     "Please enter your log-in or recovery email address below and we will send you an email with instructions."
 )
 FORGOT_EMAIL_TITLE = "Email"
+FORGOT_EMAIL_TEXT_FIELD_PLACEHOLDER = "Email"
 RESET_PASSWORD_BUTTON = "Reset password"
 FORGOT_CHECK_EMAIL_IMAGE = "checkEmail"
 FORGOT_RECOVER_TITLE_TEXT = "Check your email"

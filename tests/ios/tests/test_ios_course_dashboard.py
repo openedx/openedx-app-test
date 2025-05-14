@@ -1,6 +1,7 @@
 """
-    Course Dashboard Screen Test Module
+Course Dashboard Screen Test Module
 """
+
 from framework import expect, Element
 from tests.common.enums import ElementAttribute
 from tests.ios.pages.ios_course_dashboard import IosCourseDashboard
@@ -40,7 +41,7 @@ class TestIosCourseDashboard:
         second_course_name = global_contents.get_element_by_name_ios(driver, values.MAIN_DASHBOARD_COURSE_NAME)
 
         second_course_name.click()
-        if ios_landing.allow_notifications_button.exists():
+        if ios_landing.allow_notifications_button.exists(raise_exception=False):
             ios_landing.allow_notifications_button.click()
 
         course_tab = course_dashboard_page.course_dashboard_course_tab

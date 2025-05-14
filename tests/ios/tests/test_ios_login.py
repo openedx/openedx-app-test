@@ -26,7 +26,7 @@ class TestIosLogin:
         ios_landing = IosLanding()
         ios_login = IosLogin()
 
-        if ios_landing.allow_notifications_button.exists():
+        if ios_landing.allow_notifications_button.exists(raise_exception=False):
             ios_landing.allow_notifications_button.click()
 
         sign_in_button = ios_landing.sign_in_button
@@ -93,11 +93,11 @@ class TestIosLogin:
         expect(ios_login.forgot_title_text).to_have(values.FORGOT_PASSWORD_TITLE)
         description_text = ios_login.forgot_description_text
         expect(description_text).to_have(values.FORGOT_DESCRIPTION_TEXT)
-        email_text = ios_login.forgot_email_text
+        email_text = ios_login.forgot_email_text_field_label
         expect(email_text).to_have(values.FORGOT_EMAIL_TITLE)
         email_textfield = ios_login.forgot_email_textfield
-        expect(email_textfield).to_have(values.FORGOT_EMAIL_TITLE)
-        assert email_textfield.click()
+        expect(ios_login.forgot_email_textfield_placeholder).to_have(values.FORGOT_EMAIL_TEXT_FIELD_PLACEHOLDER)
+        email_textfield.click()
         random_email = global_contents.generate_random_credentials(8)
         email_textfield.send_keys(random_email + "@yop.com")
         reset_password_button = ios_login.forgot_reset_password_button

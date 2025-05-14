@@ -1,6 +1,7 @@
 """
-    What's New Test Module
+What's New Test Module
 """
+
 from framework import expect, Element
 from tests.common import values
 from tests.common.enums import ElementAttribute
@@ -23,12 +24,12 @@ class TestIosWhatsNew:
         """
         Element.set_driver(set_capabilities)
         Element.set_logger(setup_logging)
-        setup_logging.info(f'Starting {TestIosWhatsNew.__name__} Test Case')
+        setup_logging.info(f"Starting {TestIosWhatsNew.__name__} Test Case")
         ios_landing = IosLanding()
         ios_login = IosLogin()
         global_contents = Globals(setup_logging)
 
-        if ios_landing.allow_notifications_button.exists():
+        if ios_landing.allow_notifications_button.exists(raise_exception=False):
             ios_landing.allow_notifications_button.click()
 
         if global_contents.whats_new_enable:
@@ -70,11 +71,11 @@ class TestIosWhatsNew:
             expect(close_btn).to_have(values.WHATS_NEW_CLOSE_BUTTON)
             screen_title = IosWhatsNew.find_all_views_on_screen(IosClassViews.STATIC_TEXT)[0]
             expect(screen_title).to_have(values.WHATS_NEW_TITLE)
-            expect(whats_new_page.get_whats_new_msg_title).to_have(r'.+')
-            expect(whats_new_page.get_whats_new_description).to_have(r'.+')
+            expect(whats_new_page.get_whats_new_msg_title).to_have(r".+")
+            expect(whats_new_page.get_whats_new_description).to_have(r".+")
             next_button = whats_new_page.whats_new_next_button
             expect(next_button).to_have(values.WHATS_NEW_NEXT_BUTTON)
-            expect(whats_new_page.navigate_features()).to_have('Done')
+            expect(whats_new_page.navigate_features()).to_have("Done")
             assert whats_new_page.whats_new_next_button.click()
         else:
             setup_logging.info("Whats New feature is not enabled")
