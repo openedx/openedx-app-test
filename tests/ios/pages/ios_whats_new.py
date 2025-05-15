@@ -20,6 +20,9 @@ class IosWhatsNew(IosBasePage):
         self._whats_new_next_button = Element(AppiumBy.ACCESSIBILITY_ID, "next_button")
         self._whats_new_msg_title = Element(AppiumBy.ACCESSIBILITY_ID, "title_text")
         self._whats_new_description = Element(AppiumBy.ACCESSIBILITY_ID, "description_text")
+        self._whats_new_close_button = Element(
+            AppiumBy.IOS_CLASS_CHAIN, "**/XCUIElementTypeButton[`name == 'close_button'`]"
+        )
 
     @property
     def whats_new_next_button(self) -> Element:
@@ -32,7 +35,7 @@ class IosWhatsNew(IosBasePage):
         return self._whats_new_next_button
 
     @property
-    def get_close_button(self) -> Element:
+    def close_button(self) -> Element:
         """
         Get close button
 
@@ -40,7 +43,7 @@ class IosWhatsNew(IosBasePage):
             webdriver element: close Element
         """
 
-        return self._close_button
+        return self._whats_new_close_button
 
     @property
     def get_whats_new_msg_title(self) -> Element:

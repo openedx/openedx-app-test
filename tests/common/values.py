@@ -5,6 +5,7 @@ All strings accessible in Pages & Tests
 ANDROID = "Android"
 IOS = "iOS"
 LOGIN = "Sign in"
+INVALID_CREDENTIALS_GIVEN = "Invalid credentials given."
 RESULTS_DIRECTORY = "results"
 HTML_REPORT_FILE_NAME = ".html"
 LOG_FILE_NAME = "report.log"
@@ -102,6 +103,8 @@ REGISTER_ERROR_EMAIL_INVALID = "Enter a valid email address"
 REGISTER_ERROR_USER_NAME_BLANK_SPACE = (
     "Usernames can only contain letters (A-Z, a-z), numerals (0-9), underscores (_), and hyphens (-)."
 )
+MARKETING_CHECKBOX_SELECTED = "Selected"
+MARKETING_CHECKBOX_UNSELECTED = "Square"
 
 # FORGOT PASSWORD SCREEN
 FORGOT_PASSWORD = "Forgot password?"
