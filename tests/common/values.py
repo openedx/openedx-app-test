@@ -5,6 +5,7 @@ All strings accessible in Pages & Tests
 ANDROID = "Android"
 IOS = "iOS"
 LOGIN = "Sign in"
+INVALID_CREDENTIALS_GIVEN = "Invalid credentials given."
 RESULTS_DIRECTORY = "results"
 HTML_REPORT_FILE_NAME = ".html"
 LOG_FILE_NAME = "report.log"

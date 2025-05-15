@@ -64,6 +64,7 @@ class TestAccountRegistrationSignupWithEmailAndPassword:
             Element.swipe_vertical_full_page()
 
         with allure.step("Enter a valid password"):
+            register_page.get_password_textfield.exists()
             register_page.get_password_textfield.click()
             register_page.get_password_textfield.send_keys(password + "\n")
 
@@ -100,6 +101,30 @@ class TestAccountRegistrationSignupWithEmailAndPassword:
             expect(ios_profile.profile_user_name_text).to_have(full_name, ElementAttribute.LABEL)
             expect(ios_profile.profile_user_username_text).to_have(f"@{user_name}", ElementAttribute.LABEL)
 
+        with allure.step("Goto settings and logout"):
+            ios_profile.profile_settings_button.click()
+            Element.swipe_vertical_full_page()
+            ios_profile.get_profile_logout_button.click()
+            setup_logging.info("clicking log out")
+            ios_profile.get_logout_button_from_prompt.click()
+            setup_logging.info("log out successful")
+            expect(ios_landing_page.get_welcome_message, timeout=20).to_have(
+                values.LANDING_MESSAGE, ElementAttribute.LABEL
+            )
+
+        with allure.step("login with newly registered account"):
+            ios_landing_page.sign_in_button.click()
+            expect(ios_login.sign_in_title).to_have(values.LOGIN, ElementAttribute.LABEL)
+            ios_login.signin_username_textfield.click()
+            ios_login.signin_username_textfield.send_keys(user_name + "\n")
+            ios_login.signin_password_textfield.click()
+            ios_login.signin_password_textfield.send_keys(password + "\n")
+            ios_login.signin_button.click()
+            main_dashboard_page.profile_tab.exists(timeout=20)
+            main_dashboard_page.profile_tab.click()
+            expect(ios_profile.profile_user_name_text).to_have(full_name, ElementAttribute.LABEL)
+            expect(ios_profile.profile_user_username_text).to_have(f"@{user_name}", ElementAttribute.LABEL)
+
         with allure.step("delete account"):
             ios_profile.profile_settings_button.click()
             ios_profile.get_profile_manage_account_label.click()
@@ -107,4 +132,14 @@ class TestAccountRegistrationSignupWithEmailAndPassword:
             ios_profile.delete_account_password_textfield.click()
             ios_profile.delete_account_password_textfield.send_keys(password + "\n")
             ios_profile.delete_account_button.click()
-            expect(ios_login.sign_in_title).to_have(values.LOGIN, ElementAttribute.LABEL)
+            expect(ios_login.sign_in_title, timeout=20).to_have(values.LOGIN, ElementAttribute.LABEL)
+
+        with allure.step("Try sign in with deleted account"):
+            ios_login.signin_username_textfield.click()
+            ios_login.signin_username_textfield.send_keys(user_name + "\n")
+            ios_login.signin_password_textfield.click()
+            ios_login.signin_password_textfield.send_keys(password + "\n")
+            ios_login.signin_button.click()
+            expect(ios_login.invalid_credentials_message, timeout=20).to_have(
+                values.INVALID_CREDENTIALS_GIVEN, ElementAttribute.LABEL
+            )

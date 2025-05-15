@@ -283,22 +283,22 @@ def ios_login(set_capabilities, setup_logging):
         ios_landing.allow_notifications_button.click()
 
     sign_in_button = ios_landing.sign_in_button
-    expect(sign_in_button).to_have(values.LOGIN)
+    expect(sign_in_button).to_have(values.LOGIN, ElementAttribute.LABEL)
     assert sign_in_button.click()
-    expect(ios_login.sign_in_title).to_have(values.LOGIN)
+    expect(ios_login.sign_in_title).to_have(values.LOGIN, ElementAttribute.LABEL)
 
-    expect(ios_login.signin_username_textfield).to_have(values.EMAIL_OR_USERNAME_IOS)
+    expect(ios_login.signin_username_textfield).to_have(values.EMAIL_OR_USERNAME_IOS, ElementAttribute.LABEL)
     assert ios_login.signin_username_textfield.send_keys(global_contents.login_user_name)
 
     password_title = ios_login.signin_password_text
-    expect(password_title).to_have(values.PASSWORD)
+    expect(password_title).to_have(values.PASSWORD, ElementAttribute.LABEL)
     assert password_title.click()
     password_field = ios_login.signin_password_textfield
     expect(password_field).to_have(values.PASSWORD, ElementAttribute.VALUE)
     assert password_field.send_keys(global_contents.login_password)
     assert password_title.click()
     sign_in_button = ios_login.signin_button
-    expect(ios_login.signin_button).to_have(values.LOGIN)
+    expect(ios_login.signin_button).to_have(values.LOGIN, ElementAttribute.LABEL)
     assert sign_in_button.click()
     setup_logging.info(f"{global_contents.login_user_name} is successfully logged in")
 
@@ -307,7 +307,7 @@ def ios_login(set_capabilities, setup_logging):
         setup_logging.info("Whats New screen is successfully loaded")
 
     profile_tab = main_dashboard.profile_tab
-    expect(profile_tab).to_have(values.MAIN_DASHBOARD_PROFILE_TAB)
+    expect(profile_tab).to_have(values.MAIN_DASHBOARD_PROFILE_TAB, ElementAttribute.LABEL)
     assert profile_tab.click()
     assert main_dashboard.get_main_dashboard_learn_tab.click()
     expect(main_dashboard.get_main_dashboard_learn_tab).to_be_selected()
@@ -326,7 +326,7 @@ def ios_login(set_capabilities, setup_logging):
     setup_logging.info("clicking log out")
     assert ios_profile.get_logout_button_from_prompt.click()
     setup_logging.info("log out successful")
-    expect(ios_landing.get_welcome_message).to_have(values.LANDING_MESSAGE)
+    expect(ios_landing.get_welcome_message).to_have(values.LANDING_MESSAGE, ElementAttribute.LABEL)
 
 
 @pytest.hookimpl(hookwrapper=True)
