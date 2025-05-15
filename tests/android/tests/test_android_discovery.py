@@ -3,6 +3,9 @@ Discovery Test Module
 """
 
 from time import sleep
+
+import pytest
+
 from tests.common.enums.general_enums import ScrollDirections
 from framework import expect
 from framework.element import Element
@@ -14,6 +17,7 @@ from tests.android.pages.android_main_dashboard import AndroidMainDashboard
 from tests.android.pages.android_course_dashboard import AndroidCourseDashboard
 
 
+@pytest.mark.ANDROID
 class TestAndroidDiscovery:
     """
     Discovery screen's Test Case

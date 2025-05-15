@@ -13,6 +13,7 @@ from tests.common import utils, values
 
 @allure.epic("Accounts")
 @allure.story("Forgot password")
+@pytest.mark.ANDROID
 @pytest.mark.ANDROID_REGRESSION
 class TestAndroidForgotPassword:
     """
@@ -51,7 +52,7 @@ class TestAndroidForgotPassword:
 
         with allure.step("Click reset password button"):
             assert android_sign_in.forgot_password_reset_button.click()
-            expect(android_sign_in.forgot_password_email_error).to_have(values.FORGOT_PASSWORD_EMAIL_ERROR)
+            expect(android_sign_in.email_field_error).to_have(values.FORGOT_PASSWORD_EMAIL_ERROR)
 
         with allure.step("Click on email field & enter random email “test_user@yopmail.com”"):
             random_email = utils.generate_random_credentials(8) + "@yopmail.com"
@@ -62,7 +63,7 @@ class TestAndroidForgotPassword:
             assert android_sign_in.find_by_text_on_screen(
                 f"We have sent a password recover instructions to your email {random_email}"
             )
-            assert android_sign_in.find_by_text_on_screen('new UiSelector().text("Check your email")')
+            assert android_sign_in.find_by_text_on_screen(values.FORGOT_RECOVER_TITLE_TEXT)
             expect(android_sign_in.password_recovery_sign_in_btn).to_have(values.LOGIN)
 
         with allure.step("Click on Sign in button"):

@@ -2,6 +2,8 @@
 Landing Test Module
 """
 
+import pytest
+
 from framework import expect
 from framework.element import Element
 from tests.android.pages.andriod_catalog_page import AndroidCatalogPage
@@ -10,6 +12,7 @@ from tests.android.pages.android_sign_in import AndroidSignIn
 from tests.common import values
 
 
+@pytest.mark.ANDROID
 class TestAndroidLanding:
     """
     Landing screen's Test Case

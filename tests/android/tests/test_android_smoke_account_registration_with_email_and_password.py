@@ -19,6 +19,7 @@ from tests.common.globals import Globals
 @allure.feature("Registration")
 @allure.story("Registration with email and password")
 @allure.link("https://2u-internal.atlassian.net/browse/LEARNER-10485", name="LEARNER-10485")
+@pytest.mark.ANDROID
 @pytest.mark.ANDROID_SMOKE
 class TestAccountRegistrationWithEmailAndPassword:
     """Test Account Registration with Email and Password"""

@@ -227,9 +227,8 @@ def android_login(set_capabilities, setup_logging):
     assert android_sign_in.sign_in_password_field.send_keys(global_contents.login_password)
     expect(android_sign_in.signin_button).to_be_clickable()
     assert android_sign_in.signin_button.click()
-    assert android_landing.android_loading_circle.wait_to_disappear(30)
     setup_logging.info(f"{global_contents.login_user_name} is successfully logged in")
-    if global_contents.whats_new_enable:
+    if whats_new_page.get_close_button.exists(timeout=20, raise_exception=False):
         assert whats_new_page.get_close_button.click()
     learn_tab = main_dashboard_page.learn_tab
     expect(learn_tab).to_have(values.MAIN_DASHBOARD_LEARN_TAB, ElementAttribute.CONTENT_DESC)

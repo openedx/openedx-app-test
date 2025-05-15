@@ -18,6 +18,7 @@ from tests.common.globals import Globals
 @allure.epic("Accounts")
 @allure.feature("Sign In")
 @allure.story("edit profile")
+@pytest.mark.ANDROID
 @pytest.mark.ANDROID_REGRESSION
 class TestProfileEditFunctionality:
     """Test profile edit functionality"""

@@ -2,6 +2,8 @@
 Course Dashboard Home Tab Test Module
 """
 
+import pytest
+
 from framework import expect
 from framework.element import Element
 from tests.android.pages.android_course_dashboard import AndroidCourseDashboard
@@ -9,6 +11,7 @@ from tests.android.pages.android_course_home_tab import AndroidCourseHomeTab
 from tests.common import values
 
 
+@pytest.mark.ANDROID
 class TestAndroidCourseHomeTab:
     """
     Course Dashboard screen's Test Case

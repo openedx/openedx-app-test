@@ -2,6 +2,8 @@
 Main Dashboard Test Module
 """
 
+import pytest
+
 from framework import expect
 from framework.element import Element
 from tests.android.pages.android_main_dashboard import AndroidMainDashboard
@@ -9,6 +11,7 @@ from tests.common import values
 from tests.common.enums.attributes import ElementAttribute
 
 
+@pytest.mark.ANDROID
 class TestAndroidMainDashboard:
     """
     Main Dashboard screen's Test Case
