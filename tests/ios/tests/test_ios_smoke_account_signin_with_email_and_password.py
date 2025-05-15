@@ -64,7 +64,7 @@ class TestAccountSignInWithEmailAndPassword:
 
         with allure.step("Verify learn tab is loaded"):
             if whats_new_page.whats_new_next_button.exists(raise_exception=False):
-                whats_new_page.get_close_button.click()
+                whats_new_page.close_button.click()
             expect(my_courses_list.my_courses_header_text).to_have(
                 values.MAIN_DASHBOARD_LEARN_TAB, ElementAttribute.LABEL
             )

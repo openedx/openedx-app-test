@@ -31,7 +31,9 @@ class IosProfile(IosBasePage):
         self._profile_logout_confirmation = Element(AppiumBy.ACCESSIBILITY_ID, "logout_confirmation")
         self._profile_logout_confirmation_button = Element(AppiumBy.ACCESSIBILITY_ID, "logout_confirmation_button")
         self._profile_video_settings_button = Element(AppiumBy.ACCESSIBILITY_ID, "video_settings_button")
-        self._profile_manage_account_label = Element(AppiumBy.ACCESSIBILITY_ID, "Manage Account")
+        self._profile_manage_account_label = Element(
+            AppiumBy.IOS_CLASS_CHAIN, "**/XCUIElementTypeOther[`name == 'Manage Account'`]"
+        )
         self._profile_dates_calendar_label = Element(AppiumBy.ACCESSIBILITY_ID, "Dates & Calendar")
         self._profile_support_info_text = Element(AppiumBy.ACCESSIBILITY_ID, "support_info_text")
         self._profile_tos_text = Element(AppiumBy.NAME, "tos")
@@ -45,6 +47,8 @@ class IosProfile(IosBasePage):
         self._profile_cookies_policy = Element(AppiumBy.ACCESSIBILITY_ID, "cookies_policy")
         self._profile_privacy_policy = Element(AppiumBy.ACCESSIBILITY_ID, "privacy_policy")
         self._edit_profile_title = Element(AppiumBy.IOS_PREDICATE, 'name CONTAINS "Edit profile"')
+        self._delete_account_button = Element(AppiumBy.ACCESSIBILITY_ID, "delete_account_button")
+        self._delete_account_password_textfield = Element(AppiumBy.ACCESSIBILITY_ID, "password_textfield")
 
     @property
     def edit_profile_title(self) -> Element:
@@ -308,17 +312,6 @@ class IosProfile(IosBasePage):
         return self._arrow_left_back_button
 
     @property
-    def get_videos_back_button(self) -> Element:
-        """
-        Get videos settings page
-
-        Returns:
-            webdriver element: back element
-        """
-
-        return self._main_dashboard_profile_tab
-
-    @property
     def get_manage_account_title(self) -> Element:
         """
         Returns:
@@ -326,3 +319,19 @@ class IosProfile(IosBasePage):
         """
 
         return self._manage_account_text
+
+    @property
+    def delete_account_button(self):
+        """
+        Returns:
+            Element: delete account button Element
+        """
+        return self._delete_account_button
+
+    @property
+    def delete_account_password_textfield(self):
+        """
+        Returns:
+            Element: delete account page password text field
+        """
+        return self._delete_account_password_textfield

@@ -102,6 +102,8 @@ REGISTER_ERROR_EMAIL_INVALID = "Enter a valid email address"
 REGISTER_ERROR_USER_NAME_BLANK_SPACE = (
     "Usernames can only contain letters (A-Z, a-z), numerals (0-9), underscores (_), and hyphens (-)."
 )
+MARKETING_CHECKBOX_SELECTED = "Selected"
+MARKETING_CHECKBOX_UNSELECTED = "Square"
 
 # FORGOT PASSWORD SCREEN
 FORGOT_PASSWORD = "Forgot password?"

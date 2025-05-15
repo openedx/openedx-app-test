@@ -303,7 +303,7 @@ def ios_login(set_capabilities, setup_logging):
     setup_logging.info(f"{global_contents.login_user_name} is successfully logged in")
 
     if whats_new_page.whats_new_next_button.exists(raise_exception=False):
-        whats_new_page.get_close_button.click()
+        whats_new_page.close_button.click()
         setup_logging.info("Whats New screen is successfully loaded")
 
     profile_tab = main_dashboard.profile_tab
