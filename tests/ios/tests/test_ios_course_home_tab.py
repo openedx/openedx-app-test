@@ -1,6 +1,7 @@
 """
-    Course Home Tab Screen Test Module
+Course Home Tab Screen Test Module
 """
+
 from framework import expect, Element
 from tests.ios.pages.ios_course_dashboard import IosCourseDashboard
 from tests.ios.pages.ios_landing import IosLanding
@@ -46,30 +47,27 @@ class TestIosCourseHomeTab:
         global_contents = Globals(setup_logging)
         ios_landing = IosLanding()
 
-        second_course_name = global_contents.get_element_by_name_ios(
-            driver, values.MY_COURSES_SECOND_COURSE_NAME)
+        second_course_name = global_contents.get_element_by_name_ios(driver, values.MY_COURSES_SECOND_COURSE_NAME)
 
         second_course_name.click()
-        if ios_landing.allow_notifications_button.exists():
+        if ios_landing.allow_notifications_button.exists(raise_exception=False):
             ios_landing.allow_notifications_button.click()
 
         course_tab = course_dashboard_page.course_dashboard_course_tab
         expect(course_tab).to_have(values.COURSE_DASHBOARD_HOME_TAB)
 
-        deadline_title = global_contents.get_element_by_label_ios(
-            driver, values.COURSE_MISSED_DEADLINES_LABEL)
+        deadline_title = global_contents.get_element_by_label_ios(driver, values.COURSE_MISSED_DEADLINES_LABEL)
         assert deadline_title.text == values.COURSE_MISSED_DEADLINES_LABEL
 
         deadline_description = global_contents.get_element_by_label_ios(
-            driver, values.COURSE_DEADLINE_DESCRIPTION_LABEL)
+            driver, values.COURSE_DEADLINE_DESCRIPTION_LABEL
+        )
         assert deadline_description.text == values.COURSE_DEADLINE_DESCRIPTION_LABEL
 
-        shift_due_dates_button = global_contents.get_element_by_label_ios(
-            driver, values.COURSE_SHIFT_DUE_DATES)
+        shift_due_dates_button = global_contents.get_element_by_label_ios(driver, values.COURSE_SHIFT_DUE_DATES)
         assert shift_due_dates_button.text == values.COURSE_SHIFT_DUE_DATES
 
-        continue_with_lable = global_contents.get_element_by_label_ios(
-            driver, values.COURSE_RESUME_WITH_LABEL)
+        continue_with_lable = global_contents.get_element_by_label_ios(driver, values.COURSE_RESUME_WITH_LABEL)
         assert continue_with_lable.text == values.COURSE_RESUME_WITH_LABEL
 
         resume_button = global_contents.get_elements_by_name_ios(driver, values.COURSE_RESUME_BUTTON)[1]
@@ -84,8 +82,7 @@ class TestIosCourseHomeTab:
         assert subsection_elem.text == values.COURSE_SUBSECTION_LABEL
         subsection_elem.click()
 
-        component_header_title = global_contents.get_element_by_label_ios(
-            driver, values.COURSE_SUBSECTION_LABEL)
+        component_header_title = global_contents.get_element_by_label_ios(driver, values.COURSE_SUBSECTION_LABEL)
         assert component_header_title.text == values.COURSE_SUBSECTION_LABEL
 
         back_btn = global_contents.wait_and_get_element(driver, ios_elements.course_dashboard_back_button)
@@ -140,8 +137,6 @@ class TestIosCourseHomeTab:
         assert back_to_outline.text == values.COURSE_COMPLETION_BACK_BUTTON
         back_to_outline.click()
 
-        back_btn = global_contents.wait_and_get_element(
-            set_capabilities, ios_elements.course_dashboard_back_button
-        )
+        back_btn = global_contents.wait_and_get_element(set_capabilities, ios_elements.course_dashboard_back_button)
         assert back_btn.text == values.LANDING_BACK_BUTTON
         back_btn.click()

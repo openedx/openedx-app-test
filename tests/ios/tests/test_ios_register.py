@@ -29,7 +29,7 @@ class TestIosRegister:
         setup_logging.info("Starting Test Case")
         register_page = IosRegister()
         ios_landing = IosLanding()
-        if ios_landing.allow_notifications_button.exists():
+        if ios_landing.allow_notifications_button.exists(raise_exception=False):
             ios_landing.allow_notifications_button.click()
         register_button = IosRegister.get_register_button()
         expect(register_page.get_register_button).to_have(values.REGISTER)

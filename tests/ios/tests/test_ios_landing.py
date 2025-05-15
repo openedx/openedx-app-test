@@ -1,5 +1,5 @@
 """
-    Register Screen Test Module
+Register Screen Test Module
 """
 
 from selenium.webdriver.common.keys import Keys
@@ -21,17 +21,17 @@ class TestIosNewLanding:
         """
         Scenarios:
             Verify New Landing screen is loaded successfully
-            Verify following contents are visible on screen, 
+            Verify following contents are visible on screen,
                 "edX logo", "Message" text-field, "Search Courses" edit-field,
                 "Register" button, "Sign In" button
             Verify all contents have their default values
         """
         Element.set_driver(set_capabilities)
         Element.set_logger(setup_logging)
-        setup_logging.info('Starting Test Case')
+        setup_logging.info("Starting Test Case")
         ios_landing = IosLanding()
 
-        if ios_landing.allow_notifications_button.exists():
+        if ios_landing.allow_notifications_button.exists(raise_exception=False):
             ios_landing.allow_notifications_button.click()
 
         logo_image = ios_landing.get_logo_image
@@ -54,11 +54,11 @@ class TestIosNewLanding:
 
         search_courses_field = ios_landing.get_search_courses_field
         assert search_courses_field
-        assert search_courses_field.send_keys('python')
+        assert search_courses_field.send_keys("python")
         assert search_courses_field.send_keys(Keys.ENTER)
 
         discovery_title = global_contents.get_navigation_bar_title(set_capabilities)[0]
-        assert discovery_title.get_attribute('name') == values.DISCOVER_SCREEN_HEADING
+        assert discovery_title.get_attribute("name") == values.DISCOVER_SCREEN_HEADING
         expect(ios_landing.landing_back_button).to_have(values.BACK_BUTTON, ElementAttribute.LABEL)
         expect(ios_landing.go_back_to_landing_screen).to_have(values.LANDING_LOGO_IMAGE)
 
@@ -95,4 +95,4 @@ class TestIosNewLanding:
         assert back_button.click()
         welcome_message = ios_landing.get_welcome_message()
         assert welcome_message.text == values.LANDING_MESSAGE
-        setup_logging.info('Ending Test Case')
+        setup_logging.info("Ending Test Case")

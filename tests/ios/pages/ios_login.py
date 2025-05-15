@@ -32,8 +32,13 @@ class IosLogin(IosBasePage):
         self._signin_social_auth_apple_button = Element(AppiumBy.ACCESSIBILITY_ID, "social_auth_apple_button")
         self._forgot_title_text = Element(AppiumBy.ACCESSIBILITY_ID, "forgot_title_text")
         self._forgot_description_text = Element(AppiumBy.ACCESSIBILITY_ID, "forgot_description_text")
-        self._forgot_email_text = Element(AppiumBy.ACCESSIBILITY_ID, "email_text")
-        self._forgot_email_text_field = Element(AppiumBy.ACCESSIBILITY_ID, "email_textfield")
+        self._forgot_email_text_field_label = Element(AppiumBy.ACCESSIBILITY_ID, "email_text")
+        self._forgot_email_text_field = Element(
+            AppiumBy.IOS_CLASS_CHAIN, "**/XCUIElementTypeTextField[`name == 'email_textfield'`]"
+        )
+        self._forgot_email_text_field_placeholder = Element(
+            AppiumBy.IOS_CLASS_CHAIN, "**/XCUIElementTypeStaticText[`name == 'email_textfield'`]"
+        )
         self._reset_password_button = Element(AppiumBy.ACCESSIBILITY_ID, "reset_password_button")
         self._check_email_image = Element(AppiumBy.ACCESSIBILITY_ID, "check_email_image")
         self._recover_title_text = Element(AppiumBy.ACCESSIBILITY_ID, "recover_title_text")
@@ -215,7 +220,7 @@ class IosLogin(IosBasePage):
         return self._forgot_description_text
 
     @property
-    def forgot_email_text(self) -> Element:
+    def forgot_email_text_field_label(self) -> Element:
         """
         Get forgot email text
 
@@ -223,7 +228,7 @@ class IosLogin(IosBasePage):
             webdriver element: forgot email text element
         """
 
-        return self._forgot_email_text
+        return self._forgot_email_text_field_label
 
     @property
     def forgot_email_textfield(self) -> Element:
@@ -234,7 +239,18 @@ class IosLogin(IosBasePage):
             webdriver element: forgot email textfield element
         """
 
-        return self._forgot_email_text_field.find_all()[1]
+        return self._forgot_email_text_field
+
+    @property
+    def forgot_email_textfield_placeholder(self) -> Element:
+        """
+        Get forgot email textfield placeholder
+
+        Returns:
+            webdriver element: forgot email textfield placeholder element
+        """
+
+        return self._forgot_email_text_field_placeholder
 
     @property
     def forgot_reset_password_button(self) -> Element:
