@@ -100,7 +100,7 @@ class TestIosLogin:
         email_textfield.click()
         random_email = global_contents.generate_random_credentials(8)
         email_textfield.send_keys(random_email + "@yop.com")
-        reset_password_button = ios_login.forgot_reset_password_button
+        reset_password_button = ios_login.reset_password_button
         expect(reset_password_button).to_have(values.RESET_PASSWORD_BUTTON)
         assert reset_password_button.click()
         expect(ios_login.forgot_check_email_image).to_have(values.FORGOT_CHECK_EMAIL_IMAGE)

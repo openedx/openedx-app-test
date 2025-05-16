@@ -67,7 +67,7 @@ class TestIosWhatsNew:
         global_contents = Globals(setup_logging)
 
         if global_contents.whats_new_enable:
-            close_btn = whats_new_page.get_close_button
+            close_btn = whats_new_page.close_button
             expect(close_btn).to_have(values.WHATS_NEW_CLOSE_BUTTON)
             screen_title = IosWhatsNew.find_all_views_on_screen(IosClassViews.STATIC_TEXT)[0]
             expect(screen_title).to_have(values.WHATS_NEW_TITLE)

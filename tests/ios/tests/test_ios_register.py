@@ -27,13 +27,12 @@ class TestIosRegister:
         Element.set_driver(set_capabilities)
         Element.set_logger(setup_logging)
         setup_logging.info("Starting Test Case")
-        register_page = IosRegister()
         ios_landing = IosLanding()
+
         if ios_landing.allow_notifications_button.exists(raise_exception=False):
             ios_landing.allow_notifications_button.click()
-        register_button = IosRegister.get_register_button()
-        expect(register_page.get_register_button).to_have(values.REGISTER)
-        assert register_button.click()
+        expect(ios_landing.register_button).to_have(values.REGISTER)
+        assert ios_landing.register_button.click()
 
     def test_ui_elements_smoke(self, set_capabilities, setup_logging):
         """
@@ -76,7 +75,7 @@ class TestIosRegister:
         country_instructions_text = register_page.get_country_instructions_text
         expect(country_instructions_text).to_have(values.REGISTER_COUNTRY_MESSAGE)
         expect(register_page.get_show_optional_fields).to_have(values.REGISTER_SHOW_OPTIONAL_FIELDS)
-        register_button = register_page.get_create_account_button
+        register_button = register_page.create_account_button
         expect(register_button).to_have(values.REGISTER_CREATE_ACCOUNT_BUTTON)
         social_auth_title_text = register_page.get_social_auth_title_text
         expect(social_auth_title_text).to_have(values.REGISTER_OPTIONS_TITLE)
@@ -116,7 +115,7 @@ class TestIosRegister:
         name_textfield = register_page.get_name_textfield
         username_textfield = register_page.get_username_textfield
         email_textfield = register_page.get_email_textfield
-        register_button = register_page.get_create_account_button
+        register_button = register_page.create_account_button
         assert name_textfield.send_keys(full_name)
         assert username_textfield.send_keys(user_name)
         assert email_textfield.click()
