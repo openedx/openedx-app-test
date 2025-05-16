@@ -15,7 +15,7 @@ from tests.ios.pages.ios_login import IosLogin
 @allure.feature("Account Recovery")
 @allure.story("Forgot password")
 @pytest.mark.IOS
-@pytest.mark.IOS_SMOKE
+@pytest.mark.IOS_REGRESSION
 class TestAccountForgotPassword:
     """Test class for iOS - SMOKE - Forgot Password"""
 
@@ -50,8 +50,25 @@ class TestAccountForgotPassword:
             )
             expect(ios_login.forgot_description_text).to_have(values.FORGOT_DESCRIPTION_TEXT, ElementAttribute.LABEL)
 
+        with allure.step("Click on reset password button"):
+            ios_login.reset_password_button.click()
+            ios_login.progress_bar.wait_to_disappear()
+            expect(ios_login.invalid_email_message).to_have(values.INVALID_EMAIL_ADDRESS, ElementAttribute.LABEL)
+            ios_login.invalid_email_message.wait_to_disappear(timeout=15)
+
+        with allure.step("Click on email field & enter invalid email"):
+            ios_login.forgot_email_textfield.click()
+            ios_login.forgot_email_textfield.send_keys("invalid_email" + "\n")
+
+        with allure.step("Click on reset password button"):
+            ios_login.reset_password_button.click()
+            ios_login.progress_bar.wait_to_disappear()
+            expect(ios_login.invalid_email_message).to_have(values.INVALID_EMAIL_ADDRESS, ElementAttribute.LABEL)
+            ios_login.invalid_email_message.wait_to_disappear(timeout=15)
+
         with allure.step("Click on email field & enter random email"):
             ios_login.forgot_email_textfield.click()
+            ios_login.forgot_email_textfield.clear()
             ios_login.forgot_email_textfield.send_keys(random_email)
 
         with allure.step("Click reset password button"):
@@ -71,4 +88,5 @@ class TestAccountForgotPassword:
             sign_in_button.click()
             logo_image = ios_landing.get_logo_image
             expect(logo_image).to_have(values.LANDING_LOGO_IMAGE, ElementAttribute.LABEL)
+            expect(ios_landing.register_button).to_exist()
             setup_logging.info("Ending Test Case")
