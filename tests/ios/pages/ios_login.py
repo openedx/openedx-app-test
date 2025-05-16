@@ -47,7 +47,6 @@ class IosLogin(IosBasePage):
         self._check_email_image = Element(AppiumBy.ACCESSIBILITY_ID, "check_email_image")
         self._recover_title_text = Element(AppiumBy.ACCESSIBILITY_ID, "recover_title_text")
         self._recover_description_text = Element(AppiumBy.ACCESSIBILITY_ID, "recover_description_text")
-        self._invalid_credentials_message = Element(AppiumBy.ACCESSIBILITY_ID, "snackbar_text")
 
     @property
     def sign_in_title(self) -> Element:
@@ -258,7 +257,7 @@ class IosLogin(IosBasePage):
         return self._forgot_email_text_field_placeholder
 
     @property
-    def forgot_reset_password_button(self) -> Element:
+    def reset_password_button(self) -> Element:
         """
         Get forgot reset password button
 
@@ -310,4 +309,15 @@ class IosLogin(IosBasePage):
             Element: invalid credentials message element
         """
 
-        return self._invalid_credentials_message
+        return self.snackbar_text_message
+
+    @property
+    def invalid_email_message(self) -> Element:
+        """
+        Get invalid credentials title
+
+        Returns:
+            Element: invalid credentials title element
+        """
+
+        return self.snackbar_text_message
