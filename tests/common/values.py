@@ -5,6 +5,8 @@ All strings accessible in Pages & Tests
 ANDROID = "Android"
 IOS = "iOS"
 LOGIN = "Sign in"
+INVALID_CREDENTIALS_GIVEN = "Invalid credentials given."
+INVALID_EMAIL_ADDRESS = "Invalid email address"
 RESULTS_DIRECTORY = "results"
 HTML_REPORT_FILE_NAME = ".html"
 LOG_FILE_NAME = "report.log"
@@ -17,6 +19,7 @@ FALSE_LOWERCASE = "false"
 ANDROID_APP_VERSION = "Version: 6.0.7"
 IOS_APP_VERSION = "Version: 6.0.4, Up-to-date"
 IOS_SELECTED_TAB_VALUE = "1"
+AUTOMATION_USER_EMAIL = "automation-user007@yopmail.com"
 
 # Exception Messages
 VERIFICATION_FAILED_ERROR = "Failed to verify {0}. Expected {1}, Found {2}"
@@ -48,6 +51,11 @@ SOCIAL_AUTH_TITLE = "Or sign in with:"
 GOOGLE_SIGNIN_ANDROID = "Sign in with Google"
 FACEBOOK_SIGNIN_ANDRIOD = "Sign in with Facebook"
 MICROSOFT_SIGNIN_ANDROID = "Sign in with Microsoft"
+INVALID_EMAIL_ADDRESS_OR_PASSWORD = "Invalid email or username"
+# TODO: once length spellings are fixed we will update it.
+INVALID_PASSWORD_LENGTH = "Invalid password lenght"
+SHOW_PASSWORD = "Show"
+HIDE_PASSWORD = "Hide"
 
 # REGISTER SCREEN
 REGISTER = "Register"
@@ -102,6 +110,8 @@ REGISTER_ERROR_EMAIL_INVALID = "Enter a valid email address"
 REGISTER_ERROR_USER_NAME_BLANK_SPACE = (
     "Usernames can only contain letters (A-Z, a-z), numerals (0-9), underscores (_), and hyphens (-)."
 )
+MARKETING_CHECKBOX_SELECTED = "Selected"
+MARKETING_CHECKBOX_UNSELECTED = "Square"
 
 # FORGOT PASSWORD SCREEN
 FORGOT_PASSWORD = "Forgot password?"
@@ -167,6 +177,7 @@ RTESTER_USERNAME_TEXT = "@rtester99"
 PROFILE_ABOUT_ME_TEXT = "About me/..."
 DELETE_ACCOUNT_WARNING_MESSAGE = "Are you sure you want to delete your account?"
 DELETE_ACCOUNT_DESCRIPTION = "To confirm this action, please enter your account password."
+LOG_OUT_TEXT = "Log out"
 
 # Video Settings Screen
 WIFI_ONLY_DOWNLOAD_LABEL = "Wi-fi only download"

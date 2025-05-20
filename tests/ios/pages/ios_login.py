@@ -19,10 +19,20 @@ class IosLogin(IosBasePage):
         self._password_field = Element(AppiumBy.CLASS_NAME, "XCUIElementTypeSecureTextField")
         self._sign_in_title = Element(AppiumBy.ACCESSIBILITY_ID, "signin_text")
         self._signin_welcome_text = Element(AppiumBy.ACCESSIBILITY_ID, "welcome_back_text")
-        self._signin_username_text = Element(AppiumBy.ACCESSIBILITY_ID, "username_text")
-        self._signin_username_text_field = Element(AppiumBy.ACCESSIBILITY_ID, "username_textfield")
-        self._signin_password_text = Element(AppiumBy.ACCESSIBILITY_ID, "password_text")
-        self._signin_password_text_field = Element(AppiumBy.ACCESSIBILITY_ID, "password_textfield")
+        self._username_text_field_label = Element(AppiumBy.ACCESSIBILITY_ID, "username_text")
+        self._username_text_field_placeholder = Element(
+            AppiumBy.IOS_CLASS_CHAIN, "**/XCUIElementTypeStaticText[`name == 'username_textfield'`]"
+        )
+        self._username_text_field = Element(
+            AppiumBy.IOS_CLASS_CHAIN, "**/XCUIElementTypeTextField[`name == 'username_textfield'`]"
+        )
+        self._password_text_label = Element(AppiumBy.ACCESSIBILITY_ID, "password_text")
+        self._password_test_field_placeholder = Element(
+            AppiumBy.IOS_CLASS_CHAIN, "**/XCUIElementTypeStaticText[`name == 'password_textfield'`]"
+        )
+        self._password_text_field = Element(
+            AppiumBy.IOS_CLASS_CHAIN, "**/XCUIElementTypeSecureTextField[`name == 'password_textfield'`]"
+        )
         self._signin_forgot_password_button = Element(AppiumBy.ACCESSIBILITY_ID, "forgot_password_button")
         self._signin_button = Element(AppiumBy.ACCESSIBILITY_ID, "signin_button")
         self._signin_social_auth_title_text = Element(AppiumBy.ACCESSIBILITY_ID, "social_auth_title_text")
@@ -43,6 +53,20 @@ class IosLogin(IosBasePage):
         self._check_email_image = Element(AppiumBy.ACCESSIBILITY_ID, "check_email_image")
         self._recover_title_text = Element(AppiumBy.ACCESSIBILITY_ID, "recover_title_text")
         self._recover_description_text = Element(AppiumBy.ACCESSIBILITY_ID, "recover_description_text")
+        self._password_field_eye_button = Element(
+            AppiumBy.IOS_CLASS_CHAIN, "**/XCUIElementTypeButton[`name == 'password_textfield'`]"
+        )
+
+    @property
+    def password_field_eye_button(self) -> Element:
+        """
+        Get password text field eye button element
+
+        Returns:
+            Element: password text field eye button element
+        """
+
+        return self._password_field_eye_button
 
     @property
     def sign_in_title(self) -> Element:
@@ -50,7 +74,7 @@ class IosLogin(IosBasePage):
         Get Sing In
 
         Returns:
-            webdriver element: Sing In Element
+            Element: Sing In Element
         """
 
         return self._sign_in_title
@@ -61,7 +85,7 @@ class IosLogin(IosBasePage):
         Get password fields element
 
         Returns:
-            webdriver element: editfield element
+            Element: editfield element
         """
 
         return self._password_field
@@ -72,54 +96,76 @@ class IosLogin(IosBasePage):
         Get Sing In welcome text
 
         Returns:
-            webdriver element: Singin welcome text element
+            Element: Signin welcome text element
         """
 
         return self._signin_welcome_text
 
     @property
-    def signin_username_text(self) -> Element:
+    def username_text_field_label(self) -> Element:
         """
         Get username text
 
         Returns:
-            webdriver element: username text element
+            Element: username text element
         """
 
-        return self._signin_username_text
+        return self._username_text_field_label
 
     @property
-    def signin_username_textfield(self) -> Element:
+    def username_textfield(self) -> Element:
         """
         Get username textfield
 
         Returns:
-            webdriver element: username textfield element
+            Element: username textfield element
         """
 
-        return self._signin_username_text_field.find_all()[1]
+        return self._username_text_field
 
     @property
-    def signin_password_text(self) -> Element:
+    def username_text_field_placeholder(self) -> Element:
         """
-        Get password text
+        Get username textfield
 
         Returns:
-            webdriver element: password text element
+            Element: username textfield element
         """
 
-        return self._signin_password_text
+        return self._username_text_field_placeholder
 
     @property
-    def signin_password_textfield(self) -> Element:
+    def password_text_field_label(self) -> Element:
+        """
+        Get password label
+
+        Returns:
+            Element: password label element
+        """
+
+        return self._password_text_label
+
+    @property
+    def password_textfield(self) -> Element:
         """
         Get password textfield
 
         Returns:
-            webdriver element: password textfield element
+            Element: password textfield element
         """
 
-        return self._signin_password_text_field.find_all()[1]
+        return self._password_text_field
+
+    @property
+    def password_textfield_placeholder(self) -> Element:
+        """
+        Get password textfield placeholder
+
+        Returns:
+            Element: password textfield placeholder element
+        """
+
+        return self._password_test_field_placeholder
 
     @property
     def get_signin_forgot_password_button(self) -> Element:
@@ -127,7 +173,7 @@ class IosLogin(IosBasePage):
         Get forgot password button
 
         Returns:
-            webdriver element: forgot password button element
+            Element: forgot password button element
         """
 
         return self._signin_forgot_password_button
@@ -138,7 +184,7 @@ class IosLogin(IosBasePage):
         Get signin button
 
         Returns:
-            webdriver element: signin button element
+            Element: signin button element
         """
 
         return self._signin_button
@@ -149,7 +195,7 @@ class IosLogin(IosBasePage):
         Get social auth title text
 
         Returns:
-            webdriver element: social auth title text element
+            Element: social auth title text element
         """
 
         return self._signin_social_auth_title_text
@@ -160,7 +206,7 @@ class IosLogin(IosBasePage):
         Get social auth google button text
 
         Returns:
-            webdriver element: signin social auth google button
+            Element: signin social auth google button
         """
 
         return self._signin_social_auth_google_button
@@ -171,7 +217,7 @@ class IosLogin(IosBasePage):
         Get social auth facebook button text
 
         Returns:
-            webdriver element: signin social auth facebook button
+            Element: signin social auth facebook button
         """
 
         return self._signin_social_auth_facebook_button
@@ -182,7 +228,7 @@ class IosLogin(IosBasePage):
         Get social auth microsoft button text
 
         Returns:
-            webdriver element: signin social auth microsoft button
+            Element: signin social auth microsoft button
         """
         return self._signin_social_auth_microsoft_button
 
@@ -192,7 +238,7 @@ class IosLogin(IosBasePage):
         Get social auth apple button text
 
         Returns:
-            webdriver element: signin social auth apple button
+            Element: signin social auth apple button
         """
 
         return self._signin_social_auth_apple_button
@@ -203,7 +249,7 @@ class IosLogin(IosBasePage):
         Get forgot title text
 
         Returns:
-            webdriver element: forgot title text element
+            Element: forgot title text element
         """
 
         return self._forgot_title_text
@@ -214,7 +260,7 @@ class IosLogin(IosBasePage):
         Get forgot description text
 
         Returns:
-            webdriver element: forgot description text element
+            Element: forgot description text element
         """
 
         return self._forgot_description_text
@@ -225,7 +271,7 @@ class IosLogin(IosBasePage):
         Get forgot email text
 
         Returns:
-            webdriver element: forgot email text element
+            Element: forgot email text element
         """
 
         return self._forgot_email_text_field_label
@@ -236,7 +282,7 @@ class IosLogin(IosBasePage):
         Get forgot email textfield
 
         Returns:
-            webdriver element: forgot email textfield element
+            Element: forgot email textfield element
         """
 
         return self._forgot_email_text_field
@@ -247,18 +293,18 @@ class IosLogin(IosBasePage):
         Get forgot email textfield placeholder
 
         Returns:
-            webdriver element: forgot email textfield placeholder element
+            Element: forgot email textfield placeholder element
         """
 
         return self._forgot_email_text_field_placeholder
 
     @property
-    def forgot_reset_password_button(self) -> Element:
+    def reset_password_button(self) -> Element:
         """
         Get forgot reset password button
 
         Returns:
-            webdriver element: forgot reset password button element
+            Element: forgot reset password button element
         """
 
         return self._reset_password_button
@@ -269,7 +315,7 @@ class IosLogin(IosBasePage):
         Get forgot check email image
 
         Returns:
-            webdriver element: forgot check email image element
+            Element: forgot check email image element
         """
 
         return self._check_email_image
@@ -280,7 +326,7 @@ class IosLogin(IosBasePage):
         Get forgot recover title text
 
         Returns:
-            webdriver element: forgot recover title text element
+            Element: forgot recover title text element
         """
 
         return self._recover_title_text
@@ -291,7 +337,29 @@ class IosLogin(IosBasePage):
         Get forgot recover description text
 
         Returns:
-            webdriver element: forgot recover description text element
+            Element: forgot recover description text element
         """
 
         return self._recover_description_text
+
+    @property
+    def invalid_credentials_message(self) -> Element:
+        """
+        Get invalid credentials message
+
+        Returns:
+            Element: invalid credentials message element
+        """
+
+        return self.snackbar_text_message
+
+    @property
+    def invalid_email_message(self) -> Element:
+        """
+        Get invalid credentials title
+
+        Returns:
+            Element: invalid credentials title element
+        """
+
+        return self.snackbar_text_message

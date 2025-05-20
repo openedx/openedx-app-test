@@ -37,16 +37,15 @@ class TestIosWhatsNew:
             expect(sign_in_button).to_have(values.LOGIN)
             assert sign_in_button.click()
             expect(ios_login.sign_in_title).to_have(values.LOGIN)
-            expect(ios_login.signin_username_textfield).to_have(values.EMAIL_OR_USERNAME_IOS)
-            assert ios_login.signin_username_textfield.send_keys(global_contents.login_user_name)
+            expect(ios_login.username_text_field_placeholder).to_have(values.EMAIL_OR_USERNAME_IOS)
+            assert ios_login.username_textfield.send_keys(global_contents.login_user_name)
 
-            password_title = ios_login.signin_password_text
-            expect(password_title).to_have(values.PASSWORD)
-            assert password_title.click()
-            password_field = ios_login.signin_password_textfield
+            expect(ios_login.password_text_field_label).to_have(values.PASSWORD, ElementAttribute.LABEL)
+            assert ios_login.password_textfield.click()
+            password_field = ios_login.password_textfield
             expect(password_field).to_have(values.PASSWORD, ElementAttribute.VALUE)
             assert password_field.send_keys(global_contents.login_password)
-            assert password_title.click()
+            assert ios_login.password_textfield.click()
             sign_in_button = ios_login.signin_button
             expect(ios_login.signin_button).to_have(values.LOGIN)
             assert sign_in_button.click()
@@ -67,7 +66,7 @@ class TestIosWhatsNew:
         global_contents = Globals(setup_logging)
 
         if global_contents.whats_new_enable:
-            close_btn = whats_new_page.get_close_button
+            close_btn = whats_new_page.close_button
             expect(close_btn).to_have(values.WHATS_NEW_CLOSE_BUTTON)
             screen_title = IosWhatsNew.find_all_views_on_screen(IosClassViews.STATIC_TEXT)[0]
             expect(screen_title).to_have(values.WHATS_NEW_TITLE)

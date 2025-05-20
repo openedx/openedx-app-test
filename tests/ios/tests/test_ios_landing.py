@@ -10,6 +10,7 @@ from tests.common.enums import ElementAttribute
 from tests.common.globals import Globals
 from tests.ios.pages.ios_landing import IosLanding
 from tests.ios.pages.ios_login import IosLogin
+from tests.ios.pages.ios_register import IosRegister
 
 
 class TestIosNewLanding:
@@ -76,12 +77,13 @@ class TestIosNewLanding:
         Element.set_logger(setup_logging)
         ios_landing = IosLanding()
         ios_login = IosLogin()
+        register_page = IosRegister()
 
-        register_button = ios_landing.get_register_button()
+        register_button = ios_landing.register_button()
         assert register_button.text == values.REGISTER
         register_button.click()
 
-        register_title = ios_landing.get_register_screen_title()
+        register_title = register_page.register_screen_title
         assert register_title.text == values.REGISTER
         back_button = ios_landing.back_navigation_button
         expect(back_button).to_have(values.LANDING_BACK_BUTTON)

@@ -1,5 +1,5 @@
 """
-iOS - SMOKE - Registration with Email and Password
+iOS - SMOKE - Signin with Email and Password
 """
 
 import allure
@@ -52,11 +52,11 @@ class TestAccountSignInWithEmailAndPassword:
             expect(ios_login_page.sign_in_title).to_have(values.LOGIN, ElementAttribute.LABEL)
 
         with allure.step("Enter a valid email or username"):
-            ios_login_page.signin_username_textfield.send_keys(global_contents.login_user_name)
+            ios_login_page.username_textfield.send_keys(global_contents.login_user_name)
 
         with allure.step("Enter a valid password"):
-            ios_login_page.signin_password_textfield.send_keys(global_contents.login_password)
-            ios_login_page.signin_password_text.send_keys(Keys.RETURN)
+            ios_login_page.password_textfield.send_keys(global_contents.login_password)
+            ios_login_page.password_textfield.send_keys(Keys.RETURN)
 
         with allure.step("Click on Sign in button"):
             ios_login_page.signin_button.click()
@@ -64,7 +64,7 @@ class TestAccountSignInWithEmailAndPassword:
 
         with allure.step("Verify learn tab is loaded"):
             if whats_new_page.whats_new_next_button.exists(raise_exception=False):
-                whats_new_page.get_close_button.click()
+                whats_new_page.close_button.click()
             expect(my_courses_list.my_courses_header_text).to_have(
                 values.MAIN_DASHBOARD_LEARN_TAB, ElementAttribute.LABEL
             )
