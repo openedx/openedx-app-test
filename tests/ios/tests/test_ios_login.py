@@ -50,14 +50,14 @@ class TestIosLogin:
 
         expect(ios_login.sign_in_title).to_have(values.LOGIN)
         expect(ios_login.signin_welcome_text).to_have(values.SIGN_IN_MESSAGE)
-        expect(ios_login.signin_username_text).to_have(values.EMAIL_OR_USERNAME_IOS)
-        expect(ios_login.signin_username_textfield).to_have(values.EMAIL_OR_USERNAME_IOS)
-        assert ios_login.signin_username_textfield.send_keys(global_contents.login_user_name)
+        expect(ios_login.username_text_field_label).to_have(values.EMAIL_OR_USERNAME_IOS)
+        expect(ios_login.username_text_field_placeholder).to_have(values.EMAIL_OR_USERNAME_IOS)
+        assert ios_login.username_textfield.send_keys(global_contents.login_user_name)
 
-        password_title = ios_login.signin_password_text
-        expect(password_title).to_have(values.PASSWORD)
+        password_title = ios_login.password_textfield
+        expect(ios_login.password_text_field_label).to_have(values.PASSWORD)
         assert password_title.click()
-        password_field = ios_login.signin_password_textfield
+        password_field = ios_login.password_textfield
         expect(password_field).to_have(values.PASSWORD, ElementAttribute.VALUE)
         assert password_field.send_keys(global_contents.login_password)
         assert password_title.click()

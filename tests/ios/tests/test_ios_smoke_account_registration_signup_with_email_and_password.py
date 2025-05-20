@@ -115,10 +115,10 @@ class TestAccountRegistrationSignupWithEmailAndPassword:
         with allure.step("login with newly registered account"):
             ios_landing_page.sign_in_button.click()
             expect(ios_login.sign_in_title).to_have(values.LOGIN, ElementAttribute.LABEL)
-            ios_login.signin_username_textfield.click()
-            ios_login.signin_username_textfield.send_keys(user_name + "\n")
-            ios_login.signin_password_textfield.click()
-            ios_login.signin_password_textfield.send_keys(password + "\n")
+            ios_login.username_textfield.click()
+            ios_login.username_textfield.send_keys(user_name + "\n")
+            ios_login.password_textfield.click()
+            ios_login.password_textfield.send_keys(password + "\n")
             ios_login.signin_button.click()
             main_dashboard_page.profile_tab.exists(timeout=20)
             main_dashboard_page.profile_tab.click()
@@ -135,10 +135,10 @@ class TestAccountRegistrationSignupWithEmailAndPassword:
             expect(ios_login.sign_in_title, timeout=20).to_have(values.LOGIN, ElementAttribute.LABEL)
 
         with allure.step("Try sign in with deleted account"):
-            ios_login.signin_username_textfield.click()
-            ios_login.signin_username_textfield.send_keys(user_name + "\n")
-            ios_login.signin_password_textfield.click()
-            ios_login.signin_password_textfield.send_keys(password + "\n")
+            ios_login.username_textfield.click()
+            ios_login.username_textfield.send_keys(user_name + "\n")
+            ios_login.password_textfield.click()
+            ios_login.password_textfield.send_keys(password + "\n")
             ios_login.signin_button.click()
             expect(ios_login.invalid_credentials_message, timeout=20).to_have(
                 values.INVALID_CREDENTIALS_GIVEN, ElementAttribute.LABEL

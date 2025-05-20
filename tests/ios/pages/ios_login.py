@@ -19,12 +19,18 @@ class IosLogin(IosBasePage):
         self._password_field = Element(AppiumBy.CLASS_NAME, "XCUIElementTypeSecureTextField")
         self._sign_in_title = Element(AppiumBy.ACCESSIBILITY_ID, "signin_text")
         self._signin_welcome_text = Element(AppiumBy.ACCESSIBILITY_ID, "welcome_back_text")
-        self._signin_username_text = Element(AppiumBy.ACCESSIBILITY_ID, "username_text")
-        self._signin_username_text_field = Element(
+        self._username_text_field_label = Element(AppiumBy.ACCESSIBILITY_ID, "username_text")
+        self._username_text_field_placeholder = Element(
+            AppiumBy.IOS_CLASS_CHAIN, "**/XCUIElementTypeStaticText[`name == 'username_textfield'`]"
+        )
+        self._username_text_field = Element(
             AppiumBy.IOS_CLASS_CHAIN, "**/XCUIElementTypeTextField[`name == 'username_textfield'`]"
         )
-        self._signin_password_text = Element(AppiumBy.ACCESSIBILITY_ID, "password_text")
-        self._signin_password_text_field = Element(
+        self._password_text_label = Element(AppiumBy.ACCESSIBILITY_ID, "password_text")
+        self._password_test_field_placeholder = Element(
+            AppiumBy.IOS_CLASS_CHAIN, "**/XCUIElementTypeStaticText[`name == 'password_textfield'`]"
+        )
+        self._password_text_field = Element(
             AppiumBy.IOS_CLASS_CHAIN, "**/XCUIElementTypeSecureTextField[`name == 'password_textfield'`]"
         )
         self._signin_forgot_password_button = Element(AppiumBy.ACCESSIBILITY_ID, "forgot_password_button")
@@ -48,6 +54,20 @@ class IosLogin(IosBasePage):
         self._recover_title_text = Element(AppiumBy.ACCESSIBILITY_ID, "recover_title_text")
         self._recover_description_text = Element(AppiumBy.ACCESSIBILITY_ID, "recover_description_text")
         self._invalid_credentials_message = Element(AppiumBy.ACCESSIBILITY_ID, "snackbar_text")
+        self._password_field_eye_button = Element(
+            AppiumBy.IOS_CLASS_CHAIN, "**/XCUIElementTypeButton[`name == 'password_textfield'`]"
+        )
+
+    @property
+    def password_field_eye_button(self) -> Element:
+        """
+        Get password text field eye button element
+
+        Returns:
+            Element: password text field eye button element
+        """
+
+        return self._password_field_eye_button
 
     @property
     def sign_in_title(self) -> Element:
@@ -77,13 +97,13 @@ class IosLogin(IosBasePage):
         Get Sing In welcome text
 
         Returns:
-            Element: Singin welcome text element
+            Element: Signin welcome text element
         """
 
         return self._signin_welcome_text
 
     @property
-    def signin_username_text(self) -> Element:
+    def username_text_field_label(self) -> Element:
         """
         Get username text
 
@@ -91,10 +111,10 @@ class IosLogin(IosBasePage):
             Element: username text element
         """
 
-        return self._signin_username_text
+        return self._username_text_field_label
 
     @property
-    def signin_username_textfield(self) -> Element:
+    def username_textfield(self) -> Element:
         """
         Get username textfield
 
@@ -102,21 +122,32 @@ class IosLogin(IosBasePage):
             Element: username textfield element
         """
 
-        return self._signin_username_text_field
+        return self._username_text_field
 
     @property
-    def signin_password_text(self) -> Element:
+    def username_text_field_placeholder(self) -> Element:
         """
-        Get password text
+        Get username textfield
 
         Returns:
-            Element: password text element
+            Element: username textfield element
         """
 
-        return self._signin_password_text
+        return self._username_text_field_placeholder
 
     @property
-    def signin_password_textfield(self) -> Element:
+    def password_text_field_label(self) -> Element:
+        """
+        Get password label
+
+        Returns:
+            Element: password label element
+        """
+
+        return self._password_text_label
+
+    @property
+    def password_textfield(self) -> Element:
         """
         Get password textfield
 
@@ -124,7 +155,18 @@ class IosLogin(IosBasePage):
             Element: password textfield element
         """
 
-        return self._signin_password_text_field
+        return self._password_text_field
+
+    @property
+    def password_textfield_placeholder(self) -> Element:
+        """
+        Get password textfield placeholder
+
+        Returns:
+            Element: password textfield placeholder element
+        """
+
+        return self._password_test_field_placeholder
 
     @property
     def get_signin_forgot_password_button(self) -> Element:
