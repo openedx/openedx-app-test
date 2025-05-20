@@ -49,6 +49,7 @@ class IosProfile(IosBasePage):
         self._edit_profile_title = Element(AppiumBy.IOS_PREDICATE, 'name CONTAINS "Edit profile"')
         self._delete_account_button = Element(AppiumBy.ACCESSIBILITY_ID, "delete_account_button")
         self._delete_account_password_textfield = Element(AppiumBy.ACCESSIBILITY_ID, "password_textfield")
+        self._settings_screen_title = Element(AppiumBy.ACCESSIBILITY_ID, "register_text")
 
     @property
     def edit_profile_title(self) -> Element:
@@ -335,3 +336,11 @@ class IosProfile(IosBasePage):
             Element: delete account page password text field
         """
         return self._delete_account_password_textfield
+
+    @property
+    def settings_screen_title(self):
+        """
+        Returns:
+            Element: delete account page password text field
+        """
+        return self._settings_screen_title

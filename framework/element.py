@@ -5,8 +5,13 @@ Module containing Element class representing web driver element
 from logging import Logger
 from typing import Union
 
+from appium.webdriver.common.appiumby import AppiumBy
 from appium.webdriver.webdriver import WebDriver
 from appium.webdriver.webelement import WebElement as MobileWebElement
+from selenium.webdriver import Keys, ActionChains
+from selenium.webdriver.common.actions import interaction
+from selenium.webdriver.common.actions.action_builder import ActionBuilder
+from selenium.webdriver.common.actions.pointer_input import PointerInput
 from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.wait import WebDriverWait
 
@@ -205,9 +210,7 @@ class Element:
             NotFoundError: If the user sets raise_exception arg to True and click fails
         """
         try:
-            if not self.element:
-                self.find(timeout)
-            self.element.send_keys(*keys)
+            self.find(timeout).element.send_keys(*keys)
             return True
         except Exception as exception:
             if raise_exception:
@@ -234,6 +237,82 @@ class Element:
                 raise NotFoundError(f"failed to clear text field for element {self.locator} with exception {exception}")
             Element.__logger.info(f"failed to clear text field for element {self.locator} with exception {exception}")
             return False
+
+    def long_press(self, timeout=10, raise_exception=True) -> bool:
+        """
+        Long presses the element.
+        Arguments:
+            timeout (int): The time to wait for the element.
+            raise_exception (bool): Whether to raise an exception if the element is not found.
+        Returns:
+            bool: True if the element is long pressed; False otherwise.
+        Raises:
+            NotFoundError: If raise_exception is True and the element is not found.
+        """
+        try:
+            self.find(timeout)
+            # Long press to select text
+            actions = ActionChains(Element.__driver)
+            touch = PointerInput(interaction.POINTER_TOUCH, "touch")
+            actions.w3c_actions = ActionBuilder(Element.__driver, mouse=touch)
+
+            loc = self.element.location
+            size = self.element.size
+            center_x = loc["x"] + size["width"] // 2
+            center_y = loc["y"] + size["height"] // 2
+
+            actions.w3c_actions.pointer_action.move_to_location(center_x, center_y)
+            actions.w3c_actions.pointer_action.pointer_down()
+            actions.w3c_actions.pointer_action.pause(1)  # 1 second long press
+            actions.w3c_actions.pointer_action.pointer_up()
+            actions.perform()
+            return True
+        except Exception as exception:
+            if raise_exception:
+                raise NotFoundError(f"failed to long press element {self.locator} with exception {exception}")
+            Element.__logger.info(f"failed to long press element {self.locator} with exception {exception}")
+            return False
+
+    def clear_and_type(self, value, timeout=10, raise_exception=True) -> None:
+        """
+        Clears the text field element and types the given value.
+        Arguments:
+            value (str): The value to type.
+            timeout (int): The time to wait for the element.
+            raise_exception (bool): Whether to raise an exception if the element is not found.
+        Returns:
+            bool: True if the text field is cleared and the value is typed; False otherwise.
+        Raises:
+            NotFoundError: If raise_exception is True and the element is not found.
+        """
+
+        self.find(timeout)
+        platform = Element.__driver.capabilities["platformName"].lower()
+        self.element.click()
+
+        if platform == "android":
+            # Select all text (CTRL + A) and delete (DEL)
+            self.element.send_keys(Keys.CONTROL, "a")
+            self.element.send_keys(Keys.DELETE)
+        elif platform == "ios":
+            # iOS does not support CTRL+A. So we can:
+            # - Tap and hold to bring up select options
+            # - Then clear the field by sending BACKSPACE repeatedly
+            current_text = self.element.text
+
+            if current_text:
+                self.long_press(timeout, raise_exception)
+                select_all_element = WebDriverWait(Element.__driver, timeout).until(
+                    expected_conditions.visibility_of_element_located(
+                        (AppiumBy.IOS_CLASS_CHAIN, "**/XCUIElementTypeMenuItem[`name == 'Select All'`]")
+                    )
+                )
+                select_all_element.click()
+                self.element.send_keys(Keys.BACKSPACE)
+        else:
+            raise NotFoundError(f"Unsupported platform: {platform}")
+
+        self.element.send_keys(value)
 
     def exists(self, timeout=10, raise_exception=True) -> bool:
         """

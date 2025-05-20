@@ -287,13 +287,13 @@ def ios_login(set_capabilities, setup_logging):
     assert sign_in_button.click()
     expect(ios_login.sign_in_title).to_have(values.LOGIN, ElementAttribute.LABEL)
 
-    expect(ios_login.signin_username_textfield).to_have(values.EMAIL_OR_USERNAME_IOS, ElementAttribute.LABEL)
-    assert ios_login.signin_username_textfield.send_keys(global_contents.login_user_name)
+    expect(ios_login.username_text_field_label).to_have(values.EMAIL_OR_USERNAME_IOS, ElementAttribute.LABEL)
+    assert ios_login.username_textfield.send_keys(global_contents.login_user_name)
 
-    password_title = ios_login.signin_password_text
-    expect(password_title).to_have(values.PASSWORD, ElementAttribute.LABEL)
+    password_title = ios_login.password_textfield
+    expect(ios_login.password_text_field_label).to_have(values.PASSWORD, ElementAttribute.LABEL)
     assert password_title.click()
-    password_field = ios_login.signin_password_textfield
+    password_field = ios_login.password_textfield
     expect(password_field).to_have(values.PASSWORD, ElementAttribute.VALUE)
     assert password_field.send_keys(global_contents.login_password)
     assert password_title.click()
