@@ -25,7 +25,6 @@ class IosLanding(IosBasePage):
         self._landing_explore_courses_button = Element(AppiumBy.ACCESSIBILITY_ID, "explore_courses_button")
         self._signin_button = Element(AppiumBy.ACCESSIBILITY_ID, "logistration_signin_button")
         self._logistration_register_button = Element(AppiumBy.ACCESSIBILITY_ID, "logistration_register_button")
-        self._register_screen_title = Element(AppiumBy.ACCESSIBILITY_ID, "register_text")
         self._landing_back_button = Element(AppiumBy.ACCESSIBILITY_ID, "Start")
 
     @property
@@ -96,7 +95,7 @@ class IosLanding(IosBasePage):
         return self.get_logo_image
 
     @property
-    def get_register_button(self):
+    def register_button(self):
         """
         Get register button
 
@@ -105,16 +104,6 @@ class IosLanding(IosBasePage):
         """
 
         return self._logistration_register_button
-
-    def get_register_screen_title(self):
-        """
-        Get register button
-
-        Returns:
-            webdriver element: register button element
-        """
-
-        return self._register_screen_title
 
     @property
     def sign_in_button(self) -> Element:
