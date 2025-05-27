@@ -82,7 +82,7 @@ class CustomAssertions:
     def to_have(
         self,
         expected_value: str,
-        attribute: Union[str, ElementAttribute] = ElementAttribute.LABEL,
+        attribute: Union[str, ElementAttribute] = ElementAttribute.TEXT,
         case: Optional[str] = None,
     ):
         """Asserts that the element matches the specified text
@@ -106,7 +106,7 @@ class CustomAssertions:
     def to_match(
         self,
         pattern: re.Pattern,
-        attribute: ElementAttribute = ElementAttribute.LABEL,
+        attribute: ElementAttribute = ElementAttribute.TEXT,
         partial: bool = False,
     ):
         """Asserts that the element's attribute matches the specified regex pattern.
@@ -128,7 +128,7 @@ class CustomAssertions:
     def to_contain(
         self,
         expected_value: str,
-        attribute: ElementAttribute = ElementAttribute.LABEL,
+        attribute: ElementAttribute = ElementAttribute.TEXT,
         case: Optional[str] = None,
     ):
         """Asserts that the element contains the specified text.
