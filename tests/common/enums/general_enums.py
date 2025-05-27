@@ -45,3 +45,24 @@ class LanguageAbbreviation(Enum):
 
     EN = "en"
     FR = "fr"
+
+
+class GenderOptions(Enum):
+    """Gender Options"""
+
+    MALE = "Male"
+    FEMALE = "Female"
+    OTHER = "Other/Prefer Not to Say"
+
+
+class EducationLevel(Enum):
+    """Education level"""
+
+    DOCTORATE = "Doctorate"
+    MASTER_OR_PROFESSIONAL_DEGREE = "Master's or professional degree"
+    BACHELOR = "Bachelor's degree"
+    ASSOCIATE = "Associate degree"
+    SECONDARY = "Secondary/high school"
+    JUNIOR_TO_MIDDLE = "Junior secondary/junior high/middle school"
+    NO_FORMAL_EDUCATION = "No formal education"
+    OTHER = "Other education"

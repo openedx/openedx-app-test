@@ -38,6 +38,7 @@ class Element:
         self.locator = (strategy, locator)
         self.element: MobileWebElement = None
         self.elements: list[MobileWebElement] = None
+        self._has_parent = False
 
     @classmethod
     def set_driver(cls, driver: WebDriver):
@@ -102,15 +103,16 @@ class Element:
         """
         try:
             child_locator.element = self.find().element.find_element(*child_locator.locator)
-            Element.__logger.info(f"found elements matching {child_locator.locator}")
+            child_locator._has_parent = True
+            Element.__logger.info(f"found child element matching {child_locator.locator}")
             return child_locator
 
         except Exception as exception:
             Element.__logger.info(
-                f"failed to find elements with locator: {child_locator.locator} with exception {exception}"
+                f"failed to find child element with locator: {child_locator.locator} with exception {exception}"
             )
             raise NotFoundError(
-                f"failed to find elements with locator: {child_locator.locator} with exception {exception}"
+                f"failed to find child element with locator: {child_locator.locator} with exception {exception}"
             )
 
     def get_child_elements(self, child_locator: "Element") -> "Element":
@@ -166,6 +168,8 @@ class Element:
             str : mentioned property of the element
         """
         try:
+            if self._has_parent:
+                return normalize_string(self.element.get_attribute(attribute))
             return normalize_string(self.find(timeout).element.get_attribute(attribute))
         except Exception as exception:
             if raise_exception:
@@ -420,7 +424,7 @@ class Element:
         if raise_exception:
             raise NotFoundError(f"element {self.locator} is not clickable with in {timeout} seconds")
 
-    def scroll_into_view(self, timeout=10, raise_exception=True) -> "Element":
+    def scroll_into_view_via_uiautomator(self, timeout=10, raise_exception=True) -> "Element":
         """Finds the required element and scrolls it into view
             only for android uiautomator style locators
         Arguments:
@@ -449,6 +453,25 @@ class Element:
                     f" with exception {exception}"
                 )
             Element.__logger.info(f"failed to find element {self.locator} with exception {exception}")
+
+    def scroll_and_find(self, timeout=10, tries=3, scroll_direction=ScrollDirections.UP) -> "Element":
+        """Scroll until element is visible
+        Arguments:
+            timeout (int) : time to wait for element
+            tries (int): Number of times to scroll
+            scroll_direction (str): Scroll direction
+        Returns:
+            Element: Returns self
+        """
+
+        for _ in range(tries):
+            self.swipe_vertical_full_page(scroll_direction)
+            self.find(timeout=timeout, raise_exception=False)
+            if self.element:
+                return self
+        if not self.element:
+            raise NotFoundError(f"element {self.locator} not found after {tries} swipes")
+        return self
 
     def scroll_vertically_from_element(self):
         """Scroll from element"""
@@ -561,8 +584,8 @@ class Element:
     @staticmethod
     def swipe_vertical_full_page(
         direction=ScrollDirections.UP,
-        start_y_pc=88,
-        end_y_pc=12,
+        start_y_pc=80,
+        end_y_pc=20,
         horizontal_anchor=0.5,
     ):
         """

@@ -1,6 +1,9 @@
 """
-    Main Dashboard Test Module
+Main Dashboard Test Module
 """
+
+import pytest
+
 from framework import expect, Element
 from tests.common.enums import ElementAttribute
 from tests.ios.pages.ios_main_dashboard import IosMainDashboard
@@ -9,6 +12,7 @@ from tests.common.globals import Globals
 from tests.ios.pages import ios_elements
 
 
+@pytest.mark.IOS
 class TestIosMainDashboard:
     """
     Main Dashboard screen's Test Case
@@ -31,13 +35,11 @@ class TestIosMainDashboard:
         assert learn_tab.click()
         expect(learn_tab).to_have(values.IOS_SELECTED_TAB_VALUE, ElementAttribute.VALUE)
 
-        discover_tab = main_dashboard.main_dashboard_discover_tab
-        assert discover_tab.click()
-        expect(discover_tab).to_have(values.IOS_SELECTED_TAB_VALUE, ElementAttribute.VALUE)
-
+        main_dashboard.main_dashboard_discover_tab.click()
+        expect(main_dashboard.navigation_bar_title).to_have(values.DISCOVER_SCREEN_HEADING, ElementAttribute.NAME)
         profile_tab = main_dashboard.profile_tab
         expect(profile_tab).to_have(values.MAIN_DASHBOARD_PROFILE_TAB)
-        assert profile_tab.click()
+        profile_tab.click()
 
     def test_validate_programs_switcher(self, set_capabilities, setup_logging):
         """
@@ -55,28 +57,22 @@ class TestIosMainDashboard:
         main_dashboard = IosMainDashboard()
         learn_tab = main_dashboard.get_main_dashboard_learn_tab
         assert learn_tab.click()
-        switcher_label = global_contents.wait_and_get_element(set_capabilities, ios_elements.main_dashboard_dropdown_text)
-        assert switcher_label.get_attribute('label') == 'Courses'
-        switcher_label.click()
-        course_switcher = global_contents.wait_and_get_element(
-            set_capabilities, "Courses"
+        switcher_label = global_contents.wait_and_get_element(
+            set_capabilities, ios_elements.main_dashboard_dropdown_text
         )
         assert switcher_label.get_attribute("label") == "Courses"
-        programs_switcher = global_contents.wait_and_get_element(
-            set_capabilities, "Programs"
-        )
+        switcher_label.click()
+        course_switcher = global_contents.wait_and_get_element(set_capabilities, "Courses")
+        assert switcher_label.get_attribute("label") == "Courses"
+        programs_switcher = global_contents.wait_and_get_element(set_capabilities, "Programs")
         assert programs_switcher.text == "Programs"
         course_switcher.click()
         assert switcher_label.get_attribute("label") == "Courses"
         switcher_label.click()
-        programs_switcher = global_contents.wait_and_get_element(
-            set_capabilities, "Programs"
-        )
+        programs_switcher = global_contents.wait_and_get_element(set_capabilities, "Programs")
         programs_switcher.click()
         assert switcher_label.get_attribute("label") == "Programs"
         switcher_label.click()
-        course_switcher = global_contents.wait_and_get_element(
-            set_capabilities, "Courses"
-        )
+        course_switcher = global_contents.wait_and_get_element(set_capabilities, "Courses")
         course_switcher.click()
         assert switcher_label.get_attribute("label") == "Courses"

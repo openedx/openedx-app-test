@@ -51,36 +51,36 @@ class TestAccountRegistrationSignupWithEmailAndPassword:
             expect(register_page.register_screen_title).to_have(values.REGISTER, ElementAttribute.LABEL)
 
         with allure.step("Enter Full Name"):
-            register_page.get_name_textfield.send_keys(full_name)
+            register_page.name_text_field.send_keys(full_name)
 
         with allure.step("Enter a valid username"):
-            register_page.get_username_textfield.click()
-            register_page.get_username_textfield.send_keys(user_name + "\n")
+            register_page.username_text_field.click()
+            register_page.username_text_field.send_keys(user_name + "\n")
 
         with allure.step("Enter a valid unregistered email"):
-            register_page.get_email_textfield.click()
-            register_page.get_email_textfield.send_keys(email + "\n")
-            register_page.get_password_textfield.exists()
+            register_page.email_text_field.click()
+            register_page.email_text_field.send_keys(email + "\n")
+            register_page.password_text_field.exists()
             Element.swipe_vertical_full_page()
 
         with allure.step("Enter a valid password"):
-            register_page.get_password_textfield.exists()
-            register_page.get_password_textfield.click()
-            register_page.get_password_textfield.send_keys(password + "\n")
+            register_page.password_text_field.exists()
+            register_page.password_text_field.click()
+            register_page.password_text_field.send_keys(password + "\n")
 
         with allure.step("Open country/region picker drop down"):
-            register_page.get_country_textfield.click()
-            picker_title_text = register_page.get_picker_title_text
+            register_page.country_picker_button.click()
+            picker_title_text = register_page.picker_title_text
             expect(picker_title_text).to_have(values.REGISTER_COUNTRY_PICKER_TITLE, ElementAttribute.LABEL)
 
         with allure.step("Search for a country and click on it"):
-            country_field = register_page.select_country
+            country_field = register_page.option_picker_search_field
             assert country_field.click()
             assert country_field.send_keys(values.REGISTER_COUNTRY)
             accept_button = register_page.get_picker_accept_button
             expect(accept_button).to_have(values.REGISTER_COUNTRY_ACCEPT_BUTTON, ElementAttribute.LABEL)
             assert accept_button.click()
-            expect(register_page.get_country_textfield).to_have(values.REGISTER_COUNTRY, ElementAttribute.LABEL)
+            expect(register_page.country_picker_button).to_have(values.REGISTER_COUNTRY, ElementAttribute.LABEL)
 
         with allure.step("verify marketing messages agreement checkbox is checked by default"):
             expect(register_page.marketing_checkbox_selected).to_have(
@@ -108,9 +108,7 @@ class TestAccountRegistrationSignupWithEmailAndPassword:
             setup_logging.info("clicking log out")
             ios_profile.get_logout_button_from_prompt.click()
             setup_logging.info("log out successful")
-            expect(ios_landing_page.get_welcome_message, timeout=20).to_have(
-                values.LANDING_MESSAGE, ElementAttribute.LABEL
-            )
+            expect(ios_landing_page.welcome_message, timeout=20).to_have(values.LANDING_MESSAGE, ElementAttribute.LABEL)
 
         with allure.step("login with newly registered account"):
             ios_landing_page.sign_in_button.click()
@@ -127,7 +125,7 @@ class TestAccountRegistrationSignupWithEmailAndPassword:
 
         with allure.step("delete account"):
             ios_profile.profile_settings_button.click()
-            ios_profile.get_profile_manage_account_label.click()
+            ios_profile.profile_manage_account_label.click()
             ios_profile.delete_account_button.click()
             ios_profile.delete_account_password_textfield.click()
             ios_profile.delete_account_password_textfield.send_keys(password + "\n")
