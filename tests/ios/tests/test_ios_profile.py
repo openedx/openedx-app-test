@@ -1,12 +1,17 @@
 """
 Profile Screen Test Module
 """
+
+import pytest
+
 from framework import expect, Element
 from tests.common.enums import ElementAttribute
 from tests.common import values
+from tests.ios.pages.ios_main_dashboard import IosMainDashboard
 from tests.ios.pages.ios_profile import IosProfile
 
 
+@pytest.mark.IOS
 class TestIosProfile:
     """
     Profile screen's Test Case
@@ -27,9 +32,12 @@ class TestIosProfile:
         Element.set_driver(driver)
         Element.set_logger(setup_logging)
         ios_profile = IosProfile()
+        main_dashboard = IosMainDashboard()
+
+        main_dashboard.profile_tab.click()
         expect(ios_profile.navigation_bar_title).to_have(values.PROFILE_SCREEN_TITLE, ElementAttribute.NAME)
         assert ios_profile.profile_img_profile.exists()
-        expect(ios_profile.profile_user_name_text).to_have(values.PROFILE_NAME_TEXT)
-        expect(ios_profile.profile_user_username_text).to_have(values.PROFILE_USERNAME_TEXT)
-        expect(ios_profile.profile_settings_button).to_have(values.PROFILE_SETTINGS_TEXT)
-        assert ios_profile.edit_profile_title.exists()
+        expect(ios_profile.profile_user_name_text).to_have(values.PROFILE_NAME_TEXT, ElementAttribute.LABEL)
+        expect(ios_profile.profile_user_username_text).to_have(values.PROFILE_USERNAME_TEXT, ElementAttribute.LABEL)
+        expect(ios_profile.profile_settings_button).to_have(values.PROFILE_SETTINGS_TEXT, ElementAttribute.LABEL)
+        expect(ios_profile.edit_profile_title).to_have(values.EDIT_PROFILE_TITLE, ElementAttribute.LABEL)

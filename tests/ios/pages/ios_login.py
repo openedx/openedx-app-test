@@ -53,7 +53,6 @@ class IosLogin(IosBasePage):
         self._check_email_image = Element(AppiumBy.ACCESSIBILITY_ID, "check_email_image")
         self._recover_title_text = Element(AppiumBy.ACCESSIBILITY_ID, "recover_title_text")
         self._recover_description_text = Element(AppiumBy.ACCESSIBILITY_ID, "recover_description_text")
-        self._invalid_credentials_message = Element(AppiumBy.ACCESSIBILITY_ID, "snackbar_text")
         self._password_field_eye_button = Element(
             AppiumBy.IOS_CLASS_CHAIN, "**/XCUIElementTypeButton[`name == 'password_textfield'`]"
         )

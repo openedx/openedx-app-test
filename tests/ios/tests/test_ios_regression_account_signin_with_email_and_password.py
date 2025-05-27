@@ -20,6 +20,7 @@ from tests.ios.pages.ios_whats_new import IosWhatsNew
 @allure.epic("Accounts")
 @allure.feature("Sign In")
 @allure.story("Sign In with email and password")
+@pytest.mark.IOS
 @pytest.mark.IOS_REGRESSION
 class TestAccountSignInWithEmailAndPassword:
     """Test Account Sign In with Email and Password"""
@@ -170,6 +171,7 @@ class TestAccountSignInWithEmailAndPassword:
 
         with allure.step("Click on log out button"):
             Element.swipe_vertical_full_page()
+            Element.swipe_vertical_full_page()
             expect(ios_profile_page.get_profile_logout_button).to_have(values.LOG_OUT_TEXT, ElementAttribute.LABEL)
             ios_profile_page.get_profile_logout_button.click()
             logger.info("clicking log out")
@@ -214,6 +216,7 @@ class TestAccountSignInWithEmailAndPassword:
             )
 
         with allure.step("Click on log out button"):
+            Element.swipe_vertical_full_page()
             Element.swipe_vertical_full_page()
             expect(ios_profile_page.get_profile_logout_button).to_have(values.LOG_OUT_TEXT, ElementAttribute.LABEL)
             ios_profile_page.get_profile_logout_button.click()

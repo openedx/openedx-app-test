@@ -2,6 +2,8 @@
 Course Dashboard Screen Test Module
 """
 
+import pytest
+
 from framework import expect, Element
 from tests.common.enums import ElementAttribute
 from tests.ios.pages.ios_course_dashboard import IosCourseDashboard
@@ -10,6 +12,7 @@ from tests.common import values
 from tests.common.globals import Globals
 
 
+@pytest.mark.IOS
 class TestIosCourseDashboard:
     """
     Course Dashboard screen's Test Case

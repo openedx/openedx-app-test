@@ -4,7 +4,7 @@ Profile Page Module
 
 from appium.webdriver.common.appiumby import AppiumBy
 
-from framework import Element
+from framework import Element, expect
 from tests.ios.pages.ios_base_page import IosBasePage
 
 
@@ -30,9 +30,14 @@ class IosProfile(IosBasePage):
         self._profile_logout_close_button = Element(AppiumBy.NAME, "xmark")
         self._profile_logout_confirmation = Element(AppiumBy.ACCESSIBILITY_ID, "logout_confirmation")
         self._profile_logout_confirmation_button = Element(AppiumBy.ACCESSIBILITY_ID, "logout_confirmation_button")
-        self._profile_video_settings_button = Element(AppiumBy.ACCESSIBILITY_ID, "video_settings_button")
+        self._profile_video_settings_button = Element(
+            AppiumBy.IOS_CLASS_CHAIN, "**/XCUIElementTypeStaticText[`name == 'Video settings'`]"
+        )
         self._profile_manage_account_label = Element(
             AppiumBy.IOS_CLASS_CHAIN, "**/XCUIElementTypeOther[`name == 'Manage Account'`]"
+        )
+        self._profile_manage_account_title = Element(
+            AppiumBy.IOS_CLASS_CHAIN, "**/XCUIElementTypeStaticText[`name == 'manage_account_text'`]"
         )
         self._profile_dates_calendar_label = Element(AppiumBy.ACCESSIBILITY_ID, "Dates & Calendar")
         self._profile_support_info_text = Element(AppiumBy.ACCESSIBILITY_ID, "support_info_text")
@@ -46,7 +51,9 @@ class IosProfile(IosBasePage):
         self._profile_dont_sell_data = Element(AppiumBy.ACCESSIBILITY_ID, "dont_sell_data")
         self._profile_cookies_policy = Element(AppiumBy.ACCESSIBILITY_ID, "cookies_policy")
         self._profile_privacy_policy = Element(AppiumBy.ACCESSIBILITY_ID, "privacy_policy")
-        self._edit_profile_title = Element(AppiumBy.IOS_PREDICATE, 'name CONTAINS "Edit profile"')
+        self._edit_profile_title = Element(
+            AppiumBy.IOS_CLASS_CHAIN, '**/XCUIElementTypeButton[`name == "Edit Profile"`]'
+        )
         self._delete_account_button = Element(AppiumBy.ACCESSIBILITY_ID, "delete_account_button")
         self._delete_account_password_textfield = Element(AppiumBy.ACCESSIBILITY_ID, "password_textfield")
         self._settings_screen_title = Element(AppiumBy.ACCESSIBILITY_ID, "register_text")
@@ -145,18 +152,27 @@ class IosProfile(IosBasePage):
             webdriver element: Video settings button element
         """
 
-        return self._profile_video_settings_button.find_all()[1]
+        return self._profile_video_settings_button
 
     @property
-    def get_profile_manage_account_label(self) -> Element:
+    def profile_manage_account_label(self) -> Element:
         """
         Get manage account label
 
         Returns:
-            webdriver element: Manage account label element
+            Element: Manage account label element
         """
-
         return self._profile_manage_account_label
+
+    @property
+    def profile_manage_account_title(self) -> Element:
+        """
+        Get manage account screen title
+
+        Returns:
+            Element: Manage account screen title element
+        """
+        return self._profile_manage_account_title
 
     @property
     def get_profile_dates_calendar_label(self) -> Element:
@@ -344,3 +360,12 @@ class IosProfile(IosBasePage):
             Element: delete account page password text field
         """
         return self._settings_screen_title
+
+    def verify_app_version(self, expected_version: str):
+        """
+        Verify the app version.
+        Args:
+            expected_version (str): The expected app version
+        """
+        expect(Element(AppiumBy.ACCESSIBILITY_ID, f"Version: {expected_version}")).to_exist()
+        expect(Element(AppiumBy.ACCESSIBILITY_ID, "Up-to-date")).to_exist()

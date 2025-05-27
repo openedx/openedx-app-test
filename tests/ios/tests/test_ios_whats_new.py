@@ -35,20 +35,14 @@ class TestIosWhatsNew:
         if global_contents.whats_new_enable:
             sign_in_button = ios_landing.sign_in_button
             expect(sign_in_button).to_have(values.LOGIN)
-            assert sign_in_button.click()
+            sign_in_button.click()
             expect(ios_login.sign_in_title).to_have(values.LOGIN)
             expect(ios_login.username_text_field_placeholder).to_have(values.EMAIL_OR_USERNAME_IOS)
-            assert ios_login.username_textfield.send_keys(global_contents.login_user_name)
-
+            ios_login.username_textfield.send_keys(global_contents.login_user_name + "\n")
             expect(ios_login.password_text_field_label).to_have(values.PASSWORD, ElementAttribute.LABEL)
-            assert ios_login.password_textfield.click()
-            password_field = ios_login.password_textfield
-            expect(password_field).to_have(values.PASSWORD, ElementAttribute.VALUE)
-            assert password_field.send_keys(global_contents.login_password)
-            assert ios_login.password_textfield.click()
-            sign_in_button = ios_login.signin_button
-            expect(ios_login.signin_button).to_have(values.LOGIN)
-            assert sign_in_button.click()
+            ios_login.password_textfield.send_keys(global_contents.login_password + "\n")
+            expect(ios_login.signin_button).to_have(values.LOGIN, ElementAttribute.LABEL)
+            ios_login.signin_button.click()
         else:
             setup_logging.info("Whats New feature is not enabled")
 
@@ -70,11 +64,11 @@ class TestIosWhatsNew:
             expect(close_btn).to_have(values.WHATS_NEW_CLOSE_BUTTON)
             screen_title = IosWhatsNew.find_all_views_on_screen(IosClassViews.STATIC_TEXT)[0]
             expect(screen_title).to_have(values.WHATS_NEW_TITLE)
-            expect(whats_new_page.get_whats_new_msg_title).to_have(r".+")
-            expect(whats_new_page.get_whats_new_description).to_have(r".+")
+            expect(whats_new_page.get_whats_new_msg_title).to_match(r".+")
+            expect(whats_new_page.get_whats_new_description).to_match(r".+")
             next_button = whats_new_page.whats_new_next_button
             expect(next_button).to_have(values.WHATS_NEW_NEXT_BUTTON)
-            expect(whats_new_page.navigate_features()).to_have("Done")
+            expect(whats_new_page.navigate_features()).to_have("Done", ElementAttribute.LABEL)
             assert whats_new_page.whats_new_next_button.click()
         else:
             setup_logging.info("Whats New feature is not enabled")

@@ -77,7 +77,7 @@ class IosWhatsNew(IosBasePage):
 
         self.whats_new_next_button.click()
 
-        if self.whats_new_next_button.get_attribute(ElementAttribute.TEXT) == "Done":
+        if self.whats_new_next_button.get_attribute(ElementAttribute.LABEL) == "Done":
             return self.whats_new_next_button
         else:
             self.navigate_features()

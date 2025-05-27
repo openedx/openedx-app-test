@@ -16,9 +16,9 @@ class IosLanding(IosBasePage):
     def __init__(self):
         super().__init__()
         self._landing_logo_image = Element(AppiumBy.ACCESSIBILITY_ID, "logo_image")
-        self._landing_explore_search_textfield = Element(AppiumBy.ACCESSIBILITY_ID, "explore_search_textfield")
+        self._landing_explore_search_textfield = Element(AppiumBy.ACCESSIBILITY_ID, "explore_courses_textfield")
         self._landing_heading_text = Element(AppiumBy.ACCESSIBILITY_ID, "heading_text")
-        self._landing_search_title = Element(AppiumBy.ACCESSIBILITY_ID, "search_title")
+        self._landing_search_title = Element(AppiumBy.ACCESSIBILITY_ID, "search_title_text")
         self._landing_explore_all_courses = Element(AppiumBy.ACCESSIBILITY_ID, "explore_all_courses")
         self._landing_register = Element(AppiumBy.ACCESSIBILITY_ID, "register")
         self._landing_signin = Element(AppiumBy.ACCESSIBILITY_ID, "signin")
@@ -39,18 +39,18 @@ class IosLanding(IosBasePage):
         return self._landing_logo_image
 
     @property
-    def get_search_courses_field(self) -> Element:
+    def search_courses_field(self) -> Element:
         """
         Get search courses field
 
         Returns:
-            webdriver element: search courses field element
+            Element: search courses field element
         """
 
         return self._landing_explore_search_textfield
 
     @property
-    def get_welcome_message(self):
+    def welcome_message(self):
         """
         Get welcome message
 

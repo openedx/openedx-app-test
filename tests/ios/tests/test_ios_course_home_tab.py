@@ -2,6 +2,8 @@
 Course Home Tab Screen Test Module
 """
 
+import pytest
+
 from framework import expect, Element
 from tests.ios.pages.ios_course_dashboard import IosCourseDashboard
 from tests.ios.pages.ios_landing import IosLanding
@@ -11,6 +13,7 @@ from tests.common.globals import Globals
 from tests.ios.pages.ios_course_home_tab import IosCourseHomeTab
 
 
+@pytest.mark.IOS
 class TestIosCourseHomeTab:
     """
     Course Home Tab screen's Test Case
@@ -50,7 +53,7 @@ class TestIosCourseHomeTab:
         second_course_name = global_contents.get_element_by_name_ios(driver, values.MY_COURSES_SECOND_COURSE_NAME)
 
         second_course_name.click()
-        if ios_landing.allow_notifications_button.exists(raise_exception=False):
+        if ios_landing.allow_notifications_button.exists(timeout=30, raise_exception=False):
             ios_landing.allow_notifications_button.click()
 
         course_tab = course_dashboard_page.course_dashboard_course_tab
@@ -67,8 +70,8 @@ class TestIosCourseHomeTab:
         shift_due_dates_button = global_contents.get_element_by_label_ios(driver, values.COURSE_SHIFT_DUE_DATES)
         assert shift_due_dates_button.text == values.COURSE_SHIFT_DUE_DATES
 
-        continue_with_lable = global_contents.get_element_by_label_ios(driver, values.COURSE_RESUME_WITH_LABEL)
-        assert continue_with_lable.text == values.COURSE_RESUME_WITH_LABEL
+        continue_with_label = global_contents.get_element_by_label_ios(driver, values.COURSE_RESUME_WITH_LABEL)
+        assert continue_with_label.text == values.COURSE_RESUME_WITH_LABEL
 
         resume_button = global_contents.get_elements_by_name_ios(driver, values.COURSE_RESUME_BUTTON)[1]
         assert resume_button.text == values.COURSE_RESUME_BUTTON
@@ -103,7 +106,7 @@ class TestIosCourseHomeTab:
         component_header = global_contents.get_element_by_label_ios(driver, values.COURSE_COMPONENT_LABEL)
         assert component_header.text == values.COURSE_COMPONENT_LABEL
 
-    def test_component_navigation_smoke(self, set_capabilities, setup_logging):
+    def test_component_navigation_smoke(self, ios_login, setup_logging):
         """
         Scenarios:
             Verify next button element, and it is clickable
@@ -114,7 +117,8 @@ class TestIosCourseHomeTab:
                 loads the components screen
             Verify clicking on back button will navigate the user to dashboard page
         """
-        Element.set_driver(set_capabilities)
+        driver = ios_login
+        Element.set_driver(driver)
         Element.set_logger(setup_logging)
         global_contents = Globals(setup_logging)
         course_home_page = IosCourseHomeTab()
@@ -131,12 +135,10 @@ class TestIosCourseHomeTab:
         expect(finish_button).to_have(values.COURSE_COMPONENT_FINISH_BUTTON)
         finish_button.click()
 
-        back_to_outline = global_contents.get_element_by_label_ios(
-            set_capabilities, values.COURSE_COMPLETION_BACK_BUTTON
-        )
+        back_to_outline = global_contents.get_element_by_label_ios(driver, values.COURSE_COMPLETION_BACK_BUTTON)
         assert back_to_outline.text == values.COURSE_COMPLETION_BACK_BUTTON
         back_to_outline.click()
 
-        back_btn = global_contents.wait_and_get_element(set_capabilities, ios_elements.course_dashboard_back_button)
+        back_btn = global_contents.wait_and_get_element(driver, ios_elements.course_dashboard_back_button)
         assert back_btn.text == values.LANDING_BACK_BUTTON
         back_btn.click()

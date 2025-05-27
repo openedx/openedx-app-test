@@ -104,7 +104,7 @@ class TestAndroidRegister:
 
         with allure.step("Verify username with blank space not valid"):
             register_page.username_text_field.send_keys("john doe")
-            register_page.btn_create_account.scroll_into_view().click()
+            register_page.btn_create_account.scroll_into_view_via_uiautomator().click()
             Element.swipe_vertical_full_page(ScrollDirections.DOWN)
             expect(register_page.username_field_description).to_have(values.REGISTER_ERROR_USER_NAME_BLANK_SPACE)
 
@@ -116,14 +116,14 @@ class TestAndroidRegister:
 
         with allure.step("Verify email validation"):
             register_page.email_text_field.send_keys("abc@gmail")
-            register_page.btn_create_account.scroll_into_view().click()
+            register_page.btn_create_account.scroll_into_view_via_uiautomator().click()
             Element.swipe_vertical_full_page(ScrollDirections.DOWN)
             expect(register_page.email_field_description).to_have(values.REGISTER_ERROR_EMAIL_INVALID)
 
         with allure.step("Enter an already registered email “abc@gmail.com”"):
             register_page.email_text_field.clear()
             register_page.email_text_field.send_keys("abc@gmail.com")
-            register_page.btn_create_account.scroll_into_view().click()
+            register_page.btn_create_account.scroll_into_view_via_uiautomator().click()
             sleep(3)
             expect(register_page.email_field_description).to_have(
                 "This email is already associated with an existing account"
@@ -159,7 +159,7 @@ class TestAndroidRegister:
             expect(register_page.password_field_description).to_have(values.REGISTER_PASSWORD_MESSAGE)
 
         with allure.step("Open country/region picker dropdown"):
-            register_page.country_text_field.scroll_into_view().click()
+            register_page.country_text_field.scroll_into_view_via_uiautomator().click()
             expect(register_page.get_register_country_selection_dialogue).to_have(values.REGISTER_COUNTRY_PICKER_TITLE)
         with allure.step("Search for a country and select it"):
             register_page.search_field.send_keys(values.REGISTER_COUNTRY)
@@ -167,14 +167,14 @@ class TestAndroidRegister:
             expect(register_page.country_text_field).to_have(values.REGISTER_COUNTRY)
 
         with allure.step("Verify marketing messages agreement checkbox and toggle it"):
-            register_page.marketing_messages_agreement_check_box.scroll_into_view()
+            register_page.marketing_messages_agreement_check_box.scroll_into_view_via_uiautomator()
             expect(register_page.marketing_messages_agreement_check_box).to_be_checked()
             assert register_page.marketing_messages_agreement_check_box.click()
             expect(register_page.marketing_messages_agreement_check_box).not_.to_be_checked()
 
         with allure.step("Click on show optional fields button"):
             register_page.show_optional_field.click()
-            register_page.btn_create_account.scroll_into_view()
+            register_page.btn_create_account.scroll_into_view_via_uiautomator()
             expect(register_page.highest_level_of_education_field_label).to_have(values.REGISTER_EDUCATION_LEVEL)
             expect(register_page.gender_field_label).to_have(values.REGISTER_GENDER_LABEL)
 
@@ -219,7 +219,7 @@ class TestAndroidRegister:
             )
 
         with allure.step("Create account and verify Learn Tab"):
-            assert register_page.btn_create_account.scroll_into_view().wait_for_clickable().click()
+            assert register_page.btn_create_account.scroll_into_view_via_uiautomator().wait_for_clickable().click()
 
         with allure.step("Verify Learn Tab is loaded after completion"):
             expect(main_dashboard.learn_tab).to_be_displayed()
@@ -235,7 +235,7 @@ class TestAndroidRegister:
             assert profile_page.get_profile_txt_settings.is_displayed()
 
         with allure.step("Click on Log out button"):
-            assert profile_page.profile_txt_logout.scroll_into_view().click()
+            assert profile_page.profile_txt_logout.scroll_into_view_via_uiautomator().click()
             expect(profile_page.logout_prompt_msg).to_have("Are you sure you want to log out?")
 
         with allure.step("click on Log out button on the confirmation prompt"):
