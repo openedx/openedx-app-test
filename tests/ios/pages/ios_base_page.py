@@ -111,5 +111,5 @@ class IosBasePage:
             Element: found element
         """
         if text:
-            return Element(AppiumBy.IOS_PREDICATE, f'label == "{text}"').find()
+            return Element(AppiumBy.IOS_PREDICATE, f'label == "{text}"')
         raise ValueError("text cannot be empty")
