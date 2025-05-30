@@ -108,10 +108,8 @@ class TestAndroidDiscovery:
         Element.set_logger(setup_logging)
         catalog_page = AndroidCatalogPage()
 
-        expect(catalog_page.main_content, timeout=20).to_have(values.DISCOVERY_MAIN_CONTENT)
-        assert catalog_page.discovery_search_breakcrumbs.exists()
-        assert catalog_page.find_by_text_on_screen(values.DISCOVERY_FILTER_BY_POPULAR_COURSES).exists()
-        assert catalog_page.find_by_text_on_screen(values.DISCOVERY_SCREEN_MESSAGE).exists()
+        expect(catalog_page.find_by_text_on_screen(values.DISCOVERY_FILTER_BY_POPULAR_COURSES)).to_exist()
+        expect(catalog_page.find_by_text_on_screen(values.DISCOVERY_SCREEN_MESSAGE)).to_exist()
         if catalog_page.find_by_text_on_screen(values.DISCOVERY_AI_CHAT_CLOSE_BUTTON, raise_error=False):
             catalog_page.find_by_text_on_screen(values.DISCOVERY_AI_CHAT_CLOSE_BUTTON).click()
         expect(catalog_page.first_popular_course).to_have(
@@ -173,11 +171,13 @@ class TestAndroidDiscovery:
         expect(search_field).to_be_displayed()
         expect(search_field).to_be_clickable()
         expect(search_field).to_have(values.DISCOVERY_SEARCH_FIELD_HINT, "hint")
+        if catalog_page.ai_assistant_dismiss_button.exists(raise_exception=False, timeout=30):
+            catalog_page.ai_assistant_dismiss_button.click()
         assert search_field.click()
         assert search_field.send_keys("Demo X")
+        catalog_page.search_button.exists()
         assert catalog_page.search_button.click()
-        sleep(10)
-        assert catalog_page.demox_course_logo_desc.exists()
+        expect(catalog_page.demox_course_logo_desc).to_exist()
         assert catalog_page.demox_course_logo_desc.click()
         assert catalog_page.find_by_text_on_screen("edX: DemoX")
 
@@ -208,6 +208,6 @@ class TestAndroidDiscovery:
         enroll_button = catalog_page.enroll_button
         expect(enroll_button).to_have("Enroll", ElementAttribute.CONTENT_DESC)
         assert enroll_button.click()
-        if catalog_page.allow_notifications_button.exists():
+        if catalog_page.allow_notifications_button.exists(raise_exception=False):
             assert catalog_page.allow_notifications_button.click()
         expect(course_dashboard.course_dashboard_home_tab).to_have(values.COURSE_DASHBOARD_HOME_TAB)

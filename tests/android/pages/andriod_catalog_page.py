@@ -25,7 +25,10 @@ class AndroidCatalogPage(AndroidBasePage):
         self._trending_data_science = Element(AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("Data Sciences")')
         self._search_field = Element(
             AppiumBy.ANDROID_UIAUTOMATOR,
-            'new UiSelector().resourceId("pgn-searchfield-input-6")',
+            (
+                'new UiSelector().resourceId("search-landing-search-input")'
+                '.childSelector(new UiSelector().className("android.widget.EditText"))'
+            ),
         )
         self._search_button = Element(
             AppiumBy.ANDROID_UIAUTOMATOR,

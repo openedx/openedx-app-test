@@ -18,6 +18,7 @@ from tests.common.globals import Globals
 @allure.epic("Accounts")
 @allure.feature("Registration")
 @allure.story("Registration with email and password")
+@allure.suite("SMOKE")
 @allure.link("https://2u-internal.atlassian.net/browse/LEARNER-10485", name="LEARNER-10485")
 @pytest.mark.ANDROID
 @pytest.mark.ANDROID_SMOKE

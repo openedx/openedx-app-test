@@ -48,6 +48,10 @@ class AndroidBasePage:
         self._edx_feedback_google_form_title = Element(
             AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("edX Mobile Apps Feedback")'
         )
+        self._ai_assistant_dismiss_button = Element(
+            AppiumBy.ANDROID_UIAUTOMATOR,
+            'new UiSelector().text("Close proactive message")',
+        )
 
     @property
     def sb_search_field(self) -> Element:
@@ -150,6 +154,16 @@ class AndroidBasePage:
         """
 
         return self._edx_feedback_google_form_title
+
+    @property
+    def ai_assistant_dismiss_button(self) -> Element:
+        """Get dismiss button
+
+        Returns:
+            Element: dismiss button
+        """
+
+        return self._ai_assistant_dismiss_button
 
     def find_by_text_on_screen(self, text: str, raise_error: bool = True) -> Element:
         """Find element by text.

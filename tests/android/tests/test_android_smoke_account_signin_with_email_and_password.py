@@ -16,6 +16,8 @@ from tests.common.globals import Globals
 @allure.epic("Accounts")
 @allure.feature("Sign In")
 @allure.story("Sign In with email and password")
+@allure.suite("SMOKE")
+@allure.link("https://2u-internal.atlassian.net/browse/LEARNER-10490", name="LEARNER-10490")
 @pytest.mark.ANDROID
 @pytest.mark.ANDROID_SMOKE
 class TestAccountSignInWithEmailAndPassword:
