@@ -11,3 +11,4 @@ builds
 .vscode/
 edx-env/
 allure-results
+allure-report

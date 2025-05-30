@@ -12,7 +12,9 @@ from tests.common import utils, values
 
 
 @allure.epic("Accounts")
+@allure.feature("Account Recovery")
 @allure.story("Forgot password")
+@allure.suite("SMOKE")
 @pytest.mark.ANDROID
 @pytest.mark.ANDROID_SMOKE
 class TestAndroidForgotPassword:

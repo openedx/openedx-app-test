@@ -14,8 +14,9 @@ from tests.common.globals import Globals
 
 
 @allure.epic("Accounts")
-@allure.feature("Sign In")
-@allure.story("edit profile")
+@allure.feature("Settings")
+@allure.story("Settings Screen")
+@allure.suite("REGRESSION")
 @pytest.mark.ANDROID
 @pytest.mark.ANDROID_REGRESSION
 class TestRegressionSettingsScreen:

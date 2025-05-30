@@ -16,6 +16,7 @@ from tests.common.globals import Globals
 @allure.epic("Accounts")
 @allure.feature("Sign In")
 @allure.story("Sign In with email and password")
+@allure.suite("SMOKE")
 @pytest.mark.ANDROID
 @pytest.mark.ANDROID_SMOKE
 class TestAccountSignInWithEmailAndPassword:
