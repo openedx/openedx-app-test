@@ -15,7 +15,6 @@ from tests.common import utils, values
 @allure.feature("Account Recovery")
 @allure.story("Forgot password")
 @allure.suite("SMOKE")
-@allure.link("https://2u-internal.atlassian.net/browse/LEARNER-10515", name="LEARNER-10515")
 @pytest.mark.ANDROID
 @pytest.mark.ANDROID_SMOKE
 class TestAndroidForgotPassword:

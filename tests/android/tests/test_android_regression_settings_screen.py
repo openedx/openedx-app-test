@@ -16,7 +16,6 @@ from tests.common.globals import Globals
 @allure.epic("Accounts")
 @allure.feature("Settings")
 @allure.story("Settings Screen")
-@allure.link("https://2u-internal.atlassian.net/browse/LEARNER-10545", name="LEARNER-10545")
 @allure.suite("REGRESSION")
 @pytest.mark.ANDROID
 @pytest.mark.ANDROID_REGRESSION

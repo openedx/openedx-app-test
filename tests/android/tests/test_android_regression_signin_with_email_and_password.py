@@ -18,7 +18,6 @@ from tests.common.globals import Globals
 @allure.epic("Accounts")
 @allure.feature("Sign In")
 @allure.story("Sign In with email and password")
-@allure.link("https://2u-internal.atlassian.net/browse/LEARNER-10489", name="LEARNER-10489")
 @allure.suite("REGRESSION")
 @pytest.mark.ANDROID
 @pytest.mark.ANDROID_REGRESSION
