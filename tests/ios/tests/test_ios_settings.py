@@ -1,14 +1,18 @@
 """
 Settings Screen Test Module
 """
+
+import pytest
+
 from framework import expect, Element
-from tests.common.enums import ElementAttribute
-from tests.conftest import ios_login
+from tests.common.enums import ElementAttribute, ScrollDirections
+from tests.ios.pages.ios_main_dashboard import IosMainDashboard
 from tests.ios.pages.ios_profile import IosProfile
 from tests.common import values
 from tests.common.globals import Globals
 
 
+@pytest.mark.IOS
 class TestIosSettings:
     """
     Settings screen's Test Case
@@ -28,25 +32,40 @@ class TestIosSettings:
         Element.set_driver(ios_login)
         Element.set_logger(setup_logging)
         ios_profile = IosProfile()
+        main_dashboard = IosMainDashboard()
+        global_contents = Globals(setup_logging)
 
+        main_dashboard.profile_tab.click()
         expect(ios_profile.navigation_bar_title).to_have(values.PROFILE_SCREEN_TITLE, ElementAttribute.NAME)
-        assert ios_profile.profile_img_profile.exists()
-        expect(ios_profile.profile_user_name_text).to_have(values.PROFILE_NAME_TEXT)
-        expect(ios_profile.profile_user_username_text).to_have(values.PROFILE_USERNAME_TEXT)
-        expect(ios_profile.profile_settings_button).to_have(values.PROFILE_SETTINGS_TEXT)
-        assert ios_profile.profile_settings_button.click()
-        expect(ios_profile.get_profile_settings_text).to_have(values.PROFILE_SETTINGS_UPPER_TEXT)
-        expect(ios_profile.get_profile_manage_account_label).to_have(values.PROFILE_MANAGE_ACCOUNT)
-        expect(ios_profile.get_profile_video_settings_button).to_have(values.PROFILE_VIDEO_SETTINGS)
-        expect(ios_profile.get_profile_support_info_text).to_have(values.PROFILE_SUPPORT_INFO)
-        expect(ios_profile.get_profile_tos_text).to_have(values.PROFILE_TERMS_OF_USE)
-        expect(ios_profile.get_profile_privacy_policy).to_have(values.PROFILE_PRIVACY_POLICY, case='lower')
-        expect(ios_profile.get_profile_cookies_policy).to_have(values.PROFILE_COOKIE_POLICY, case='lower')
-        expect(ios_profile.get_profile_dont_sell_data).to_have(values.PROFILE_PERSONAL_INFO)
-        expect(ios_profile.get_profile_contact_support).to_have(values.PROFILE_CONTACT_SUPPORT, case='lower')
-        expect(ios_profile.get_profile_view_faq).to_have(values.PROFILE_FAQ)
-        expect(ios_profile.get_profile_version_info).to_have(values.IOS_APP_VERSION)
-        expect(ios_profile.get_profile_logout_button).to_have(values.PROFILE_LOGOUT_BUTTON, case='lower')
+        expect(ios_profile.profile_img_profile).to_exist()
+        expect(ios_profile.profile_user_name_text).to_have(values.PROFILE_NAME_TEXT, ElementAttribute.LABEL)
+        expect(ios_profile.profile_user_username_text).to_have(values.PROFILE_USERNAME_TEXT, ElementAttribute.LABEL)
+        expect(ios_profile.profile_settings_button).to_have(values.PROFILE_SETTINGS_TEXT, ElementAttribute.LABEL)
+        ios_profile.profile_settings_button.click()
+        expect(ios_profile.get_profile_settings_text).to_have(
+            values.PROFILE_SETTINGS_UPPER_TEXT, ElementAttribute.LABEL
+        )
+        expect(ios_profile.profile_manage_account_label).to_have(values.PROFILE_MANAGE_ACCOUNT, ElementAttribute.LABEL)
+        expect(ios_profile.get_profile_video_settings_button).to_have(
+            values.PROFILE_VIDEO_SETTINGS, ElementAttribute.LABEL
+        )
+        expect(ios_profile.get_profile_support_info_text).to_have(values.PROFILE_SUPPORT_INFO, ElementAttribute.LABEL)
+        Element.swipe_vertical_full_page()
+        Element.swipe_vertical_full_page()
+        expect(ios_profile.get_profile_tos_text).to_have(values.PROFILE_TERMS_OF_USE, ElementAttribute.LABEL)
+        expect(ios_profile.get_profile_privacy_policy).to_have(
+            values.PROFILE_PRIVACY_POLICY, ElementAttribute.LABEL, case="lower"
+        )
+        expect(ios_profile.get_profile_cookies_policy).to_have(
+            values.PROFILE_COOKIE_POLICY, ElementAttribute.LABEL, case="lower"
+        )
+        expect(ios_profile.get_profile_dont_sell_data).to_have(values.PROFILE_PERSONAL_INFO, ElementAttribute.LABEL)
+        expect(ios_profile.get_profile_contact_support).to_have(
+            values.PROFILE_CONTACT_SUPPORT, ElementAttribute.LABEL, case="lower"
+        )
+        expect(ios_profile.get_profile_view_faq).to_have(values.PROFILE_FAQ, ElementAttribute.LABEL)
+        ios_profile.verify_app_version(global_contents.app_version)
+        expect(ios_profile.get_profile_logout_button).to_have(values.PROFILE_LOGOUT_BUTTON_IOS, ElementAttribute.LABEL)
 
     def test_load_manage_account(self, set_capabilities, setup_logging):
         """
@@ -58,14 +77,15 @@ class TestIosSettings:
         Element.set_driver(set_capabilities)
         Element.set_logger(setup_logging)
         ios_profile = IosProfile()
-        manage_account = ios_profile.get_profile_manage_account_label
-        expect(manage_account).to_have(values.PROFILE_MANAGE_ACCOUNT)
-        assert manage_account.click()
-        assert ios_profile.get_profile_manage_account_label.exists()
-        manage_account_title = ios_profile.get_manage_account_title
-        expect(manage_account_title).to_have(values.PROFILE_MANAGE_ACCOUNT)
-        assert ios_profile.back_navigation_button.click()
-        expect(ios_profile.get_profile_manage_account_label).to_have(values.PROFILE_MANAGE_ACCOUNT)
+        Element.swipe_vertical_full_page(ScrollDirections.DOWN)
+        if not ios_profile.profile_manage_account_label.exists(raise_exception=False):
+            Element.swipe_vertical_full_page(ScrollDirections.DOWN)
+        expect(ios_profile.profile_manage_account_label).to_have(values.PROFILE_MANAGE_ACCOUNT, ElementAttribute.LABEL)
+        ios_profile.profile_manage_account_label.click()
+        expect(ios_profile.profile_manage_account_title).to_exist()
+        expect(ios_profile.profile_manage_account_title).to_have(values.PROFILE_MANAGE_ACCOUNT, ElementAttribute.LABEL)
+        ios_profile.back_navigation_button.click()
+        expect(ios_profile.profile_manage_account_label).to_have(values.PROFILE_MANAGE_ACCOUNT, ElementAttribute.LABEL)
 
     def test_load_video_settings(self, set_capabilities, setup_logging):
         """
@@ -107,9 +127,9 @@ class TestIosSettings:
         ios_profile = IosProfile()
         global_contents = Globals(setup_logging)
 
+        Element.swipe_vertical_full_page()
         terms_of_use = ios_profile.get_profile_tos_text
         expect(terms_of_use).to_have(values.PROFILE_TERMS_OF_USE)
-        terms_of_use.scroll_vertically_from_element()
         assert terms_of_use.click()
         expect(ios_profile.screen_heading_title).to_have(values.PROFILE_TERMS_OF_USE)
         assert ios_profile.back_navigation_button.click()

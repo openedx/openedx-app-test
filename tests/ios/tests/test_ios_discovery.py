@@ -2,6 +2,8 @@
 Discovery Screen Test Module
 """
 
+import pytest
+
 from framework import expect, Element
 from tests.common.enums import ElementAttribute
 
@@ -16,6 +18,7 @@ from tests.ios.pages.ios_main_dashboard import IosMainDashboard
 from tests.ios.pages.ios_whats_new import IosWhatsNew
 
 
+@pytest.mark.IOS
 class TestIosDiscovery:
     """
     Discovery screen's Test Case
@@ -202,23 +205,17 @@ class TestIosDiscovery:
         assert signin_button.click()
 
         expect(ios_login.username_text_field_placeholder).to_have(values.EMAIL_OR_USERNAME_IOS)
-        assert ios_login.username_textfield.send_keys(global_contents.login_user_name)
+        assert ios_login.username_textfield.send_keys(global_contents.login_user_name + "\n")
 
-        password_title = ios_login.password_textfield
         expect(ios_login.password_text_field_label).to_have(values.PASSWORD)
-        assert password_title.click()
-        password_field = ios_login.password_textfield
-        expect(password_field).to_have(values.PASSWORD, ElementAttribute.VALUE)
-        assert password_field.send_keys(global_contents.login_password)
-        assert password_title.click()
+        ios_login.password_textfield.send_keys(global_contents.login_password + "\n")
         sign_in_button = ios_login.signin_button
         expect(ios_login.signin_button).to_have(values.LOGIN)
-        assert sign_in_button.click()
+        sign_in_button.click()
         setup_logging.info(f"{global_contents.login_user_name} is successfully logged in")
 
-        if global_contents.whats_new_enable:
-            expect(whats_new_page.navigate_features()).to_have("Done")
-            assert whats_new_page.whats_new_next_button.click()
+        if whats_new_page.whats_new_next_button.exists(raise_exception=False):
+            whats_new_page.close_button.click()
 
     def test_enroll_course_smoke(self, set_capabilities, setup_logging):
         """

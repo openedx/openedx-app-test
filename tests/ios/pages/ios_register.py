@@ -5,6 +5,7 @@ Login Page Module
 from appium.webdriver.common.appiumby import AppiumBy
 
 from framework import Element
+from tests.common.enums.general_enums import GenderOptions, EducationLevel
 from tests.ios.pages.ios_base_page import IosBasePage
 
 
@@ -18,34 +19,46 @@ class IosRegister(IosBasePage):
         self._signin_password_text_field = Element(AppiumBy.ACCESSIBILITY_ID, "password_textfield")
         self._password_field = Element(AppiumBy.CLASS_NAME, "XCUIElementTypeSecureTextField")
         self._signin_social_auth_title_text = Element(AppiumBy.ACCESSIBILITY_ID, "social_auth_title_text")
-        self._register_name_text = Element(AppiumBy.ACCESSIBILITY_ID, "name_text")
-        self._register_name_textfield = Element(AppiumBy.ACCESSIBILITY_ID, "name_textfield")
-        self._register_name_instructions_text = Element(AppiumBy.ACCESSIBILITY_ID, "name_instructions_text")
-        self._register_username_textfield = Element(AppiumBy.ACCESSIBILITY_ID, "username_textfield")
-        self._register_email_textfield = Element(AppiumBy.ACCESSIBILITY_ID, "email_textfield")
-        self._register_password_textfield = Element(AppiumBy.ACCESSIBILITY_ID, "password_textfield")
-        self._register_password_text = Element(AppiumBy.ACCESSIBILITY_ID, "password_text")
-        self._register_email_instructions_text = Element(AppiumBy.ACCESSIBILITY_ID, "email_instructions_text")
-        self._register_country_text = Element(AppiumBy.ACCESSIBILITY_ID, "country_text")
-        self._register_country_picker_button = Element(AppiumBy.ACCESSIBILITY_ID, "country_picker_button")
-        self._create_account_button = Element(AppiumBy.ACCESSIBILITY_ID, "signup_button")
+        self._name_text_field_label = Element(AppiumBy.ACCESSIBILITY_ID, "name_text")
+        self._name_text_field = Element(AppiumBy.ACCESSIBILITY_ID, "name_textfield")
+        self._name_text_field_instructions_text = Element(AppiumBy.ACCESSIBILITY_ID, "name_instructions_text")
+        self._username_text_field_label = Element(AppiumBy.ACCESSIBILITY_ID, "username_text")
+        self._username_text_field = Element(AppiumBy.ACCESSIBILITY_ID, "username_textfield")
+        self._username_text_field_instructions_text = Element(AppiumBy.NAME, "username_instructions_text")
+        self._email_text_field_label = Element(AppiumBy.NAME, "email_text")
+        self._email_text_field = Element(AppiumBy.ACCESSIBILITY_ID, "email_textfield")
+        self._email_text_field_instructions_text = Element(AppiumBy.ACCESSIBILITY_ID, "email_instructions_text")
+        self._password_text_field_label = Element(AppiumBy.ACCESSIBILITY_ID, "password_text")
+        self._password_secure_text_field = Element(
+            AppiumBy.IOS_CLASS_CHAIN, "**/XCUIElementTypeSecureTextField[`name == 'password_textfield'`]"
+        )
+        self._password_text_field_instructions_text = Element(AppiumBy.NAME, "password_instructions_text")
+        self._country_text_field_label = Element(AppiumBy.ACCESSIBILITY_ID, "country_text")
+        self._country_picker_button = Element(AppiumBy.ACCESSIBILITY_ID, "country_picker_button")
+        self._country_picker_instructions_text = Element(AppiumBy.NAME, "country_instructions_text")
+        self._create_account_button = Element(AppiumBy.ACCESSIBILITY_ID, "Create account")
         self._register_screen_heading = Element(AppiumBy.ACCESSIBILITY_ID, "register_text")
         self._register_signup_text = Element(AppiumBy.ACCESSIBILITY_ID, "signup_text")
         self._signup_subtitle_text = Element(AppiumBy.ACCESSIBILITY_ID, "signup_subtitle_text")
-        self._register_username_text = Element(AppiumBy.ACCESSIBILITY_ID, "username_text")
-        self._register_country_picker_title = Element(AppiumBy.ACCESSIBILITY_ID, "picker_title_text")
-        self._picker_search_textfield = Element(
-            AppiumBy.IOS_CLASS_CHAIN, '**/XCUIElementTypeTextField[`name == "picker_search_textfield"`]'
+        self._country_picker_title_label = Element(AppiumBy.ACCESSIBILITY_ID, "picker_title_text")
+        self._picker_accept_button = Element(AppiumBy.NAME, "picker_accept_button")
+        self._optional_fields_toggle_button = Element(AppiumBy.NAME, "optional_fields_text")
+        self._highest_level_of_education_field_label = Element(AppiumBy.ACCESSIBILITY_ID, "level_of_education_text")
+        self._highest_level_of_education_picker_button = Element(
+            AppiumBy.ACCESSIBILITY_ID, "level_of_education_picker_button"
         )
-        self._register_picker_accept_button = Element(AppiumBy.NAME, "picker_accept_button")
-        self._register_password_instructions_text = Element(AppiumBy.NAME, "password_instructions_text")
-        self._register_country_instructions_text = Element(AppiumBy.NAME, "country_instructions_text")
-        self._register_show_optional_fields = Element(AppiumBy.NAME, "optional_fields_text")
-        self._register_username_instructions_text = Element(AppiumBy.NAME, "username_instructions_text")
-        self._register_email_text = Element(AppiumBy.NAME, "email_text")
+        self._gender_field_label = Element(AppiumBy.ACCESSIBILITY_ID, "gender_text")
+        self._gender_picker_button = Element(AppiumBy.ACCESSIBILITY_ID, "gender_picker_button")
+        self._gender_male_option = Element(AppiumBy.ACCESSIBILITY_ID, "gender_male_option")
+        self._gender_female_option = Element(AppiumBy.ACCESSIBILITY_ID, "gender_female_option")
+        self._gender_other_option = Element(AppiumBy.ACCESSIBILITY_ID, "gender_other_option")
         self._register_screen_title = Element(AppiumBy.ACCESSIBILITY_ID, "register_text")
         self._marketing_checkbox_selected = Element(AppiumBy.ACCESSIBILITY_ID, "checkmark.square.fill")
         self._marketing_checkbox_unselected = Element(AppiumBy.ACCESSIBILITY_ID, "square")
+        self._signin_social_auth_google_button = Element(AppiumBy.ACCESSIBILITY_ID, "social_auth_google_button")
+        self._signin_social_auth_facebook_button = Element(AppiumBy.ACCESSIBILITY_ID, "social_auth_facebook_button")
+        self._signin_social_auth_microsoft_button = Element(AppiumBy.ACCESSIBILITY_ID, "social_auth_microsoft_button")
+        self._signin_social_auth_apple_button = Element(AppiumBy.ACCESSIBILITY_ID, "social_auth_apple_button")
 
     @property
     def get_register_screen_heading(self) -> Element:
@@ -92,7 +105,7 @@ class IosRegister(IosBasePage):
         return self._signup_subtitle_text
 
     @property
-    def get_name_text(self) -> Element:
+    def name_text_field_label(self) -> Element:
         """
         Get name text
 
@@ -100,10 +113,10 @@ class IosRegister(IosBasePage):
             webdriver element: name text element
         """
 
-        return self._register_name_text
+        return self._name_text_field_label
 
     @property
-    def get_name_textfield(self) -> Element:
+    def name_text_field(self) -> Element:
         """
         Get name textfield
 
@@ -111,10 +124,10 @@ class IosRegister(IosBasePage):
             webdriver element: name textfield element
         """
 
-        return self._register_name_textfield
+        return self._name_text_field
 
     @property
-    def get_name_instructions_text(self) -> Element:
+    def name_instructions_text(self) -> Element:
         """
         Get name instructions text
 
@@ -122,10 +135,10 @@ class IosRegister(IosBasePage):
             webdriver element: name instructions text element
         """
 
-        return self._register_name_instructions_text
+        return self._name_text_field_instructions_text
 
     @property
-    def get_username_text(self) -> Element:
+    def username_text_field_label(self) -> Element:
         """
         Get username text
 
@@ -133,10 +146,10 @@ class IosRegister(IosBasePage):
             webdriver element: username text element
         """
 
-        return self._register_username_text
+        return self._username_text_field_label
 
     @property
-    def get_username_textfield(self) -> Element:
+    def username_text_field(self) -> Element:
         """
         Get username textfield
 
@@ -144,10 +157,10 @@ class IosRegister(IosBasePage):
             webdriver element: username textfield element
         """
 
-        return self._register_username_textfield
+        return self._username_text_field
 
     @property
-    def get_username_instructions_text(self) -> Element:
+    def username_instructions_text(self) -> Element:
         """
         Get username instructions text
 
@@ -155,10 +168,10 @@ class IosRegister(IosBasePage):
             webdriver element: username instructions text element
         """
 
-        return self._register_username_instructions_text
+        return self._username_text_field_instructions_text
 
     @property
-    def get_email_text(self) -> Element:
+    def email_text_field_label(self) -> Element:
         """
         Get email text
 
@@ -166,10 +179,10 @@ class IosRegister(IosBasePage):
             webdriver element: email text element
         """
 
-        return self._register_email_text
+        return self._email_text_field_label
 
     @property
-    def get_email_textfield(self) -> Element:
+    def email_text_field(self) -> Element:
         """
         Get email textfield
 
@@ -177,10 +190,10 @@ class IosRegister(IosBasePage):
             webdriver element: email textfield element
         """
 
-        return self._register_email_textfield
+        return self._email_text_field
 
     @property
-    def get_email_instructions_text(self) -> Element:
+    def email_instructions_text(self) -> Element:
         """
         Get email instructions text
 
@@ -188,10 +201,10 @@ class IosRegister(IosBasePage):
             webdriver element: email instructions text element
         """
 
-        return self._register_email_instructions_text
+        return self._email_text_field_instructions_text
 
     @property
-    def get_password_text(self) -> Element:
+    def password_text_field_label(self) -> Element:
         """
         Get password text
 
@@ -199,10 +212,10 @@ class IosRegister(IosBasePage):
             webdriver element: password text element
         """
 
-        return self._register_password_text
+        return self._password_text_field_label
 
     @property
-    def get_password_textfield(self) -> Element:
+    def password_text_field(self) -> Element:
         """
         Get password textfield
 
@@ -210,10 +223,10 @@ class IosRegister(IosBasePage):
             webdriver element: password textfield element
         """
 
-        return self._register_password_textfield
+        return self._password_secure_text_field
 
     @property
-    def get_password_instructions_text(self) -> Element:
+    def password_instructions_text(self) -> Element:
         """
         Get password instructions text
 
@@ -221,10 +234,10 @@ class IosRegister(IosBasePage):
             webdriver element: password instructions text element
         """
 
-        return self._register_password_instructions_text
+        return self._password_text_field_instructions_text
 
     @property
-    def get_country_text(self) -> Element:
+    def country_text_field_label(self) -> Element:
         """
         Get country text
 
@@ -232,10 +245,10 @@ class IosRegister(IosBasePage):
             webdriver element: country text element
         """
 
-        return self._register_country_text
+        return self._country_text_field_label
 
     @property
-    def get_country_textfield(self):
+    def country_picker_button(self):
         """
         Get country textfield
 
@@ -243,10 +256,10 @@ class IosRegister(IosBasePage):
             webdriver element: country textfield element
         """
 
-        return self._register_country_picker_button
+        return self._country_picker_button
 
     @property
-    def get_country_instructions_text(self) -> Element:
+    def country_instructions_text(self) -> Element:
         """
         Get country instructions text
 
@@ -254,18 +267,19 @@ class IosRegister(IosBasePage):
             webdriver element: country instructions text element
         """
 
-        return self._register_country_instructions_text
+        return self._country_picker_instructions_text
 
     @property
-    def get_show_optional_fields(self):
+    def optional_fields_toggle_buttons(self):
         """
         Get show optional fields
+
 
         Returns:
             webdriver element: show optional fields element
         """
 
-        return self._register_show_optional_fields
+        return self._optional_fields_toggle_button
 
     @property
     def create_account_button(self) -> Element:
@@ -290,15 +304,47 @@ class IosRegister(IosBasePage):
         return self._signin_social_auth_title_text
 
     @property
-    def select_country(self) -> Element:
+    def social_auth_google_button(self) -> Element:
         """
-        Get country spinner
+        Get social auth google button text
 
         Returns:
-            webdriver elements: country search field
+            Element: signin social auth google button
         """
 
-        return self._picker_search_textfield
+        return self._signin_social_auth_google_button
+
+    @property
+    def social_auth_facebook_button(self) -> Element:
+        """
+        Get social auth facebook button text
+
+        Returns:
+            Element: signin social auth facebook button
+        """
+
+        return self._signin_social_auth_facebook_button
+
+    @property
+    def social_auth_microsoft_button(self) -> Element:
+        """
+        Get social auth microsoft button text
+
+        Returns:
+            Element: signin social auth microsoft button
+        """
+        return self._signin_social_auth_microsoft_button
+
+    @property
+    def social_auth_apple_button(self) -> Element:
+        """
+        Get social auth apple button text
+
+        Returns:
+            Element: signin social auth apple button
+        """
+
+        return self._signin_social_auth_apple_button
 
     @property
     def get_picker_accept_button(self):
@@ -309,18 +355,7 @@ class IosRegister(IosBasePage):
             webdriver elements: picker accept button
         """
 
-        return self._register_picker_accept_button
-
-    @property
-    def get_picker_title_text(self) -> Element:
-        """
-        Get picker title text
-
-        Returns:
-            webdriver elements: picker title text
-        """
-
-        return self._register_country_picker_title
+        return self._picker_accept_button
 
     @property
     def register_screen_title(self):
@@ -352,3 +387,59 @@ class IosRegister(IosBasePage):
             Element: marketing checkbox unselected element
         """
         return self._marketing_checkbox_unselected
+
+    @property
+    def highest_level_of_education_label(self):
+        """
+        highest level of education
+
+        Returns:
+            Element: highest level of education label element
+        """
+        return self._highest_level_of_education_field_label
+
+    @property
+    def gender_picker_button(self):
+        """
+        gender picker button
+
+        Returns:
+            Element: gender picker button element
+        """
+        return self._gender_picker_button
+
+    @property
+    def gender_field_label(self) -> Element:
+        """
+        Get gender field label
+
+        Returns:
+            Element: gender field label element
+        """
+        return self._gender_field_label
+
+    @property
+    def highest_level_of_education_picker_button(self) -> Element:
+        """
+        highest level of education picker button
+
+        Returns:
+            Element: highest level of education picker button element
+        """
+        return self._highest_level_of_education_picker_button
+
+    def search_and_verify_gender_option_exists(self, gender_option: GenderOptions):
+        """Search and verify gender option exists
+
+        Args:
+            gender_option(GenderOptions): gender option to search for
+        """
+        self.search_and_verify_option_exists(gender_option)
+
+    def search_and_verify_education_level_exists(self, education_level: EducationLevel):
+        """Search and verify education level exists
+
+        Args:
+            education_level(EducationLevel): education option to search for
+        """
+        self.search_and_verify_option_exists(education_level)

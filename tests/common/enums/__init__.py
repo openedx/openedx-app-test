@@ -4,6 +4,6 @@ such as attributes and platform-specific views.
 """
 
 from .attributes import ElementAttribute
-from .general_enums import ScrollDirections, IosClassViews, TargetPlatform
+from .general_enums import ScrollDirections, IosClassViews, TargetPlatform, GenderOptions
 
-__all__ = ["ElementAttribute", "ScrollDirections", "IosClassViews", "TargetPlatform"]
+__all__ = ["ElementAttribute", "ScrollDirections", "IosClassViews", "TargetPlatform", "GenderOptions"]

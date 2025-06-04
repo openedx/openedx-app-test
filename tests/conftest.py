@@ -279,7 +279,7 @@ def ios_login(set_capabilities, setup_logging):
     main_dashboard = IosMainDashboard()
 
     log.info("Login screen successfully loaded")
-    if ios_landing.allow_notifications_button:
+    if ios_landing.allow_notifications_button.exists(raise_exception=False):
         ios_landing.allow_notifications_button.click()
 
     sign_in_button = ios_landing.sign_in_button
@@ -288,18 +288,11 @@ def ios_login(set_capabilities, setup_logging):
     expect(ios_login.sign_in_title).to_have(values.LOGIN, ElementAttribute.LABEL)
 
     expect(ios_login.username_text_field_label).to_have(values.EMAIL_OR_USERNAME_IOS, ElementAttribute.LABEL)
-    assert ios_login.username_textfield.send_keys(global_contents.login_user_name)
-
-    password_title = ios_login.password_textfield
+    assert ios_login.username_textfield.send_keys(global_contents.login_user_name + "\n")
     expect(ios_login.password_text_field_label).to_have(values.PASSWORD, ElementAttribute.LABEL)
-    assert password_title.click()
-    password_field = ios_login.password_textfield
-    expect(password_field).to_have(values.PASSWORD, ElementAttribute.VALUE)
-    assert password_field.send_keys(global_contents.login_password)
-    assert password_title.click()
-    sign_in_button = ios_login.signin_button
+    assert ios_login.password_textfield.send_keys(global_contents.login_password + "\n")
     expect(ios_login.signin_button).to_have(values.LOGIN, ElementAttribute.LABEL)
-    assert sign_in_button.click()
+    ios_login.signin_button.click()
     setup_logging.info(f"{global_contents.login_user_name} is successfully logged in")
 
     if whats_new_page.whats_new_next_button.exists(raise_exception=False):
@@ -318,15 +311,17 @@ def ios_login(set_capabilities, setup_logging):
     ios_landing = IosLanding()
     main_dashboard = IosMainDashboard()
 
-    profile_tab = main_dashboard.profile_tab
-    assert profile_tab.click()
-    assert ios_profile.profile_settings_button.click()
+    if not ios_profile.get_profile_settings_text.exists(raise_exception=False):
+        profile_tab = main_dashboard.profile_tab
+        assert profile_tab.click()
+        assert ios_profile.profile_settings_button.click()
+    Element.swipe_vertical_full_page()
     Element.swipe_vertical_full_page()
     assert ios_profile.get_profile_logout_button.click()
     setup_logging.info("clicking log out")
     assert ios_profile.get_logout_button_from_prompt.click()
     setup_logging.info("log out successful")
-    expect(ios_landing.get_welcome_message).to_have(values.LANDING_MESSAGE, ElementAttribute.LABEL)
+    expect(ios_landing.welcome_message).to_have(values.LANDING_MESSAGE, ElementAttribute.LABEL)
 
 
 @pytest.hookimpl(hookwrapper=True)

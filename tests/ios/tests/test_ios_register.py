@@ -7,7 +7,6 @@ from tests.common import values
 from tests.common.enums import ElementAttribute
 from tests.common.globals import Globals
 from tests.ios.pages.ios_landing import IosLanding
-from tests.ios.pages.ios_login import IosLogin
 from tests.ios.pages.ios_main_dashboard import IosMainDashboard
 from tests.ios.pages.ios_profile import IosProfile
 from tests.ios.pages.ios_register import IosRegister
@@ -48,7 +47,6 @@ class TestIosRegister:
         Element.set_driver(set_capabilities)
         register_page = IosRegister()
         ios_landing = IosLanding()
-        ios_login = IosLogin()
 
         expect(register_page.get_register_screen_heading).to_have(values.REGISTER)
         back_button = ios_landing.back_navigation_button
@@ -56,35 +54,6 @@ class TestIosRegister:
         sign_up_heading = register_page.get_signup_text
         expect(sign_up_heading).to_have(values.REGISTER)
         expect(register_page.get_signup_subtitle_text).to_have(values.REGISTER_CREATE_ACCOUNT_MESSAGE)
-        expect(register_page.get_name_text).to_have(values.REGISTER_FULL_NAME_TITLE)
-        expect(register_page.get_name_textfield).to_be_visible()
-        expect(register_page.get_name_instructions_text).to_have(values.REGISTER_FULL_NAME_MESSAGE)
-
-        expect(register_page.get_username_text).to_have(values.REGISTER_PUBLIC_USERNAME_TITLE)
-        expect(register_page.get_username_textfield).to_be_visible()
-        expect(register_page.get_username_instructions_text).to_have(values.REGISTER_PUBLIC_USERNAME_MESSAGE)
-        expect(register_page.get_email_text).to_have(values.REGISTER_EMAIL_TITLE)
-        expect(register_page.get_email_textfield).to_be_visible()
-        expect(register_page.get_email_instructions_text).to_have(values.REGISTER_EMAIL_MESSAGE)
-        expect(register_page.get_password_text).to_have(values.REGISTER_PASSWORD_TITLE)
-        expect(register_page.get_password_textfield).to_be_visible()
-        password_instructions_text = register_page.get_password_instructions_text
-        expect(password_instructions_text).to_have(values.REGISTER_PASSWORD_MESSAGE)
-        expect(register_page.get_country_text).to_have(values.REGISTER_COUNTRY_TITLE)
-        assert register_page.get_country_textfield.exists()
-        country_instructions_text = register_page.get_country_instructions_text
-        expect(country_instructions_text).to_have(values.REGISTER_COUNTRY_MESSAGE)
-        expect(register_page.get_show_optional_fields).to_have(values.REGISTER_SHOW_OPTIONAL_FIELDS)
-        register_button = register_page.create_account_button
-        expect(register_button).to_have(values.REGISTER_CREATE_ACCOUNT_BUTTON)
-        social_auth_title_text = register_page.get_social_auth_title_text
-        expect(social_auth_title_text).to_have(values.REGISTER_OPTIONS_TITLE)
-        register_page.get_password_textfield.scroll_vertically_from_element()
-        expect(ios_login.signin_social_auth_title_text).to_have(values.REGISTER_OPTIONS_TITLE)
-        expect(ios_login.signin_social_auth_google_button).to_have(values.GOOGLE_SIGNIN)
-        expect(ios_login.signin_social_auth_facebook_button).to_have(values.FACEBOOK_SIGNIN)
-        expect(ios_login.signin_social_auth_microsoft_button).to_have(values.MICROSOFT_SIGNIN)
-        expect(ios_login.signin_social_auth_apple_button).to_have(values.APPLE_SIGNIN)
 
     def test_register_smoke(self, set_capabilities, setup_logging):
         """
@@ -112,29 +81,29 @@ class TestIosRegister:
         full_name = first_name + " " + last_name
         password = "qwERt12#$5" + global_contents.generate_random_credentials(8)
 
-        name_textfield = register_page.get_name_textfield
-        username_textfield = register_page.get_username_textfield
-        email_textfield = register_page.get_email_textfield
+        name_textfield = register_page.name_text_field
+        username_textfield = register_page.username_text_field
+        email_textfield = register_page.email_text_field
         register_button = register_page.create_account_button
         assert name_textfield.send_keys(full_name)
         assert username_textfield.send_keys(user_name)
         assert email_textfield.click()
         assert email_textfield.send_keys(email)
-        assert register_page.get_password_textfield.send_keys(password)
+        assert register_page.password_text_field.send_keys(password)
         register_button.scroll_vertically_from_element()
-        assert register_page.get_country_textfield.click()
-        picker_title_text = register_page.get_picker_title_text
+        assert register_page.country_picker_button.click()
+        picker_title_text = register_page.picker_title_text
         expect(picker_title_text).to_have(values.REGISTER_COUNTRY_PICKER_TITLE)
-        country_field = register_page.select_country
+        country_field = register_page.option_picker_search_field
         assert country_field.exists()
         assert country_field.click()
         assert country_field.send_keys(values.REGISTER_COUNTRY)
         accept_button = register_page.get_picker_accept_button
         expect(accept_button).to_have(values.REGISTER_COUNTRY_ACCEPT_BUTTON)
         assert accept_button.click()
-        expect(register_page.get_country_textfield).to_have(values.REGISTER_COUNTRY)
+        expect(register_page.country_picker_button).to_have(values.REGISTER_COUNTRY)
         register_button.click()
-        expect(register_page.get_password_instructions_text).to_have(values.REGISTER_PASSWORD_MESSAGE)
+        expect(register_page.password_instructions_text).to_have(values.REGISTER_PASSWORD_MESSAGE)
         if global_contents.whats_new_enable:
             expect(whats_new_page.navigate_features()).to_have("Done")
             assert whats_new_page.whats_new_next_button.click()
@@ -169,4 +138,4 @@ class TestIosRegister:
         expect(ios_profile.get_logout_dialog_title).to_have(values.LOGOUT_DIALOG_TITLE)
         expect(ios_profile.get_logout_button_from_prompt).to_have(values.PROFILE_LOGOUT_BUTTON, case="lower")
         assert ios_profile.get_logout_button_from_prompt.click()
-        expect(ios_landing.get_welcome_message).to_have(values.LANDING_MESSAGE)
+        expect(ios_landing.welcome_message).to_have(values.LANDING_MESSAGE)

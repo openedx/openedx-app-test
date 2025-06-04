@@ -5,7 +5,6 @@ iOS - SMOKE - Signin with Email and Password
 import allure
 import pytest
 
-from selenium.webdriver.common.keys import Keys
 from framework import expect, Element
 from tests.common import values
 from tests.common.enums import ElementAttribute
@@ -21,6 +20,7 @@ from tests.ios.pages.ios_whats_new import IosWhatsNew
 @allure.epic("Accounts")
 @allure.feature("Sign In")
 @allure.story("Sign In with email and password")
+@pytest.mark.IOS
 @pytest.mark.IOS_SMOKE
 class TestAccountSignInWithEmailAndPassword:
     """Test Account Sign In with Email and Password"""
@@ -52,11 +52,10 @@ class TestAccountSignInWithEmailAndPassword:
             expect(ios_login_page.sign_in_title).to_have(values.LOGIN, ElementAttribute.LABEL)
 
         with allure.step("Enter a valid email or username"):
-            ios_login_page.username_textfield.send_keys(global_contents.login_user_name)
+            ios_login_page.username_textfield.send_keys(global_contents.login_user_name + "\n")
 
         with allure.step("Enter a valid password"):
-            ios_login_page.password_textfield.send_keys(global_contents.login_password)
-            ios_login_page.password_textfield.send_keys(Keys.RETURN)
+            ios_login_page.password_textfield.send_keys(global_contents.login_password + "\n")
 
         with allure.step("Click on Sign in button"):
             ios_login_page.signin_button.click()
@@ -82,6 +81,7 @@ class TestAccountSignInWithEmailAndPassword:
             ios_profile_page.profile_settings_button.click()
 
         with allure.step("Click on log out button"):
+            Element.swipe_vertical_full_page()
             Element.swipe_vertical_full_page()
             ios_profile_page.get_profile_logout_button.click()
             logger.info("clicking log out")
