@@ -17,14 +17,14 @@ from tests.common.globals import Globals
 
 @allure.epic("Accounts")
 @allure.feature("Profile")
-@allure.story("edit profile")
+@allure.story("Edit profile")
 @pytest.mark.ANDROID
 @pytest.mark.ANDROID_SMOKE
 class TestSmokeProfileEditFunctionality:
     """Test smoke profile edit functionality"""
 
     def test_smoke_profile_edit_functionality(self, set_capabilities, setup_logging):
-        """"""
+        """Test smoke profile edit functionality"""
         Element.set_driver(set_capabilities)
         Element.set_logger(setup_logging)
         profile_page = AndroidProfile()
@@ -34,8 +34,6 @@ class TestSmokeProfileEditFunctionality:
         android_sign_in = AndroidSignIn()
         whats_new_page = AndroidWhatsNew()
         global_contents = Globals(setup_logging)
-
-        test_exception = None
 
         with allure.step("Click on Sign in button"):
             android_landing_page.load_signin_screen()
@@ -56,7 +54,7 @@ class TestSmokeProfileEditFunctionality:
         with allure.step("Goto Profile Tab"):
             main_dashboard_page.profile_tab.click()
 
-        with allure.step("verify username and Full name"):
+        with allure.step("Verify username and Full name"):
             expect(profile_page.profile_username).to_have(values.RTESTER_USERNAME_TEXT)
             expect(profile_page.profile_txt_name).to_have(values.RTESTER_NAME_TEXT)
             profile_page.profile_settings_about_me.exists()
@@ -106,11 +104,11 @@ class TestSmokeProfileEditFunctionality:
             edit_profile_page.about_me_input.click()
             edit_profile_page.about_me_input.send_keys("Automation Test")
 
-        with allure.step("click on image upload icon"):
+        with allure.step("Click on image upload icon"):
             edit_profile_page.get_edit_profile_user_image.click()
             expect(edit_profile_page.change_profile_image_title_label).to_have(values.CHANGE_PROFILE_IMAGE_TITLE_LABEL)
 
-        with allure.step("verify buttons appear on change profile image screen"):
+        with allure.step("Verify buttons appear on change profile image screen"):
             expect(edit_profile_page.remove_photo_button).to_exist()
             expect(edit_profile_page.ic_remove_photo).to_exist()
             expect(edit_profile_page.text_remove_photo).to_have("Remove photo")
@@ -121,49 +119,48 @@ class TestSmokeProfileEditFunctionality:
             expect(edit_profile_page.change_profile_image_cancel_button_text).to_have("Cancel")
             edit_profile_page.change_profile_image_cancel_button.click()
 
-        try:
-            with allure.step("click on Done button"):
-                edit_profile_page.done_button.click()
-                edit_profile_page.done_button.wait_to_disappear(timeout=5)
+        with allure.step("Click on Done button"):
+            edit_profile_page.done_button.click()
+            edit_profile_page.done_button.wait_to_disappear(timeout=5)
 
-            with allure.step("click on back button"):
-                edit_profile_page.back_navigation_button.click()
-                expect(profile_page.profile_settings_about_me_body).to_have("Automation Test")
+        with allure.step("Click on back button"):
+            edit_profile_page.back_navigation_button.click()
+            expect(profile_page.profile_settings_about_me_body).to_have("Automation Test")
 
-            with allure.step("click on edit profile button"):
+        with allure.step("Click on edit profile button"):
+            profile_page.edit_profile_button.click()
+            expect(edit_profile_page.profile_tf_select_location).to_have(values.CANADA)
+            expect(edit_profile_page.select_spoken_language).to_have(values.FRENCH)
+            expect(edit_profile_page.about_me_input).to_have("Automation Test")
+
+    def test_clean_up_and_set_original_values(self, set_capabilities, setup_logging):
+        """Clean up and restore original values"""
+
+        profile_page = AndroidProfile()
+        edit_profile_page = AndroidEditProfile()
+        Element.set_driver(set_capabilities)
+        Element.set_logger(setup_logging)
+
+        with allure.step("Change values to original"):
+            if profile_page.edit_profile_button.exists(raise_exception=False):
                 profile_page.edit_profile_button.click()
-                expect(edit_profile_page.profile_tf_select_location).to_have(values.CANADA)
-                expect(edit_profile_page.select_spoken_language).to_have(values.FRENCH)
-                expect(edit_profile_page.about_me_input).to_have("Automation Test")
+            edit_profile_page.profile_tf_select_location.click()
+            edit_profile_page.sb_search_field.send_keys(values.PROFILE_LOCATION_US)
+            country_opt_canada = Globals.get_country_by_resource_id(CountryAbbreviation.US)
+            expect(country_opt_canada).to_have(values.PROFILE_LOCATION_US)
+            country_opt_canada.click()
+            expect(edit_profile_page.profile_tf_select_location).to_have(values.PROFILE_LOCATION_US)
+            edit_profile_page.select_spoken_language.click()
+            edit_profile_page.sb_search_field.send_keys(values.ENGLISH)
+            language_opt_english = Globals.get_language_by_abbreviation(LanguageAbbreviation.EN)
+            expect(language_opt_english).to_have(values.ENGLISH)
+            language_opt_english.click()
+            expect(edit_profile_page.select_spoken_language).to_have(values.ENGLISH)
 
-        except Exception as exception:
-            test_exception = exception
-            setup_logging.info(f"Following exception occurred: {exception}")
-            setup_logging.info("Performing cleanup")
-        finally:
-            with allure.step("Change values to original"):
-                if profile_page.edit_profile_button.exists(raise_exception=False):
-                    profile_page.edit_profile_button.click()
-                edit_profile_page.profile_tf_select_location.click()
-                edit_profile_page.sb_search_field.send_keys(values.PROFILE_LOCATION_US)
-                country_opt_canada = Globals.get_country_by_resource_id(CountryAbbreviation.US)
-                expect(country_opt_canada).to_have(values.PROFILE_LOCATION_US)
-                country_opt_canada.click()
-                expect(edit_profile_page.profile_tf_select_location).to_have(values.PROFILE_LOCATION_US)
-                edit_profile_page.select_spoken_language.click()
-                edit_profile_page.sb_search_field.send_keys(values.ENGLISH)
-                language_opt_english = Globals.get_language_by_abbreviation(LanguageAbbreviation.EN)
-                expect(language_opt_english).to_have(values.ENGLISH)
-                language_opt_english.click()
-                expect(edit_profile_page.select_spoken_language).to_have(values.ENGLISH)
+            edit_profile_page.about_me_input.click()
+            edit_profile_page.about_me_input.send_keys(values.PROFILE_ABOUT_ME_TEXT)
+            edit_profile_page.done_button.click()
+            edit_profile_page.android_loading_circle.wait_to_disappear(20)
 
-                edit_profile_page.about_me_input.click()
-                edit_profile_page.about_me_input.send_keys(values.PROFILE_ABOUT_ME_TEXT)
-                edit_profile_page.done_button.click()
-                edit_profile_page.android_loading_circle.wait_to_disappear(20)
-
-            with allure.step("click on back button"):
-                edit_profile_page.back_navigation_button.click()
-
-            if test_exception:
-                raise test_exception
+        with allure.step("Click on back button"):
+            edit_profile_page.back_navigation_button.click()
