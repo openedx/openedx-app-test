@@ -38,8 +38,8 @@ class TestIosSettings:
         main_dashboard.profile_tab.click()
         expect(ios_profile.navigation_bar_title).to_have(values.PROFILE_SCREEN_TITLE, ElementAttribute.NAME)
         expect(ios_profile.profile_img_profile).to_exist()
-        expect(ios_profile.profile_user_name_text).to_have(values.PROFILE_NAME_TEXT, ElementAttribute.LABEL)
-        expect(ios_profile.profile_user_username_text).to_have(values.PROFILE_USERNAME_TEXT, ElementAttribute.LABEL)
+        expect(ios_profile.full_name_label).to_have(values.PROFILE_NAME_TEXT, ElementAttribute.LABEL)
+        expect(ios_profile.username_label).to_have(values.PROFILE_USERNAME_TEXT, ElementAttribute.LABEL)
         expect(ios_profile.profile_settings_button).to_have(values.PROFILE_SETTINGS_TEXT, ElementAttribute.LABEL)
         ios_profile.profile_settings_button.click()
         expect(ios_profile.get_profile_settings_text).to_have(
