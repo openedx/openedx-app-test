@@ -29,6 +29,8 @@ class IosBasePage:
             AppiumBy.IOS_CLASS_CHAIN, '**/XCUIElementTypeTextField[`name == "picker_search_textfield"`]'
         )
         self._static_text = Element(AppiumBy.CLASS_NAME, "XCUIElementTypeStaticText")
+        self._picker_accept_button = Element(AppiumBy.NAME, "picker_accept_button")
+        self._choose_button = Element(AppiumBy.ACCESSIBILITY_ID, "Choose")
 
     @property
     def static_text(self) -> Element:
@@ -125,6 +127,25 @@ class IosBasePage:
         """
 
         return self._picker_search_textfield
+
+    @property
+    def get_picker_accept_button(self) -> Element:
+        """
+        Get picker accept button
+
+        Returns:
+            Element: picker accept button
+        """
+
+        return self._picker_accept_button
+
+    @property
+    def img_picker_choose_button(self):
+        """image picker choose button
+
+        Element: picker accept button
+        """
+        return self._choose_button
 
     def search_and_verify_option_exists(self, option: Enum):
         """

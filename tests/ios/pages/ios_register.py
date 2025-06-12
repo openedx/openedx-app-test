@@ -41,7 +41,6 @@ class IosRegister(IosBasePage):
         self._register_signup_text = Element(AppiumBy.ACCESSIBILITY_ID, "signup_text")
         self._signup_subtitle_text = Element(AppiumBy.ACCESSIBILITY_ID, "signup_subtitle_text")
         self._country_picker_title_label = Element(AppiumBy.ACCESSIBILITY_ID, "picker_title_text")
-        self._picker_accept_button = Element(AppiumBy.NAME, "picker_accept_button")
         self._optional_fields_toggle_button = Element(AppiumBy.NAME, "optional_fields_text")
         self._highest_level_of_education_field_label = Element(AppiumBy.ACCESSIBILITY_ID, "level_of_education_text")
         self._highest_level_of_education_picker_button = Element(
@@ -345,17 +344,6 @@ class IosRegister(IosBasePage):
         """
 
         return self._signin_social_auth_apple_button
-
-    @property
-    def get_picker_accept_button(self):
-        """
-        Get picker accept button
-
-        Returns:
-            webdriver elements: picker accept button
-        """
-
-        return self._picker_accept_button
 
     @property
     def register_screen_title(self):

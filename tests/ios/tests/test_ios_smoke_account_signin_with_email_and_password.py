@@ -72,8 +72,8 @@ class TestAccountSignInWithEmailAndPassword:
             main_dashboard_page.profile_tab.click()
 
         with allure.step("verify username and Full name"):
-            expect(ios_profile_page.profile_user_name_text).to_have(values.PROFILE_NAME_TEXT, ElementAttribute.LABEL)
-            expect(ios_profile_page.profile_user_username_text).to_have(
+            expect(ios_profile_page.full_name_label).to_have(values.PROFILE_NAME_TEXT, ElementAttribute.LABEL)
+            expect(ios_profile_page.username_label).to_have(
                 f"@{global_contents.login_user_name}", ElementAttribute.LABEL
             )
 

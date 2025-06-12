@@ -342,8 +342,8 @@ class TestAccountRegistrationSignupWithEmailAndPassword:
             if whats_new_page.whats_new_next_button.exists(raise_exception=False):
                 whats_new_page.close_button.click()
             main_dashboard_page.profile_tab.click()
-            expect(ios_profile.profile_user_name_text).to_have(full_name, ElementAttribute.LABEL)
-            expect(ios_profile.profile_user_username_text).to_have(f"@{user_name}", ElementAttribute.LABEL)
+            expect(ios_profile.full_name_label).to_have(full_name, ElementAttribute.LABEL)
+            expect(ios_profile.username_label).to_have(f"@{user_name}", ElementAttribute.LABEL)
 
         with allure.step("Goto settings and logout"):
             ios_profile.profile_settings_button.click()
@@ -363,8 +363,8 @@ class TestAccountRegistrationSignupWithEmailAndPassword:
             ios_login.signin_button.click()
             main_dashboard_page.profile_tab.exists(timeout=20)
             main_dashboard_page.profile_tab.click()
-            expect(ios_profile.profile_user_name_text).to_have(full_name, ElementAttribute.LABEL)
-            expect(ios_profile.profile_user_username_text).to_have(f"@{user_name}", ElementAttribute.LABEL)
+            expect(ios_profile.full_name_label).to_have(full_name, ElementAttribute.LABEL)
+            expect(ios_profile.username_label).to_have(f"@{user_name}", ElementAttribute.LABEL)
 
         with allure.step("delete account"):
             ios_profile.profile_settings_button.click()
