@@ -607,3 +607,12 @@ class Globals:
         return Element(
             AppiumBy.ANDROID_UIAUTOMATOR, f'new UiSelector().resourceId("txt_{language_abbreviation.value}_title")'
         )
+
+    def execute_script(self, driver, command: str, args: dict):
+        """execute script using driver
+        Args:
+            driver (Webdriver): webdriver instance
+            command (str): a valid web driver command
+            args (dict): a json type dict of arguments needed by the command
+        """
+        driver.execute_script(command, args)

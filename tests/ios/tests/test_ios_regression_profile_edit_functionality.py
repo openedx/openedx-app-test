@@ -29,7 +29,7 @@ class TestProfileEditFunctionality:
 
     def test_upload_image_to_camera_roll(self, set_capabilities, setup_logging):
         """upload image as a pre-req"""
-
+        global_contents = Globals(setup_logging)
         driver = set_capabilities
         local_image_path = "tests/image-data/dummy-pfp-image.png"
 
@@ -41,8 +41,11 @@ class TestProfileEditFunctionality:
         with open(local_image_path, "rb") as f:
             image_data = base64.b64encode(f.read()).decode("utf-8")
 
+        command = "mobile: pushFile"
+        args = {"remotePath": remote_image_name, "payload": image_data}
+
         # Push the image to the Photos app
-        driver.execute_script("mobile: pushFile", {"remotePath": remote_image_name, "payload": image_data})
+        global_contents.execute_script(driver, command, args)
 
         setup_logging.info(f"Image '{remote_image_name}' pushed to simulator Camera Roll.")
 

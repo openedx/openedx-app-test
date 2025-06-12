@@ -34,7 +34,7 @@ class IosEditProfilePage(IosProfile):
         self._cancel_button = Element(AppiumBy.ACCESSIBILITY_ID, "cancel_button")
 
     @property
-    def screen_title(self):
+    def screen_title(self) -> Element:
         """Get screen title
 
         Returns:
@@ -43,7 +43,7 @@ class IosEditProfilePage(IosProfile):
         return self._screen_title
 
     @property
-    def done_button(self):
+    def done_button(self) -> Element:
         """Get done button
 
         Returns:
@@ -52,7 +52,7 @@ class IosEditProfilePage(IosProfile):
         return self._done_button
 
     @property
-    def profile_type_label(self):
+    def profile_type_label(self) -> Element:
         """Get profile type label
 
         Returns:
@@ -61,7 +61,7 @@ class IosEditProfilePage(IosProfile):
         return self._profile_type_label
 
     @property
-    def username_label(self):
+    def username_label(self) -> Element:
         """Get username label
 
         Returns:
@@ -70,7 +70,7 @@ class IosEditProfilePage(IosProfile):
         return self._username_label
 
     @property
-    def switch_profile_type_button(self):
+    def switch_profile_type_button(self) -> Element:
         """Get switch profile type button
 
         Returns:
@@ -79,7 +79,7 @@ class IosEditProfilePage(IosProfile):
         return self._switch_profile_type_button
 
     @property
-    def location_picker_label(self):
+    def location_picker_label(self) -> Element:
         """Get location field label
 
         Returns:
@@ -88,7 +88,7 @@ class IosEditProfilePage(IosProfile):
         return self._location_picker_label
 
     @property
-    def location_picker_button(self):
+    def location_picker_button(self) -> Element:
         """Get location picker button
 
         Returns:
@@ -97,7 +97,7 @@ class IosEditProfilePage(IosProfile):
         return self._location_picker_button
 
     @property
-    def spoken_language_picker_label(self):
+    def spoken_language_picker_label(self) -> Element:
         """Get spoken language field label
 
         Returns:
@@ -106,7 +106,7 @@ class IosEditProfilePage(IosProfile):
         return self._spoken_language_picker_label
 
     @property
-    def spoken_language_picker_button(self):
+    def spoken_language_picker_button(self) -> Element:
         """Get spoken language picker button
 
         Returns:
@@ -115,7 +115,7 @@ class IosEditProfilePage(IosProfile):
         return self._spoken_language_picker_button
 
     @property
-    def user_bio_label(self):
+    def user_bio_label(self) -> Element:
         """Get user bio label
 
         Returns:
@@ -124,7 +124,7 @@ class IosEditProfilePage(IosProfile):
         return self._user_bio_label
 
     @property
-    def user_bio_value(self):
+    def user_bio_value(self) -> Element:
         """Get user bio value
 
         Returns:
@@ -133,7 +133,7 @@ class IosEditProfilePage(IosProfile):
         return self._user_bio_value
 
     @property
-    def change_profile_img_button(self):
+    def change_profile_img_button(self) -> Element:
         """change profile img button
 
         Returns:
@@ -143,17 +143,17 @@ class IosEditProfilePage(IosProfile):
         return self._change_profile_img_button
 
     @property
-    def change_profile_img_title_label(self):
-        """change profile img button
+    def change_profile_img_title_label(self) -> Element:
+        """change profile img title label
 
         Returns:
-            Element: change profile img button
+            Element: change profile img title label
         """
 
         return self._change_profile_img_title_label
 
     @property
-    def remove_img_button(self):
+    def remove_img_button(self) -> Element:
         """remove img button
         Returns:
             Element: remove img button
@@ -162,7 +162,7 @@ class IosEditProfilePage(IosProfile):
         return self._remove_img_button
 
     @property
-    def ic_remove_img(self):
+    def ic_remove_img(self) -> Element:
         """icon remove img
 
         Returns:
@@ -172,7 +172,7 @@ class IosEditProfilePage(IosProfile):
         return self._ic_remove_img
 
     @property
-    def ic_select_img(self):
+    def ic_select_img(self) -> Element:
         """icon select img
 
         Returns:
@@ -182,7 +182,7 @@ class IosEditProfilePage(IosProfile):
         return self._ic_select_img
 
     @property
-    def select_img_button(self):
+    def select_img_button(self) -> Element:
         """select profile img button
 
         Returns:
@@ -192,11 +192,11 @@ class IosEditProfilePage(IosProfile):
         return self._select_img_button
 
     @property
-    def cancel_button(self):
+    def cancel_button(self) -> Element:
         """cancel button
 
         Returns:
-            Element: cancel button button
+            Element: cancel button
         """
 
         return self._cancel_button

@@ -130,8 +130,7 @@ class IosBasePage:
 
     @property
     def get_picker_accept_button(self) -> Element:
-        """
-        Get picker accept button
+        """picker accept button
 
         Returns:
             Element: picker accept button
@@ -140,10 +139,10 @@ class IosBasePage:
         return self._picker_accept_button
 
     @property
-    def img_picker_choose_button(self):
+    def img_picker_choose_button(self) -> Element:
         """image picker choose button
 
-        Element: picker accept button
+        Element: picker choose button
         """
         return self._choose_button
 
