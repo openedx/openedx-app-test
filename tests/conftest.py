@@ -30,6 +30,7 @@ from tests.ios.pages.ios_landing import IosLanding
 from tests.ios.pages.ios_login import IosLogin
 from tests.ios.pages.ios_main_dashboard import IosMainDashboard
 from tests.ios.pages.ios_profile import IosProfile
+from tests.ios.pages.ios_settings_page import IosSettings
 from tests.ios.pages.ios_whats_new import IosWhatsNew
 
 
@@ -301,8 +302,8 @@ def ios_login(set_capabilities, setup_logging):
 
     profile_tab = main_dashboard.profile_tab
     expect(profile_tab).to_have(values.MAIN_DASHBOARD_PROFILE_TAB, ElementAttribute.LABEL)
-    assert profile_tab.click()
-    assert main_dashboard.get_main_dashboard_learn_tab.click()
+    profile_tab.click()
+    main_dashboard.get_main_dashboard_learn_tab.click()
     expect(main_dashboard.get_main_dashboard_learn_tab).to_be_selected()
 
     yield set_capabilities
@@ -310,16 +311,16 @@ def ios_login(set_capabilities, setup_logging):
     ios_profile = IosProfile()
     ios_landing = IosLanding()
     main_dashboard = IosMainDashboard()
+    ios_settings = IosSettings()
 
-    if not ios_profile.get_profile_settings_text.exists(raise_exception=False):
-        profile_tab = main_dashboard.profile_tab
-        assert profile_tab.click()
-        assert ios_profile.profile_settings_button.click()
-    Element.swipe_vertical_full_page()
-    Element.swipe_vertical_full_page()
-    assert ios_profile.get_profile_logout_button.click()
+    if not ios_settings.screen_title.exists(raise_exception=False):
+        main_dashboard.profile_tab.click()
+        ios_profile.profile_settings_button.click()
+
+    ios_profile.profile_logout_button.scroll_and_find()
+    ios_profile.profile_logout_button.click()
     setup_logging.info("clicking log out")
-    assert ios_profile.get_logout_button_from_prompt.click()
+    ios_profile.get_logout_button_from_prompt.click()
     setup_logging.info("log out successful")
     expect(ios_landing.welcome_message).to_have(values.LANDING_MESSAGE, ElementAttribute.LABEL)
 
