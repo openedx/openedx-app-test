@@ -104,7 +104,7 @@ class TestAccountRegistrationSignupWithEmailAndPassword:
         with allure.step("Goto settings and logout"):
             ios_profile.profile_settings_button.click()
             Element.swipe_vertical_full_page()
-            ios_profile.get_profile_logout_button.click()
+            ios_profile.profile_logout_button.click()
             setup_logging.info("clicking log out")
             ios_profile.get_logout_button_from_prompt.click()
             setup_logging.info("log out successful")

@@ -49,7 +49,6 @@ class IosProfile(IosBasePage):
             AppiumBy.IOS_CLASS_CHAIN, "**/XCUIElementTypeStaticText[`name == 'manage_account_text'`]"
         )
         self._profile_dates_calendar_label = Element(AppiumBy.ACCESSIBILITY_ID, "Dates & Calendar")
-        self._profile_support_info_text = Element(AppiumBy.ACCESSIBILITY_ID, "support_info_text")
         self._profile_tos_text = Element(AppiumBy.NAME, "tos")
         self._manage_account_text = Element(AppiumBy.ACCESSIBILITY_ID, "manage_account_text")
         self._main_dashboard_profile_tab = Element(AppiumBy.ACCESSIBILITY_ID, "Profile")
@@ -217,17 +216,6 @@ class IosProfile(IosBasePage):
         return self._profile_dates_calendar_label
 
     @property
-    def get_profile_support_info_text(self) -> Element:
-        """
-        Get support info text
-
-        Returns:
-            webdriver element: Support info text element
-        """
-
-        return self._profile_support_info_text
-
-    @property
     def get_profile_tos_text(self) -> Element:
         """
         Get tos text
@@ -305,12 +293,11 @@ class IosProfile(IosBasePage):
         return self._version_info
 
     @property
-    def get_profile_logout_button(self) -> Element:
-        """
-        Get logout button
+    def profile_logout_button(self) -> Element:
+        """logout button
 
         Returns:
-            webdriver element: Logout button element
+            Element: Logout button element
         """
 
         return self._profile_logout_button

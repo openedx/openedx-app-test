@@ -172,8 +172,8 @@ class TestAccountSignInWithEmailAndPassword:
         with allure.step("Click on log out button"):
             Element.swipe_vertical_full_page()
             Element.swipe_vertical_full_page()
-            expect(ios_profile_page.get_profile_logout_button).to_have(values.LOG_OUT_TEXT, ElementAttribute.LABEL)
-            ios_profile_page.get_profile_logout_button.click()
+            expect(ios_profile_page.profile_logout_button).to_have(values.LOG_OUT_TEXT, ElementAttribute.LABEL)
+            ios_profile_page.profile_logout_button.click()
             logger.info("clicking log out")
 
         with allure.step("Click on Log out button on the confirmation prompt"):
@@ -218,8 +218,8 @@ class TestAccountSignInWithEmailAndPassword:
         with allure.step("Click on log out button"):
             Element.swipe_vertical_full_page()
             Element.swipe_vertical_full_page()
-            expect(ios_profile_page.get_profile_logout_button).to_have(values.LOG_OUT_TEXT, ElementAttribute.LABEL)
-            ios_profile_page.get_profile_logout_button.click()
+            expect(ios_profile_page.profile_logout_button).to_have(values.LOG_OUT_TEXT, ElementAttribute.LABEL)
+            ios_profile_page.profile_logout_button.click()
             logger.info("clicking log out")
 
         with allure.step("Click on Log out button on the confirmation prompt"):
