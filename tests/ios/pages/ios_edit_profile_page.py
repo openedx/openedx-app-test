@@ -12,6 +12,13 @@ from tests.ios.pages.ios_profile import IosProfile
 class IosEditProfilePage(IosProfile):
     """iOS Edit profile page"""
 
+    _instance = None
+
+    def __new__(cls):
+        if cls._instance is None:
+            cls._instance = super(IosEditProfilePage, cls).__new__(cls)
+        return cls._instance
+
     def __init__(self):
         super().__init__()
         self._screen_title = Element(AppiumBy.IOS_CLASS_CHAIN, "**/XCUIElementTypeStaticText[`name == 'Edit Profile'`]")

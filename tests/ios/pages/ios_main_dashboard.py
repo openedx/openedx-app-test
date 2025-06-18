@@ -1,5 +1,5 @@
 """
-    Main Dashboard Page Module
+Main Dashboard Page Module
 """
 
 from framework import Element
@@ -11,14 +11,22 @@ class IosMainDashboard(IosBasePage):
     """
     Main Dashboard screen
     """
+
+    _instance = None
+
+    def __new__(cls):
+        if cls._instance is None:
+            cls._instance = super(IosMainDashboard, cls).__new__(cls)
+        return cls._instance
+
     def __init__(self):
         super().__init__()
-        self._profile_tab = Element(AppiumBy.ACCESSIBILITY_ID, 'Profile')
-        self._main_dashboard_tab = Element(AppiumBy.ACCESSIBILITY_ID, 'Dashboard')
-        self._programs_tab = Element(AppiumBy.ACCESSIBILITY_ID, 'Programs')
-        self._learn_tab = Element(AppiumBy.ACCESSIBILITY_ID, 'Learn')
-        self._discover_tab = Element(AppiumBy.ACCESSIBILITY_ID, 'Discover')
-        self._close_button = Element(AppiumBy.ACCESSIBILITY_ID, 'close_button')
+        self._profile_tab = Element(AppiumBy.ACCESSIBILITY_ID, "Profile")
+        self._main_dashboard_tab = Element(AppiumBy.ACCESSIBILITY_ID, "Dashboard")
+        self._programs_tab = Element(AppiumBy.ACCESSIBILITY_ID, "Programs")
+        self._learn_tab = Element(AppiumBy.ACCESSIBILITY_ID, "Learn")
+        self._discover_tab = Element(AppiumBy.ACCESSIBILITY_ID, "Discover")
+        self._close_button = Element(AppiumBy.ACCESSIBILITY_ID, "close_button")
 
     @property
     def get_close_button(self) -> Element:

@@ -13,6 +13,13 @@ class IosProfile(IosBasePage):
     Profile screen
     """
 
+    _instance = None
+
+    def __new__(cls):
+        if cls._instance is None:
+            cls._instance = super(IosProfile, cls).__new__(cls)
+        return cls._instance
+
     def __init__(self):
         super().__init__()
         self._profile_screen_title = Element(AppiumBy.NAME, "Profile")

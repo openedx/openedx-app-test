@@ -1,6 +1,8 @@
 """IOS - Regression - profile edit functionality"""
 
+from logging import Logger
 import allure
+from appium.webdriver.webdriver import WebDriver
 import pytest
 import os
 import base64
@@ -27,7 +29,83 @@ from tests.ios.pages.ios_whats_new import IosWhatsNew
 class TestProfileEditFunctionality:
     """Test regression profile edit functionality"""
 
-    def test_upload_image_to_camera_roll(self, set_capabilities, setup_logging):
+    def verify_user_details_on_profile_edit_page(self):
+        """
+        Verifies that all user details on the Edit Profile page are displayed correctly.
+
+        This method checks the presence and correctness of various UI elements on the Edit Profile screen,
+        including the screen title, profile type, username, profile switch button, disclaimer message,
+        location and language pickers, and user bio label. It uses assertions to ensure that each element
+        matches the expected values defined in the `values` module.
+
+        Raises:
+            AssertionError: If any of the UI elements do not match the expected values.
+        """
+        """"""
+
+        edit_profile_page = IosEditProfilePage()
+
+        expect(edit_profile_page.screen_title).to_have(values.EDIT_PROFILE_TITLE, ElementAttribute.LABEL)
+        expect(edit_profile_page.done_button).to_have(values.FALSE_LOWERCASE, ElementAttribute.ACCESSIBLE)
+        expect(edit_profile_page.profile_type_label).to_have(
+            values.EDIT_PROFILE_TYPE_LABEL_FULL_PROFILE_IOS, ElementAttribute.LABEL
+        )
+        expect(edit_profile_page.username_label).to_have(values.RTESTER_NAME_TEXT, ElementAttribute.LABEL)
+        expect(edit_profile_page.switch_profile_type_button).to_have(
+            values.EDIT_PROFILE_SWITCH_TO_LIMITED_PROFILE, ElementAttribute.LABEL
+        )
+        expect(edit_profile_page.find_by_text_on_screen(values.LIMITED_PROFILE_DISCLAIMER_MESSAGE_IOS)).to_exist()
+
+        expect(edit_profile_page.location_picker_label).to_have(
+            values.EDIT_PROFILE_LOCATION_LABEL, ElementAttribute.LABEL
+        )
+        expect(edit_profile_page.location_picker_button).to_have(values.PROFILE_LOCATION_US_IOS, ElementAttribute.LABEL)
+        expect(edit_profile_page.spoken_language_picker_label).to_have(
+            values.EDIT_PROFILE_LANGUAGE_LABEL_IOS, ElementAttribute.LABEL
+        )
+        expect(edit_profile_page.spoken_language_picker_button).to_have(values.PROFILE_LANGUAGE, ElementAttribute.LABEL)
+        expect(edit_profile_page.user_bio_label).to_have(values.PROFILE_BIO_LABEL, ElementAttribute.LABEL)
+        # expect(edit_profile_page.user_bio_value).to_have(values.PROFILE_BIO_VALUE, ElementAttribute.LABEL)
+
+    def verify_user_details_on_profile_page(self):
+        """
+        Verifies that all user details on the Profile page are displayed correctly.
+
+        This method checks the presence and correctness of various UI elements on the Profile screen,
+        including the username, full name, profile bio label, profile bio value, and edit profile button.
+        It uses assertions to ensure that each element matches the expected values defined in the `values` module.
+
+        Raises:
+            AssertionError: If any of the UI elements do not match the expected values.
+        """
+
+        profile_page = IosProfile()
+        expect(profile_page.username_label).to_have(values.RTESTER_USERNAME_TEXT, ElementAttribute.LABEL)
+        expect(profile_page.full_name_label).to_have(values.RTESTER_NAME_TEXT, ElementAttribute.LABEL)
+        profile_page.profile_bio_label.exists()
+        expect(profile_page.profile_bio_label).to_have(values.PROFILE_ABOUT_ME_LABEL, ElementAttribute.LABEL)
+        expect(profile_page.profile_bio_value).to_have(values.PROFILE_BIO_VALUE, ElementAttribute.LABEL)
+        profile_page.edit_profile_button.exists()
+        expect(profile_page.edit_profile_button).to_have(values.EDIT_PROFILE_TITLE, ElementAttribute.LABEL)
+
+    def verify_button_on_change_profile_img_dialogue(self):
+        """
+        verify that all required buttons are present
+        Remove img button
+        Select img button
+        Cancel button
+        """
+        edit_profile_page = IosEditProfilePage()
+        expect(edit_profile_page.remove_img_button).to_exist()
+        expect(edit_profile_page._ic_remove_img).to_exist()
+        expect(edit_profile_page.remove_img_button).to_have("Remove photo", ElementAttribute.LABEL)
+        expect(edit_profile_page.select_img_button).to_exist()
+        expect(edit_profile_page.ic_select_img).to_exist()
+        expect(edit_profile_page.select_img_button).to_have("Select from gallery", ElementAttribute.LABEL)
+        expect(edit_profile_page.cancel_button).to_exist()
+        expect(edit_profile_page.cancel_button).to_have("Cancel", ElementAttribute.LABEL)
+
+    def test_upload_image_to_camera_roll(self, set_capabilities: WebDriver | None, setup_logging: Logger):
         """upload image as a pre-req"""
         global_contents = Globals(setup_logging)
         driver = set_capabilities
@@ -49,8 +127,32 @@ class TestProfileEditFunctionality:
 
         setup_logging.info(f"Image '{remote_image_name}' pushed to simulator Camera Roll.")
 
-    def test_ios_regression_profile_edit_functionality(self, set_capabilities, setup_logging):
-        """"""
+    def test_ios_regression_profile_edit_functionality(self, set_capabilities: WebDriver | None, setup_logging: Logger):
+        """
+        Test case for iOS regression profile edit functionality.
+        This test case performs the following steps:
+        1. Dismisses notifications pop-up if it exists.
+        2. Clicks on the Sign in button.
+        3. Enters a valid email or username.
+        4. Enters a valid password.
+        5. Clicks on the Sign in button.
+        6. Navigates to the Profile Tab.
+        7. Verifies the username and full name.
+        8. Clicks on the Edit Profile button.
+        9. Verifies user details on the Edit Profile page.
+        10. Clicks on the location dropdown and selects a location.
+        11. Clicks on the Spoken Language dropdown and selects a language.
+        12. Clicks on the about me text box and enters a bio.
+        13. Clicks on the image upload icon and verifies buttons appear.
+        14. Clicks on the remove photo button and verifies the photo is removed.
+        15. Clicks on the select from gallery button and selects a photo.
+        16. Clicks on the Done button.
+        17. Clicks on the back button.
+        18. Clicks on the Edit Profile button again and verifies the selected location and language.
+        19. Clicks on the switch to limited profile button and verifies the sub-heading and fields are disabled.
+        20. Clicks on the switch to full profile button and verifies the sub-heading and fields are enabled.
+        21. Cleans up and restores original values.
+        """
         Element.set_driver(set_capabilities)
         Element.set_logger(setup_logging)
         profile_page = IosProfile()
@@ -86,41 +188,11 @@ class TestProfileEditFunctionality:
             main_dashboard_page.profile_tab.click()
 
         with allure.step("verify username and Full name"):
-            expect(profile_page.username_label).to_have(values.RTESTER_USERNAME_TEXT, ElementAttribute.LABEL)
-            expect(profile_page.full_name_label).to_have(values.RTESTER_NAME_TEXT, ElementAttribute.LABEL)
-            profile_page.profile_bio_label.exists()
-            expect(profile_page.profile_bio_label).to_have(values.PROFILE_ABOUT_ME_LABEL, ElementAttribute.LABEL)
-            expect(profile_page.profile_bio_value).to_have(values.PROFILE_BIO_VALUE, ElementAttribute.LABEL)
-            profile_page.edit_profile_button.exists()
-            expect(profile_page.edit_profile_button).to_have(values.EDIT_PROFILE_TITLE, ElementAttribute.LABEL)
+            self.verify_user_details_on_profile_page()
 
         with allure.step("Click on Edit Profile button"):
             profile_page.edit_profile_button.click()
-            expect(edit_profile_page.screen_title).to_have(values.EDIT_PROFILE_TITLE, ElementAttribute.LABEL)
-            expect(edit_profile_page.done_button).to_have(values.FALSE_LOWERCASE, ElementAttribute.ACCESSIBLE)
-            expect(edit_profile_page.profile_type_label).to_have(
-                values.EDIT_PROFILE_TYPE_LABEL_FULL_PROFILE_IOS, ElementAttribute.LABEL
-            )
-            expect(edit_profile_page.username_label).to_have(values.RTESTER_NAME_TEXT, ElementAttribute.LABEL)
-            expect(edit_profile_page.switch_profile_type_button).to_have(
-                values.EDIT_PROFILE_SWITCH_TO_LIMITED_PROFILE, ElementAttribute.LABEL
-            )
-            expect(edit_profile_page.find_by_text_on_screen(values.LIMITED_PROFILE_DISCLAIMER_MESSAGE_IOS)).to_exist()
-
-            expect(edit_profile_page.location_picker_label).to_have(
-                values.EDIT_PROFILE_LOCATION_LABEL, ElementAttribute.LABEL
-            )
-            expect(edit_profile_page.location_picker_button).to_have(
-                values.PROFILE_LOCATION_US_IOS, ElementAttribute.LABEL
-            )
-            expect(edit_profile_page.spoken_language_picker_label).to_have(
-                values.EDIT_PROFILE_LANGUAGE_LABEL_IOS, ElementAttribute.LABEL
-            )
-            expect(edit_profile_page.spoken_language_picker_button).to_have(
-                values.PROFILE_LANGUAGE, ElementAttribute.LABEL
-            )
-            expect(edit_profile_page.user_bio_label).to_have(values.PROFILE_BIO_LABEL, ElementAttribute.LABEL)
-            # expect(edit_profile_page.user_bio_value).to_have(values.PROFILE_BIO_VALUE, ElementAttribute.LABEL)
+            self.verify_user_details_on_profile_edit_page()
 
         with allure.step("Click on location dropdown"):
             edit_profile_page.location_picker_button.click()
@@ -162,14 +234,7 @@ class TestProfileEditFunctionality:
             )
 
         with allure.step("verify buttons appear on change profile image screen"):
-            expect(edit_profile_page.remove_img_button).to_exist()
-            expect(edit_profile_page._ic_remove_img).to_exist()
-            expect(edit_profile_page.remove_img_button).to_have("Remove photo", ElementAttribute.LABEL)
-            expect(edit_profile_page.select_img_button).to_exist()
-            expect(edit_profile_page.ic_select_img).to_exist()
-            expect(edit_profile_page.select_img_button).to_have("Select from gallery", ElementAttribute.LABEL)
-            expect(edit_profile_page.cancel_button).to_exist()
-            expect(edit_profile_page.cancel_button).to_have("Cancel", ElementAttribute.LABEL)
+            self.verify_button_on_change_profile_img_dialogue()
 
         with allure.step("click on remove photo button"):
             edit_profile_page.remove_img_button.click()
@@ -229,7 +294,7 @@ class TestProfileEditFunctionality:
             expect(edit_profile_page.spoken_language_picker_button).to_be_enabled()
             expect(edit_profile_page.user_bio_value).to_be_enabled()
 
-    def test_cleanup_and_restore_original_values(self, set_capabilities, setup_logging):
+    def test_cleanup_and_restore_original_values(self, set_capabilities: WebDriver | None, setup_logging: Logger):
         """"""
         profile_page = IosProfile()
         edit_profile_page = IosEditProfilePage()
