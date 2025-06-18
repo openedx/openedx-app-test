@@ -66,3 +66,17 @@ class EducationLevel(Enum):
     JUNIOR_TO_MIDDLE = "Junior secondary/junior high/middle school"
     NO_FORMAL_EDUCATION = "No formal education"
     OTHER = "Other education"
+
+
+class Country(Enum):
+    """Country Name"""
+
+    CANADA = "Canada"
+    USA = "United States of America"
+
+
+class Language(Enum):
+    """Languages"""
+
+    ENGLISH = "English"
+    FRENCH = "French"

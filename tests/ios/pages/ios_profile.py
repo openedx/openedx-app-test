@@ -13,6 +13,13 @@ class IosProfile(IosBasePage):
     Profile screen
     """
 
+    _instance = None
+
+    def __new__(cls):
+        if cls._instance is None:
+            cls._instance = super(IosProfile, cls).__new__(cls)
+        return cls._instance
+
     def __init__(self):
         super().__init__()
         self._profile_screen_title = Element(AppiumBy.NAME, "Profile")
@@ -21,8 +28,10 @@ class IosProfile(IosBasePage):
             AppiumBy.IOS_CLASS_CHAIN, "**/XCUIElementTypeButton[`name == 'edit_profile_button'`]"
         )
         self._profile_user_avatar_image = Element(AppiumBy.ACCESSIBILITY_ID, "user_avatar_image")
-        self._profile_user_name_text = Element(AppiumBy.ACCESSIBILITY_ID, "user_name_text")
-        self._profile_user_username_text = Element(AppiumBy.ACCESSIBILITY_ID, "user_username_text")
+        self._full_name_label = Element(AppiumBy.ACCESSIBILITY_ID, "user_name_text")
+        self._username_label = Element(AppiumBy.ACCESSIBILITY_ID, "user_username_text")
+        self._profile_bio_label = Element(AppiumBy.ACCESSIBILITY_ID, "profile_info_text")
+        self._profile_bio_value = Element(AppiumBy.ACCESSIBILITY_ID, "bio_text")
         self._profile_settings_text = Element(AppiumBy.ACCESSIBILITY_ID, "settings_text")
         self._profile_logout_button = Element(AppiumBy.ACCESSIBILITY_ID, "logout_button")
         self._profile_prompt_logout_button = Element(AppiumBy.ACCESSIBILITY_ID, "Log out")
@@ -51,7 +60,7 @@ class IosProfile(IosBasePage):
         self._profile_dont_sell_data = Element(AppiumBy.ACCESSIBILITY_ID, "dont_sell_data")
         self._profile_cookies_policy = Element(AppiumBy.ACCESSIBILITY_ID, "cookies_policy")
         self._profile_privacy_policy = Element(AppiumBy.ACCESSIBILITY_ID, "privacy_policy")
-        self._edit_profile_title = Element(
+        self._edit_profile_button = Element(
             AppiumBy.IOS_CLASS_CHAIN, '**/XCUIElementTypeButton[`name == "Edit Profile"`]'
         )
         self._delete_account_button = Element(AppiumBy.ACCESSIBILITY_ID, "delete_account_button")
@@ -59,12 +68,34 @@ class IosProfile(IosBasePage):
         self._settings_screen_title = Element(AppiumBy.ACCESSIBILITY_ID, "register_text")
 
     @property
-    def edit_profile_title(self) -> Element:
+    def edit_profile_button(self) -> Element:
         """
         Returns:
             Element: The element representing the edit profile title.
         """
-        return self._edit_profile_title
+        return self._edit_profile_button
+
+    @property
+    def profile_bio_label(self) -> Element:
+        """
+        Get profile bio label
+
+        Returns:
+            Element: Profile bio label element
+        """
+
+        return self._profile_bio_label
+
+    @property
+    def profile_bio_value(self) -> Element:
+        """
+        Get profile bio label
+
+        Returns:
+            Element: Profile bio label element
+        """
+
+        return self._profile_bio_value
 
     @property
     def get_profile_screen_title(self) -> Element:
@@ -111,7 +142,7 @@ class IosProfile(IosBasePage):
         return self._profile_user_avatar_image
 
     @property
-    def profile_user_name_text(self) -> Element:
+    def full_name_label(self) -> Element:
         """
         Get user's name text
 
@@ -119,18 +150,18 @@ class IosProfile(IosBasePage):
             webdriver element: User's name text element
         """
 
-        return self._profile_user_name_text
+        return self._full_name_label
 
     @property
-    def profile_user_username_text(self) -> Element:
+    def username_label(self) -> Element:
         """
         Get user's username text
 
         Returns:
-            webdriver element: User's username text element
+            Element: User's username text element
         """
 
-        return self._profile_user_username_text
+        return self._username_label
 
     @property
     def get_profile_settings_text(self) -> Element:

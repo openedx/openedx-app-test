@@ -13,6 +13,13 @@ class IosLanding(IosBasePage):
     New Landing screen
     """
 
+    _instance = None
+
+    def __new__(cls):
+        if cls._instance is None:
+            cls._instance = super(IosLanding, cls).__new__(cls)
+        return cls._instance
+
     def __init__(self):
         super().__init__()
         self._landing_logo_image = Element(AppiumBy.ACCESSIBILITY_ID, "logo_image")

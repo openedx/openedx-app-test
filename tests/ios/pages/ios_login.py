@@ -12,6 +12,13 @@ class IosLogin(IosBasePage):
     Login screen
     """
 
+    _instance = None
+
+    def __new__(cls):
+        if cls._instance is None:
+            cls._instance = super(IosLogin, cls).__new__(cls)
+        return cls._instance
+
     def __init__(self):
         super().__init__()
         self._back_button_navigation = Element(AppiumBy.ACCESSIBILITY_ID, "back_button")
