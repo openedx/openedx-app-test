@@ -12,3 +12,4 @@ builds
 edx-env/
 allure-results
 allure-report
+log/
