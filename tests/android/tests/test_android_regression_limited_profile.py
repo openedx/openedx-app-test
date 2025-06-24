@@ -33,8 +33,8 @@ class TestLimitedProfile:
             main_dashboard_page.profile_tab.click()
 
         with allure.step("Verify profile fullname and username"):
-            expect(profile_page.profile_username).to_have(values.PROFILE_NAME_TEXT)
-            expect(profile_page.profile_txt_name).to_have(values.PROFILE_USERNAME_TEXT)
+            expect(profile_page.profile_username).to_have(values.PROFILE_USERNAME_TEXT)
+            expect(profile_page.profile_txt_name).to_have(values.PROFILE_NAME_TEXT)
 
         with allure.step("Click on edit profile button"):
             profile_page.edit_profile_button.click()
@@ -54,10 +54,12 @@ class TestLimitedProfile:
 
         with allure.step("Verify email field is present but not editable"):
             expect(edit_profile_page.edit_profile_txt_label_spoken_language).to_have(values.EDIT_PROFILE_LANGUAGE_LABEL)
-            expect(edit_profile_page.select_spoken_language).to_have(values.PROFILE_LANGUAGE)
+            expect(edit_profile_page.edit_profile_placeholder_select_spoken_language).to_have(
+                values.EDIT_PROFILE_LANGUAGE_PLACEHOLDER
+            )
             expect(edit_profile_page.select_spoken_language).not_.to_be_enabled()
 
         with allure.step("Verify about me field is present but not editable"):
             expect(edit_profile_page.edit_profile_txt_label_about_me).to_have(values.EDIT_PROFILE_ABOUT_ME_LABEL)
-            expect(edit_profile_page.about_me_input).to_have(values.PROFILE_ABOUT_ME_TEXT)
+            expect(edit_profile_page.edit_profile_txt_placeholder_about_me).to_have(values.PROFILE_ABOUT_ME_LABEL)
             expect(edit_profile_page.about_me_input).not_.to_be_enabled()
