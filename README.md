@@ -83,22 +83,28 @@ Follow the link to [improve the quality of code](./docs/linting.md)
 ### Integration Steps
 - Complete the following steps to integrate your Python test suite using BrowserStack SDK.
 
-### Set BrowserStack Credentials
+### Set BrowserStack Credentials and other env variables
 - `export BROWSERSTACK_USERNAME="************"`
 - `export BROWSERSTACK_ACCESS_KEY="************"`
+- `export PLATFORM_NAME=Android/iOS`
 
 Saving your BrowserStack credentials as environment variables makes it simple to run your test suite from your local or CI environment.
+PLATFORM_NAME is a custom variable used to make test run unique and identifiable.
 
 ### Install BrowserStack Python SDK
 - `python3 -m pip install browserstack-sdk`
-- `browserstack-sdk setup --username "**************" --key "**************"`
 
 Execute the following commands to install BrowserStack Python SDK for plug-and-play integration of your test suite with BrowserStack.
 
 ### Setup
-- Update `BROWSERSTACK_USERNAME` and `BROWSERSTACK_ACCESS_KEY` in `browserstack.yml` file
+- Add following enviornment variables
+  - `BROWSERSTACK_USERNAME`
+  - `BROWSERSTACK_ACCESS_KEY`
+  - `PLATFORM_NAME`
 
-- Update device name and version for android and ios in `browserstack.yml` file
+- vales for `BROWSERSTACK_USERNAME` and `BROWSERSTACK_ACCESS_KEY` can be foound in your browserstack profile.
+
+- Update device name and version for android and ios in `browserstack.yml` file. A complete list of available devices can be found on https://www.browserstack.com/list-of-browsers-and-platforms/automate
   - platformName: `Android`/`iOS`
   - deviceName: `Google Pixel 7 pro`/`iPhone 14 pro max`
   - platformVersion: `13.0`/`16`
@@ -117,8 +123,19 @@ Execute the following commands to install BrowserStack Python SDK for plug-and-p
 - To run parallel execution on multiple devices, more platform details can be given with their device name and platform version
 ### Run
 
-- `PLATFORM_NAME=Android browserstack-sdk pytest -v tests/android/tests/` to run all android
+- `browserstack-sdk pytest tests/android/tests/ --env browserstack` to run all android
 test screens
 
-- `PLATFORM_NAME=iOS browserstack-sdk pytest -v tests/ios/tests/` to run all ios
+- `browserstack-sdk pytest tests/ios/tests/ --env browserstack` to run all ios
 test screens
+
+- `browserstack-sdk pytest -m SMOKE --env browserstack` to run all tests with smoke marker
+
+You can also use any other way of selecting tests which are available under pytest
+
+### Allure Report
+By default each pytest command execution will clean out the allure-results folder as specified in the `pytest.ini` file.
+In order to create a report on your local machine use the command
+- `allure serve` this will generate allure report and serve it at local endpoint provided in the terminal where the command is run
+To create a single file allure report for sharing purpose use the following command
+- `allure generate allure-results --clean --single-file -o allure-report ` This will generate a single html file under allure-report folder as specified in the command with `-o` option.

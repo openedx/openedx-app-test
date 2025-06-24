@@ -16,6 +16,7 @@ from tests.common import utils, values
 @allure.story("Forgot password")
 @allure.suite("SMOKE")
 @pytest.mark.ANDROID
+@pytest.mark.ANDROID_ACCOUNTS
 @pytest.mark.ANDROID_SMOKE
 class TestAndroidForgotPassword:
     """

@@ -19,7 +19,7 @@ from tests.ios.pages.ios_whats_new import IosWhatsNew
 @allure.epic("Accounts")
 @allure.feature("Account Registration")
 @allure.story("Sign Up with Email and Password")
-@pytest.mark.IOS_Regression
+@pytest.mark.IOS_REGRESSION
 class TestAccountRegistrationSignupWithEmailAndPassword:
     """Regression test for account registration using email and password on iOS."""
 

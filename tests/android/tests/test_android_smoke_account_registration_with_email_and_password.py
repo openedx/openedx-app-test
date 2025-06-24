@@ -20,6 +20,7 @@ from tests.common.globals import Globals
 @allure.story("Registration with email and password")
 @allure.suite("SMOKE")
 @pytest.mark.ANDROID
+@pytest.mark.ANDROID_ACCOUNTS
 @pytest.mark.ANDROID_SMOKE
 class TestAccountRegistrationWithEmailAndPassword:
     """Test Account Registration with Email and Password"""
