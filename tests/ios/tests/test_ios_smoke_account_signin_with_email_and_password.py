@@ -83,7 +83,7 @@ class TestAccountSignInWithEmailAndPassword:
         with allure.step("Click on log out button"):
             Element.swipe_vertical_full_page()
             Element.swipe_vertical_full_page()
-            ios_profile_page.get_profile_logout_button.click()
+            ios_profile_page.profile_logout_button.click()
             logger.info("clicking log out")
 
         with allure.step("Click on Log out button on the confirmation prompt"):

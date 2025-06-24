@@ -258,15 +258,6 @@ class AndroidProfile(AndroidBasePage):
         return self.find_by_text_on_screen(android_elements.profile_txt_view_faq)
 
     @property
-    def get_profile_app_version_code(self):
-        """
-        Returns:
-            Element: profile app version code element
-        """
-
-        return self.find_by_text_on_screen(android_elements.profile_app_version_code)
-
-    @property
     def get_profile_txt_up_to_date(self):
         """
         Returns:

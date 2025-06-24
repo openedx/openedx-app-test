@@ -31,6 +31,9 @@ class IosBasePage:
         self._static_text = Element(AppiumBy.CLASS_NAME, "XCUIElementTypeStaticText")
         self._picker_accept_button = Element(AppiumBy.NAME, "picker_accept_button")
         self._choose_button = Element(AppiumBy.ACCESSIBILITY_ID, "Choose")
+        self._accept_cookies_button = Element(AppiumBy.ACCESSIBILITY_ID, "Accept Cookies")
+        self._reject_cookies_button = Element(AppiumBy.ACCESSIBILITY_ID, "Reject All")
+        self._privacy_choices_button = Element(AppiumBy.ACCESSIBILITY_ID, "Your Privacy Choices")
 
     @property
     def static_text(self) -> Element:
@@ -191,3 +194,33 @@ class IosBasePage:
                 locator = f'label CONTAINS "{text}"'
             return Element(AppiumBy.IOS_PREDICATE, locator).find()
         raise ValueError("text cannot be empty")
+
+    @property
+    def accept_cookies_button(self) -> Element:
+        """
+        Get Accept Cookies button
+
+        Returns:
+            Element: Accept Cookies button element
+        """
+        return self._accept_cookies_button
+
+    @property
+    def reject_cookies_button(self) -> Element:
+        """
+        Get Reject Cookies button
+
+        Returns:
+            Element: Reject Cookies button element
+        """
+        return self._reject_cookies_button
+
+    @property
+    def privacy_choices_button(self) -> Element:
+        """
+        Get Privacy Choices button
+
+        Returns:
+            Element: Privacy Choices button element
+        """
+        return self._privacy_choices_button
