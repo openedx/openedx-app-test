@@ -64,6 +64,18 @@ def report_screenshot():
         pass
 
 
+def pytest_addoption(parser):
+    """
+    Adds custom command-line options for pytest.
+    """
+    parser.addoption(
+        "--env",
+        action="store",
+        default="local",  # Default value if --env is not provided
+        help="Execution environment: 'local' or 'browserstack'",
+    )
+
+
 @pytest.fixture(scope="module")
 def set_capabilities(setup_logging, request):
     """
@@ -77,30 +89,28 @@ def set_capabilities(setup_logging, request):
     Returns:
         driver: webdriver object
     """
-
+    env_name = request.config.getoption("--env")
     logger: logging.Logger = setup_logging
     globals_contents = Globals(logger)
     capabilities = caps_factory(globals_contents.target_environment)
     desired_capabilities = {}
     SessionData.globals_contents = globals_contents
     SessionData.test_case_name = os.path.basename(str(request.node.name)).replace(".py", "")
-    logger.info(
-        f"{globals_contents.target_environment} - "
-        f"{globals_contents.login_user_name} - "
-        f"{globals_contents.login_password} - "
-        f"{globals_contents.platform_version} - "
-    )
-    logger.info(f"- Setting {globals_contents.target_environment} capabilities")
-
-    desired_capabilities["appium:platformVersion"] = globals_contents.platform_version
+    logger.info(f"@@@ Setting {globals_contents.target_environment} capabilities")
     desired_capabilities["appium:fullReset"] = globals_contents.full_reset
-    if globals_contents.app_path:
-        desired_capabilities["appium:app"] = globals_contents.app_path
-    if globals_contents.device_name:
-        desired_capabilities["appium:deviceName"] = globals_contents.device_name
+    logger.info(f"@@@ env: {env_name}")
+
+    if env_name == "local":
+        desired_capabilities["appium:platformVersion"] = globals_contents.platform_version
+        if globals_contents.app_path:
+            desired_capabilities["appium:app"] = globals_contents.app_path
+            logger.info(f"@@@ app path: {globals_contents.app_path}")
+        if globals_contents.device_name:
+            desired_capabilities["appium:deviceName"] = globals_contents.device_name
+            logger.info(f"@@@ device name: {globals_contents.device_name}")
 
     capabilities.update(desired_capabilities)
-    setup_logging.info(f"Requesting session with capabilities:{capabilities.get_as_options()}")
+    setup_logging.info(f"Requesting session with capabilities:{capabilities.get_as_options().to_capabilities()}")
     driver = webdriver.Remote(globals_contents.server_url, options=capabilities.get_as_options())
 
     if driver is not None:
@@ -178,8 +188,12 @@ def pytest_configure(config: pytest.Config):
         iteration_name = f"{marker}_{job_id}" if marker else f"Iteration_{job_id}"
         iteration_name = sanitize_name(iteration_name)
         config.iteration_name = iteration_name
+        # Propagate to workers
+        if hasattr(config, "workerinput"):
+            config.workerinput["iterationName"] = iteration_name
     else:
-        iteration_name: str = config.workerinput["iterationName"]
+        # Defensive: use .get() with fallback
+        iteration_name: str = config.workerinput.get("iterationName", "default_iteration")
 
     SessionData.iteration_directory_base = str(
         os.path.join(os.path.dirname(__file__), values.RESULTS_DIRECTORY, iteration_name.lower())

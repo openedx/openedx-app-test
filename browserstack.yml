@@ -4,8 +4,8 @@
 # =============================
 # Add your BrowserStack userName and accessKey here or set BROWSERSTACK_USERNAME and
 # BROWSERSTACK_ACCESS_KEY as env variables
-userName: xxxxxxxxxxxxx
-accessKey: xxxxxxxxxxxx
+userName: ${BROWSERSTACK_USERNAME}
+accessKey: ${BROWSERSTACK_ACCESS_KEY}
 # ======================
 # BrowserStack Reporting
 # ======================
@@ -26,15 +26,18 @@ buildIdentifier: '${BUILD_NUMBER}'
 # Platforms object contains all the browser / device combinations you want to test on.
 # Entire list available here -> (https://www.browserstack.com/list-of-browsers-and-platforms/automate)
 platforms:
-  - platformName: Android
-    deviceName: Google Pixel 7 pro
-    platformVersion: 13.0
+  - platformName: android
+    platformVersion: 1[45]
+    deviceName: Samsung .*
+#  - platformName: android
+#    platformVersion: 1[45]
+#    deviceName: Google Pixel 8 Pro
   # - platformName: ios
   #   deviceName: iPhone 14 Pro Max
   #   platformVersion: 16
 
-# Update the local path to the app file below (Android: .apk, iOS: .ipa) 
-app: '/path-to-app/sample-app.apk'
+# Update the local path to the app file below (Android: .apk, iOS: .ipa)
+app: 'path/to/app'
 
 # ===================
 # Debugging features
@@ -46,3 +49,4 @@ consoleLogs: errors # <string> Remote browser's console debug levels to be print
 testObservability: true
 appProfiling: true
 appiumLogs: true
+#parallelsPerPlatform: 2
