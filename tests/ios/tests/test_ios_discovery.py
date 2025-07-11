@@ -41,12 +41,12 @@ class TestIosDiscovery:
         ios_landing = IosLanding()
         global_contents = Globals(setup_logging)
 
-        logo_image = ios_landing.get_logo_image
+        logo_image = ios_landing.edx_logo_image
         expect(logo_image).to_have(values.LANDING_LOGO_IMAGE)
 
-        expect(ios_landing.get_get_explore_courses_button).to_have(values.LANDING_EXLPORE_COURSES)
-        ios_landing.get_get_explore_courses_button.click()
-        expect(ios_landing.landing_back_button).to_have(values.BACK_BUTTON)
+        expect(ios_landing.explore_all_courses_button).to_have(values.LANDING_EXLPORE_COURSES)
+        ios_landing.explore_all_courses_button.click()
+        expect(ios_landing.discover_page_back_button).to_have(values.BACK_BUTTON)
         assert (
             global_contents.get_element_by_label_ios(set_capabilities, "Discover").text
             == values.DISCOVER_SCREEN_HEADING
