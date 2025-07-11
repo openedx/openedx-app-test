@@ -58,6 +58,7 @@ LANDING_SEARCH_RESULTS_TITLE = "Search"
 LANDING_LOGO_IMAGE = "appLogo"
 LANDING_BACK_BUTTON = "Back"
 DISCOVERY_SCREEN_TITLE = "Explore the catalog"
+LANDING_SEARCH_ICON = "Search"
 
 # SIGN IN SCREEN
 SIGN_IN_MESSAGE = "Welcome back! Sign in to access your courses."
@@ -299,6 +300,8 @@ COURSE_DASHBOARD_MORE_TAB = "More"
 # DISCOVERY SCREEN
 DISCOVERY_SCREEN_HEADING = "Explore the catalog"
 DISCOVERY_SCREEN_MESSAGE = "Build skills. Earn a certificate. Advance your career."
+DISCOVER_SCREEN_HEADING_PART1 = "Build skills. Earn a certificate."
+DISCOVER_SCREEN_HEADING_PART2 = "Advance your career."
 DISCOVERY_SEARCH_FIELD_HINT = "What do you want to learn?"
 DISCOVERY_SEARCH_BUTTON = "Search"
 DISCOVERY_TRENDING_LABEL = "Trending:"
