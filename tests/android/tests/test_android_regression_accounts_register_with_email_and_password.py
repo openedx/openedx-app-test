@@ -240,7 +240,7 @@ class TestAndroidRegister:
             expect(profile_page.logout_prompt_msg).to_have("Are you sure you want to log out?")
 
         with allure.step("click on Log out button on the confirmation prompt"):
-            expect(profile_page.logout_prompt_logout_button_text).to_have("Log Out")
+            expect(profile_page.logout_prompt_logout_button_text).to_have(values.PROFILE_LOGOUT_BUTTON)
             assert profile_page.logout_prompt_logout_button.click()
             assert landing_page.register_button.exists()
 

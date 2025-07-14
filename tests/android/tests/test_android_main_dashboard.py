@@ -12,6 +12,7 @@ from tests.common.enums.attributes import ElementAttribute
 
 
 @pytest.mark.ANDROID
+@pytest.mark.SMOKE
 class TestAndroidMainDashboard:
     """
     Main Dashboard screen's Test Case

@@ -18,10 +18,10 @@ class AndroidSettingsPage(AndroidBasePage):
         self._settings_category_text = Element(
             AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("Settings").instance(1)'
         )
-        self._manage_account_text = Element(AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("Manage Account")')
+        self._manage_account_text = Element(AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("Manage account")')
         self._video_button_text = Element(AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("Video")')
         self._restore_purchases_button_text = Element(
-            AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("Restore Purchases")'
+            AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("Restore purchases")'
         )
         self._wifi_only_label = Element(
             AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("txt_wifi_only_label")'
@@ -81,7 +81,7 @@ class AndroidSettingsPage(AndroidBasePage):
         self._selected_video_quality_check_mark_720p = Element(
             AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("ic_video_quality_selected_720p")'
         )
-        self._help_us_improve_link = Element(AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("Help us Improve")')
+        self._help_us_improve_link = Element(AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("Help us improve")')
         self._share_my_info_button = Element(
             AppiumBy.ANDROID_UIAUTOMATOR,
             'new UiSelector().text("Share My Information with Third Parties for Personalized Advertising")',
