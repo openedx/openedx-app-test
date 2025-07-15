@@ -13,7 +13,7 @@ from tests.common import values
 
 
 @pytest.mark.ANDROID
-@pytest.mark.SMOKE
+@pytest.mark.ANDROID_SMOKE
 class TestAndroidLanding:
     """
     Landing screen's Test Case

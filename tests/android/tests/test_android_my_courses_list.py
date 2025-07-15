@@ -13,7 +13,7 @@ from tests.common.enums.attributes import ElementAttribute
 
 
 @pytest.mark.ANDROID
-@pytest.mark.SMOKE
+@pytest.mark.ANDROID_SMOKE
 class TestAndroidMyCoursesList:
     """
     My Courses screen's Test Case
