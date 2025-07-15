@@ -63,12 +63,17 @@ class AndroidCatalogPage(AndroidBasePage):
             AppiumBy.XPATH,
             '//android.view.View[@resource-id="main-content"]/android.view.View[4]',
         )
-
         self._edx_demox_course_logo = Element(
             AppiumBy.ANDROID_UIAUTOMATOR,
             'new UiSelector().description("header image for edX logo for edX DemoX edX Course")',
         )
-
+        self._all_filters_button = Element(AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("All filters")')
+        self._search_field = Element(
+            AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("main-search-search-input")'
+        )
+        self._search_submit_button = Element(
+            AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("main-search-search-submit")'
+        )
         self._trending_tags = {
             values.DISCOVERY_TRENDING_COURSE_PYTHON: self._trending_python_tag,
             values.DISCOVERY_TRENDING_COURSE_MARKETING: self._trending_marketing_tag,
@@ -208,3 +213,20 @@ class AndroidCatalogPage(AndroidBasePage):
 
         """
         return self._enroll_button
+
+    @property
+    def all_filters_button(self) -> Element:
+        """all filters button
+        Returns:
+            Element: all filters button
+
+        """
+        return self._all_filters_button
+
+    @property
+    def search_bar_text(self):
+        """search bar text element
+        Returns:
+            Element: search bar text element
+        """
+        return self._search_field.get_child_element(self.edit_text_view)

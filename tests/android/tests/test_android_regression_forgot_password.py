@@ -39,7 +39,7 @@ class TestAndroidForgotPassword:
 
         with allure.step("Click on Sign in Button"):
             assert android_landing.signin_button.click()
-            expect(android_sign_in.signin_title, "Sign in screen not loaded successfully").to_have(values.LOGIN)
+            expect(android_sign_in.signin_title, "Sign in screen not loaded successfully").to_have(values.SIGN_IN_TEXT)
             expect(android_sign_in.sign_in_description).to_have(values.SIGN_IN_MESSAGE)
             expect(android_sign_in.forgot_password_button).to_have(values.FORGOT_PASSWORD)
 
@@ -66,7 +66,7 @@ class TestAndroidForgotPassword:
                 f"We have sent a password recover instructions to your email {random_email}"
             )
             assert android_sign_in.find_by_text_on_screen(values.FORGOT_RECOVER_TITLE_TEXT)
-            expect(android_sign_in.password_recovery_sign_in_btn).to_have(values.LOGIN)
+            expect(android_sign_in.password_recovery_sign_in_btn).to_have(values.SIGN_IN_TEXT)
 
         with allure.step("Click on Sign in button"):
             assert android_sign_in.password_recovery_sign_in_btn.click()

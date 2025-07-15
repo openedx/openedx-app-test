@@ -34,9 +34,9 @@ class TestAccountForgotPassword:
             if ios_landing.allow_notifications_button.exists(raise_exception=False):
                 ios_landing.allow_notifications_button.click()
             sign_in_button = ios_landing.sign_in_button
-            expect(sign_in_button).to_have(values.LOGIN, ElementAttribute.LABEL)
+            expect(sign_in_button).to_have(values.SIGN_IN_TEXT, ElementAttribute.LABEL)
             sign_in_button.click()
-            expect(ios_login.sign_in_title).to_have(values.LOGIN, ElementAttribute.LABEL)
+            expect(ios_login.sign_in_title).to_have(values.SIGN_IN_TEXT, ElementAttribute.LABEL)
             expect(ios_login.signin_welcome_text).to_have(values.SIGN_IN_MESSAGE, ElementAttribute.LABEL)
             expect(ios_login.get_signin_forgot_password_button).to_have(values.FORGOT_PASSWORD, ElementAttribute.LABEL)
 
@@ -67,7 +67,7 @@ class TestAccountForgotPassword:
                 recovery_description_label, ElementAttribute.LABEL
             )
             sign_in_button = ios_login.signin_button
-            expect(ios_login.signin_button).to_have(values.LOGIN, ElementAttribute.LABEL)
+            expect(ios_login.signin_button).to_have(values.SIGN_IN_TEXT, ElementAttribute.LABEL)
             sign_in_button.click()
             logo_image = ios_landing.edx_logo_image
             expect(logo_image).to_have(values.LANDING_LOGO_IMAGE, ElementAttribute.LABEL)

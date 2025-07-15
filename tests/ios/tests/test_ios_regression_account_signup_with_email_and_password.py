@@ -355,7 +355,7 @@ class TestAccountRegistrationSignupWithEmailAndPassword:
 
         with allure.step("login with newly registered account"):
             ios_landing_page.sign_in_button.click()
-            expect(ios_login.sign_in_title).to_have(values.LOGIN, ElementAttribute.LABEL)
+            expect(ios_login.sign_in_title).to_have(values.SIGN_IN_TEXT, ElementAttribute.LABEL)
             ios_login.username_textfield.click()
             ios_login.username_textfield.send_keys(user_name + "\n")
             ios_login.password_textfield.click()
@@ -373,7 +373,7 @@ class TestAccountRegistrationSignupWithEmailAndPassword:
             ios_profile.delete_account_password_textfield.click()
             ios_profile.delete_account_password_textfield.send_keys(password + "\n")
             ios_profile.delete_account_button.click()
-            expect(ios_login.sign_in_title, timeout=20).to_have(values.LOGIN, ElementAttribute.LABEL)
+            expect(ios_login.sign_in_title, timeout=20).to_have(values.SIGN_IN_TEXT, ElementAttribute.LABEL)
 
         with allure.step("Try sign in with deleted account"):
             ios_login.username_textfield.click()

@@ -26,6 +26,9 @@ class AndroidLanding(AndroidBasePage):
         self._landing_discovery_search = Element(
             AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("tf_search")'
         )
+        self._search_bar_placeholder_text = Element(
+            AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("txt_search_placeholder")'
+        )
         self._landing_explore_courses_button = Element(
             AppiumBy.ANDROID_UIAUTOMATOR,
             'new UiSelector().resourceId("txt_explore_all_courses")',
@@ -34,9 +37,7 @@ class AndroidLanding(AndroidBasePage):
         self._register_button_text = Element(
             AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("txt_register")'
         )
-        self._landing_register_button_text = Element(
-            AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("txt_register")'
-        )
+        self._signin_button_text = Element(AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("txt_sign_in")')
         self._landing_signin_button = Element(
             AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("btn_sign_in")'
         )
@@ -73,7 +74,15 @@ class AndroidLanding(AndroidBasePage):
         return self._landing_discovery_search
 
     @property
-    def get_explore_courses(self) -> Element:
+    def search_bar_placeholder_text(self):
+        """
+        Returns:
+            Element: search bar placeholder text element
+        """
+        return self._search_bar_placeholder_text
+
+    @property
+    def explore_all_courses_button(self) -> Element:
         """Get explore courses button
 
         Returns:
@@ -103,14 +112,14 @@ class AndroidLanding(AndroidBasePage):
         return self._register_button_text
 
     @property
-    def register_button_text(self) -> Element:
-        """register button text element
+    def signin_button_text(self) -> Element:
+        """signin button text element
 
         Returns:
             Element: the Element object
         """
 
-        return self._landing_register_button_text
+        return self._signin_button_text
 
     def load_register_screen(self):
         """Get register button

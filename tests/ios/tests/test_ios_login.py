@@ -30,9 +30,9 @@ class TestIosLogin:
             ios_landing.allow_notifications_button.click()
 
         sign_in_button = ios_landing.sign_in_button
-        expect(sign_in_button).to_have(values.LOGIN)
+        expect(sign_in_button).to_have(values.SIGN_IN_TEXT)
         assert sign_in_button.click()
-        expect(ios_login.sign_in_title).to_have(values.LOGIN)
+        expect(ios_login.sign_in_title).to_have(values.SIGN_IN_TEXT)
 
     def test_ui_elements_smoke(self, set_capabilities, setup_logging):
         """
@@ -48,7 +48,7 @@ class TestIosLogin:
         ios_login = IosLogin()
         global_contents = Globals(setup_logging)
 
-        expect(ios_login.sign_in_title).to_have(values.LOGIN)
+        expect(ios_login.sign_in_title).to_have(values.SIGN_IN_TEXT)
         expect(ios_login.signin_welcome_text).to_have(values.SIGN_IN_MESSAGE)
         expect(ios_login.username_text_field_label).to_have(values.EMAIL_OR_USERNAME_IOS)
         expect(ios_login.username_text_field_placeholder).to_have(values.EMAIL_OR_USERNAME_IOS)
@@ -63,7 +63,7 @@ class TestIosLogin:
         assert password_title.click()
 
         sign_in_button = ios_login.signin_button
-        expect(ios_login.signin_button).to_have(values.LOGIN)
+        expect(ios_login.signin_button).to_have(values.SIGN_IN_TEXT)
         sign_in_button.scroll_vertically_from_element()
         expect(ios_login.signin_social_auth_title_text).to_have(values.SOCIAL_AUTH_TITLE)
         expect(ios_login.signin_social_auth_google_button).to_have(values.GOOGLE_SIGNIN)
@@ -107,7 +107,7 @@ class TestIosLogin:
         expect(ios_login.forgot_recover_title_text).to_have(values.FORGOT_RECOVER_TITLE_TEXT)
         expect(ios_login.forgot_recover_description_text).to_contain(values.FORGOT_RECOVER_DESCRIPTION)
         sign_in_button = ios_login.signin_button
-        expect(ios_login.signin_button).to_have(values.LOGIN)
+        expect(ios_login.signin_button).to_have(values.SIGN_IN_TEXT)
         assert sign_in_button.click()
         logo_image = ios_landing.edx_logo_image
         expect(logo_image).to_have(values.LANDING_LOGO_IMAGE)

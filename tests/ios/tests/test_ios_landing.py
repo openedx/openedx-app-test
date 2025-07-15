@@ -113,9 +113,9 @@ class TestIosSmokeLandingScreen:
 
         with allure.step("Click on sign in button"):
             sign_in_button = ios_landing.sign_in_button
-            expect(sign_in_button).to_have(values.LOGIN, ElementAttribute.LABEL)
+            expect(sign_in_button).to_have(values.SIGN_IN_TEXT, ElementAttribute.LABEL)
             sign_in_button.click()
-            expect(ios_login.sign_in_title).to_have(values.LOGIN, ElementAttribute.LABEL)
+            expect(ios_login.sign_in_title).to_have(values.SIGN_IN_TEXT, ElementAttribute.LABEL)
             back_button = ios_landing.back_navigation_button
             expect(back_button).to_have(values.LANDING_BACK_BUTTON, ElementAttribute.LABEL)
             back_button.click()

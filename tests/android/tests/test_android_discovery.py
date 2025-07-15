@@ -43,8 +43,8 @@ class TestAndroidDiscovery:
         catalog_page = AndroidCatalogPage()
 
         expect(android_landing.screen_title).to_have(values.LANDING_MESSAGE)
-        expect(android_landing.get_explore_courses).to_have(values.LANDING_EXLPORE_COURSES)
-        assert android_landing.get_explore_courses.click()
+        expect(android_landing.explore_all_courses_button).to_have(values.LANDING_EXPLORE_COURSES)
+        assert android_landing.explore_all_courses_button.click()
         expect(android_landing.back_navigation_button).to_be_displayed()
         assert catalog_page.catalog_screen_heading_msg.exists(timeout=20)
 

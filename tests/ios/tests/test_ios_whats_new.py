@@ -34,14 +34,14 @@ class TestIosWhatsNew:
 
         if global_contents.whats_new_enable:
             sign_in_button = ios_landing.sign_in_button
-            expect(sign_in_button).to_have(values.LOGIN)
+            expect(sign_in_button).to_have(values.SIGN_IN_TEXT)
             sign_in_button.click()
-            expect(ios_login.sign_in_title).to_have(values.LOGIN)
+            expect(ios_login.sign_in_title).to_have(values.SIGN_IN_TEXT)
             expect(ios_login.username_text_field_placeholder).to_have(values.EMAIL_OR_USERNAME_IOS)
             ios_login.username_textfield.send_keys(global_contents.login_user_name + "\n")
             expect(ios_login.password_text_field_label).to_have(values.PASSWORD, ElementAttribute.LABEL)
             ios_login.password_textfield.send_keys(global_contents.login_password + "\n")
-            expect(ios_login.signin_button).to_have(values.LOGIN, ElementAttribute.LABEL)
+            expect(ios_login.signin_button).to_have(values.SIGN_IN_TEXT, ElementAttribute.LABEL)
             ios_login.signin_button.click()
         else:
             setup_logging.info("Whats New feature is not enabled")
