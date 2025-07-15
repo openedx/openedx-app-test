@@ -81,9 +81,9 @@ class TestIosNewLanding:
         expect(back_button).to_have(values.LANDING_BACK_BUTTON)
         assert back_button.click()
         sign_in_button = ios_landing.sign_in_button
-        expect(sign_in_button).to_have(values.LOGIN)
+        expect(sign_in_button).to_have(values.SIGN_IN_TEXT)
         assert sign_in_button.click()
-        expect(ios_login.sign_in_title).to_have(values.LOGIN)
+        expect(ios_login.sign_in_title).to_have(values.SIGN_IN_TEXT)
         back_button = ios_landing.back_navigation_button
         expect(back_button).to_have(values.LANDING_BACK_BUTTON)
         assert back_button.click()

@@ -55,7 +55,7 @@ class TestAndroidForgotPassword:
             assert android_sign_in.find_by_text_on_screen(
                 f"We have sent a password recover instructions to your email {random_email}"
             )
-            expect(android_sign_in.password_recovery_sign_in_btn).to_have(values.LOGIN)
+            expect(android_sign_in.password_recovery_sign_in_btn).to_have(values.SIGN_IN_TEXT)
 
         with allure.step("Click on Sign in button"):
             assert android_sign_in.password_recovery_sign_in_btn.click()

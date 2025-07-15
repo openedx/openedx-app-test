@@ -52,11 +52,11 @@ class TestAccountSignInWithEmailAndPassword:
                 ios_landing_page.allow_notifications_button.click()
 
         with allure.step("verify “Sign in“ button exists on landing page"):
-            expect(ios_landing_page.sign_in_button).to_have(values.LOGIN, ElementAttribute.LABEL)
+            expect(ios_landing_page.sign_in_button).to_have(values.SIGN_IN_TEXT, ElementAttribute.LABEL)
 
         with allure.step("Click on Sign in button"):
             ios_landing_page.sign_in_button.click()
-            expect(ios_login_page.sign_in_title).to_have(values.LOGIN, ElementAttribute.LABEL)
+            expect(ios_login_page.sign_in_title).to_have(values.SIGN_IN_TEXT, ElementAttribute.LABEL)
             expect(ios_login_page.signin_welcome_text).to_have(values.SIGN_IN_MESSAGE, ElementAttribute.LABEL)
 
         with allure.step("verify username and password field headings texts"):
@@ -182,11 +182,11 @@ class TestAccountSignInWithEmailAndPassword:
             logger.info("log out successful")
 
         with allure.step("verify landing page loads and sign in button is visible"):
-            expect(ios_landing_page.sign_in_button).to_have(values.LOGIN, ElementAttribute.LABEL)
+            expect(ios_landing_page.sign_in_button).to_have(values.SIGN_IN_TEXT, ElementAttribute.LABEL)
 
         with allure.step("Click on Sign in button"):
             ios_landing_page.sign_in_button.click()
-            expect(ios_login_page.sign_in_title).to_have(values.LOGIN, ElementAttribute.LABEL)
+            expect(ios_login_page.sign_in_title).to_have(values.SIGN_IN_TEXT, ElementAttribute.LABEL)
 
         with allure.step("Enter a valid email and password and hit Sign in button"):
             ios_login_page.username_textfield.send_keys(values.AUTOMATION_USER_EMAIL + "\n")
@@ -228,4 +228,4 @@ class TestAccountSignInWithEmailAndPassword:
             logger.info("log out successful")
 
         with allure.step("verify landing page loads and sign in button is visible"):
-            expect(ios_landing_page.sign_in_button).to_have(values.LOGIN, ElementAttribute.LABEL)
+            expect(ios_landing_page.sign_in_button).to_have(values.SIGN_IN_TEXT, ElementAttribute.LABEL)

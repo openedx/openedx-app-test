@@ -48,7 +48,7 @@ class TestAccountSignInWithEmailAndPassword:
 
         with allure.step("Click on Sign in button"):
             assert android_landing.load_signin_screen()
-            expect(android_sign_in.signin_title, "Sign in screen not loaded successfully").to_have(values.LOGIN)
+            expect(android_sign_in.signin_title, "Sign in screen not loaded successfully").to_have(values.SIGN_IN_TEXT)
             expect(android_sign_in.sign_in_description).to_have(values.SIGN_IN_MESSAGE)
 
         with allure.step("verify the Email and password field headings texts"):
@@ -151,7 +151,7 @@ class TestAccountSignInWithEmailAndPassword:
 
         with allure.step("Click on Sign in button"):
             assert android_landing.load_signin_screen()
-            expect(android_sign_in.signin_title, "Sign in screen not loaded successfully").to_have(values.LOGIN)
+            expect(android_sign_in.signin_title, "Sign in screen not loaded successfully").to_have(values.SIGN_IN_TEXT)
 
         with allure.step("Enter a valid email"):
             assert android_sign_in.sign_in_tf_email.send_keys("automation-user007@yopmail.com")
