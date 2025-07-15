@@ -52,6 +52,9 @@ class AndroidBasePage:
             AppiumBy.ANDROID_UIAUTOMATOR,
             'new UiSelector().text("Close proactive message")',
         )
+        self._edit_text_view = Element(
+            AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("android.widget.EditText")'
+        )
 
     @property
     def sb_search_field(self) -> Element:
@@ -156,6 +159,16 @@ class AndroidBasePage:
         return self._edx_feedback_google_form_title
 
     @property
+    def edit_text_view(self) -> Element:
+        """edit text view
+
+        Returns:
+            Element: edit text view
+        """
+
+        return self._edit_text_view
+
+    @property
     def ai_assistant_dismiss_button(self) -> Element:
         """Get dismiss button
 
@@ -172,5 +185,15 @@ class AndroidBasePage:
         """
         if text:
             selector = f'new UiSelector().text("{text}")'
+            return Element(AppiumBy.ANDROID_UIAUTOMATOR, selector).find(raise_exception=raise_error)
+        raise ValueError("text cannot be empty")
+
+    def find_by_partial_text_on_screen(self, text: str, raise_error: bool = True) -> Element:
+        """Find element by text.
+        Returns:
+            Element: element with required text
+        """
+        if text:
+            selector = f'new UiSelector().textContains("{text}")'
             return Element(AppiumBy.ANDROID_UIAUTOMATOR, selector).find(raise_exception=raise_error)
         raise ValueError("text cannot be empty")

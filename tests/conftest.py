@@ -231,7 +231,7 @@ def android_login(set_capabilities, setup_logging):
 
     assert android_landing.signin_button.exists()
     assert android_landing.load_signin_screen()
-    expect(android_sign_in.signin_title, "Sign in screen not loaded successfully").to_have(values.LOGIN)
+    expect(android_sign_in.signin_title, "Sign in screen not loaded successfully").to_have(values.SIGN_IN_TEXT)
 
     expect(android_sign_in.sign_in_email_label).to_have(values.EMAIL_OR_USERNAME)
     expect(android_sign_in.sign_in_tf_email).to_be_clickable()
@@ -298,15 +298,15 @@ def ios_login(set_capabilities, setup_logging):
         ios_landing.allow_notifications_button.click()
 
     sign_in_button = ios_landing.sign_in_button
-    expect(sign_in_button).to_have(values.LOGIN, ElementAttribute.LABEL)
+    expect(sign_in_button).to_have(values.SIGN_IN_TEXT, ElementAttribute.LABEL)
     assert sign_in_button.click()
-    expect(ios_login.sign_in_title).to_have(values.LOGIN, ElementAttribute.LABEL)
+    expect(ios_login.sign_in_title).to_have(values.SIGN_IN_TEXT, ElementAttribute.LABEL)
 
     expect(ios_login.username_text_field_label).to_have(values.EMAIL_OR_USERNAME_IOS, ElementAttribute.LABEL)
     assert ios_login.username_textfield.send_keys(global_contents.login_user_name + "\n")
     expect(ios_login.password_text_field_label).to_have(values.PASSWORD, ElementAttribute.LABEL)
     assert ios_login.password_textfield.send_keys(global_contents.login_password + "\n")
-    expect(ios_login.signin_button).to_have(values.LOGIN, ElementAttribute.LABEL)
+    expect(ios_login.signin_button).to_have(values.SIGN_IN_TEXT, ElementAttribute.LABEL)
     ios_login.signin_button.click()
     setup_logging.info(f"{global_contents.login_user_name} is successfully logged in")
 
