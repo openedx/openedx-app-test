@@ -129,7 +129,7 @@ test screens
 - `browserstack-sdk pytest tests/ios/tests/ --env browserstack` to run all ios
 test screens
 
-- `browserstack-sdk pytest -m SMOKE --env browserstack` to run all tests with smoke marker
+- `browserstack-sdk pytest -m ANDROID_SMOKE --env browserstack` to run all tests with smoke marker
 
 You can also use any other way of selecting tests which are available under pytest
 

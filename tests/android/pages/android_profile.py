@@ -28,7 +28,7 @@ class AndroidProfile(AndroidBasePage):
             AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("txt_edit_profile")'
         )
         self._privacy_policy = Element(AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("Privacy Policy")')
-        self._logout_text = Element(AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("Log Out")')
+        self._logout_text = Element(AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("Log out")')
         self._logout_prompt_msg = Element(
             AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("txt_logout_dialog_title")'
         )

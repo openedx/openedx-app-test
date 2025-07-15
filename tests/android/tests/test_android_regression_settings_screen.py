@@ -200,19 +200,19 @@ class TestRegressionSettingsScreen:
         with allure.step("Click on terms of use"):
             settings_page.find_by_text_on_screen(values.PROFILE_TERMS_OF_USE_UPPERCASE).click()
             expect(settings_page.text_toolbar_title).to_have(values.PROFILE_TERMS_OF_USE_UPPERCASE)
-            settings_page.find_by_text_on_screen("edX Terms of Service")
+            settings_page.find_by_text_on_screen("edX terms of service")
             settings_page.back_navigation_button.click()
 
         with allure.step("Click on privacy policy"):
             settings_page.find_by_text_on_screen(values.PROFILE_PRIVACY_POLICY_TITLE_CASE).click()
             expect(settings_page.text_toolbar_title).to_have(values.PROFILE_PRIVACY_POLICY_TITLE_CASE)
-            settings_page.find_by_text_on_screen("edX Privacy Policy")
+            settings_page.find_by_text_on_screen("edX privacy policy")
             settings_page.back_navigation_button.click()
 
         with allure.step("Click on cookie policy"):
             settings_page.find_by_text_on_screen(values.PROFILE_COOKIE_POLICY_TITLE_CASE).click()
             expect(settings_page.text_toolbar_title).to_have(values.PROFILE_COOKIE_POLICY_TITLE_CASE)
-            settings_page.find_by_text_on_screen("edX’s Cookie Policy")
+            settings_page.find_by_text_on_screen("edX’s cookie policy")
             settings_page.back_navigation_button.click()
 
         with allure.step("Click on personal info"):

@@ -15,6 +15,7 @@ from tests.common.globals import Globals
 
 
 @pytest.mark.ANDROID
+@pytest.mark.SMOKE
 class TestAndroidWhatsNew:
     """
     What's new screen's Test Case
