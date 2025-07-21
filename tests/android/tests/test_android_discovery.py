@@ -18,6 +18,7 @@ from tests.android.pages.android_course_dashboard import AndroidCourseDashboard
 
 
 @pytest.mark.ANDROID
+@pytest.mark.ANDROID_SMOKE
 class TestAndroidDiscovery:
     """
     Discovery screen's Test Case
