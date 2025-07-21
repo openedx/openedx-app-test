@@ -39,7 +39,7 @@ class TestAndroidWhatsNew:
             expect(android_landing.screen_title).to_have(values.LANDING_MESSAGE)
             assert android_landing.signin_button.exists()
             assert android_landing.load_signin_screen()
-            expect(android_sign_in.signin_title, "Sign in screen not loaded successfully").to_have(values.LOGIN)
+            expect(android_sign_in.signin_title, "Sign in screen not loaded successfully").to_have(values.SIGN_IN_TEXT)
             expect(android_sign_in.sign_in_email_label).to_have(values.EMAIL_OR_USERNAME)
             expect(android_sign_in.sign_in_tf_email).to_be_clickable()
             assert android_sign_in.sign_in_tf_email.send_keys(global_contents.login_user_name)

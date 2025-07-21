@@ -201,7 +201,7 @@ class TestIosDiscovery:
         whats_new_page = IosWhatsNew()
 
         signin_button = ios_landing.sign_in_button
-        expect(signin_button).to_have(values.LOGIN)
+        expect(signin_button).to_have(values.SIGN_IN_TEXT)
         assert signin_button.click()
 
         expect(ios_login.username_text_field_placeholder).to_have(values.EMAIL_OR_USERNAME_IOS)
@@ -210,7 +210,7 @@ class TestIosDiscovery:
         expect(ios_login.password_text_field_label).to_have(values.PASSWORD)
         ios_login.password_textfield.send_keys(global_contents.login_password + "\n")
         sign_in_button = ios_login.signin_button
-        expect(ios_login.signin_button).to_have(values.LOGIN)
+        expect(ios_login.signin_button).to_have(values.SIGN_IN_TEXT)
         sign_in_button.click()
         setup_logging.info(f"{global_contents.login_user_name} is successfully logged in")
 

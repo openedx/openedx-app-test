@@ -37,7 +37,7 @@ class TestSmokeProfileEditFunctionality:
 
         with allure.step("Click on Sign in button"):
             android_landing_page.load_signin_screen()
-            expect(android_sign_in.signin_title, "Sign in screen not loaded successfully").to_have(values.LOGIN)
+            expect(android_sign_in.signin_title, "Sign in screen not loaded successfully").to_have(values.SIGN_IN_TEXT)
 
         with allure.step("Enter a valid email or username"):
             android_sign_in.sign_in_tf_email.send_keys("rtester99")

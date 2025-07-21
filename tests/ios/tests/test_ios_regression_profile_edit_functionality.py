@@ -168,7 +168,7 @@ class TestProfileEditFunctionality:
                 ios_landing_page.allow_notifications_button.click()
 
         with allure.step("Click on Sign in button"):
-            expect(ios_landing_page.sign_in_button).to_have(values.LOGIN, ElementAttribute.LABEL)
+            expect(ios_landing_page.sign_in_button).to_have(values.SIGN_IN_TEXT, ElementAttribute.LABEL)
             ios_landing_page.sign_in_button.click()
 
         with allure.step("Enter a valid email or username"):
