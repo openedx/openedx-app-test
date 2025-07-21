@@ -109,6 +109,7 @@ class TestAndroidDiscovery:
         Element.set_logger(setup_logging)
         catalog_page = AndroidCatalogPage()
 
+        catalog_page.search_button.wait_for_clickable()
         expect(catalog_page.find_by_text_on_screen(values.DISCOVERY_FILTER_BY_POPULAR_COURSES)).to_exist()
         expect(catalog_page.find_by_text_on_screen(values.DISCOVERY_SCREEN_MESSAGE)).to_exist()
         if catalog_page.find_by_text_on_screen(values.DISCOVERY_AI_CHAT_CLOSE_BUTTON, raise_error=False):
@@ -162,7 +163,7 @@ class TestAndroidDiscovery:
         assert discover_tab.click()
         expect(discover_tab).to_be_selected()
 
-        sleep(20)
+        catalog_page.search_button.wait_for_clickable()
         expect(catalog_page.text_toolbar_title).to_have(values.DISCOVERY_SCREEN_TITLE)
         assert catalog_page.catalog_screen_heading_msg.exists()
         assert catalog_page.catalog_screen_heading_msg.click()
@@ -201,14 +202,18 @@ class TestAndroidDiscovery:
         Element.set_logger(setup_logging)
         catalog_page = AndroidCatalogPage()
         course_dashboard = AndroidCourseDashboard()
-        sleep(5)
+
+        catalog_page.android_loading_circle.wait_to_disappear()
         enroll_main_element = catalog_page.discovery_enroll_main_element
-        enrollment_date = enroll_main_element.get_child_element(catalog_page.text_view)
+        enrollment_date = enroll_main_element.get_child_element(catalog_page.course_start_date)
         expect(enrollment_date).to_match(r".+")
-        assert enrollment_date.click()
-        enroll_button = catalog_page.enroll_button
-        expect(enroll_button).to_have("Enroll", ElementAttribute.CONTENT_DESC)
-        assert enroll_button.click()
+        advance_your_career_button = enroll_main_element.get_child_element(catalog_page.advance_your_career_button)
+        advance_your_career_button.click()
+        if catalog_page.advance_your_career_button.exists(raise_exception=False):
+            enroll_main_element.get_child_element(catalog_page.advance_your_career_button).click()
         if catalog_page.allow_notifications_button.exists(raise_exception=False):
-            assert catalog_page.allow_notifications_button.click()
+            catalog_page.allow_notifications_button.click()
         expect(course_dashboard.course_dashboard_home_tab).to_have(values.COURSE_DASHBOARD_HOME_TAB)
+        course_dashboard.back_button.click()
+        course_dashboard.android_loading_circle.wait_to_disappear()
+        course_dashboard.back_button.click()

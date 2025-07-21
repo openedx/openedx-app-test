@@ -39,11 +39,16 @@ class AndroidCatalogPage(AndroidBasePage):
             'new UiSelector().resourceId("search-landing-product-result-0")',
         )
         self._discovery_enroll_main_element = Element(
-            AppiumBy.XPATH,
-            '//android.view.View[@resource-id="enroll"]/android.view.View[1]/android.view.View',
+            AppiumBy.ANDROID_UIAUTOMATOR,
+            'new UiSelector().resourceId("enroll")',
         )
         self._enroll_button = Element(AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().description("Enroll")')
+        self._advance_your_career_button = Element(
+            AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("Advance your career")'
+        )
         self._main_content = Element(AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("main-content")')
+        self._course_start_date_text = Element(AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().textContains("Starts")')
+        self._course_end_date_text = Element(AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().textContains("Ends")')
         self._discovery_search_breakcrumbs = Element(
             AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("breadcrumb")'
         )
@@ -206,11 +211,27 @@ class AndroidCatalogPage(AndroidBasePage):
         return self._discovery_enroll_main_element
 
     @property
+    def course_start_date(self) -> Element:
+        """course start date text view element
+        Returns:
+            Element: course start date text view element
+        """
+        return self._course_start_date_text
+
+    @property
+    def course_end_date(self) -> Element:
+        """course end date text view element
+        Returns:
+            Element: course end date text view element
+
+        """
+        return self._course_end_date_text
+
+    @property
     def enroll_button(self) -> Element:
         """Enroll button
         Returns:
             Element: enroll button
-
         """
         return self._enroll_button
 
@@ -230,3 +251,11 @@ class AndroidCatalogPage(AndroidBasePage):
             Element: search bar text element
         """
         return self._search_field.get_child_element(self.edit_text_view)
+
+    @property
+    def advance_your_career_button(self):
+        """Advance your career button
+        Returns:
+            Element: advance your career button
+        """
+        return self._advance_your_career_button
