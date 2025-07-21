@@ -34,6 +34,7 @@ class IosBasePage:
         self._accept_cookies_button = Element(AppiumBy.ACCESSIBILITY_ID, "Accept Cookies")
         self._reject_cookies_button = Element(AppiumBy.ACCESSIBILITY_ID, "Reject All")
         self._privacy_choices_button = Element(AppiumBy.ACCESSIBILITY_ID, "Your Privacy Choices")
+        self._ai_assistant_dismiss_button = Element(AppiumBy.ACCESSIBILITY_ID, "Close proactive message")
 
     @property
     def static_text(self) -> Element:
@@ -224,3 +225,13 @@ class IosBasePage:
             Element: Privacy Choices button element
         """
         return self._privacy_choices_button
+
+    @property
+    def ai_assistant_dismiss_button(self) -> Element:
+        """
+        Get AI Assistant Dismiss button
+
+        Returns:
+            Element: AI Assistant Dismiss button element
+        """
+        return self._ai_assistant_dismiss_button

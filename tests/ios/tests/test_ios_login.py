@@ -109,6 +109,6 @@ class TestIosLogin:
         sign_in_button = ios_login.signin_button
         expect(ios_login.signin_button).to_have(values.LOGIN)
         assert sign_in_button.click()
-        logo_image = ios_landing.get_logo_image
+        logo_image = ios_landing.edx_logo_image
         expect(logo_image).to_have(values.LANDING_LOGO_IMAGE)
         setup_logging.info("Ending Test Case")
