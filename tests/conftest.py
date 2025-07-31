@@ -102,6 +102,7 @@ def set_capabilities(setup_logging, request):
 
     if env_name == "local":
         desired_capabilities["appium:platformVersion"] = globals_contents.platform_version
+        desired_capabilities["appium:autoAcceptAlerts"] = globals_contents.auto_accept_alerts
         if globals_contents.app_path:
             desired_capabilities["appium:app"] = globals_contents.app_path
             logger.info(f"@@@ app path: {globals_contents.app_path}")
@@ -317,8 +318,8 @@ def ios_login(set_capabilities, setup_logging):
     profile_tab = main_dashboard.profile_tab
     expect(profile_tab).to_have(values.MAIN_DASHBOARD_PROFILE_TAB, ElementAttribute.LABEL)
     profile_tab.click()
-    main_dashboard.get_main_dashboard_learn_tab.click()
-    expect(main_dashboard.get_main_dashboard_learn_tab).to_be_selected()
+    main_dashboard.main_dashboard_learn_tab.click()
+    expect(main_dashboard.main_dashboard_learn_tab).to_be_selected()
 
     yield set_capabilities
 

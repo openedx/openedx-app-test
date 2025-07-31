@@ -47,7 +47,7 @@ class TestIosCourseDashboard:
         if ios_landing.allow_notifications_button.exists(raise_exception=False):
             ios_landing.allow_notifications_button.click()
 
-        course_tab = course_dashboard_page.course_dashboard_course_tab
+        course_tab = course_dashboard_page.course_dashboard_home_tab
         expect(course_tab).to_have(second_course_name.text)
 
         videos_tab = course_dashboard_page.course_dashboard_videos_tab

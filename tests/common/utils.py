@@ -63,3 +63,21 @@ def normalize_string(text, form="NFC"):
         str : Normalized Form Composed (NFC) Version of UTF-8
     """
     return normalize(form, text)
+
+
+def save_page_source_to_file(driver, filename="page_source.xml"):
+    """
+    Saves the current page source from the Appium driver to a specified file.
+
+    Args:
+        driver: The Appium WebDriver instance.
+        filename (str): The name of the file to save the page source to.
+                        Defaults to "page_source12.xml".
+    """
+    try:
+        page_source = driver.page_source
+        with open(filename, "w", encoding="utf-8") as f:
+            f.write(page_source)
+        print(f"Page source successfully saved to: {os.path.abspath(filename)}")
+    except Exception as e:
+        print(f"Error saving page source to file {filename}: {e}")
