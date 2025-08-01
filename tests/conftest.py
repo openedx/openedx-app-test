@@ -313,13 +313,13 @@ def ios_login(set_capabilities, setup_logging):
 
     if whats_new_page.whats_new_next_button.exists(raise_exception=False):
         whats_new_page.close_button.click()
-        setup_logging.info("Whats New screen is successfully loaded")
+        setup_logging.info("Whats New screen is successfully closed")
 
     profile_tab = main_dashboard.profile_tab
     expect(profile_tab).to_have(values.MAIN_DASHBOARD_PROFILE_TAB, ElementAttribute.LABEL)
     profile_tab.click()
-    main_dashboard.main_dashboard_learn_tab.click()
-    expect(main_dashboard.main_dashboard_learn_tab).to_be_selected()
+    main_dashboard.learn_tab.click()
+    expect(main_dashboard.learn_tab).to_be_selected()
 
     yield set_capabilities
 
