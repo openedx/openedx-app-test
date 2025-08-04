@@ -69,10 +69,10 @@ class TestIosSmokeLandingScreen:
             expect(ios_discover_page.results_for_text).to_contain(
                 values.DISCOVERY_TRENDING_COURSE_PYTHON, ElementAttribute.LABEL
             )
-            expect(ios_landing.discover_page_back_button).to_have(values.BACK_BUTTON, ElementAttribute.LABEL)
+            expect(ios_discover_page.back_button).to_have(values.BACK_BUTTON, ElementAttribute.LABEL)
 
         with allure.step("Click on back button to return to landing page"):
-            ios_landing.discover_page_back_button.click()
+            ios_discover_page.back_button.click()
             expect(ios_landing.edx_logo_image).to_have(values.LANDING_LOGO_IMAGE, ElementAttribute.LABEL)
             expect(ios_landing.welcome_message).to_have(values.LANDING_MESSAGE, ElementAttribute.LABEL)
 
@@ -90,7 +90,7 @@ class TestIosSmokeLandingScreen:
             expect(ios_discover_page.search_button).to_have(values.DISCOVERY_SEARCH_BUTTON, ElementAttribute.LABEL)
 
         with allure.step("Click on back button to return to landing page"):
-            ios_landing.discover_page_back_button.click()
+            ios_discover_page.back_button.click()
             expect(ios_landing.edx_logo_image).to_have(values.LANDING_LOGO_IMAGE, ElementAttribute.LABEL)
             expect(ios_landing.welcome_message).to_have(values.LANDING_MESSAGE, ElementAttribute.LABEL)
 
@@ -99,8 +99,8 @@ class TestIosSmokeLandingScreen:
             expect(register_button).to_have(values.REGISTER, ElementAttribute.LABEL)
             register_button.click()
             expect(register_page.register_screen_title).to_have(values.REGISTER, ElementAttribute.LABEL)
-            expect(register_page.get_signup_text).to_have(values.REGISTER, ElementAttribute.LABEL)
-            expect(register_page.get_signup_subtitle_text).to_have(
+            expect(register_page.register_heading_text).to_have(values.REGISTER, ElementAttribute.LABEL)
+            expect(register_page.register_subtitle_text).to_have(
                 values.REGISTER_CREATE_ACCOUNT_MESSAGE, ElementAttribute.LABEL
             )
 

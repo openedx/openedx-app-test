@@ -26,7 +26,12 @@ class IosMainDashboard(IosBasePage):
         self._programs_tab = Element(AppiumBy.ACCESSIBILITY_ID, "Programs")
         self._learn_tab = Element(AppiumBy.ACCESSIBILITY_ID, "Learn")
         self._discover_tab = Element(AppiumBy.ACCESSIBILITY_ID, "Discover")
+        self._discover_tab_selected = Element(
+            AppiumBy.IOS_CLASS_CHAIN, '**/XCUIElementTypeButton[`name == "Discover"`]'
+        )
         self._close_button = Element(AppiumBy.ACCESSIBILITY_ID, "close_button")
+        self._course_item_demoX = Element(AppiumBy.IOS_PREDICATE, 'name == "course_item" AND label == "DemoX"')
+        self._course_name_demoX = Element(AppiumBy.ACCESSIBILITY_ID, "DemoX")
 
     @property
     def get_close_button(self) -> Element:
@@ -50,7 +55,18 @@ class IosMainDashboard(IosBasePage):
         return self._discover_tab
 
     @property
-    def get_main_dashboard_learn_tab(self) -> Element:
+    def main_dashboard_discover_tab_selected(self) -> Element:
+        """
+        Get discover tab
+
+        Returns:
+            webdriver element: Discover tab element
+        """
+
+        return self._discover_tab_selected
+
+    @property
+    def main_dashboard_learn_tab(self) -> Element:
         """
         Get discover tab
 
@@ -92,3 +108,23 @@ class IosMainDashboard(IosBasePage):
         """
 
         return self._profile_tab
+
+    @property
+    def course_item_demoX(self) -> Element:
+        """
+        Get course item DemoX
+
+        Returns:
+            webdriver element: course item DemoX element
+        """
+        return self._course_item_demoX
+
+    @property
+    def course_name_demoX(self) -> Element:
+        """
+        Get course name DemoX
+
+        Returns:
+            webdriver element: course name DemoX element
+        """
+        return self._course_name_demoX

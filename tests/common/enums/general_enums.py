@@ -80,3 +80,38 @@ class Language(Enum):
 
     ENGLISH = "English"
     FRENCH = "French"
+
+
+class Subjects(Enum):
+    """Subjects"""
+
+    COMPUTER_SCIENCE = "Computer Science"
+    DATA_SCIENCE = "Data Science"
+    ENGINEERING = "Engineering"
+    MATH = "Math"
+    BUSINESS = "Business"
+    ART = "Art"
+    HISTORY = "History"
+    LANGUAGE = "Language"
+    SCIENCE = "Science"
+    SOCIAL_SCIENCE = "Social Science"
+    HEALTH = "Health"
+    OTHER = "Other"
+
+
+class DiscoverSections(Enum):
+    """Discover Sections"""
+
+    MOST_POPULAR = "Most popular"
+    EXECUTIVE_EDUCATION = "Executive Education"
+    MASTER_DEGREE = "Master’s Degrees"
+    BACHELOR_DEGREE = "Bachelor’s Degrees"
+    NEW = "New"
+    TRENDING = "Trending"
+
+
+class AppContext(Enum):
+    """App Context"""
+
+    NATIVE = "NATIVE_APP"
+    WEBVIEW = "WEBVIEW"

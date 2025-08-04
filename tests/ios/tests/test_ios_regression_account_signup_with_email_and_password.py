@@ -55,8 +55,8 @@ class TestAccountRegistrationSignupWithEmailAndPassword:
         with allure.step("Click on Register button"):
             ios_landing_page.register_button.click()
             expect(register_page.register_screen_title).to_have(values.REGISTER, ElementAttribute.LABEL)
-            expect(register_page.get_signup_text).to_have(values.REGISTER, ElementAttribute.LABEL)
-            expect(register_page.get_signup_subtitle_text).to_have(
+            expect(register_page.register_heading_text).to_have(values.REGISTER, ElementAttribute.LABEL)
+            expect(register_page.register_subtitle_text).to_have(
                 values.REGISTER_CREATE_ACCOUNT_MESSAGE, ElementAttribute.LABEL
             )
 

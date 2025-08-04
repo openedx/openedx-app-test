@@ -51,9 +51,9 @@ class TestIosRegister:
         expect(register_page.get_register_screen_heading).to_have(values.REGISTER)
         back_button = ios_landing.back_navigation_button
         expect(back_button).to_have(values.LANDING_BACK_BUTTON)
-        sign_up_heading = register_page.get_signup_text
+        sign_up_heading = register_page.register_heading_text
         expect(sign_up_heading).to_have(values.REGISTER)
-        expect(register_page.get_signup_subtitle_text).to_have(values.REGISTER_CREATE_ACCOUNT_MESSAGE)
+        expect(register_page.register_subtitle_text).to_have(values.REGISTER_CREATE_ACCOUNT_MESSAGE)
 
     def test_register_smoke(self, set_capabilities, setup_logging):
         """

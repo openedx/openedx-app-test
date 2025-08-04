@@ -103,6 +103,17 @@ class CustomAssertions:
         match_result = expected_value == actual_value
         assert match_result != self._is_not, custom_msg
 
+    def to_be_greater_than(self, expected_value: str, attribute: ElementAttribute = ElementAttribute.VALUE):
+        """Asserts that the element's value is greater than the expected value.
+
+        Args:
+            expected_value (Union[int, float]): The value to compare against.
+        """
+        actual_value = self._locator.get_attribute(attribute)
+        default_msg = f"Expected value to be greater than {expected_value}, but found {actual_value}"
+        custom_msg = self._custom_message or default_msg
+        assert actual_value > expected_value != self._is_not, custom_msg
+
     def to_match(
         self,
         pattern: re.Pattern,

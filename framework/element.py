@@ -16,6 +16,7 @@ from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.wait import WebDriverWait
 
 from tests.common.enums import ElementAttribute, ScrollDirections
+from tests.common.enums.general_enums import AppContext
 from tests.common.exceptions import NotFoundError
 from tests.common.utils import normalize_string
 
@@ -55,7 +56,7 @@ class Element:
     def find(self, timeout=10, raise_exception=True) -> Union["Element", None]:
         """Finds the required element.
         Arguments:
-            timeout (int) : time to wait for element
+            timeout (int) : time to wait for element in seconds
             raise_exception (bool): True or False
         Returns:
             Element: Returns self | None if not found and raise_exception is false
@@ -126,6 +127,7 @@ class Element:
             child_elements = self.find().element.find_elements(*child_locator.locator)
             if len(child_elements) > 0:
                 child_locator.elements = child_elements
+                child_locator._has_parent = True
                 Element.__logger.info(f"found {len(child_elements)} elements matching {child_locator.locator}")
                 return child_locator
 
@@ -143,7 +145,10 @@ class Element:
             Element: Returns self
         """
         if 0 <= index < len(self.elements):
-            self.element = self.find_all().elements[index]
+            if self._has_parent:
+                self.element = self.elements[index]
+            else:
+                self.element = self.find_all().elements[index]
             return self
         else:
             raise NotFoundError(
@@ -163,14 +168,21 @@ class Element:
         """Finds the required attribute from element
         Arguments:
             attribute (ElementAttribute) : attribute to get, defaults to Label
+            timeout (int): maximum time to wait for the element to be found
             raise_exception (bool): True or False
         Returns:
             str : mentioned property of the element
         """
         try:
             if self._has_parent:
-                return normalize_string(self.element.get_attribute(attribute))
-            return normalize_string(self.find(timeout).element.get_attribute(attribute))
+                attribute = self.element.get_attribute(attribute)
+                if attribute:
+                    return normalize_string(attribute)
+                raise NotFoundError("attribute not found")
+            attribute = self.find(timeout).element.get_attribute(attribute)
+            if attribute:
+                return normalize_string(attribute)
+            raise NotFoundError("attribute not found")
         except Exception as exception:
             if raise_exception:
                 raise NotFoundError(
@@ -346,6 +358,30 @@ class Element:
             Element.__logger.info(f"Element {self.locator} does not exist with exception {exception}")
             return False
 
+    def get_coordinates(self, timeout=10, raise_exception=True) -> tuple:
+        """
+        Returns the (x, y) coordinates of the element.
+
+        Arguments:
+            timeout (int): The time to wait for the element.
+            raise_exception (bool): Whether to raise an exception if the element is not found.
+
+        Returns:
+            tuple: (x, y) coordinates of the element.
+
+        Raises:
+            NotFoundError: If raise_exception is True and the element is not found.
+        """
+        try:
+            self.find(timeout, raise_exception)
+            location = self.element.location
+            return location["x"], location["y"]
+        except Exception as exception:
+            if raise_exception:
+                raise NotFoundError(f"failed to get coordinates for element {self.locator} with exception {exception}")
+            Element.__logger.info(f"failed to get coordinates for element {self.locator} with exception {exception}")
+            return None, None
+
     def is_selected(self, timeout=10) -> bool:
         """
             Checks if element is selected
@@ -454,7 +490,9 @@ class Element:
                 )
             Element.__logger.info(f"failed to find element {self.locator} with exception {exception}")
 
-    def scroll_and_find(self, timeout=10, tries=3, scroll_direction=ScrollDirections.UP) -> "Element":
+    def scroll_and_find(
+        self, timeout=10, tries=3, scroll_direction: ScrollDirections = ScrollDirections.UP
+    ) -> "Element":
         """Scroll until element is visible
         Arguments:
             timeout (int) : time to wait for element
@@ -465,10 +503,11 @@ class Element:
         """
 
         for _ in range(tries):
-            self.swipe_vertical_full_page(scroll_direction)
             self.find(timeout=timeout, raise_exception=False)
-            if self.element:
+            if self.element and self.is_displayed():
                 return self
+            self.swipe_vertical_full_page(scroll_direction, end_y_pc=40)
+
         if not self.element:
             raise NotFoundError(f"element {self.locator} not found after {tries} swipes")
         return self
@@ -540,7 +579,21 @@ class Element:
 
         Element.__driver.swipe(start_x, anchor_y, end_x, anchor_y, 300)
 
-    def wait_to_disappear(self, timeout=10, raise_exception=True) -> bool:
+    @staticmethod
+    def swipe_horizontal(start_x, end_x, anchor_y, duration=300):
+        """
+        Swipe horizontally on the screen.
+        Arguments:
+            start_x (int): Starting x-coordinate for the swipe.
+            end_x (int): Ending x-coordinate for the swipe.
+            anchor_y (int): y-coordinate to anchor the swipe.
+            duration (int): Duration of the swipe in milliseconds.
+        Returns:
+            None
+        """
+        Element.__driver.swipe(start_x, anchor_y, end_x, anchor_y, duration)
+
+    def wait_to_disappear(self, timeout=15, raise_exception=True) -> bool:
         """
         Waits until the element is not visible on the page
 
@@ -613,6 +666,47 @@ class Element:
         Element.__driver.swipe(x_anchor, start_y, x_anchor, end_y, 2500)
 
     @staticmethod
+    def get_window_size() -> dict:
+        """
+        Get the size of the current window.
+
+        Returns:
+            dict: A dictionary containing the width and height of the window.
+        """
+        return Element.__driver.get_window_size()
+
+    @staticmethod
     def switch_back_to_app():
         """Switch back to app"""
         Element.__driver.activate_app("org.edx.mobile")
+
+    @staticmethod
+    def switch_context(context_type: AppContext):
+        """
+        Switches the driver context to either 'NATIVE_APP' or a 'WEBVIEW' context.
+
+        Args:
+            context_type (str): 'native' to switch to native context, 'webview' to switch to webview context.
+
+        Raises:
+            NotFoundError: If the requested context is not found.
+        """
+        driver = Element.__driver
+        available_contexts = driver.contexts
+        Element.__logger.info(f"Available contexts: {available_contexts}")
+
+        if context_type == AppContext.NATIVE:
+            if "NATIVE_APP" in available_contexts:
+                driver.switch_to.context("NATIVE_APP")
+                Element.__logger.info("Switched to native context")
+            else:
+                raise NotFoundError("NATIVE_APP context not found")
+        elif context_type == AppContext.WEBVIEW:
+            webview_contexts = [c for c in available_contexts if c.startswith("WEBVIEW")]
+            if webview_contexts:
+                driver.switch_to.context(webview_contexts[0])
+                Element.__logger.info(f"Switched to webview context: {webview_contexts[0]}")
+            else:
+                raise NotFoundError("WEBVIEW context not found")
+        else:
+            raise ValueError(f"context_type must be either '{AppContext.NATIVE}' or '{AppContext.WEBVIEW}'")

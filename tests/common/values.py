@@ -21,6 +21,7 @@ IOS_APP_VERSION = "Version: 6.0.4, Up-to-date"
 IOS_UNSELECTED_TAB_VALUE = "0"
 IOS_SELECTED_TAB_VALUE = "1"
 AUTOMATION_USER_EMAIL = "automation-user007@yopmail.com"
+OPEN_XPERT_CHATBOT_LABEL = "Open XPERT Chatbot"
 
 # Settings Screen iOS
 VIDEO_DOWNLOAD_QUALITY_BUTTON_LABEL = "Video download quality, Auto (Recommended)"
@@ -318,6 +319,7 @@ DISCOVERY_FIRST_POPULAR_COURSE = "Data Science"
 DISCOVERY_SECOND_POPULAR_COURSE = "Computer Science"
 DISCOVERY_AI_CHAT_CLOSE_BUTTON = "Close proactive message"
 DISCOVERY_ENGINEERING_POPULAR_COURSE = "Engineering"
+DISCOVERY_BUSINESS_MANAGEMENT_POPULAR_COURSE = "Business & Management"
 DISCOVERY_POPULAR_MATH_COURSE = "Math"
 DISCOVERY_MATH_RESULTS = "5552 results"
 DISCOVERY_MATH_RESULTS_BUTTON = "Show (204)"
@@ -325,6 +327,27 @@ DISCOVERY_MATH_PAGINATION_RESULTS = "204 results"
 DISCOVERY_PAGINATION_TEXT = "pagination"
 DISCOVERY_PAGINATION_TEXT_IOS = "pagination, navigation"
 DISCOVERY_DEMOX_COURSE = "DemoX edX Course"
+DISCOVER_SEARCH_FIELD_CLEAR_BUTTON = "Clear your search query"
+COURSE_KEYWORD_LIST = {
+    "Math": ["Calculus", "Data Science", "Probability", "Statistics", "Data, Science"],
+    "Data Science": ["Data Science", "AI", "Data, Science", "Statistics"],
+}
+X_SELECTER_FILTERS = "All filters({0} selected)"
+CLEAR_ALL = "Clear all"
+
+# DISCOVER FILTERS
+ALL_FILTERS_HEADING = "All filters"
+APPLY_BUTTON = "Apply"
+CLEAR_ALL_BUTTON = "Clear all"
+CLOSE_BUTTON = "Close"
+CHECKED = "1"
+UNCHECKED = "0"
+
+# COURSE ENROLLMENT PAGE
+DEMOX_COURSE_LABEL = "edX: DemoX"
+ADCANCE_YOUR_CAREER_LABEL = "Advance your career"
+DEMOX = "DemoX"
+
 
 # COURSE HOME TAB SCREEN
 COURSE_MISSED_DEADLINES_LABEL = "Missed some deadlines?"

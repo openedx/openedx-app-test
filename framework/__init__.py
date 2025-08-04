@@ -12,11 +12,11 @@ The Expect class is used in the following way:
 
     expect(element).to_have("text")
 
-    expect(element).not_.to_have("text")
+    expect(element, timeout=20).not_.to_have("text")
 
-    expect(element).to_have("text", timeout=1000)
+    expect(element).to_have("text", ElementAttribute.LABEL)
 
-    expect(element).not_.to_have("text", timeout=1000)
+    expect(element).not_.to_have("text", ElementAttribute.TEXT, case="lower")
 
 """
 
@@ -35,7 +35,7 @@ class Expect:
     maintainable test code.
     """
 
-    def __call__(self, locator: Element, message: Optional[str] = None, timeout: int = 10000) -> CustomAssertions:
+    def __call__(self, locator: Element, message: Optional[str] = None, timeout: int = 10) -> CustomAssertions:
         return CustomAssertions(locator, timeout, message=message)
 
 

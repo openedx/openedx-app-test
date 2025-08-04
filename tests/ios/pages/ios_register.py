@@ -82,23 +82,23 @@ class IosRegister(IosBasePage):
         return self._password_field
 
     @property
-    def get_signup_text(self) -> Element:
+    def register_heading_text(self) -> Element:
         """
         Get signup text
 
         Returns:
-            webdriver element: signup text element
+            Element: signup text element
         """
 
         return self._register_signup_text
 
     @property
-    def get_signup_subtitle_text(self) -> Element:
+    def register_subtitle_text(self) -> Element:
         """
         Get signup subtitle text
 
         Returns:
-            webdriver element: signup subtitle text element
+            Element: signup subtitle text element
         """
 
         return self._signup_subtitle_text

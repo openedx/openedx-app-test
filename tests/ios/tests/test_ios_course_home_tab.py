@@ -56,7 +56,7 @@ class TestIosCourseHomeTab:
         if ios_landing.allow_notifications_button.exists(timeout=30, raise_exception=False):
             ios_landing.allow_notifications_button.click()
 
-        course_tab = course_dashboard_page.course_dashboard_course_tab
+        course_tab = course_dashboard_page.course_dashboard_home_tab
         expect(course_tab).to_have(values.COURSE_DASHBOARD_HOME_TAB)
 
         deadline_title = global_contents.get_element_by_label_ios(driver, values.COURSE_MISSED_DEADLINES_LABEL)

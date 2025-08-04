@@ -31,7 +31,7 @@ class TestIosMainDashboard:
         Element.set_driver(driver)
         Element.set_logger(setup_logging)
         main_dashboard = IosMainDashboard()
-        learn_tab = main_dashboard.get_main_dashboard_learn_tab
+        learn_tab = main_dashboard.main_dashboard_learn_tab
         assert learn_tab.click()
         expect(learn_tab).to_have(values.IOS_SELECTED_TAB_VALUE, ElementAttribute.VALUE)
 
@@ -55,7 +55,7 @@ class TestIosMainDashboard:
         Element.set_logger(setup_logging)
         global_contents = Globals(setup_logging)
         main_dashboard = IosMainDashboard()
-        learn_tab = main_dashboard.get_main_dashboard_learn_tab
+        learn_tab = main_dashboard.main_dashboard_learn_tab
         assert learn_tab.click()
         switcher_label = global_contents.wait_and_get_element(
             set_capabilities, ios_elements.main_dashboard_dropdown_text

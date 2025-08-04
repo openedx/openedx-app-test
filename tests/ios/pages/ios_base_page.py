@@ -17,9 +17,7 @@ class IosBasePage:
 
     def __init__(self):
         self._back_button_navigation = Element(AppiumBy.ACCESSIBILITY_ID, "back_button")
-        self._notification_allow_button = Element(
-            AppiumBy.IOS_CLASS_CHAIN, "**/XCUIElementTypeButton[`name == 'Allow'`]"
-        )
+        self._notification_allow_button = Element(AppiumBy.ACCESSIBILITY_ID, "Allow")
         self._screen_heading_title = Element(AppiumBy.ACCESSIBILITY_ID, "title_text")
         self._navigation_bar_title = Element(AppiumBy.CLASS_NAME, "XCUIElementTypeNavigationBar")
         self._snackbar_text_message = Element(AppiumBy.ACCESSIBILITY_ID, "snackbar_text")
@@ -29,12 +27,18 @@ class IosBasePage:
             AppiumBy.IOS_CLASS_CHAIN, '**/XCUIElementTypeTextField[`name == "picker_search_textfield"`]'
         )
         self._static_text = Element(AppiumBy.CLASS_NAME, "XCUIElementTypeStaticText")
+        self._button = Element(AppiumBy.CLASS_NAME, "XCUIElementTypeButton")
         self._picker_accept_button = Element(AppiumBy.NAME, "picker_accept_button")
         self._choose_button = Element(AppiumBy.ACCESSIBILITY_ID, "Choose")
         self._accept_cookies_button = Element(AppiumBy.ACCESSIBILITY_ID, "Accept Cookies")
         self._reject_cookies_button = Element(AppiumBy.ACCESSIBILITY_ID, "Reject All")
         self._privacy_choices_button = Element(AppiumBy.ACCESSIBILITY_ID, "Your Privacy Choices")
         self._ai_assistant_dismiss_button = Element(AppiumBy.ACCESSIBILITY_ID, "Close proactive message")
+        self._openedx_ai_chat_bot = Element(AppiumBy.ACCESSIBILITY_ID, "Open XPERT Chatbot")
+        self._openedx_ai_chat_bot_web_alert = Element(AppiumBy.ACCESSIBILITY_ID, "web alert dialogue")
+        self._openedx_ai_chat_bot_dialogue_msg = Element(
+            AppiumBy.IOS_PREDICATE, 'label == "I\'m Xpert, an AI assistant to help you find things."'
+        )
 
     @property
     def static_text(self) -> Element:
@@ -44,6 +48,15 @@ class IosBasePage:
             Element: static text element locator
         """
         return self._static_text
+
+    @property
+    def button(self) -> Element:
+        """
+        Get button element
+        Returns:
+            Element: button element locator
+        """
+        return self._button
 
     @property
     def back_navigation_button(self) -> Element:
@@ -178,22 +191,24 @@ class IosBasePage:
         return Element(AppiumBy.CLASS_NAME, f"XCUIElementType{view_name.value}").find_all()
 
     @staticmethod
-    def find_by_text_on_screen(text: str, partial: bool = False) -> Element:
+    def find_by_text_on_screen(text: str, partial: bool = False, scroll=False) -> Element:
         """
         Find an element on the screen by its text
 
         Args:
             text (str): element text to search for
             partial (bool): whether to search for a partial match
+            scroll (bool): whether to scroll and find the element
 
         Returns:
             Element: found element
         """
         if text:
-            locator = f'label == "{text}"'
+            selector = f'label == "{text}"'
             if partial:
-                locator = f'label CONTAINS "{text}"'
-            return Element(AppiumBy.IOS_PREDICATE, locator).find()
+                selector = f'label CONTAINS "{text}"'
+            element_locator = Element(AppiumBy.IOS_PREDICATE, selector)
+            return element_locator.scroll_and_find() if scroll else element_locator.find()
         raise ValueError("text cannot be empty")
 
     @property
@@ -235,3 +250,33 @@ class IosBasePage:
             Element: AI Assistant Dismiss button element
         """
         return self._ai_assistant_dismiss_button
+
+    @property
+    def openedx_ai_chat_bot(self) -> Element:
+        """
+        Get Open edX AI Chat Bot button
+
+        Returns:
+            Element: Open edX AI Chat Bot button element
+        """
+        return self._openedx_ai_chat_bot
+
+    @property
+    def openedx_ai_chat_bot_web_alert(self) -> Element:
+        """
+        Get Open edX AI Chat Bot web alert
+
+        Returns:
+            Element: Open edX AI Chat Bot web alert element
+        """
+        return self._openedx_ai_chat_bot_web_alert
+
+    @property
+    def openedx_ai_chat_bot_dialogue_msg(self) -> Element:
+        """
+        Get Open edX AI Chat Bot dialogue message
+
+        Returns:
+            Element: Open edX AI Chat Bot dialogue message element
+        """
+        return self._openedx_ai_chat_bot_dialogue_msg

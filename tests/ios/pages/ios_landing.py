@@ -32,7 +32,6 @@ class IosLanding(IosBasePage):
         self._explore_courses_button = Element(AppiumBy.ACCESSIBILITY_ID, "explore_courses_button")
         self._signin_button = Element(AppiumBy.ACCESSIBILITY_ID, "logistration_signin_button")
         self._logistration_register_button = Element(AppiumBy.ACCESSIBILITY_ID, "logistration_register_button")
-        self._landing_back_button = Element(AppiumBy.ACCESSIBILITY_ID, "Start")
         self._search_magnifying_glass_icon = Element(AppiumBy.ACCESSIBILITY_ID, "magnifyingglass")
 
     @property
@@ -78,28 +77,6 @@ class IosLanding(IosBasePage):
         """
 
         return self._landing_search_title
-
-    @property
-    def discover_page_back_button(self) -> Element:
-        """
-        Get discovery title
-
-        Returns:
-            webdriver element: discovery title element
-        """
-
-        return self._landing_back_button
-
-    @property
-    def go_back_to_landing_screen(self):
-        """
-        Get discovery screen
-
-        Returns:
-            webdriver element: discovery title element
-        """
-
-        return self.discover_page_back_button.click()
 
     @property
     def register_button(self):
