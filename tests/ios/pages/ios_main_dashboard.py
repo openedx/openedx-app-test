@@ -32,6 +32,7 @@ class IosMainDashboard(IosBasePage):
         self._close_button = Element(AppiumBy.ACCESSIBILITY_ID, "close_button")
         self._course_item_demoX = Element(AppiumBy.IOS_PREDICATE, 'name == "course_item" AND label == "DemoX"')
         self._course_name_demoX = Element(AppiumBy.ACCESSIBILITY_ID, "DemoX")
+        self._tab_bar = Element(AppiumBy.ACCESSIBILITY_ID, "Tab Bar")
 
     @property
     def get_close_button(self) -> Element:
@@ -58,7 +59,6 @@ class IosMainDashboard(IosBasePage):
     def main_dashboard_discover_tab_selected(self) -> Element:
         """
         Get discover tab
-
         Returns:
             webdriver element: Discover tab element
         """
@@ -66,12 +66,12 @@ class IosMainDashboard(IosBasePage):
         return self._discover_tab_selected
 
     @property
-    def main_dashboard_learn_tab(self) -> Element:
+    def learn_tab(self) -> Element:
         """
-        Get discover tab
+        Get learn tab
 
         Returns:
-            webdriver element: Discover tab element
+            Element: learn tab element
         """
 
         return self._learn_tab
@@ -128,3 +128,13 @@ class IosMainDashboard(IosBasePage):
             webdriver element: course name DemoX element
         """
         return self._course_name_demoX
+
+    @property
+    def tab_bar(self) -> Element:
+        """
+        tab bar
+
+        Returns:
+            Element: tab bar element
+        """
+        return self._tab_bar
