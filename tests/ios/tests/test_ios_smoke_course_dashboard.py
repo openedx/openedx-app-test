@@ -2,6 +2,7 @@
 Course Dashboard Screen Test Module
 """
 
+import allure
 import pytest
 
 from framework import expect, Element
@@ -12,7 +13,9 @@ from tests.common import values
 from tests.common.globals import Globals
 
 
+@allure.suite("IOS SMOKE")
 @pytest.mark.IOS
+@pytest.mark.IOS_SMOKE
 class TestIosCourseDashboard:
     """
     Course Dashboard screen's Test Case

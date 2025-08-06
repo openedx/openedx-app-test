@@ -97,10 +97,11 @@ def set_capabilities(setup_logging, request):
     SessionData.globals_contents = globals_contents
     SessionData.test_case_name = os.path.basename(str(request.node.name)).replace(".py", "")
     logger.info(f"@@@ Setting {globals_contents.target_environment} capabilities")
-    desired_capabilities["appium:fullReset"] = globals_contents.full_reset
     logger.info(f"@@@ env: {env_name}")
 
     if env_name == "local":
+        desired_capabilities["appium:fullReset"] = globals_contents.full_reset
+        desired_capabilities["appium:noReset"] = globals_contents.no_reset
         desired_capabilities["appium:platformVersion"] = globals_contents.platform_version
         desired_capabilities["appium:autoAcceptAlerts"] = globals_contents.auto_accept_alerts
         if globals_contents.app_path:

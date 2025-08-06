@@ -8,6 +8,8 @@ import pytest
 from framework import expect, Element
 from tests.common import values
 from tests.common.enums import ElementAttribute
+
+
 from tests.common.globals import Globals
 from tests.ios.pages.ios_landing import IosLanding
 from tests.ios.pages.ios_login import IosLogin
@@ -19,7 +21,8 @@ from tests.ios.pages.ios_whats_new import IosWhatsNew
 
 @allure.epic("Accounts")
 @allure.feature("Sign In")
-@allure.story("Sign In with email and password")
+@allure.story("user can only sign in with valid email and password")
+@allure.suite("IOS REGRESSION")
 @pytest.mark.IOS
 @pytest.mark.IOS_REGRESSION
 class TestAccountSignInWithEmailAndPassword:
@@ -28,6 +31,36 @@ class TestAccountSignInWithEmailAndPassword:
     def test_account_signin_with_email_and_password(self, set_capabilities, setup_logging):
         """
         Verify sign in flow with email and password
+
+        Steps:
+        1. Launch app and verify “Sign in“ button exists on landing page.
+        2. Click on Sign in button. Verify Sign in screen is loaded with title “Sign in” and description
+           ”Welcome back! Sign in to access your courses.” Verify field headings: Email or Username, Password.
+        3. Leave all fields empty and click on Sign In button. Verify error messages for required fields.
+        4. Enter invalid username (e.g., “john doe”) and correct password, click Sign in.
+                Verify invalid credentials toast.
+        5. Enter valid, unregistered username and correct password, click Sign in. Verify invalid credentials toast.
+        6. Enter invalid email (e.g., “abc@gmail”) and click Sign in. Verify invalid credentials toast.
+        7. Enter valid but unregistered email (e.g., “abc@gmail.com”) and click Sign in.
+                Verify invalid credentials toast.
+        8. Clear out the Email or username field and click Sign in. Verify error for missing username/email.
+        9. Enter valid username, clear password field, click Sign in. Verify error for missing password.
+        10. Enter invalid password and click Sign in. Verify invalid credentials toast.
+        11. Verify eye icon on password field is clickable. Enter valid password and sign in. Verify Learn tab loads.
+        12. Go to Profile Tab. Verify username and full name.
+        13. Click Settings icon. Verify Settings screen title.
+        14. Scroll to log out button. Verify text is “Log Out”.
+        15. Click Log out button. Verify prompt “Are you sure you want to log out?” appears.
+        16. Click Log out on confirmation prompt. Verify landing page loads.
+        17. Click Sign in button.
+        18. Enter valid email and password.
+        19. Click Sign in button. Verify Learn tab loads.
+        20. Go to Profile Tab. Verify username and full name.
+        21. Click settings button. Verify Settings screen title is “Settings”.
+        22. Scroll and click Log out button. Verify prompt “Are you sure you want to log out?” and close button exist.
+        23. Click close button. Verify prompt disappears.
+        24. Click Log out button. Verify Log out button exists on prompt with text “Log Out”.
+        25. Verify landing page loads and sign in button is visible.
         """
         Element.set_logger(setup_logging)
         Element.set_driver(set_capabilities)

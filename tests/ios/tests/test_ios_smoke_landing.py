@@ -13,6 +13,10 @@ from tests.ios.pages.ios_login import IosLogin
 from tests.ios.pages.ios_register import IosRegister
 
 
+@allure.epic("IOS SMOKE")
+@allure.feature("Landing Page")
+@allure.story("landing page components work correctly")
+@allure.suite("IOS SMOKE")
 @pytest.mark.IOS
 @pytest.mark.IOS_SMOKE
 class TestIosSmokeLandingScreen:

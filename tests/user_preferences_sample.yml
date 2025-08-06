@@ -12,14 +12,22 @@ Settings:
   # device name is only useful for iOS simulator, in case of multiple connected real devices use udid
   device_name: 'iPhone 15'
 
+  # full reset capability of appium
   full_reset: false
 
+  # no reset capability of appium
+  no_reset: true
+
+  # app path for apk or ipa file
   app_path: ''
 
   # only for android
   app_package: 'org.edx.mobile'
 
   app_version: '6.1.0'
+
+  # allows appium to auto accept any system alerts such as notifications pop-up
+  auto_accept_alerts: true
 
 # set valid credentials to login
 User:

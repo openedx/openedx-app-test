@@ -10,10 +10,10 @@ from tests.android.pages.android_profile import AndroidProfile
 from tests.common import values
 
 
-@allure.epic("Accounts")
+@allure.epic("Profile & Settings")
 @allure.feature("Profile")
-@allure.story("Limited profile")
-@allure.suite("REGRESSION")
+@allure.story("user has limited profile functionality")
+@allure.suite("ANDROID REGRESSION")
 @pytest.mark.ANDROID
 @pytest.mark.ANDROID_REGRESSION
 class TestLimitedProfile:

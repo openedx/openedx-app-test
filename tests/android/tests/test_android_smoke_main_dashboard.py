@@ -2,6 +2,7 @@
 Main Dashboard Test Module
 """
 
+import allure
 import pytest
 
 from framework import expect
@@ -11,6 +12,10 @@ from tests.common import values
 from tests.common.enums.attributes import ElementAttribute
 
 
+@allure.epic("ANDROID SMOKE")
+@allure.feature("Main Dashboard")
+@allure.feature("user can navigate between tabs on main dashboard page")
+@allure.suite("ANDROID SMOKE")
 @pytest.mark.ANDROID
 @pytest.mark.ANDROID_SMOKE
 class TestAndroidMainDashboard:

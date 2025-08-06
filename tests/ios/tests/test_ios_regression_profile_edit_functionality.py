@@ -21,9 +21,10 @@ from tests.ios.pages.ios_profile import IosProfile
 from tests.ios.pages.ios_whats_new import IosWhatsNew
 
 
-@allure.epic("Accounts")
+@allure.epic("Profile & Settings")
 @allure.feature("Profile")
-@allure.story("edit profile")
+@allure.story("user can edit profile info")
+@allure.suite("IOS REGRESSION")
 @pytest.mark.IOS
 @pytest.mark.IOS_REGRESSION
 class TestProfileEditFunctionality:
@@ -129,29 +130,102 @@ class TestProfileEditFunctionality:
 
     def test_ios_regression_profile_edit_functionality(self, set_capabilities: WebDriver | None, setup_logging: Logger):
         """
-        Test case for iOS regression profile edit functionality.
-        This test case performs the following steps:
-        1. Dismisses notifications pop-up if it exists.
-        2. Clicks on the Sign in button.
-        3. Enters a valid email or username.
-        4. Enters a valid password.
-        5. Clicks on the Sign in button.
-        6. Navigates to the Profile Tab.
-        7. Verifies the username and full name.
-        8. Clicks on the Edit Profile button.
-        9. Verifies user details on the Edit Profile page.
-        10. Clicks on the location dropdown and selects a location.
-        11. Clicks on the Spoken Language dropdown and selects a language.
-        12. Clicks on the about me text box and enters a bio.
-        13. Clicks on the image upload icon and verifies buttons appear.
-        14. Clicks on the remove photo button and verifies the photo is removed.
-        15. Clicks on the select from gallery button and selects a photo.
-        16. Clicks on the Done button.
-        17. Clicks on the back button.
-        18. Clicks on the Edit Profile button again and verifies the selected location and language.
-        19. Clicks on the switch to limited profile button and verifies the sub-heading and fields are disabled.
-        20. Clicks on the switch to full profile button and verifies the sub-heading and fields are enabled.
-        21. Cleans up and restores original values.
+        Test Steps:
+
+        1. Click on Profile tab
+            - Verify username
+            - Verify user full name
+            - Verify About Me section is displayed
+            - Verify About Me description
+            - Verify edit profile button exists
+
+        2. Click on Edit Profile button
+            - Verify screen title “Edit Profile”
+            - Verify Done button is greyed out
+            - Verify sub-heading “Full profile“
+            - Verify user full name
+            - Verify option to switch to limited profile
+            - Verify limited profile disclaimer “A limited profile only shares your username and profile photo.”
+            - Verify Location field heading “Location”
+            - Verify location field placeholder text “Location“
+            - Verify language field heading “Spoken Language”
+            - Verify language field value “English”
+            - Verify About Me heading exists
+            - Verify about me field value “About me/…”
+
+        3. Click on location dropdown
+            - Location heading appears
+
+        4. Search any location and click on it
+            - Verify location value is set in location field
+            - Verify Done button appears
+
+        5. Click on spoken language dropdown
+            - Spoken Language title appears
+
+        6. Search a language and click on it
+            - Verify spoken language field value is set
+
+        7. Click on about me text box
+
+        8. Add some text and click on Done button
+            - Verify done button disappears
+
+        9. Click on back button
+
+        10. Click on edit profile button
+            - Verify newly added values are still present
+
+        11. Click on image upload icon
+            - Verify change profile image title
+            - Verify buttons appear: Select from gallery, Remove photo, Cancel
+
+        12. Click on remove photo button
+
+        13. Click on image upload icon
+            - Verify photo is removed (remove photo button disappears in the menu)
+
+        14. Click on select from gallery
+
+        15. Select a photo from gallery
+            - Verify photo is updated
+
+        16. Click on cancel button
+            - Verify buttons disappear: Select from gallery, Remove photo, Cancel
+
+        17. Click on location dropdown
+            - Location heading appears
+
+            - Search any location and click on it
+            - Verify location value is set in location field
+            - Verify Done button appears
+
+            - Click on back button
+            - Warning prompt appears: “Leave without saving?”
+            - Subheading: “Changes you have made will be discarded”
+            - Leave & Keep editing buttons are shown
+            - Close button appears as a cross
+
+            - Click on Keep editing
+            - Warning disappears and Done button is visible and location change is present
+
+            - Click on back button & click on cross button
+            - Warning disappears and Done button is visible and location change is present
+
+            - Click on back button & click on Leave button
+            - Profile page is opened
+
+            - Click on edit profile button
+            - Location changes were not saved
+
+        18. Click on switch to limited profile
+            - Verify sub-heading “Limited profile”
+            - Verify the fields are no longer enabled
+            - Verify done button appears
+
+        19. Click on Switch to full profile
+            - Verify sub-heading “Full profile“
+            - Verify fields are enabled
         """
         Element.set_driver(set_capabilities)
         Element.set_logger(setup_logging)

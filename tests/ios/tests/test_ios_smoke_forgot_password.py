@@ -13,7 +13,8 @@ from tests.ios.pages.ios_login import IosLogin
 
 @allure.epic("Accounts")
 @allure.feature("Account Recovery")
-@allure.story("Forgot password")
+@allure.story("user can recover forgotten password")
+@allure.suite("IOS SMOKE")
 @pytest.mark.IOS
 @pytest.mark.IOS_SMOKE
 class TestAccountForgotPassword:

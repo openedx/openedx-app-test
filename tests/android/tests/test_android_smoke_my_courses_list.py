@@ -2,6 +2,7 @@
 My Courses Test Module
 """
 
+import allure
 import pytest
 
 from framework import expect
@@ -12,6 +13,10 @@ from tests.common import values
 from tests.common.enums.attributes import ElementAttribute
 
 
+@allure.epic("ANDROID SMOKE")
+@allure.feature("My Courses")
+@allure.story("user can see and interact with his courses list")
+@allure.suite("ANDROID SMOKE")
 @pytest.mark.ANDROID
 @pytest.mark.ANDROID_SMOKE
 class TestAndroidMyCoursesList:

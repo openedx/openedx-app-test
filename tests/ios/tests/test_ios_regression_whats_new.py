@@ -2,6 +2,9 @@
 What's New Test Module
 """
 
+import allure
+import pytest
+
 from framework import expect, Element
 from tests.common import values
 from tests.common.enums import ElementAttribute
@@ -12,14 +15,21 @@ from tests.ios.pages.ios_login import IosLogin
 from tests.ios.pages.ios_whats_new import IosWhatsNew
 
 
+@allure.epic("IOS REGRESSION")
+@allure.feature("What's New")
+@allure.story("user can see what's new page after login")
+@allure.suite("IOS REGRESSION")
+@pytest.mark.IOS
+@pytest.mark.IOS_REGRESSION
 class TestIosWhatsNew:
     """
     What's new screen's Test Case
     """
 
-    def test_start_whats_new_smoke(self, set_capabilities, setup_logging):
+    def test_ios_regression_whats_new_screen(self, set_capabilities, setup_logging):
         """
         Scenarios:
+
             Verify What's New screen is loaded successfully
         """
         Element.set_driver(set_capabilities)
@@ -46,7 +56,7 @@ class TestIosWhatsNew:
         else:
             setup_logging.info("Whats New feature is not enabled")
 
-    def test_validate_ui_elements_smoke(self, set_capabilities, setup_logging):
+    def test_validate_ui_elements(self, set_capabilities, setup_logging):
         """
         Scenarios:
             Verify following contents are visible on screen

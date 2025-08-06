@@ -15,10 +15,10 @@ from tests.common.enums.general_enums import CountryAbbreviation, LanguageAbbrev
 from tests.common.globals import Globals
 
 
-@allure.epic("Accounts")
+@allure.epic("Profile & Settings")
 @allure.feature("Profile")
-@allure.story("Edit profile")
-@allure.suite("REGRESSION")
+@allure.story("user can edit profile info")
+@allure.suite("ANDROID REGRESSION")
 @pytest.mark.ANDROID
 @pytest.mark.ANDROID_REGRESSION
 class TestProfileEditFunctionality:

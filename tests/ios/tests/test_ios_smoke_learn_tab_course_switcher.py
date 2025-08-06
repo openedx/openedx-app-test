@@ -1,5 +1,8 @@
 """Test Module for Course Switcher in iOS Learn Tab"""
 
+import allure
+import pytest
+
 from framework import expect
 from framework.element import Element
 from tests.common.enums.attributes import ElementAttribute
@@ -8,6 +11,12 @@ from tests.ios.pages.ios_main_dashboard import IosMainDashboard
 from tests.ios.pages.ios_my_courses_list import IosMyCoursesList
 
 
+@allure.epic("IOS SMOKE")
+@allure.feature("Course Switcher")
+@allure.story("user can switch between courses and programs")
+@allure.suite("IOS SMOKE")
+@pytest.mark.IOS
+@pytest.mark.IOS_SMOKE
 class TestIosCourseSwitcher:
     """
     Test class for validating course switcher functionality in iOS Learn tab.
