@@ -4,6 +4,7 @@ Discovery Test Module
 
 from time import sleep
 
+import allure
 import pytest
 
 from tests.common.enums.general_enums import ScrollDirections
@@ -17,6 +18,10 @@ from tests.android.pages.android_main_dashboard import AndroidMainDashboard
 from tests.android.pages.android_course_dashboard import AndroidCourseDashboard
 
 
+@allure.epic("ANDROID SMOKE")
+@allure.feature("Discover Page")
+@allure.story("Discover page")
+@allure.suite("ANDROID SMOKE")
 @pytest.mark.ANDROID
 @pytest.mark.ANDROID_SMOKE
 class TestAndroidDiscovery:

@@ -2,6 +2,7 @@
 My Courses List Test Module
 """
 
+import allure
 import pytest
 
 from framework import expect, Element
@@ -13,7 +14,12 @@ from tests.common import values
 from tests.common.globals import Globals
 
 
+@allure.epic("IOS SMOKE")
+@allure.feature("My Courses")
+@allure.story("user can see and interact with his courses list")
+@allure.suite("IOS SMOKE")
 @pytest.mark.IOS
+@pytest.mark.IOS_SMOKE
 class TestIosMyCoursesList:
     """
     My Courses List screen's Test Case

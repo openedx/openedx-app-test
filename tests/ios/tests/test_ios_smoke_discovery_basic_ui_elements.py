@@ -15,6 +15,10 @@ from tests.ios.pages.ios_login import IosLogin
 from tests.ios.pages.ios_register import IosRegister
 
 
+@allure.epic("DISCOVERY")
+@allure.feature("Discover Page")
+@allure.story("user can interact and view basic elements of discover page")
+@allure.suite("IOS SMOKE")
 @pytest.mark.IOS
 @pytest.mark.IOS_DISCOVERY
 @pytest.mark.IOS_SMOKE
@@ -32,7 +36,7 @@ class TestIosDiscoveryBasicUiElements:
                - Screen title shows “Discover”.
                - Verify heading title:
              “Build skills. Earn a certificate. Advance your career.”
-               - Verify edX xpert chat bot button appears with label:
+               - Verify edX xpert chatbot button appears with label:
              “Open XPERT Chatbot“
                - Verify xpert dialogue: “I'm Xpert, an AI assistant to help you find things.“
                - Verify close button exists on dialogue: “Close proactive message“.

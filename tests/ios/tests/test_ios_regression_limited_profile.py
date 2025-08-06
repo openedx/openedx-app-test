@@ -11,17 +11,35 @@ from tests.ios.pages.ios_main_dashboard import IosMainDashboard
 from tests.ios.pages.ios_profile import IosProfile
 
 
-@allure.epic("Accounts")
+@allure.epic("Profile & Settings")
 @allure.feature("Profile")
-@allure.story("Limited profile")
-@allure.suite("REGRESSION")
+@allure.story("user has limited profile functionality")
+@allure.suite("IOS REGRESSION")
 @pytest.mark.IOS
 @pytest.mark.IOS_REGRESSION
 class TestLimitedProfile:
     """Test limited profile"""
 
     def test_limited_profile(self, ios_login, setup_logging):
-        """Test Limited Profile"""
+        """
+        Test Limited Profile
+
+        Steps:
+        1. Click on Profile tab.
+           - Verify username and full name.
+           - Verify Edit Profile button is present.
+
+        2. Click on Edit Profile button.
+           - Verify screen title is "Edit Profile".
+           - Verify "Limited profile" subheading.
+           - Verify full name.
+           - Verify change profile image icon is not present.
+           - Verify description text:
+             "Your profile information is only visible to you. Only your username is visible to others."
+           - Verify Location field is present but not editable.
+           - Verify Spoken Language field is present but not editable.
+           - Verify About me field is present but not editable.
+        """
 
         driver = ios_login
         Element.set_driver(driver)

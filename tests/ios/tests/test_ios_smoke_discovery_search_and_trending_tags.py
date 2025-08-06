@@ -10,6 +10,10 @@ from tests.ios.pages.ios_discover_page import IosDiscoverPage
 from tests.ios.pages.ios_landing import IosLanding
 
 
+@allure.epic("DISCOVERY")
+@allure.feature("Search and trending tags")
+@allure.story("user can find courses using search and treading tags")
+@allure.suite("IOS SMOKE")
 @pytest.mark.IOS
 @pytest.mark.IOS_DISCOVERY
 @pytest.mark.IOS_SMOKE

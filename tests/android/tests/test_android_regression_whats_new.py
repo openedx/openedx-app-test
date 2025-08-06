@@ -2,6 +2,7 @@
 What's New Test Module
 """
 
+import allure
 import pytest
 
 from framework import expect
@@ -14,8 +15,12 @@ from tests.common.enums.attributes import ElementAttribute
 from tests.common.globals import Globals
 
 
+@allure.epic("ANDROID REGRESSION")
+@allure.feature("What's New Page")
+@allure.story("user can see what's new page after login")
+@allure.suite("ANDROID REGRESSION")
 @pytest.mark.ANDROID
-@pytest.mark.SMOKE
+@pytest.mark.ANDROID_REGRESSION
 class TestAndroidWhatsNew:
     """
     What's new screen's Test Case

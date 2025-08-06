@@ -19,6 +19,10 @@ from tests.ios.pages.ios_profile import IosProfile
 from tests.ios.pages.ios_whats_new import IosWhatsNew
 
 
+@allure.epic("DISCOVERY")
+@allure.feature("Login and Enrollment")
+@allure.story("user can login from discovery page and enroll in course")
+@allure.suite("IOS SMOKE")
 @pytest.mark.IOS
 @pytest.mark.IOS_DISCOVERY
 @pytest.mark.IOS_SMOKE

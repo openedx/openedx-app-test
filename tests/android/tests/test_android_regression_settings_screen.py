@@ -13,10 +13,10 @@ from tests.common import values
 from tests.common.globals import Globals
 
 
-@allure.epic("Accounts")
+@allure.epic("Profile & Settings")
 @allure.feature("Settings")
-@allure.story("Settings Screen")
-@allure.suite("REGRESSION")
+@allure.story("user can configure different settings")
+@allure.suite("ANDROID REGRESSION")
 @pytest.mark.ANDROID
 @pytest.mark.ANDROID_REGRESSION
 class TestRegressionSettingsScreen:
