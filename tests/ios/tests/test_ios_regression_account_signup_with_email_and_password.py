@@ -304,14 +304,18 @@ class TestAccountRegistrationSignupWithEmailAndPassword:
             register_page.create_account_button.scroll_and_find().click()
             expect(register_page.password_instructions_text).to_be_visible()
             register_page.find_by_text_on_screen("This password must contain at least 1 number.", partial=True)
-            expect(register_page.password_instructions_text).to_contain("This password must contain at least 1 number.")
+            expect(register_page.password_instructions_text).to_contain(
+                "This password must contain at least 1 number.", ElementAttribute.LABEL
+            )
 
         with allure.step("Test password with no letters"):
             register_page.password_text_field.clear_and_type("12345678" + "\n")
             register_page.create_account_button.scroll_and_find().click()
             expect(register_page.password_instructions_text).to_be_visible()
             register_page.find_by_text_on_screen("This password must contain at least 1 letter.", partial=True)
-            expect(register_page.password_instructions_text).to_contain("This password must contain at least 1 letter.")
+            expect(register_page.password_instructions_text).to_contain(
+                "This password must contain at least 1 letter.", ElementAttribute.LABEL
+            )
 
         with allure.step("Test password that's too short"):
             register_page.password_text_field.clear_and_type("abc1234" + "\n")
@@ -321,7 +325,7 @@ class TestAccountRegistrationSignupWithEmailAndPassword:
                 "This password is too short. It must contain at least 8 characters.", partial=True
             )
             expect(register_page.password_instructions_text).to_contain(
-                "This password is too short. It must contain at least 8 characters."
+                "This password is too short. It must contain at least 8 characters.", ElementAttribute.LABEL
             )
 
         with allure.step("Test common password"):
@@ -330,7 +334,9 @@ class TestAccountRegistrationSignupWithEmailAndPassword:
             register_page.create_account_button.scroll_and_find().click()
             expect(register_page.password_instructions_text).to_be_visible()
             register_page.find_by_text_on_screen("This password is too common.", partial=True)
-            expect(register_page.password_instructions_text).to_contain("This password is too common.")
+            expect(register_page.password_instructions_text).to_contain(
+                "This password is too common.", ElementAttribute.LABEL
+            )
 
         with allure.step("Enter a valid password"):
             register_page.password_text_field.click()

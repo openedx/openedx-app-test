@@ -210,6 +210,6 @@ class TestIosDiscoveryLoginAndEnroll:
             expect(ios_discover_page.search_field).to_have(values.DEMOX, ElementAttribute.VALUE)
 
         with allure.step("open learn tab"):
-            main_dashboard.main_dashboard_learn_tab.click()
+            main_dashboard.learn_tab.click()
             expect(main_dashboard.course_item_demoX).to_exist()
             main_dashboard.course_item_demoX.get_child_element(main_dashboard.course_name_demoX)
