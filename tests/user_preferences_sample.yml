@@ -13,10 +13,10 @@ Settings:
   device_name: 'iPhone 15'
 
   # full reset capability of appium
-  full_reset: false
+  full_reset: true
 
   # no reset capability of appium
-  no_reset: true
+  no_reset: false
 
   # app path for apk or ipa file
   app_path: ''
