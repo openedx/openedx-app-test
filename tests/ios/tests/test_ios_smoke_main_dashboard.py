@@ -18,7 +18,7 @@ from tests.ios.pages.ios_whats_new import IosWhatsNew
 
 @allure.epic("IOS SMOKE")
 @allure.feature("Main Dashboard")
-@allure.feature("user can navigate between tabs on main dashboard page")
+@allure.story("user can navigate between tabs on main dashboard page")
 @allure.suite("IOS SMOKE")
 @pytest.mark.IOS
 @pytest.mark.IOS_SMOKE

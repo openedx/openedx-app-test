@@ -43,7 +43,7 @@ class IosProfile(IosBasePage):
             AppiumBy.IOS_CLASS_CHAIN, "**/XCUIElementTypeStaticText[`name == 'Video settings'`]"
         )
         self._profile_manage_account_label = Element(
-            AppiumBy.IOS_CLASS_CHAIN, "**/XCUIElementTypeOther[`name == 'Manage Account'`]"
+            AppiumBy.IOS_CLASS_CHAIN, "**/XCUIElementTypeOther[`name == 'Manage account'`]"
         )
         self._profile_manage_account_title = Element(
             AppiumBy.IOS_CLASS_CHAIN, "**/XCUIElementTypeStaticText[`name == 'manage_account_text'`]"
@@ -60,7 +60,7 @@ class IosProfile(IosBasePage):
         self._profile_cookies_policy = Element(AppiumBy.ACCESSIBILITY_ID, "cookies_policy")
         self._profile_privacy_policy = Element(AppiumBy.ACCESSIBILITY_ID, "privacy_policy")
         self._edit_profile_button = Element(
-            AppiumBy.IOS_CLASS_CHAIN, '**/XCUIElementTypeButton[`name == "Edit Profile"`]'
+            AppiumBy.IOS_CLASS_CHAIN, '**/XCUIElementTypeButton[`name == "Edit profile"`]'
         )
         self._delete_account_button = Element(AppiumBy.ACCESSIBILITY_ID, "delete_account_button")
         self._delete_account_password_textfield = Element(AppiumBy.ACCESSIBILITY_ID, "password_textfield")

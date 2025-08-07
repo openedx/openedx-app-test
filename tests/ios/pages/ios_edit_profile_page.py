@@ -21,7 +21,7 @@ class IosEditProfilePage(IosProfile):
 
     def __init__(self):
         super().__init__()
-        self._screen_title = Element(AppiumBy.IOS_CLASS_CHAIN, "**/XCUIElementTypeStaticText[`name == 'Edit Profile'`]")
+        self._screen_title = Element(AppiumBy.IOS_CLASS_CHAIN, "**/XCUIElementTypeStaticText[`name == 'Edit profile'`]")
         self._done_button = Element(AppiumBy.IOS_CLASS_CHAIN, "**/XCUIElementTypeOther[`name == 'done_button'`]")
         self._profile_type_label = Element(AppiumBy.ACCESSIBILITY_ID, "profile_type_text")
         self._username_label = Element(AppiumBy.ACCESSIBILITY_ID, "username_text")
