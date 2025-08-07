@@ -2,6 +2,7 @@
 Course Dashboard Test Module
 """
 
+import allure
 import pytest
 
 from framework import expect
@@ -10,6 +11,7 @@ from tests.android.pages.android_course_dashboard import AndroidCourseDashboard
 from tests.common import values
 
 
+@allure.suite("ANDROID SMOKE")
 @pytest.mark.ANDROID
 @pytest.mark.ANDROID_SMOKE
 class TestAndroidCourseDashboard:

@@ -1,6 +1,8 @@
 allure-pytest==2.13.5
 allure-python-commons==2.13.5
 Appium-Python-Client==4.2.1
+browserstack-local==1.2.11
+browserstack_sdk==1.28.0
 pre-commit==4.2.0
 pylint==3.3.6
 pytest==7.3.1

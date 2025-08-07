@@ -19,6 +19,10 @@ from tests.ios.pages.ios_profile import IosProfile
 from tests.ios.pages.ios_whats_new import IosWhatsNew
 
 
+@allure.epic("DISCOVERY")
+@allure.feature("Login and Enrollment")
+@allure.story("user can login from discovery page and enroll in course")
+@allure.suite("IOS SMOKE")
 @pytest.mark.IOS
 @pytest.mark.IOS_DISCOVERY
 @pytest.mark.IOS_SMOKE
@@ -206,6 +210,6 @@ class TestIosDiscoveryLoginAndEnroll:
             expect(ios_discover_page.search_field).to_have(values.DEMOX, ElementAttribute.VALUE)
 
         with allure.step("open learn tab"):
-            main_dashboard.main_dashboard_learn_tab.click()
+            main_dashboard.learn_tab.click()
             expect(main_dashboard.course_item_demoX).to_exist()
             main_dashboard.course_item_demoX.get_child_element(main_dashboard.course_name_demoX)

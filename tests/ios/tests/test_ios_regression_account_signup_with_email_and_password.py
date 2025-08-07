@@ -17,14 +17,108 @@ from tests.ios.pages.ios_whats_new import IosWhatsNew
 
 
 @allure.epic("Accounts")
-@allure.feature("Account Registration")
-@allure.story("Sign Up with Email and Password")
+@allure.feature("Registration")
+@allure.story("user can register with only valid email and password")
+@allure.suite("IOS REGRESSION")
+@pytest.mark.IOS
 @pytest.mark.IOS_REGRESSION
 class TestAccountRegistrationSignupWithEmailAndPassword:
     """Regression test for account registration using email and password on iOS."""
 
     def test_account_registration_signup_with_email_and_password(self, set_capabilities, setup_logging):
-        """"""
+        """
+        Test Steps:
+
+        1. Launch app and verify "Register" button exists on landing page.
+        2. Click on Register button.
+           - Verify Registration screen is loaded with title "Register".
+           - Verify "Register" heading and "Create an account to start learning today!" subtitle exist.
+           - Verify the following field headings and their descriptions/hints:
+             - Full Name (This name will be used on any certificates that you earn.)
+             - Public Username (The name that will identify you in your courses. It cannot be changed later.)
+             - Email (This is what you will use to login.)
+             - Password (Your password must contain at least 8 characters, including 1 letter & 1 number.)
+             - Country or Region of Residence (The country or region where you live.)
+        3. Leave all fields empty and click on Create account button.
+           - Registration is unsuccessful and user remains on the same page.
+           - Verify error messages are displayed for all fields:
+             - Full Name: "Enter your full name"
+             - Public Username: "Username must be between 2 and 30 characters long."
+             - Email: "Enter a valid email address that contains at least 3 characters."
+             - Password: "This password is too short. It must contain at least 8 characters.
+                This password must contain at least 1 letter. This password must contain at least 1 number."
+             - Country or Region of Residence: "Select your country or region of residence"
+        4. Enter Full Name.
+           - Error message changes back to description/hint.
+        5. Click on Create account button.
+           - Registration is unsuccessful and user remains on the same page.
+        6. Enter invalid Public Username such as "john doe" and click on Create account button.
+           - Error message: "Usernames can only contain letters (A-Z, a-z), numerals (0-9), underscores (_), and
+                hyphens (-)."
+        7. Enter a valid username.
+           - Error message changes back to description/hint.
+        8. Click on Create account button.
+           - Registration is unsuccessful and user remains on the same page.
+        9. Enter an invalid email such as "abc@gmail" and click on Create account button.
+           - Error message: "Enter a valid email address"
+           - Enter an already registered email "abc@gmail.com"
+           - Error: "This email is already associated with an existing account"
+           - Enter a valid unregistered email
+           - Error message changes back to description/hint.
+        10. Click on Create account button.
+            - Registration is unsuccessful and user remains on the same page.
+        11. Enter invalid passwords one by one ("abcdefgh", "12345678", "abc1234", "abc12345") and
+                click on Create account button.
+            - Respective error messages must contain:
+              - "This password must contain at least 1 number."
+              - "This password must contain at least 1 letter."
+              - "This password is too short. It must contain at least 8 characters."
+              - "This password is too common."
+        12. Enter a valid password.
+            - Error message changes back to description/hint.
+        13. Click on Create account button.
+            - Registration is unsuccessful and user remains on the same page.
+        14. Open country/region picker drop down.
+            - Search bar is shown and a list of country names is displayed.
+        15. Search for a country and click on it.
+            - Verify country/region is selected and shown in the field.
+            - Verify marketing messages agreement checkbox is checked by default.
+        16. Click the marketing agreement checkbox.
+            - Verify the option is unchecked.
+        17. Click on show optional fields button.
+            - Verify two new fields are shown: Highest level of education completed dropdown, Gender.
+        18. Click on Highest level of education completed dropdown.
+            - Verify a search bar and options are listed.
+        19. Search for an education level and click on it.
+            - Verify the desired education level is selected.
+        20. Click on Gender dropdown.
+            - Verify a search bar and options are listed: Male, Female, Other/Prefer Not to Say.
+        21. Search for a Gender option and click on it.
+            - Verify the desired Gender is selected.
+        22. Click on Hide optional fields.
+            - Optional fields are hidden.
+        23. Click on show optional fields button.
+            - Verify two fields are shown with their selected values:
+                Highest level of education completed dropdown, Gender.
+        24. Click on Create account button.
+            - Verify Learn Tab is loaded after completion.
+        25. Go to Profile Tab.
+            - Verify username and Full name.
+        26. Click on Settings icon.
+            - Verify Settings screen title appears.
+        27. Scroll down to log out button.
+            - Verify text on log out button is "Log Out".
+        28. Click on Log out button.
+            - Prompt appears: "Are you sure you want to log out?"
+        29. Click on Log out button on the confirmation prompt.
+            - Landing page is loaded as user is logged out.
+        30. Click on Sign in button.
+        31. Enter valid email and password.
+        32. Click on Sign in button.
+            - Sign in is successful and Learn tab is loaded.
+        33. Go to Profile Tab.
+            - Verify username and Full name.
+        """
         Element.set_driver(set_capabilities)
         Element.set_logger(setup_logging)
 
@@ -210,14 +304,18 @@ class TestAccountRegistrationSignupWithEmailAndPassword:
             register_page.create_account_button.scroll_and_find().click()
             expect(register_page.password_instructions_text).to_be_visible()
             register_page.find_by_text_on_screen("This password must contain at least 1 number.", partial=True)
-            expect(register_page.password_instructions_text).to_contain("This password must contain at least 1 number.")
+            expect(register_page.password_instructions_text).to_contain(
+                "This password must contain at least 1 number.", ElementAttribute.LABEL
+            )
 
         with allure.step("Test password with no letters"):
             register_page.password_text_field.clear_and_type("12345678" + "\n")
             register_page.create_account_button.scroll_and_find().click()
             expect(register_page.password_instructions_text).to_be_visible()
             register_page.find_by_text_on_screen("This password must contain at least 1 letter.", partial=True)
-            expect(register_page.password_instructions_text).to_contain("This password must contain at least 1 letter.")
+            expect(register_page.password_instructions_text).to_contain(
+                "This password must contain at least 1 letter.", ElementAttribute.LABEL
+            )
 
         with allure.step("Test password that's too short"):
             register_page.password_text_field.clear_and_type("abc1234" + "\n")
@@ -227,7 +325,7 @@ class TestAccountRegistrationSignupWithEmailAndPassword:
                 "This password is too short. It must contain at least 8 characters.", partial=True
             )
             expect(register_page.password_instructions_text).to_contain(
-                "This password is too short. It must contain at least 8 characters."
+                "This password is too short. It must contain at least 8 characters.", ElementAttribute.LABEL
             )
 
         with allure.step("Test common password"):
@@ -236,7 +334,9 @@ class TestAccountRegistrationSignupWithEmailAndPassword:
             register_page.create_account_button.scroll_and_find().click()
             expect(register_page.password_instructions_text).to_be_visible()
             register_page.find_by_text_on_screen("This password is too common.", partial=True)
-            expect(register_page.password_instructions_text).to_contain("This password is too common.")
+            expect(register_page.password_instructions_text).to_contain(
+                "This password is too common.", ElementAttribute.LABEL
+            )
 
         with allure.step("Enter a valid password"):
             register_page.password_text_field.click()

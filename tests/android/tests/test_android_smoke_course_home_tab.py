@@ -2,6 +2,7 @@
 Course Dashboard Home Tab Test Module
 """
 
+import allure
 import pytest
 
 from framework import expect
@@ -11,6 +12,7 @@ from tests.android.pages.android_course_home_tab import AndroidCourseHomeTab
 from tests.common import values
 
 
+@allure.suite("ANDROID SMOKE")
 @pytest.mark.ANDROID
 @pytest.mark.ANDROID_SMOKE
 class TestAndroidCourseHomeTab:
