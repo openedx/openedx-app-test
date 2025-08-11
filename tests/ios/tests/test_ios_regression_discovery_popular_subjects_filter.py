@@ -12,6 +12,10 @@ from tests.ios.pages.ios_discover_page import IosDiscoverPage
 from tests.ios.pages.ios_landing import IosLanding
 
 
+@allure.epic("DISCOVERY")
+@allure.feature("Filters")
+@allure.story("user can use filter results by popular subjects")
+@allure.suite("IOS REGRESSION")
 @pytest.mark.IOS
 @pytest.mark.IOS_DISCOVERY
 @pytest.mark.IOS_REGRESSION

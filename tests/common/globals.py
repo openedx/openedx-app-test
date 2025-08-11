@@ -58,6 +58,7 @@ class Globals:
             self.platform_version = settings.get("platform_version")
             self.device_name = settings.get("device_name")
             self.full_reset = settings.get("full_reset")
+            self.no_reset = settings.get("no_reset")
             self.aut_current_path = settings.get("aut_current_path")
             self.app_path = settings.get("app_path")
             self.aut_latest_path = settings.get("aut_latest_path")

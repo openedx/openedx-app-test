@@ -77,8 +77,7 @@ GOOGLE_SIGNIN_ANDROID = "Sign in with Google"
 FACEBOOK_SIGNIN_ANDRIOD = "Sign in with Facebook"
 MICROSOFT_SIGNIN_ANDROID = "Sign in with Microsoft"
 INVALID_EMAIL_ADDRESS_OR_PASSWORD = "Invalid email or username"
-# TODO: once length spellings are fixed we will update it.
-INVALID_PASSWORD_LENGTH = "Invalid password lenght"
+INVALID_PASSWORD_LENGTH = "Invalid password length"
 SHOW_PASSWORD = "Show"
 HIDE_PASSWORD = "Hide"
 
@@ -165,6 +164,7 @@ FORGOT_PASSWORD_EMAIL_ERROR = "Please enter your e-mail address and try again."
 WHATS_NEW_TITLE = "What's New"
 WHATS_NEW_CLOSE_BUTTON = "Close"
 WHATS_NEW_NEXT_BUTTON = "Next"
+WHATS_NEW_DONE_BUTTON = "Done"
 
 # MAIN DASHBOARD SCREEN
 MAIN_DASHBOARD_DASHBOARD_TAB = "Dashboard"
@@ -237,7 +237,7 @@ PURCHASES_RESTORED_DIALOGUE_GET_HELP_TEXT = "Get help"
 
 # EDIT PROFILE
 EDIT_PROFILE_TYPE_LIMITED_PROFILE_LABEL = "Limited profile"
-EDIT_PROFILE_TYPE_LIMITED_PROFILE_LABEL_IOS = "Limited Profile"
+EDIT_PROFILE_TYPE_LIMITED_PROFILE_LABEL_IOS = "Limited profile"
 EDIT_PROFILE_USER_IMAGE = "test-mobile-automation profile image"
 EDIT_PROFILE_USER_NAME = "Test automation user"
 LIMITED_PROFILE_MESSAGE = "Your profile information is only visible to you. Only your username is visible to others."

@@ -2,6 +2,7 @@
 Course Dashboard Test Module
 """
 
+import allure
 import pytest
 
 from framework import expect
@@ -10,6 +11,7 @@ from tests.android.pages.android_course_dashboard import AndroidCourseDashboard
 from tests.common import values
 
 
+@allure.suite("ANDROID SMOKE")
 @pytest.mark.ANDROID
 @pytest.mark.ANDROID_SMOKE
 class TestAndroidCourseDashboard:
@@ -17,7 +19,7 @@ class TestAndroidCourseDashboard:
     Course Dashboard screen's Test Case
     """
 
-    def test_validate_ui_elements(self, android_login, setup_logging):
+    def test_android_course_dashboard_validate_ui_elements(self, android_login, setup_logging):
         """
         Scenarios:
             Verify that clicking course from Main dashboard load course dashboard,

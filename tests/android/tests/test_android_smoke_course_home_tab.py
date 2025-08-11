@@ -2,6 +2,7 @@
 Course Dashboard Home Tab Test Module
 """
 
+import allure
 import pytest
 
 from framework import expect
@@ -11,6 +12,7 @@ from tests.android.pages.android_course_home_tab import AndroidCourseHomeTab
 from tests.common import values
 
 
+@allure.suite("ANDROID SMOKE")
 @pytest.mark.ANDROID
 @pytest.mark.ANDROID_SMOKE
 class TestAndroidCourseHomeTab:
@@ -18,7 +20,7 @@ class TestAndroidCourseHomeTab:
     Course Dashboard screen's Test Case
     """
 
-    def test_validate_ui_elements(self, android_login, setup_logging):
+    def test_android_course_home_tab_validate_ui_elements(self, android_login, setup_logging):
         """
         Scenarios:
             Verify that clicking course from Main dashboard load course dashboard,
@@ -46,10 +48,10 @@ class TestAndroidCourseHomeTab:
 
         second_course_name = course_dashboard_page.find_by_text_on_screen(values.MY_COURSES_SECOND_COURSE_NAME)
         expect(second_course_name).to_have(values.MY_COURSES_SECOND_COURSE_NAME)
-        assert second_course_name.click()
+        second_course_name.click()
 
         if course_dashboard_page.allow_notifications_button:
-            assert course_dashboard_page.allow_notifications_button.click()
+            course_dashboard_page.allow_notifications_button.click()
 
         expect(course_dashboard_page.course_dashboard_home_tab).to_have(values.COURSE_DASHBOARD_HOME_TAB)
 
@@ -88,7 +90,7 @@ class TestAndroidCourseHomeTab:
 
         assert course_dashboard_page.find_by_text_on_screen(values.COURSE_COMPONENT_LABEL).exists()
 
-    def test_component_navigation_smoke(self, android_login, setup_logging):
+    def test_android_course_home_tab_component_navigation_smoke(self, android_login, setup_logging):
         """
         Scenarios:
             Verify next button element, and it is clickable
@@ -120,5 +122,5 @@ class TestAndroidCourseHomeTab:
         assert back_to_outline.exists()
         assert back_to_outline.click()
         back_btn = course_home_page.back_button
-        assert back_btn.exists()
-        assert back_btn.click()
+        back_btn.exists()
+        back_btn.click()

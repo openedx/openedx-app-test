@@ -12,9 +12,11 @@ from tests.ios.pages.ios_profile import IosProfile
 from tests.ios.pages.ios_settings_page import IosSettings
 
 
-@allure.suite("iOS")
+@allure.epic("Profile & Settings")
 @allure.feature("Settings")
-@allure.story("Settings Screen")
+@allure.story("user can configure different settings")
+@allure.suite("IOS REGRESSION")
+@pytest.mark.IOS
 @pytest.mark.IOS_REGRESSION
 class TestIosRegressionSettingsScreen:
     """

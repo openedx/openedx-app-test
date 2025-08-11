@@ -4,21 +4,19 @@ It aims to ensure the reliability and functionality of the Open edX mobile apps 
 
 ## Installations
 - [node](https://nodejs.org/en/)
-- [appium](http://appium.io/)
-- [pytest](https://docs.pytest.org/en/latest/getting-started.html)
-- [pytest-html](https://pypi.python.org/pypi/pytest-html/)
-- [Appium-Python-Client](https://pypi.org/project/Appium-Python-Client/)
-- [PyYAML](https://pypi.org/project/PyYAML/)
-- [allure-pytest](https://pypi.org/project/allure-pytest/)
+- [appium](https://appium.io/docs/en/latest/quickstart/)
+- [Java jdk](https://www.oracle.com/europe/java/technologies/downloads/)
+- Note: Java jdk is necessary if you want to automate android apps irrespective of test language
 
-- Recommended to install requirements other than appium and node via pip
-  -     pip install -r requirements.txt
-
+- Recommended to install requirements other than the above via the script
+  -     source scripts/venv.sh
+- This will install all the requirements present in the requirements file as well as the pre-commit hooks. For more info on pre-commit hooks you can check out the doc under linting heading.
 ###### iOS(Simulator)
- - Xcode with command line tools
+ - Xcode with command line tools or simple command line tools
 
 ###### Android(Phone/Tablet/Simulator)
- - [Android SDK](https://developer.android.com/studio/index.html)
+ - [Android SDK](https://developer.android.com/tools)
+ - Install platform-tools and build-tools from the same link mentioned above
 
  Don't forget to set environment variables for adb, platform-tools etc.*
 
@@ -26,33 +24,8 @@ It aims to ensure the reliability and functionality of the Open edX mobile apps 
 - connect/start Android/iOS Device/Simulator
 - Browse tests/ directory
 - Rename 'user_preferences_sample.yml' to 'user_preferences.yml' and set the following values,
-
-    - set `Android' to execute test cases on Android or 'iOS' to execute on iOS
-
-          target_environment: Android
-
-    - set above selected target_environment's OS Version(of specific running device/simulator) like below
-
-          platform_version: iOS device/simulator version | Android device/emulator version
-
-    - device name is only useful for iOS simulator, in case of multiple connected real devices use udid
-
-          device_name: 'iPhone 15'
-        or leave empty string
-
-    - add reset option true/false
-      -     full_reset: true
-
-    - add path to apk/ipa file
-      -     app_path: "path/to/file"
-
-    - set valid credentials to login
-
-          login_user_name: username
-
-          login_password: password
-
-- install edx(iOS/Android) app on specific device/simulator
+- Update the yml file as per instruction in the yml file.
+- install edx(iOS/Android) app on specific device/simulator or simple pass app path in yml
 
 #### Run
 - Check out/download the source code, browse its directory
@@ -69,6 +42,9 @@ It aims to ensure the reliability and functionality of the Open edX mobile apps 
 
 - `pytest <test case name>` to run specific test case and create html report at end of execution
 
+- `pytest -m <marker>` to run tests related to a specific marker
+
+New markers can be added to files and should be listed inside the pytest.ini file.
 
 ### To run test cases on BrowserStack
 
@@ -92,17 +68,15 @@ Saving your BrowserStack credentials as environment variables makes it simple to
 PLATFORM_NAME is a custom variable used to make test run unique and identifiable.
 
 ### Install BrowserStack Python SDK
-- `python3 -m pip install browserstack-sdk`
-
-Execute the following commands to install BrowserStack Python SDK for plug-and-play integration of your test suite with BrowserStack.
+It is present in the requirements.txt file and is installed already in your env
 
 ### Setup
-- Add following enviornment variables
+- Add following environment variables
   - `BROWSERSTACK_USERNAME`
   - `BROWSERSTACK_ACCESS_KEY`
   - `PLATFORM_NAME`
 
-- vales for `BROWSERSTACK_USERNAME` and `BROWSERSTACK_ACCESS_KEY` can be foound in your browserstack profile.
+- vales for `BROWSERSTACK_USERNAME` and `BROWSERSTACK_ACCESS_KEY` can be found in your browserstack profile.
 
 - Update device name and version for android and ios in `browserstack.yml` file. A complete list of available devices can be found on https://www.browserstack.com/list-of-browsers-and-platforms/automate
   - platformName: `Android`/`iOS`
