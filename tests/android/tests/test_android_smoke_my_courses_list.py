@@ -24,7 +24,7 @@ class TestAndroidMyCoursesList:
     My Courses screen's Test Case
     """
 
-    def test_validate_ui_elements(self, android_login, setup_logging):
+    def test_android_my_courses_list_validate_ui_elements(self, android_login, setup_logging):
         """
         Scenarios:
            Verify that from Main Dashboard tapping Courses tab will load My Courses
