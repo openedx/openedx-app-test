@@ -55,6 +55,9 @@ class AndroidBasePage:
         self._edit_text_view = Element(
             AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("android.widget.EditText")'
         )
+        self._accept_cookies_button = Element(
+            AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("onetrust-accept-btn-handler")'
+        )
 
     @property
     def sb_search_field(self) -> Element:
@@ -177,6 +180,16 @@ class AndroidBasePage:
         """
 
         return self._ai_assistant_dismiss_button
+
+    @property
+    def accept_cookies_button(self) -> Element:
+        """Get accept cookies button
+
+        Returns:
+            Element: accept cookies button
+        """
+
+        return self._accept_cookies_button
 
     def find_by_text_on_screen(self, text: str, raise_error: bool = True) -> Element:
         """Find element by text.

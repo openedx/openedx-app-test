@@ -19,7 +19,7 @@ class TestAndroidCourseDashboard:
     Course Dashboard screen's Test Case
     """
 
-    def test_validate_ui_elements(self, android_login, setup_logging):
+    def test_android_course_dashboard_validate_ui_elements(self, android_login, setup_logging):
         """
         Scenarios:
             Verify that clicking course from Main dashboard load course dashboard,

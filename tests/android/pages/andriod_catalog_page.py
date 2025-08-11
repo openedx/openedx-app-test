@@ -73,7 +73,7 @@ class AndroidCatalogPage(AndroidBasePage):
             'new UiSelector().description("header image for edX logo for edX DemoX edX Course")',
         )
         self._all_filters_button = Element(AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("All filters")')
-        self._search_field = Element(
+        self._search_field_discover_result_page = Element(
             AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("main-search-search-input")'
         )
         self._search_submit_button = Element(
@@ -250,7 +250,7 @@ class AndroidCatalogPage(AndroidBasePage):
         Returns:
             Element: search bar text element
         """
-        return self._search_field.get_child_element(self.edit_text_view)
+        return self._search_field_discover_result_page.get_child_element(self.edit_text_view)
 
     @property
     def advance_your_career_button(self):
