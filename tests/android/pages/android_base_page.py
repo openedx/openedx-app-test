@@ -55,6 +55,10 @@ class AndroidBasePage:
         self._edit_text_view = Element(
             AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("android.widget.EditText")'
         )
+        self._android_progress_bar = Element(
+            AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().className("android.widget.ProgressBar")'
+        )
+        self._text_element_selector = 'new UiSelector().text("{}")'
 
     @property
     def sb_search_field(self) -> Element:
@@ -73,6 +77,15 @@ class AndroidBasePage:
             Element: loading circle element
         """
         return self._android_loading_circle
+
+    @property
+    def android_progress_bar(self) -> Element:
+        """Get android progress bar
+
+        Returns:
+            Element: android progress bar element
+        """
+        return self._android_progress_bar
 
     @property
     def text_toolbar_title(self) -> Element:
@@ -178,14 +191,24 @@ class AndroidBasePage:
 
         return self._ai_assistant_dismiss_button
 
-    def find_by_text_on_screen(self, text: str, raise_error: bool = True) -> Element:
+    def find_by_text_on_screen(self, text: str, raise_error: bool = True) -> Element | None:
         """Find element by text.
         Returns:
             Element: element with required text
         """
         if text:
-            selector = f'new UiSelector().text("{text}")'
+            selector = self._text_element_selector.format(text)
             return Element(AppiumBy.ANDROID_UIAUTOMATOR, selector).find(raise_exception=raise_error)
+        raise ValueError("text cannot be empty")
+
+    def get_text_element_instance(self, text: str) -> Element:
+        """Element by text.
+        Returns:
+            Element: element with required text
+        """
+        if text:
+            selector = self._text_element_selector.format(text)
+            return Element(AppiumBy.ANDROID_UIAUTOMATOR, selector)
         raise ValueError("text cannot be empty")
 
     def find_by_partial_text_on_screen(self, text: str, raise_error: bool = True) -> Element:

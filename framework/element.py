@@ -17,7 +17,7 @@ from selenium.webdriver.support.wait import WebDriverWait
 
 from tests.common.enums import ElementAttribute, ScrollDirections
 from tests.common.enums.general_enums import AppContext
-from tests.common.exceptions import NotFoundError
+from tests.common.exceptions import NotFoundError, InvalidElementState
 from tests.common.utils import normalize_string
 
 
@@ -95,23 +95,38 @@ class Element:
                 raise NotFoundError(f"failed to find elements with locator: {self.locator} with exception {exception}")
             Element.__logger.info(f"failed to find elements with locator: {self.locator} with exception {exception}")
 
-    def get_child_element(self, child_locator: "Element") -> "Element":
+    def get_child_element(self, child_locator: "Element", raise_exception=True) -> "Element":
         """Get child elements from parent element
         Arguments:
-            child_locator: Element instance initialized with child locator
+            child_locator(Element): Element instance initialized with child locator
+            raise_exception(bool): True or False
         Returns:
             Element: Returns instance of Element class for child elements
         """
         try:
-            child_locator.element = self.find().element.find_element(*child_locator.locator)
+            if not self._has_parent:
+                self.find()
+            child_locator.element = self.element.find_element(*child_locator.locator)
             child_locator._has_parent = True
             Element.__logger.info(f"found child element matching {child_locator.locator}")
             return child_locator
+
+        except AttributeError as exc:
+            raise InvalidElementState(
+                f"""failed to call method on MobileWebElement.
+                 Possibly an action on element resulted in self.element to be set to None such as click.
+                 Exception raised: {exc}.
+                 flag has_parent is set to : {self._has_parent}
+                """
+            )
 
         except Exception as exception:
             Element.__logger.info(
                 f"failed to find child element with locator: {child_locator.locator} with exception {exception}"
             )
+            if not raise_exception:
+                child_locator._has_parent = True
+                return child_locator
             raise NotFoundError(
                 f"failed to find child element with locator: {child_locator.locator} with exception {exception}"
             )
@@ -124,7 +139,9 @@ class Element:
             Element: Returns instance of Element class for child elements
         """
         try:
-            child_elements = self.find().element.find_elements(*child_locator.locator)
+            if not self._has_parent:
+                self.find()
+            child_elements = self.element.find_elements(*child_locator.locator)
             if len(child_elements) > 0:
                 child_locator.elements = child_elements
                 child_locator._has_parent = True
@@ -132,7 +149,14 @@ class Element:
                 return child_locator
 
             raise NotFoundError(f"failed to find elements with locator: {self.locator}")
-
+        except AttributeError as exc:
+            raise InvalidElementState(
+                f"""failed to call method on MobileWebElement.
+                 Possibly an action on element resulted in self.element to be set to None such as click.
+                 Exception raised: {exc}.
+                 flag has_parent is set to : {self._has_parent}
+                """
+            )
         except Exception as exception:
             Element.__logger.info(f"failed to find elements with locator: {self.locator} with exception {exception}")
             raise NotFoundError(f"failed to find elements with locator: {self.locator} with exception {exception}")
@@ -145,10 +169,9 @@ class Element:
             Element: Returns self
         """
         if 0 <= index < len(self.elements):
-            if self._has_parent:
-                self.element = self.elements[index]
-            else:
-                self.element = self.find_all().elements[index]
+            if not self._has_parent:
+                self.find_all()
+            self.element = self.elements[index]
             return self
         else:
             raise NotFoundError(
@@ -174,15 +197,22 @@ class Element:
             str : mentioned property of the element
         """
         try:
-            if self._has_parent:
-                attribute = self.element.get_attribute(attribute)
-                if attribute:
-                    return normalize_string(attribute)
-                raise NotFoundError("attribute not found")
-            attribute = self.find(timeout).element.get_attribute(attribute)
+            if not self._has_parent:
+                self.find(timeout)
+            attribute = self.element.get_attribute(attribute)
             if attribute:
                 return normalize_string(attribute)
-            raise NotFoundError("attribute not found")
+            raise NotFoundError(f"attribute {attribute} not found in element")
+
+        except AttributeError as exc:
+            raise InvalidElementState(
+                f"""failed to call method on MobileWebElement.
+                 Possibly an action on element resulted in self.element to be set to None such as click.
+                 Exception raised: {exc}.
+                 flag has_parent is set to : {self._has_parent}
+                """
+            )
+
         except Exception as exception:
             if raise_exception:
                 raise NotFoundError(
@@ -199,12 +229,14 @@ class Element:
             timeout (int) : time to wait for element
             raise_exception (bool): True or False
         Returns:
-            bool: true of flase
+            bool: true of false
         Raises:
             NotFoundError: If the user sets raise_exception arg to True and click fails
         """
         try:
-            self.find(timeout).element.click()
+            if not self._has_parent:
+                self.find(timeout)
+            self.element.click()
             self.element = None
             return True
         except Exception as exception:
@@ -226,8 +258,19 @@ class Element:
             NotFoundError: If the user sets raise_exception arg to True and click fails
         """
         try:
-            self.find(timeout).element.send_keys(*keys)
+            if not self._has_parent:
+                self.find(timeout)
+            self.element.send_keys(*keys)
             return True
+
+        except AttributeError as exc:
+            raise InvalidElementState(
+                f"""failed to call method on MobileWebElement.
+                 Possibly an action on element resulted in self.element to be set to None such as click.
+                 Exception raised: {exc}.
+                 flag has_parent is set to : {self._has_parent}
+                """
+            )
         except Exception as exception:
             if raise_exception:
                 raise NotFoundError(f"failed to send keys to element {self.locator} with exception {exception}")
@@ -246,8 +289,18 @@ class Element:
             NotFoundError: If raise_exception is True and the element is not found.
         """
         try:
-            self.find(timeout).element.clear()
+            if not self._has_parent:
+                self.find(timeout)
+            self.element.clear()
             return True
+        except AttributeError as exc:
+            raise InvalidElementState(
+                f"""failed to call method on MobileWebElement.
+                 Possibly an action on element resulted in self.element to be set to None such as click.
+                 Exception raised: {exc}.
+                 flag has_parent is set to : {self._has_parent}
+                """
+            )
         except Exception as exception:
             if raise_exception:
                 raise NotFoundError(f"failed to clear text field for element {self.locator} with exception {exception}")
@@ -266,7 +319,8 @@ class Element:
             NotFoundError: If raise_exception is True and the element is not found.
         """
         try:
-            self.find(timeout)
+            if not self._has_parent:
+                self.find(timeout)
             # Long press to select text
             actions = ActionChains(Element.__driver)
             touch = PointerInput(interaction.POINTER_TOUCH, "touch")
@@ -302,7 +356,8 @@ class Element:
             NotFoundError: If raise_exception is True and the element is not found.
         """
 
-        self.find(timeout)
+        if not self._has_parent:
+            self.find(timeout)
         platform = Element.__driver.capabilities["platformName"].lower()
         self.element.click()
 
@@ -345,6 +400,8 @@ class Element:
             NotFoundError: If raise_exception is True and the element is not found.
         """
         try:
+            if self._has_parent:
+                return True if self.element else False
             # Attempt to find the element within the specified timeout
             if self.find(timeout, raise_exception):
                 Element.__logger.info(f"Element with {self.locator} found successfully")
@@ -373,9 +430,21 @@ class Element:
             NotFoundError: If raise_exception is True and the element is not found.
         """
         try:
-            self.find(timeout, raise_exception)
+
+            if not self._has_parent:
+                self.find(timeout, raise_exception)
             location = self.element.location
             return location["x"], location["y"]
+
+        except AttributeError as exc:
+            raise InvalidElementState(
+                f"""failed to call method on MobileWebElement.
+                 Possibly an action on element resulted in self.element to be set to None such as click.
+                 Exception raised: {exc}.
+                 flag has_parent is set to : {self._has_parent}
+                """
+            )
+
         except Exception as exception:
             if raise_exception:
                 raise NotFoundError(f"failed to get coordinates for element {self.locator} with exception {exception}")
@@ -389,7 +458,9 @@ class Element:
             timeout (int) : time to wait for element
         """
         try:
-            return self.find(timeout).element.is_selected()
+            if not self._has_parent:
+                self.find(timeout)
+            return self.element.is_selected()
         except Exception as exception:
             Element.__logger.info(f"element {self.locator} is not selected with exception {exception}")
             return False
@@ -413,7 +484,9 @@ class Element:
             timeout (int) : time to wait for element
         """
         try:
-            return self.find(timeout).element.is_enabled()
+            if not self._has_parent:
+                self.find(timeout)
+            return self.element.is_enabled()
         except Exception as exception:
             Element.__logger.info(f"element {self.locator} is not enabled with exception {exception}")
             return False
@@ -425,7 +498,9 @@ class Element:
             timeout (int) : time to wait for element
         """
         try:
-            return self.find(timeout).element.is_displayed()
+            if not self._has_parent:
+                self.find(timeout)
+            return self.element.is_displayed()
         except Exception as exception:
             Element.__logger.info(f"element {self.locator} is not displayed with exception {exception}")
             return False
@@ -564,20 +639,30 @@ class Element:
         Returns:
             None
         """
-        self.find()
-        element_width = self.element.size["width"]
-        element_height = self.element.size["height"]
+        try:
+            if not self._has_parent:
+                self.find()
+            element_width = self.element.size["width"]
+            element_height = self.element.size["height"]
 
-        swipe_width = element_width * swipe_percent
-        offset_x = element_width * ((1 - swipe_percent) / 2)
-        start_x = self.element.location["x"] + offset_x
-        anchor_y = self.element.location["y"] + (element_height / 2)
-        end_x = start_x + swipe_width
+            swipe_width = element_width * swipe_percent
+            offset_x = element_width * ((1 - swipe_percent) / 2)
+            start_x = self.element.location["x"] + offset_x
+            anchor_y = self.element.location["y"] + (element_height / 2)
+            end_x = start_x + swipe_width
 
-        if direction == ScrollDirections.LEFT:
-            start_x, end_x = end_x, start_x
+            if direction == ScrollDirections.LEFT:
+                start_x, end_x = end_x, start_x
 
-        Element.__driver.swipe(start_x, anchor_y, end_x, anchor_y, 300)
+            Element.__driver.swipe(start_x, anchor_y, end_x, anchor_y, 300)
+        except AttributeError as exc:
+            raise InvalidElementState(
+                f"""failed to call method on MobileWebElement.
+                 Possibly an action on element resulted in self.element to be set to None such as click.
+                 Exception raised: {exc}.
+                 flag has_parent is set to : {self._has_parent}
+                """
+            )
 
     @staticmethod
     def swipe_horizontal(start_x, end_x, anchor_y, duration=300):
