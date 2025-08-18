@@ -13,6 +13,10 @@ from tests.ios.pages.ios_login import IosLogin
 from tests.ios.pages.ios_register import IosRegister
 
 
+@allure.epic("IOS SMOKE")
+@allure.feature("Landing Page")
+@allure.story("landing page components work correctly")
+@allure.suite("IOS SMOKE")
 @pytest.mark.IOS
 @pytest.mark.IOS_SMOKE
 class TestIosSmokeLandingScreen:
@@ -43,11 +47,11 @@ class TestIosSmokeLandingScreen:
             expect(ios_landing.welcome_message).to_have(values.LANDING_MESSAGE, ElementAttribute.LABEL)
             expect(ios_landing.get_search_title).to_have(values.LANDING_SEARCH_TITLE, ElementAttribute.LABEL)
             expect(ios_landing.register_button).to_have(values.REGISTER, ElementAttribute.LABEL)
-            expect(ios_landing.sign_in_button).to_have(values.LOGIN, ElementAttribute.LABEL)
+            expect(ios_landing.sign_in_button).to_have(values.SIGN_IN_TEXT, ElementAttribute.LABEL)
             expect(ios_landing.register_button).to_be_enabled()
             expect(ios_landing.sign_in_button).to_be_enabled()
             expect(ios_landing.explore_all_courses_button).to_have(
-                values.LANDING_EXLPORE_COURSES, ElementAttribute.LABEL
+                values.LANDING_EXPLORE_COURSES, ElementAttribute.LABEL
             )
             expect(ios_landing.search_magnifying_glass_icon).to_have(values.LANDING_SEARCH_ICON, ElementAttribute.LABEL)
 

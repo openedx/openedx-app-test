@@ -24,9 +24,10 @@ from tests.common.globals import Globals
 
 @allure.epic("Accounts")
 @allure.feature("Registration")
-@allure.story("Register with email and password")
-@allure.suite("REGRESSION")
+@allure.story("user can register only with valid email and password")
+@allure.suite("ANDROID REGRESSION")
 @pytest.mark.ANDROID
+@pytest.mark.ANDROID_ACCOUNTS
 @pytest.mark.ANDROID_REGRESSION
 class TestAndroidRegister:
     """

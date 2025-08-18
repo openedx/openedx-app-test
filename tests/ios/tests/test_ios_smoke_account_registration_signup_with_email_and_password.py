@@ -15,6 +15,10 @@ from tests.ios.pages.ios_register import IosRegister
 from tests.ios.pages.ios_whats_new import IosWhatsNew
 
 
+@allure.epic("Accounts")
+@allure.feature("Registration")
+@allure.story("user can register only with valid email and password")
+@allure.suite("IOS SMOKE")
 @pytest.mark.IOS
 @pytest.mark.IOS_SMOKE
 class TestAccountRegistrationSignupWithEmailAndPassword:

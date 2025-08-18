@@ -13,15 +13,42 @@ from tests.ios.pages.ios_login import IosLogin
 
 @allure.epic("Accounts")
 @allure.feature("Account Recovery")
-@allure.story("Forgot password")
+@allure.story("user can recover forgotten password")
+@allure.suite("IOS REGRESSION")
 @pytest.mark.IOS
 @pytest.mark.IOS_REGRESSION
 class TestAccountForgotPassword:
     """Test class for iOS - SMOKE - Forgot Password"""
 
-    def test_account_forgot_password(self, set_capabilities, setup_logging):
+    def test_accounts_regression_forgot_password(self, set_capabilities, setup_logging):
         """
         Verify forgot password flow
+
+        Steps:
+        1. Click on "Sign in" button.
+           - Verify title text is "Sign in".
+           - Verify "Forgot password?" button exists.
+
+        2. Click on "Forgot password" button.
+           - Verify screen title is "Forgot password".
+           - Verify heading is "Forgot password".
+           - Verify email field label is "Email".
+           - Verify email field placeholder is "Email".
+           - Verify "Reset password" button exists.
+
+        3. Click "Reset password" button without entering email.
+           - Verify invalid email address snackbar text appears.
+
+        4. Enter invalid email in email field.
+           - Verify invalid email address snackbar text appears.
+
+        5. Enter random email (e.g., "test_user@yopmail.com") in email field.
+
+        6. Click "Reset password" button.
+           - Verify message "We have sent password recovery instructions to your email test_user@yopmail.com"
+                is displayed.
+           - Verify text "Check your email" is displayed.
+           - Verify "Sign in" button exists.
         """
         Element.set_driver(set_capabilities)
         Element.set_logger(setup_logging)

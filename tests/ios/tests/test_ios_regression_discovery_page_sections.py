@@ -11,6 +11,10 @@ from tests.ios.pages.ios_discover_page import IosDiscoverPage
 from tests.ios.pages.ios_landing import IosLanding
 
 
+@allure.epic("DISCOVERY")
+@allure.feature("Discover Page")
+@allure.story("user can view different sections of discover page")
+@allure.suite("IOS REGRESSION")
 @pytest.mark.IOS
 @pytest.mark.IOS_DISCOVERY
 @pytest.mark.IOS_REGRESSION

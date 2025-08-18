@@ -13,6 +13,10 @@ from tests.android.pages.android_sign_in import AndroidSignIn
 from tests.common import values
 
 
+@allure.epic("ANDROID SMOKE")
+@allure.feature("Landing Page")
+@allure.story("landing page components work correctly")
+@allure.suite("ANDROID SMOKE")
 @pytest.mark.ANDROID
 @pytest.mark.ANDROID_SMOKE
 class TestAndroidLanding:

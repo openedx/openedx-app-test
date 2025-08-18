@@ -2,6 +2,7 @@
 Course Home Tab Screen Test Module
 """
 
+import allure
 import pytest
 
 from framework import expect, Element
@@ -13,7 +14,9 @@ from tests.common.globals import Globals
 from tests.ios.pages.ios_course_home_tab import IosCourseHomeTab
 
 
+@allure.suite("IOS SMOKE")
 @pytest.mark.IOS
+@pytest.mark.IOS_SMOKE
 class TestIosCourseHomeTab:
     """
     Course Home Tab screen's Test Case

@@ -19,7 +19,8 @@ from tests.ios.pages.ios_whats_new import IosWhatsNew
 
 @allure.epic("Accounts")
 @allure.feature("Sign In")
-@allure.story("Sign In with email and password")
+@allure.story("user can sign in with email and password")
+@allure.suite("IOS SMOKE")
 @pytest.mark.IOS
 @pytest.mark.IOS_SMOKE
 class TestAccountSignInWithEmailAndPassword:
