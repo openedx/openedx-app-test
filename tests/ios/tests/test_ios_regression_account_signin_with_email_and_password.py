@@ -9,7 +9,6 @@ from framework import expect, Element
 from tests.common import values
 from tests.common.enums import ElementAttribute
 
-
 from tests.common.globals import Globals
 from tests.ios.pages.ios_landing import IosLanding
 from tests.ios.pages.ios_login import IosLogin
