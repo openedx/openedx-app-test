@@ -184,11 +184,12 @@ class TestIosDiscoveryLoginAndEnroll:
             expect(course_dashboard_tab.course_dashboard_home_tab).to_exist()
 
         with allure.step("verify course module are visible"):
-            ios_course_home_tab.verify_modules_exists("Introduction")
-            ios_course_home_tab.verify_modules_exists("Module 1: Experiencing Course Content")
-            ios_course_home_tab.verify_modules_exists("Module 2: Being Social")
-            ios_course_home_tab.verify_modules_exists("Optional:  Example Problem Types")
-            ios_course_home_tab.verify_modules_exists("Optional: edX Mobile App")
+            ios_course_home_tab.verify_modules_exists(values.INTRODUCTION_MODULE)
+            ios_course_home_tab.verify_modules_exists(values.MODULE_1_EXPERIENCING_COURSE_CONTENT)
+            ios_course_home_tab.verify_modules_exists(values.MODULE_2_BEING_SOCIAL)
+            ios_course_home_tab.verify_modules_exists(values.MODULE_3_COMPLETING_A_COURSE)
+            ios_course_home_tab.verify_modules_exists(values.OPTIONAL_EXAMPLE_PROBLEM_TYPES)
+            ios_course_home_tab.verify_modules_exists(values.OPTIONAL_EDX_MOBILE_APP)
 
         with allure.step("Click on back button to return to course enrollment page"):
             ios_course_home_tab.back_navigation_button.click()
@@ -206,6 +207,6 @@ class TestIosDiscoveryLoginAndEnroll:
             expect(ios_discover_page.search_field).to_have(values.DEMOX, ElementAttribute.VALUE)
 
         with allure.step("open learn tab"):
-            main_dashboard.main_dashboard_learn_tab.click()
+            main_dashboard.learn_tab.click()
             expect(main_dashboard.course_item_demoX).to_exist()
             main_dashboard.course_item_demoX.get_child_element(main_dashboard.course_name_demoX)

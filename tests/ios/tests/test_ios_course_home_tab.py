@@ -81,12 +81,14 @@ class TestIosCourseHomeTab:
         assert introduction_section.text == values.COURSE_SECTION_LABEL
         introduction_section.click()
 
-        subsection_elem = global_contents.get_element_by_label_ios(driver, values.COURSE_SUBSECTION_LABEL)
-        assert subsection_elem.text == values.COURSE_SUBSECTION_LABEL
+        subsection_elem = global_contents.get_element_by_label_ios(driver, values.COURSE_INTRO_MODULE_SUBSECTION_LABEL)
+        assert subsection_elem.text == values.COURSE_INTRO_MODULE_SUBSECTION_LABEL
         subsection_elem.click()
 
-        component_header_title = global_contents.get_element_by_label_ios(driver, values.COURSE_SUBSECTION_LABEL)
-        assert component_header_title.text == values.COURSE_SUBSECTION_LABEL
+        component_header_title = global_contents.get_element_by_label_ios(
+            driver, values.COURSE_INTRO_MODULE_SUBSECTION_LABEL
+        )
+        assert component_header_title.text == values.COURSE_INTRO_MODULE_SUBSECTION_LABEL
 
         back_btn = global_contents.wait_and_get_element(driver, ios_elements.course_dashboard_back_button)
         assert back_btn.text == values.LANDING_BACK_BUTTON
@@ -99,12 +101,12 @@ class TestIosCourseHomeTab:
         subsection1_elem = global_contents.get_element_by_label_ios(driver, values.COURSE_SUBSECTION_1_LABEL)
         assert subsection1_elem.text == values.COURSE_SUBSECTION_1_LABEL
 
-        homework_elem = global_contents.get_element_by_label_ios(driver, values.COURSE_COMPONENT_LABEL)
-        assert homework_elem.text == values.COURSE_COMPONENT_LABEL
+        homework_elem = global_contents.get_element_by_label_ios(driver, values.COURSE_SUBSECTION_HOMEWORK1_LABEL)
+        assert homework_elem.text == values.COURSE_SUBSECTION_HOMEWORK1_LABEL
         homework_elem.click()
 
-        component_header = global_contents.get_element_by_label_ios(driver, values.COURSE_COMPONENT_LABEL)
-        assert component_header.text == values.COURSE_COMPONENT_LABEL
+        component_header = global_contents.get_element_by_label_ios(driver, values.COURSE_SUBSECTION_HOMEWORK1_LABEL)
+        assert component_header.text == values.COURSE_SUBSECTION_HOMEWORK1_LABEL
 
     def test_component_navigation_smoke(self, ios_login, setup_logging):
         """
