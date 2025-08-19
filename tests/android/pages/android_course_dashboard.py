@@ -45,6 +45,12 @@ class AndroidCourseDashboard(AndroidBasePage):
         self._my_courses_course_description = Element(
             AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().resourceId("txt_courses_description")'
         )
+        self._video_download_quality_heading = Element(
+            AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("Video download quality")'
+        )
+        self._video_download_to_device_heading = Element(
+            AppiumBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("Download to device")'
+        )
 
     @property
     def back_button(self) -> Element:
@@ -206,3 +212,21 @@ class AndroidCourseDashboard(AndroidBasePage):
         """
 
         return self._course_dashboard_more_tab
+
+    @property
+    def download_to_device_heading(self) -> Element:
+        """download to device heading
+        Returns:
+            Element: download to device heading text
+        """
+
+        return self._video_download_to_device_heading
+
+    @property
+    def video_download_quality_heading(self) -> Element:
+        """video download quality heading
+        Returns:
+            Element: video download quality heading text
+        """
+
+        return self._video_download_quality_heading
